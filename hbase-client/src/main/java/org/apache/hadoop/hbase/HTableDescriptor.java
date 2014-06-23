@@ -1673,6 +1673,15 @@ public class HTableDescriptor implements WritableComparable<HTableDescriptor> {
     configuration.remove(key);
   }
 
+  public void validate() {
+    if(getTableName() == null) {
+      throw new IllegalArgumentException("TableName cannot be null");
+    }
+    for (HColumnDescriptor cf : families.values()) {
+      cf.validate();
+    }
+  }
+
   public static HTableDescriptor metaTableDescriptor(final Configuration conf)
       throws IOException {
     HTableDescriptor metaDescriptor = new HTableDescriptor(

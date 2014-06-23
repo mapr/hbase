@@ -1502,4 +1502,18 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
     setValue(Bytes.toBytes(ENCRYPTION_KEY), keyBytes);
     return this;
   }
+
+  /**
+   * Validate the HColumnDescriptor parameters
+   * @throws IllegalArgumentException if any of the parameter is 
+   *         invalid
+   */
+  public void validate() {
+    if (getMinVersions() > getMaxVersions()) {
+      throw new IllegalArgumentException(
+        String.format("Min versions (%d) can not be greater than Max versions (%d).",
+          getMinVersions(), getMaxVersions()));
+    }
+  }
+
 }

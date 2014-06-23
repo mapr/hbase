@@ -724,6 +724,7 @@ public class HBaseAdmin implements Admin {
   // TODO: This should be called Async but it will break binary compatibility
   private Future<Void> createTableAsyncV2(final HTableDescriptor desc, final byte[][] splitKeys)
       throws IOException {
+    desc.validate();
     if (desc.getTableName() == null) {
       throw new IllegalArgumentException("TableName cannot be null");
     }
@@ -1652,6 +1653,7 @@ public class HBaseAdmin implements Admin {
   @Override
   public void addColumn(final TableName tableName, final HColumnDescriptor column)
   throws IOException {
+    column.validate();
     executeCallable(new MasterCallable<Void>(getConnection()) {
       @Override
       public Void call(int callTimeout) throws ServiceException {
@@ -1754,6 +1756,7 @@ public class HBaseAdmin implements Admin {
   @Override
   public void modifyColumn(final TableName tableName, final HColumnDescriptor descriptor)
   throws IOException {
+    descriptor.validate();
     executeCallable(new MasterCallable<Void>(getConnection()) {
       @Override
       public Void call(int callTimeout) throws ServiceException {
