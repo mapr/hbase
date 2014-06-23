@@ -157,6 +157,9 @@ public final class HConstants {
   /** Name of ZooKeeper quorum configuration parameter. */
   public static final String ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
 
+  /** Name of ZooKeeper ensemble configuration parameter. */
+  public static final String ZOOKEEPER_ENSEMBLE = "hbase.zookeeper.ensemble";
+
   /** Name of ZooKeeper config file in conf/ directory. */
   public static final String ZOOKEEPER_CONFIG_NAME = "zoo.cfg";
 

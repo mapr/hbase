@@ -20,6 +20,8 @@ package org.apache.hadoop.hbase.zookeeper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -30,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HConstants;
+import org.apache.hadoop.util.StringUtils;
 
 /**
  * Utility methods for reading, and building the ZooKeeper configuration.
@@ -338,6 +341,31 @@ public class ZKConfig {
    * @return Quorum servers
    */
   public static String getZKQuorumServersString(Configuration conf) {
+    String ensemble = conf.get(HConstants.ZOOKEEPER_ENSEMBLE);
+    // use the newer configuration, if set
+    if (ensemble != null) {
+      int clientPort = conf.getInt(HConstants.ZOOKEEPER_CLIENT_PORT,
+          HConstants.DEFAULT_ZOOKEPER_CLIENT_PORT);
+      StringBuilder sb = new StringBuilder();
+      for (String server : ensemble.split(",")) {
+        int portIndex = server.indexOf(':');
+        String host = (portIndex == -1) ? server : server.substring(0, portIndex);
+        int port = (portIndex == -1) ? clientPort : Integer.valueOf(server.substring(portIndex+1));
+        try {
+          InetAddress.getByName(host);
+          sb.append(",").append(host).append(':').append(port);
+        } catch (UnknownHostException e) {
+          LOG.warn(StringUtils.stringifyException(e));
+        }
+      }
+
+      if (sb.length() == 0) {
+        LOG.error("No valid quorum servers found in " + HConstants.ZOOKEEPER_ENSEMBLE);
+        return null;
+      }
+      return sb.substring(1);
+    }
+
     // First try zoo.cfg; if not applicable, then try config XML.
     Properties zkProperties = makeZKPropsFromZooCfg(conf);
 
@@ -345,6 +373,9 @@ public class ZKConfig {
       return getZKQuorumServersString(zkProperties);
     }
 
+    // use the older properties otherwise
     return getZKQuorumServersStringFromHbaseConfig(conf);
+
   }
+
 }
