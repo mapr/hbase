@@ -26,6 +26,9 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.lang.reflect.Method;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,6 +55,8 @@ public class JVM {
     System.getProperty("os.name").startsWith("Linux");
   private static final String JVMVersion = System.getProperty("java.version");
   private static final boolean amd64 = System.getProperty("os.arch").contains("amd64");
+
+  public static final JVM INSTANCE = new JVM();
 
   /**
    * Constructor. Get the running Operating System instance
@@ -273,4 +278,20 @@ public class JVM {
     }
     return -1;
  }
+
+  /**
+   * Validate if JCE Unlimited Strength Jurisdiction Policy Files are installed,
+   * logs a warning otherwise.
+   */
+  public void checkJCEKeyStrength() {
+    try {
+      if (Cipher.getMaxAllowedKeyLength("AES") != Integer.MAX_VALUE) {
+        LOG.warn("JCE Unlimited Strength Jurisdiction Policy Files are not "
+            + "installed. This could cause authentication failures.");
+      }
+    } catch (NoSuchAlgorithmException e) {
+      LOG.warn(e.getMessage());
+    }
+  }
+
 }
