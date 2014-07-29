@@ -272,6 +272,13 @@ public class HTableDescriptor implements WritableComparable<HTableDescriptor> {
   private Durability durability = null;
 
   /**
+   * UUID assigned to a MapR-DB table
+   */
+  public static final String MAPR_UUID = "MAPR_UUID";
+  public static final ImmutableBytesWritable MAPR_UUID_KEY =
+      new ImmutableBytesWritable(Bytes.toBytes(MAPR_UUID));
+
+  /**
    * Maps column family name to the respective HColumnDescriptors
    */
   private final Map<byte [], HColumnDescriptor> families =

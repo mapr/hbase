@@ -37,6 +37,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.KeyValueUtil;
 import org.apache.hadoop.hbase.TableName;
@@ -48,6 +49,7 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Delete;
 import org.apache.hadoop.hbase.client.Durability;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Mutation;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.RegionLocator;
@@ -134,6 +136,7 @@ public class Import {
     private List<UUID> clusterIds;
     private Filter filter;
     private Durability durability;
+    private byte[] tableUuid;
 
     /**
      * @param row  The current table row key.
@@ -206,6 +209,7 @@ public class Import {
           put.setDurability(durability);
         }
         put.setClusterIds(clusterIds);
+        put.setAttribute(HTableDescriptor.MAPR_UUID, tableUuid);
         context.write(key, put);
       }
       if (delete != null) {
@@ -213,6 +217,7 @@ public class Import {
           delete.setDurability(durability);
         }
         delete.setClusterIds(clusterIds);
+        delete.setAttribute(HTableDescriptor.MAPR_UUID, tableUuid);
         context.write(key, delete);
       }
     }
@@ -224,12 +229,24 @@ public class Import {
     @Override
     public void setup(Context context) {
       Configuration conf = context.getConfiguration();
+      String srcTableName = conf.get("SrcTableName");
       cfRenameMap = createCfRenameMap(conf);
       filter = instantiateFilter(conf);
       String durabilityStr = conf.get(WAL_DURABILITY);
       if(durabilityStr != null){
         durability = Durability.valueOf(durabilityStr.toUpperCase());
       }
+
+      if (srcTableName != null) {
+        try {
+          HTable table = new HTable(conf, srcTableName);
+          HTableDescriptor htd = table.getTableDescriptor();
+          tableUuid = htd.getValue(Bytes.toBytes(HTableDescriptor.MAPR_UUID));
+        } catch (IOException e) {
+          LOG.error("Problem setting up task", e);
+        }
+      }
+
       // TODO: This is kind of ugly doing setup of ZKW just to read the clusterid.
       ZooKeeperWatcher zkw = null;
       Exception ex = null;
