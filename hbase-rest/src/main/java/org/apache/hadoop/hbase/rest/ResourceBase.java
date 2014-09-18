@@ -35,11 +35,16 @@ public class ResourceBase implements Constants {
 
   RESTServlet servlet;
   Class<?>  accessDeniedClazz;
+  Class<?>  accessControlExceptionClazz;
 
   public ResourceBase() throws IOException {
     servlet = RESTServlet.getInstance();
     try {
       accessDeniedClazz = Class.forName("org.apache.hadoop.hbase.security.AccessDeniedException");
+    } catch (ClassNotFoundException e) {
+    }
+    try {
+      accessControlExceptionClazz = Class.forName("org.apache.hadoop.security.AccessControlException");
     } catch (ClassNotFoundException e) {
     }
   }
@@ -49,7 +54,8 @@ public class ResourceBase implements Constants {
     if(accessDeniedClazz != null) {
       //some access denied exceptions are buried
       while (curr != null) {
-        if(accessDeniedClazz.isAssignableFrom(curr.getClass())) {
+        if(accessDeniedClazz.isAssignableFrom(curr.getClass())
+            || accessControlExceptionClazz.isAssignableFrom(curr.getClass())) {
           throw new WebApplicationException(
               Response.status(Response.Status.FORBIDDEN)
                 .type(MIMETYPE_TEXT).entity("Forbidden" + CRLF +
