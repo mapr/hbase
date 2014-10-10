@@ -102,12 +102,12 @@ public class RESTServer implements Constants {
             REST_KERBEROS_PRINCIPAL + " should be set if security is enabled");
       }
       userProvider.login(REST_KEYTAB_FILE, REST_KERBEROS_PRINCIPAL, machineName);
-      if (conf.get(REST_AUTHENTICATION_TYPE) != null) {
-        containerClass = RESTServletContainer.class;
-        authFilter = new FilterHolder();
-        authFilter.setClassName(AuthFilter.class.getName());
-        authFilter.setName("AuthenticationFilter");
-      }
+    }
+    if (conf.get(REST_AUTHENTICATION_TYPE) != null) {
+      containerClass = RESTServletContainer.class;
+      authFilter = new FilterHolder();
+      authFilter.setClassName(AuthFilter.class.getName());
+      authFilter.setName("AuthenticationFilter");
     }
 
     RESTServlet servlet = RESTServlet.getInstance(conf, userProvider);
