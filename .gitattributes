@@ -15,7 +15,6 @@
 # limitations under the License.
 
 # Set default behaviour, in case users don't have core.autocrlf set.
-* text=auto
 
 # Declare files that will always have LF
 *.sh text eol=lf
