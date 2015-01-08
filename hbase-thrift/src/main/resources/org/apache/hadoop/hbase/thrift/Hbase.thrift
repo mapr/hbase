@@ -235,6 +235,22 @@ service Hbase {
   list<Text> getTableNames()
     throws (1:IOError io)
 
+    /**
+     * mapping enabled.
+     *
+     * @return true if mappping enabled
+     */
+  bool isMappingEnable()
+    throws (1:IOError io)
+
+  /**
+   * List all the mapr tables.
+   *
+   * @return returns a list of names
+   */
+  list<string> getTableNamesByPath(1:string path)
+    throws (1:IOError io)
+
   /**
    * List all the column families assoicated with a table.
    *

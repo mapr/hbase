@@ -76,6 +76,8 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.ParseFilter;
 import org.apache.hadoop.hbase.filter.PrefixFilter;
@@ -644,6 +646,7 @@ public class ThriftServerRunner implements Runnable {
     protected HashMap<Integer, ResultScannerWrapper> scannerMap = null;
     private ThriftMetrics metrics = null;
 
+    private final BaseTableMappingRules tableMappingRule;
     private final ConnectionCache connectionCache;
     IncrementCoalescer coalescer = null;
 
@@ -728,6 +731,7 @@ public class ThriftServerRunner implements Runnable {
 
       int cleanInterval = conf.getInt(CLEANUP_INTERVAL, 10 * 1000);
       int maxIdleTime = conf.getInt(MAX_IDLETIME, 10 * 60 * 1000);
+      tableMappingRule = TableMappingRulesFactory.create(this.conf);
       connectionCache = new ConnectionCache(
         conf, userProvider, cleanInterval, maxIdleTime);
     }
@@ -808,6 +812,33 @@ public class ThriftServerRunner implements Runnable {
           list.add(ByteBuffer.wrap(tableNames[i].getName()));
         }
         return list;
+      } catch (IOException e) {
+        LOG.warn(e.getMessage(), e);
+        throw new IOError(e.getMessage());
+      }
+    }
+
+    @Override
+    @Deprecated
+    public boolean isMappingEnable() throws IOError {
+      try {
+        return tableMappingRule.isMapRDefault();
+      }
+      catch (Exception e){
+        LOG.warn(e.getMessage(), e);
+        throw new IOError(e.getMessage());
+      }
+    }
+
+    @Override
+    public List<String> getTableNamesByPath(String regex) throws IOError, TException {
+      try {
+        HTableDescriptor[] tables = this.getAdmin().listTables(regex);
+        List<String> tableNames = new ArrayList<String>(tables.length);
+        for (int i = 0; i < tables.length; i++) {
+          tableNames.add(tables[i].getNameAsString());
+        }
+        return tableNames;
       } catch (IOException e) {
         LOG.warn(e.getMessage(), e);
         throw new IOError(Throwables.getStackTraceAsString(e));
