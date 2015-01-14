@@ -760,7 +760,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   @Deprecated
   public List<HRegionLocation> getAllRegionLocations() throws IOException {
-  //TODO: add support of this function in HTableImpl.java in mapr-hbase 
+  //TODO: SU add support of this function in HTableImpl.java in mapr-hbase 
   //  if (maprTable_ != null) {
   //    return maprTable_.getRegionLocations();
   //  }

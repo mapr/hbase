@@ -66,6 +66,11 @@ public class RegionSizeCalculator {
    */
   @Deprecated
   public RegionSizeCalculator(HTable table) throws IOException {
+	//TODO: SU remove this when the TODO in the init function is fixed  
+	if (table.isMapRTable()) {
+      LOG.info("Region size calculation disabled for MapR tables.");
+      return;
+    }
     HBaseAdmin admin = new HBaseAdmin(table.getConfiguration());
     try {
       init(table.getRegionLocator(), admin);
@@ -87,6 +92,12 @@ public class RegionSizeCalculator {
       LOG.info("Region size calculation disabled.");
       return;
     }
+
+    //TODO: SU Fix this by the connection member inside regionLocator, add isMapRConnection into Connection class
+    //if (regionLocator.getName().isMapRTable()) {
+      //LOG.info("Region size calculation disabled for MapR tables.");
+      //return;
+    //}
 
     LOG.info("Calculating region sizes for table \"" + regionLocator.getName() + "\".");
 
