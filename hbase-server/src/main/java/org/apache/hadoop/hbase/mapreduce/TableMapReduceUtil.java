@@ -77,6 +77,8 @@ public class TableMapReduceUtil {
 
   public static final String MAPR_TABLE_PATH_CONF_KEY = "hbase.mapreduce.mapr.tablepath";
 
+  public static final String ENABLE_PUTCOMBINER = "hbase.mapreduce.enable.putcombiner";
+
   /**
    * Use this before submitting a TableMap job. It will appropriately set up
    * the job.
@@ -204,10 +206,11 @@ public class TableMapReduceUtil {
     if (outputValueClass != null) job.setMapOutputValueClass(outputValueClass);
     if (outputKeyClass != null) job.setMapOutputKeyClass(outputKeyClass);
     job.setMapperClass(mapper);
-    if (Put.class.equals(outputValueClass)) {
+    Configuration conf = job.getConfiguration();
+    if (Put.class.equals(outputValueClass)
+        && conf.getBoolean(ENABLE_PUTCOMBINER, false)) {
       job.setCombinerClass(PutCombiner.class);
     }
-    Configuration conf = job.getConfiguration();
     HBaseConfiguration.merge(conf, HBaseConfiguration.create(conf));
     conf.set(TableInputFormat.INPUT_TABLE, table);
     conf.set(TableInputFormat.SCAN, convertScanToString(scan));
