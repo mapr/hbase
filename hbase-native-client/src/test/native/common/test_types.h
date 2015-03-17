@@ -18,6 +18,11 @@
 #ifndef HBASE_TESTS_TYPES_H_
 #define HBASE_TESTS_TYPES_H_
 
+#ifndef __STDC_FORMAT_MACROS
+# define __STDC_FORMAT_MACROS
+#endif
+#include <inttypes.h>
+
 #include <limits.h>
 #include <pthread.h>
 #include <semaphore.h>
@@ -71,12 +76,12 @@ public:
 protected:
   volatile bool Running() { return !stop_; }
 
-  uint32_t Id() { return tid_; }
+  uint64_t Id() { return tid_; }
 
   virtual void* Run() = 0;
 
 private:
-  uint32_t  tid_;
+  uint64_t  tid_;
 
   volatile bool stop_;
 
@@ -98,6 +103,15 @@ public:
 
   struct cell_data_t_ *first_cell;
 };
+
+#ifdef __GNUC__
+  #define atomic_add32(ptr, val) __sync_fetch_and_add ((ptr), (val))
+  #define atomic_sub32(ptr, val) __sync_fetch_and_sub ((ptr), (val))
+  #define atomic_add64(ptr, val) __sync_fetch_and_add ((ptr), (val))
+  #define atomic_sub64(ptr, val) __sync_fetch_and_sub ((ptr), (val))
+#else
+  #error "Need to port atomic_add32 on this platform"
+#endif
 
 } /* namespace test */
 } /* namespace hbase */

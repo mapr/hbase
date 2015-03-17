@@ -83,9 +83,9 @@ static pthread_mutex_t scan_mutex = PTHREAD_MUTEX_INITIALIZER;
 hb_cell_t *cell[64] = { NULL };
 ut_cell_data_t *cell_data[64] = { NULL };
 
-hb_connection_t connection = NULL;
-hb_client_t client = NULL;
-hb_admin_t admin = NULL;
+hb_connection_t g_connection = NULL;
+hb_client_t g_client = NULL;
+hb_admin_t g_admin = NULL;
 
 ut_cell_data_t*
 new_ut_cell_data() {
@@ -101,8 +101,7 @@ connectionCreate(
   int retCode = 0;
   HBASE_LOG_INFO("creating connection with zk ensemble :%s root znode:%s ", zk_quorum,
       zk_root_node);
-  if ((retCode = hb_connection_create(zk_quorum, zk_root_node, &connection)) != 0) {
-
+  if ((retCode = hb_connection_create(zk_quorum, zk_root_node, &g_connection)) != 0) {
     HBASE_LOG_FATAL("Could not create HBase connection returncode:%ld", retCode);
     return retCode;
   }
@@ -116,12 +115,12 @@ connectionCreate(
 int32_t
 clientCreate() {
   int retCode = 0;
-  if (!connection) {
+  if (!g_connection) {
     HBASE_LOG_INFO("not a valid connection");
     return retCode;
   }
   HBASE_LOG_INFO("creating clinet");
-  if ((retCode = hb_client_create(connection, &client)) != 0) {
+  if ((retCode = hb_client_create(g_connection, &g_client)) != 0) {
 
     HBASE_LOG_INFO("could not create client return code:%ld", retCode);
     return retCode;
@@ -133,28 +132,26 @@ clientCreate() {
 }
 
 int32_t
-adminCreate() {
+adminCreate()
+{
   int retCode = 0;
-  if ((retCode = hb_admin_create(connection, &admin)) != 0) {
-
+  if ((retCode = hb_admin_create(g_connection, &g_admin)) != 0) {
     HBASE_LOG_INFO("could not create admin return code:%ld", retCode);
   } else
   HBASE_LOG_INFO("admin crate is successful");
   return retCode;
-
 }
 
 int32_t
 connectionDestroy() {
-
-  return hb_connection_destroy(connection);
+  return hb_connection_destroy(g_connection);
 }
 
 int32_t
 clientDestroy() {
   HBASE_LOG_INFO("client destory called");
-  if (client) {
-    hb_client_destroy(client, client_disconnection_callback, NULL);
+  if (g_client) {
+    hb_client_destroy(g_client, client_disconnection_callback, NULL);
     wait_client_disconnection();
     return 0;
   } else {
@@ -166,8 +163,8 @@ clientDestroy() {
 
 int32_t
 adminDestroy() {
-  if (admin) {
-    return hb_admin_destroy(admin, NULL, NULL);
+  if (g_admin) {
+    return hb_admin_destroy(g_admin, NULL, NULL);
   }
   return 1;
 }
@@ -219,7 +216,7 @@ waitForFlush() {
 int32_t
 clientFlush() {
   int32_t retCode;
-  if ((retCode = hb_client_flush(client, client_flush_callback, NULL)) != 0) {
+  if ((retCode = hb_client_flush(g_client, client_flush_callback, NULL)) != 0) {
     HBASE_LOG_INFO("hb_client_flush failed with retCode:%ld", retCode);
     return retCode;
   }
@@ -231,10 +228,10 @@ clientFlush() {
 int32_t
 deleteTableIfExists(const char *table_name) {
   int32_t retCode = 0;
-  if ((retCode = hb_admin_table_exists(admin, NULL, table_name)) == 0) {
+  if ((retCode = hb_admin_table_exists(g_admin, NULL, table_name)) == 0) {
 
     HBASE_LOG_INFO("table :%s already exists deleting the table", table_name);
-    if ((retCode = hb_admin_table_delete(admin, NULL, table_name)) != 0) {
+    if ((retCode = hb_admin_table_delete(g_admin, NULL, table_name)) != 0) {
       HBASE_LOG_FATAL("Could not delete table: %s return code:", table_name, retCode);
       return retCode;
     }
@@ -251,7 +248,7 @@ int32_t
 deleteTable(const char *table_name) {
   int32_t retCode = 0;
 
-  if ((retCode = hb_admin_table_delete(admin, NULL, table_name)) != 0) {
+  if ((retCode = hb_admin_table_delete(g_admin, NULL, table_name)) != 0) {
     HBASE_LOG_FATAL("Could not delete table:%s return code:%ld ", table_name, retCode);
   }
   return retCode;
@@ -270,7 +267,7 @@ getLogLevel() {
 int32_t
 disableTable(const char *table_name) {
   int32_t retCode;
-  retCode = hb_admin_table_disable(admin, NULL, table_name);
+  retCode = hb_admin_table_disable(g_admin, NULL, table_name);
   HBASE_LOG_INFO("disable table: %s return code:%ld", table_name, retCode);
   return retCode;
 }
@@ -278,7 +275,7 @@ disableTable(const char *table_name) {
 int32_t
 enableTable(const char *table_name) {
   int32_t retCode = 0;
-  retCode = hb_admin_table_enable(admin, NULL, table_name);
+  retCode = hb_admin_table_enable(g_admin, NULL, table_name);
   HBASE_LOG_INFO("enable table: %s return code:%ld", table_name, retCode);
   return retCode;
 }
@@ -286,7 +283,7 @@ enableTable(const char *table_name) {
 int32_t
 isTableEnabled(const char *table_name) {
   int32_t retCode = 0;
-  retCode = hb_admin_table_enabled(admin, NULL, table_name);
+  retCode = hb_admin_table_enabled(g_admin, NULL, table_name);
   HBASE_LOG_INFO("enabled table:%s return code:%ld ", table_name, retCode);
   return retCode;
 }
@@ -317,7 +314,7 @@ createTable(
   }
 
   HBASE_LOG_INFO("Creating table :%s column size:%d", table_name, columnFamilies.size());
-  retCode = hb_admin_table_create(admin, NULL, table_name, HCD, columnFamilies.size());
+  retCode = hb_admin_table_create(g_admin, NULL, table_name, HCD, columnFamilies.size());
   if (retCode != 0) {
     HBASE_LOG_FATAL("Could not create table:%s return code:%ld ", table_name, retCode);
 
@@ -391,7 +388,7 @@ putRow(
     }
   }
   outstanding_puts_count++;
-  retCode = hb_mutation_send(client, put, put_callback, row_data);
+  retCode = hb_mutation_send(g_client, put, put_callback, row_data);
   if (retCode) {
     HBASE_LOG_FATAL("mutation send is failed for table:%s return code:%ld ", table_name.c_str(),
         retCode);
@@ -550,7 +547,7 @@ getVerifyRow(
   ret_get_row = 0;  //reset retCode_get_row
   get_done = false;  //reset  flag
 
-  if ((retCode = hb_get_send(client, get, get_callback, row_data)) != 0) {
+  if ((retCode = hb_get_send(g_client, get, get_callback, row_data)) != 0) {
     HBASE_LOG_INFO("hb_get_send failed with return code:%d", retCode);
     return retCode;
   }
@@ -590,9 +587,9 @@ get_callback(
     const hb_cell_t **cells;
     hb_result_get_cells(result, &cells, &cell_count);
     HBASE_LOG_INFO("cell count:%d", cell_count);
-    if (expectedNumberOfCellCount != 0 && cell_count != expectedNumberOfCellCount) {
+    if (g_expectedNumberOfCellCount != 0 && cell_count != g_expectedNumberOfCellCount) {
       HBASE_LOG_INFO("expected cell count:%ld actual result count:%ld",
-          expectedNumberOfCellCount, cell_count);
+          g_expectedNumberOfCellCount, cell_count);
       ret_get_row = MISMATCH_RECEIVED_CELL_COUNT;
     }
 
@@ -669,7 +666,7 @@ deleteRow(
   hb_mutation_set_table(del, (char*) table_name.c_str(), table_name.size());
   retCode_delete_row = 0;  //reset retCode_delete_row
   delete_done = false;  //reset delete_done flag
-  if ((retCode = hb_mutation_send(client, del, delete_callback, row_data)) != 0) {
+  if ((retCode = hb_mutation_send(g_client, del, delete_callback, row_data)) != 0) {
     HBASE_LOG_ERROR("hb_mutation_send for delete failed:%d", retCode);
     return retCode;
   }
@@ -723,7 +720,7 @@ scanTable(
     std::string end_row_key,
     std::string name_space) {
   hb_scanner_t scanner = NULL;
-  hb_scanner_create(client, &scanner);
+  hb_scanner_create(g_client, &scanner);
   int32_t retCode;
   scan_num_rows = 0;
   scan_cell_count = 0;
@@ -780,8 +777,8 @@ scan_callback(
   scan_data_t* scan_data = (scan_data_t *) extra;
 
   if (num_results) {
-    if (maxNumberOfRows != 0 && maxNumberOfRows < num_results) {
-      HBASE_LOG_INFO("max number of rows:%ld results in scan:%ld", maxNumberOfRows, num_results);
+    if (g_maxNumberOfRows != 0 && g_maxNumberOfRows < num_results) {
+      HBASE_LOG_INFO("max number of rows:%ld results in scan:%ld", g_maxNumberOfRows, num_results);
       err = MISMATCH_MAX_ROW_COUNT;
     }
 
@@ -805,15 +802,15 @@ scan_callback(
     hb_scanner_next(scanner, scan_callback, extra);
   } else {
     HBASE_LOG_INFO("scan completed");
-    if (scan_num_rows != expectedNumberOfRowCount) {
+    if (scan_num_rows != g_expectedNumberOfRowCount) {
       HBASE_LOG_INFO("expected row count:%ld actual scan count:%ld",
-          expectedNumberOfRowCount, scan_num_rows);
+          g_expectedNumberOfRowCount, scan_num_rows);
       ret_scan = MISMATCH_RECEIVED_ROW_COUNT;
     }
 
-    if (expectedNumberOfCellCount && scan_cell_count != expectedNumberOfCellCount) {
+    if (g_expectedNumberOfCellCount && scan_cell_count != g_expectedNumberOfCellCount) {
       HBASE_LOG_INFO("expected cell count:%ld actual scan count:%ld",
-          expectedNumberOfCellCount, scan_cell_count);
+          g_expectedNumberOfCellCount, scan_cell_count);
       ret_scan = MISMATCH_RECEIVED_CELL_COUNT;
     }
 

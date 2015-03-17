@@ -23,6 +23,7 @@
 
 #include "test_types.h"
 #include "byte_buffer.h"
+#include "key_gen.h"
 #include "stats_keeper.h"
 
 namespace hbase {
@@ -33,6 +34,7 @@ public:
   OpsRunner(
       const hb_client_t client,
       const bytebuffer table,
+      const bool load,
       const uint32_t putPercent,
       const uint64_t startRow,
       const uint64_t numOps,
@@ -47,9 +49,11 @@ public:
       const bool writeToWAL,
       int32_t maxPendingRPCsPerThread,
       const bool checkRead,
-      StatKeeper *statKeeper) :
+      StatKeeper *statKeeper,
+      KeyGenerator *keyGenerator) :
         client_(client),
         table_ (table),
+        load_(load),
         startRow_(startRow),
         numOps_(numOps),
         hashKeys_(hashKeys),
@@ -69,7 +73,8 @@ public:
         checkRead_(checkRead),
         paused_(false),
         semaphore_(new Semaphore(maxPendingRPCsPerThread)),
-        statKeeper_(statKeeper) {
+        statKeeper_(statKeeper),
+        keyGenerator_(keyGenerator) {
     pthread_mutex_init(&pauseMutex_, 0);
     pthread_cond_init(&pauseCond_, 0);
   }
@@ -81,6 +86,7 @@ public:
 protected:
   const hb_client_t client_;
   const bytebuffer table_;
+  const bool load_;
   const uint64_t startRow_;
   const uint64_t numOps_;
   const bool hashKeys_;
@@ -107,6 +113,8 @@ protected:
   Semaphore *const semaphore_;
 
   StatKeeper *statKeeper_;
+
+  KeyGenerator *keyGenerator_;
 
   void *Run();
 

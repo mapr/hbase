@@ -16,14 +16,15 @@
 * limitations under the License.
 */
 #line 19 "stats_keeper.cc" // ensures short filename in logs.
-
-#include <inttypes.h>
 #include <pthread.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "stats_keeper.h"
+
+#include "test_types.h"
 
 namespace hbase {
 namespace test {
@@ -75,9 +76,9 @@ StatKeeper::RpcComplete(int32_t err, OpType type) {
   }
   op_[type]->opsEndTime_ = currentTimeMicroSeconds();
   if (err) {
-    ++(op_[type]->failure_); // susceptible to race
+    atomic_add64(&op_[type]->failure_, 1);
   } else {
-    ++(op_[type]->success_); // susceptible to race
+    atomic_add64(&op_[type]->success_, 1);
   }
 }
 
@@ -124,6 +125,8 @@ StatKeeper::Run() {
   uint64_t currentNumOps[OP_LAST] = {0};
   uint64_t totalOps;
   uint64_t totalOpsLastSec;
+  uint64_t totalFailures;
+  uint64_t totalSuccess;
   int32_t statsCount = 0, lastStatsCount = 0;
 
   int32_t nsec = 0;
@@ -138,6 +141,7 @@ StatKeeper::Run() {
     int secs = timeinfo->tm_sec;
 
     statsCount = totalOps = totalOpsLastSec = 0;
+    totalSuccess = totalFailures = 0;
     for (int i = 0; i < OP_LAST; ++i) {
       uint64_t numOpsForOp = op_[i]->numOps_;
       if (!numOpsForOp) continue;
@@ -145,12 +149,14 @@ StatKeeper::Run() {
       currentNumOps[i] = numOpsForOp - prevNumOps[i];
       totalOps += numOpsForOp;
       totalOpsLastSec += currentNumOps[i];
+      totalFailures   += op_[i]->failure_;
+      totalSuccess    += op_[i]->success_;
     }
 
     if ((nsec % 10) == 1 || statsCount > lastStatsCount) {
       lastStatsCount = statsCount;
-      fprintf(stdout, "%8s %5s %9s %6s",
-          "Time", "Secs", "TotalOps", "Ops/s");
+      fprintf(stdout, "%8s %5s %9s %6s %8s %8s",
+          "Time", "Secs", "TotalOps", "Ops/s", "TotFail", "TotSuc");
       for (int i = 0; i < OP_LAST; ++i) {
         uint64_t numOpsForOp = op_[i]->numOps_;
         if (!numOpsForOp) continue;
@@ -162,8 +168,8 @@ StatKeeper::Run() {
       fflush(stdout);
     }
 
-    fprintf(stdout, "%02d:%02d:%02d %5d %9" PRIu64 " %6" PRIu64 "",
-            hour, min, secs, nsec, totalOps, totalOpsLastSec);
+    fprintf(stdout, "%02d:%02d:%02d %5d %9" PRIu64 " %6" PRIu64 " %8" PRIu64 " %8" PRIu64,
+            hour, min, secs, nsec, totalOps, totalOpsLastSec, totalFailures, totalSuccess);
     for (int i = 0; i < OP_LAST; ++i) {
       uint64_t numOpsForOp = op_[i]->numOps_;
       if (!numOpsForOp) continue;
@@ -192,7 +198,8 @@ StatKeeper::PrintSummary() {
     fprintf(stdout, "[%5s] %10" PRIu64 " Ops, %" PRIu64 " Secs, %" PRIu64 " ops/s. "
             "Success: %" PRIu64 ", Failures: %" PRIu64 ". "
             "Latency(us): avg %" PRIu64 ", max %" PRIu64 ", min %" PRIu64 ".\n",
-            op_[i]->name_, numOpsForOp, runTimeForOp, (numOpsForOp/runTimeForOp),
+            op_[i]->name_, numOpsForOp, runTimeForOp, 
+            (numOpsForOp / (runTimeForOp ? runTimeForOp : 1)),
             op_[i]->success_, op_[i]->failure_,
             (op_[i]->cumLatencyOps_ / (numOpsForOp ? numOpsForOp : 1)),
             op_[i]->maxLatencyOps_, op_[i]->minLatencyOps_);

@@ -71,12 +71,12 @@ typedef struct scan_data_t_ {
   bytebuffer name_space;
 } scan_data_t;
 
-extern hb_connection_t connection;
-extern hb_client_t client;
-extern hb_admin_t admin;
-extern uint64_t expectedNumberOfCellCount;
-extern uint64_t expectedNumberOfRowCount;
-extern uint64_t maxNumberOfRows;
+extern hb_connection_t g_connection;
+extern hb_client_t g_client;
+extern hb_admin_t g_admin;
+extern uint64_t g_expectedNumberOfCellCount;
+extern uint64_t g_expectedNumberOfRowCount;
+extern uint64_t g_maxNumberOfRows;
 
 int32_t connectionCreate(const char *zk_ensemble, const char *zk_root_znode);
 int32_t clientCreate();

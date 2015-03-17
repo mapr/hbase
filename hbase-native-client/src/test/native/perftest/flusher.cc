@@ -16,13 +16,12 @@
 * limitations under the License.
 */
 #line 19 "flusher.cc" // ensures short filename in logs.
-
-#include <inttypes.h>
 #include <unistd.h>
 
 #include "flusher.h"
 
 #include "common_utils.h"
+#include "test_types.h"
 
 namespace hbase {
 namespace test {

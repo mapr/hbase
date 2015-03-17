@@ -19,6 +19,7 @@
 #define HBASE_TESTS_COMMON_UTILS_H_
 
 #include <stdint.h>
+#include <stdlib.h>
 
 #include <hbase/hbase.h>
 
@@ -35,6 +36,11 @@ disconnect_client_and_wait(hb_client_t client);
 
 cell_data_t*
 new_cell_data();
+
+inline double
+random_double() {
+  return ((double)rand() / (RAND_MAX));
+}
 
 } /* namespace test */
 } /* namespace hbase */

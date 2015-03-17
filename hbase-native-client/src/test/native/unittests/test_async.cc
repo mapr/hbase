@@ -37,9 +37,9 @@ static std::string zk_quorum = "";
 static std::string zk_root_node = "";
 static std::string log_file = "";
 
-uint64_t expectedNumberOfCellCount = 0;
-uint64_t expectedNumberOfRowCount = 0;
-uint64_t maxNumberOfRows = 0;
+uint64_t g_expectedNumberOfCellCount = 0;
+uint64_t g_expectedNumberOfRowCount = 0;
+uint64_t g_maxNumberOfRows = 0;
 
 class HBaseCAPI: public ::testing::Test {
   // shared by all tests.
@@ -502,9 +502,9 @@ TEST_F(HBaseCAPI, get_test_with_versions) {
   EXPECT_EQ(0, putRowAndWait(table_name, "row1", row1_data));
   EXPECT_EQ(0, putRowAndWait(table_name, "row1", row1_data));
   EXPECT_EQ(0, putRowAndWait(table_name, "row1", row1_data));
-  expectedNumberOfCellCount = 16; // 4 versions for 4 columns so expected cell count :16
+  g_expectedNumberOfCellCount = 16; // 4 versions for 4 columns so expected cell count :16
   EXPECT_EQ(0, getVerifyRow(table_name, "row1", row1_data, false, false, 4));
-  expectedNumberOfCellCount = 0;
+  g_expectedNumberOfCellCount = 0;
 }
 
 TEST_F(HBaseCAPI, delete_singlecell_test_async) {
@@ -718,16 +718,16 @@ TEST_F(HBaseCAPI, delete_test_ts_async) {
   std::vector<std::string> empty { "" };
 
   // total number of cells 3 with two diffeent ts -> expected cell count 6
-  expectedNumberOfCellCount = 6;
+  g_expectedNumberOfCellCount = 6;
   EXPECT_EQ(getVerifyRow(table_name, "row2", row2_data), 0);
 
   // delete the row with ts->2000 so that ts with 1000 will be deleted
   EXPECT_EQ(deleteRow(table_name, "row2", row2_data, 2000), 0);
   // MAPR-13104
   // still it should keep the values with latest time stamp,
-  expectedNumberOfCellCount = 3;
+  g_expectedNumberOfCellCount = 3;
   EXPECT_EQ(getVerifyRow(table_name, "row2", row2_data), 0);
-  expectedNumberOfCellCount = 0;
+  g_expectedNumberOfCellCount = 0;
 }
 
 TEST_F(HBaseCAPI, scan_table_async) {
@@ -752,12 +752,12 @@ TEST_F(HBaseCAPI, scan_table_async) {
   waitForPutsToComplete();
   HBASE_LOG_INFO("wait for puts completed");
 
-  expectedNumberOfRowCount = 1000;
-  expectedNumberOfCellCount = 3000;
+  g_expectedNumberOfRowCount = 1000;
+  g_expectedNumberOfCellCount = 3000;
   HBASE_LOG_INFO("scan table expected no of rows:%lu expected no of cells:%lu",
-      expectedNumberOfRowCount, expectedNumberOfCellCount);
+      g_expectedNumberOfRowCount, g_expectedNumberOfCellCount);
   EXPECT_EQ(scanTable(table_name), 0);
-  expectedNumberOfRowCount = 0;  //reset
+  g_expectedNumberOfRowCount = 0;  //reset
   EXPECT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);
 }
 
@@ -768,10 +768,10 @@ TEST_F(HBaseCAPI, scan_table_with_non_existing_table) {
   std::vector<std::string> columnFamilies { "testcf1", "testcf2" };
 
   ASSERT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);
-  expectedNumberOfRowCount = 0;
-  expectedNumberOfCellCount = 0;
+  g_expectedNumberOfRowCount = 0;
+  g_expectedNumberOfCellCount = 0;
   HBASE_LOG_INFO("scan table for non existing table with expected no of rows:",
-      expectedNumberOfRowCount, " expected no of cells", expectedNumberOfCellCount);
+      g_expectedNumberOfRowCount, " expected no of cells", g_expectedNumberOfCellCount);
   EXPECT_EQ(scanTable(table_name), 2);
 }
 
@@ -785,10 +785,10 @@ TEST_F(HBaseCAPI, scan_empty_table_async) {
   ASSERT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);
   ASSERT_EQ(createTable((char*)table_name.c_str(), columnFamilies), 0);
 
-  expectedNumberOfRowCount = 0;
-  expectedNumberOfCellCount = 0;
+  g_expectedNumberOfRowCount = 0;
+  g_expectedNumberOfCellCount = 0;
   HBASE_LOG_INFO("scan table for empty table with expected no of rows:%ld",
-      expectedNumberOfRowCount);
+      g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name), 0);
 }
 
@@ -815,27 +815,27 @@ TEST_F(HBaseCAPI, scan_table_with_versions) {
   waitForPutsToComplete();
   HBASE_LOG_INFO("wait for puts completed");
 
-  expectedNumberOfRowCount = 1000;
-  expectedNumberOfCellCount = 9000;
+  g_expectedNumberOfRowCount = 1000;
+  g_expectedNumberOfCellCount = 9000;
   HBASE_LOG_INFO("scan table with verions:3 with expected no of rows:%lu"
-      "expected Number of Cells:%lu", expectedNumberOfRowCount, expectedNumberOfCellCount);
+      "expected Number of Cells:%lu", g_expectedNumberOfRowCount, g_expectedNumberOfCellCount);
   EXPECT_EQ(scanTable(table_name, 3/*versions*/), 0);
 
-  expectedNumberOfRowCount = 1000;
-  expectedNumberOfCellCount = 6000;
+  g_expectedNumberOfRowCount = 1000;
+  g_expectedNumberOfCellCount = 6000;
   HBASE_LOG_INFO("scan table with verions:2 with expected no of rows:%lu"
-      "expected Number of Cells:%lu", expectedNumberOfRowCount, expectedNumberOfCellCount);
+      "expected Number of Cells:%lu", g_expectedNumberOfRowCount, g_expectedNumberOfCellCount);
 
   EXPECT_EQ(scanTable(table_name, 2/*versions*/), 0);
 
-  expectedNumberOfRowCount = 1000;
-  expectedNumberOfCellCount = 3000;
+  g_expectedNumberOfRowCount = 1000;
+  g_expectedNumberOfCellCount = 3000;
   HBASE_LOG_INFO("scan table with verions:1 with expected no of rows:%lu"
-      " expected Number of Cells:%lu", expectedNumberOfRowCount, expectedNumberOfCellCount);
+      " expected Number of Cells:%lu", g_expectedNumberOfRowCount, g_expectedNumberOfCellCount);
 
   EXPECT_EQ(scanTable(table_name, 1/*versions*/), 0);
-  expectedNumberOfRowCount = 0;  //reset
-  expectedNumberOfCellCount = 0;
+  g_expectedNumberOfRowCount = 0;  //reset
+  g_expectedNumberOfCellCount = 0;
 }
 
 TEST_F(HBaseCAPI, scan_table_with_max_num_rows) {
@@ -858,25 +858,25 @@ TEST_F(HBaseCAPI, scan_table_with_max_num_rows) {
   waitForPutsToComplete();
   HBASE_LOG_INFO("wait for puts completed");
 
-  expectedNumberOfRowCount = 1000;
-  maxNumberOfRows = 1000;
+  g_expectedNumberOfRowCount = 1000;
+  g_maxNumberOfRows = 1000;
   HBASE_LOG_INFO("scan table with verions:3 maxnorows:%lu with expected no of row:%lu",
-      maxNumberOfRows, expectedNumberOfRowCount);
-  EXPECT_EQ(scanTable(table_name, 1/*versions*/, maxNumberOfRows), 0);
+      g_maxNumberOfRows, g_expectedNumberOfRowCount);
+  EXPECT_EQ(scanTable(table_name, 1/*versions*/, g_maxNumberOfRows), 0);
 
-  expectedNumberOfRowCount = 1000;
-  maxNumberOfRows = 50;
+  g_expectedNumberOfRowCount = 1000;
+  g_maxNumberOfRows = 50;
   HBASE_LOG_INFO("scan table with verions:3 maxnorows:%lu with expected no of row:%lu",
-      maxNumberOfRows, expectedNumberOfRowCount);
-  EXPECT_EQ(scanTable(table_name, 3/*versions*/, maxNumberOfRows), 0);
+      g_maxNumberOfRows, g_expectedNumberOfRowCount);
+  EXPECT_EQ(scanTable(table_name, 3/*versions*/, g_maxNumberOfRows), 0);
 
-  expectedNumberOfRowCount = 1000;
-  maxNumberOfRows = 10000;
+  g_expectedNumberOfRowCount = 1000;
+  g_maxNumberOfRows = 10000;
   HBASE_LOG_INFO("scan table with verions:3 maxnorows:%lu with expected no of row:%lu",
-      maxNumberOfRows, expectedNumberOfRowCount);
-  EXPECT_EQ(scanTable(table_name, 3/*versions*/, maxNumberOfRows), 0);
+      g_maxNumberOfRows, g_expectedNumberOfRowCount);
+  EXPECT_EQ(scanTable(table_name, 3/*versions*/, g_maxNumberOfRows), 0);
 
-  maxNumberOfRows = 0;  //reset
+  g_maxNumberOfRows = 0;  //reset
 }
 
 TEST_F(HBaseCAPI, scan_table_with_row_start_key) {
@@ -903,21 +903,21 @@ TEST_F(HBaseCAPI, scan_table_with_row_start_key) {
   HBASE_LOG_INFO("wait for puts completed");
 
   start_key = "user_499";
-  expectedNumberOfRowCount = 556;
+  g_expectedNumberOfRowCount = 556;
   HBASE_LOG_INFO(" scan table with start key:%s expected rows:%lu", start_key.c_str(),
-      expectedNumberOfRowCount);
+      g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key), 0);
 
   start_key = "user_0";
-  expectedNumberOfRowCount = 1000;
+  g_expectedNumberOfRowCount = 1000;
   HBASE_LOG_INFO(" scan table with start key:%s expected rows:%lu", start_key.c_str(),
-      expectedNumberOfRowCount);
+      g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key), 0);
 
   start_key = "user_999";
-  expectedNumberOfRowCount = 1;
+  g_expectedNumberOfRowCount = 1;
   HBASE_LOG_INFO(" scan table with start key:%s expected rows:%lu", start_key.c_str(),
-      expectedNumberOfRowCount);
+      g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key), 0);
 
   EXPECT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);
@@ -947,9 +947,9 @@ TEST_F(HBaseCAPI, scan_table_with_invalid_start_key) {
   HBASE_LOG_INFO("wait for puts completed");
 
   start_key = "user_99999";
-  expectedNumberOfRowCount = 0;
+  g_expectedNumberOfRowCount = 0;
   HBASE_LOG_INFO(" scan table with start key:%s expected rows:%lu",
-      start_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key), 0);
 }
 
@@ -977,22 +977,22 @@ TEST_F(HBaseCAPI, scan_table_with_start_end_key) {
   waitForPutsToComplete();
   HBASE_LOG_INFO("wait for puts completed");
 
-  expectedNumberOfRowCount = 999;
+  g_expectedNumberOfRowCount = 999;
   start_key = "user_0";
   end_key = "user_999"; //exclusive
   HBASE_LOG_INFO(" scan table with start key:%s endkey:%s expected rows:%lu",
-      start_key.c_str(), end_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), end_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key, end_key), 0);
-  expectedNumberOfCellCount = 0; //reset
+  g_expectedNumberOfCellCount = 0; //reset
 
-  expectedNumberOfRowCount = 552;
+  g_expectedNumberOfRowCount = 552;
   start_key = "user_500";
   end_key = "user_999";
   HBASE_LOG_INFO(" scan table with start key:%s endkey:%s expected rows:%lu",
-      start_key.c_str(), end_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), end_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key, end_key), 0);
 
-  expectedNumberOfRowCount = 0; //reset
+  g_expectedNumberOfRowCount = 0; //reset
   EXPECT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);
 }
 
@@ -1021,29 +1021,29 @@ TEST_F(HBaseCAPI, scan_table_with_invalid_start_end_key) {
   HBASE_LOG_INFO("wait for puts completed");
 
   // end key is less than start key
-  expectedNumberOfRowCount = 0;
+  g_expectedNumberOfRowCount = 0;
 
   start_key = "user_995";
   end_key = "user_0";
   HBASE_LOG_INFO(" scan table with start key:%s endkey:%s expected rows:%lu",
-      start_key.c_str(), end_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), end_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key, end_key), 0);
-  expectedNumberOfCellCount = 0; //reset
+  g_expectedNumberOfCellCount = 0; //reset
 
   // valid start key invalid end key
-  expectedNumberOfRowCount = 0;
+  g_expectedNumberOfRowCount = 0;
   start_key = "user_500";
   end_key = "user_1999";
   HBASE_LOG_INFO(" scan table with start key:%s endkey:%s expected rows:%lu",
-      start_key.c_str(), end_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), end_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key, end_key), 0);
 
   // with invalid start key valid end key
-  expectedNumberOfRowCount = 0;
+  g_expectedNumberOfRowCount = 0;
   start_key = "user_aaa";
   end_key = "user_999";
   HBASE_LOG_INFO(" scan table with start key:%s endkey:%s expected rows:%lu",
-      start_key.c_str(), end_key.c_str(), expectedNumberOfRowCount);
+      start_key.c_str(), end_key.c_str(), g_expectedNumberOfRowCount);
   EXPECT_EQ(scanTable(table_name, 1, 10000, start_key, end_key), 0);
 
   EXPECT_EQ(deleteTableIfExists((char*)table_name.c_str()), 0);

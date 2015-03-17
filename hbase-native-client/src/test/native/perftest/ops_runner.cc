@@ -152,7 +152,10 @@ OpsRunner::SendPut(uint64_t row) {
   hb_put_t put = NULL;
   RowSpec *rowSpec = new RowSpec();
   rowSpec->runner = this;
-  rowSpec->key = generateRowKey(keyPrefix_, hashKeys_, row);
+  rowSpec->key = load_
+      ? generateRowKey(keyPrefix_, hashKeys_, row)
+      : keyGenerator_->NextRowKey(keyPrefix_, hashKeys_);
+
   hb_put_create(rowSpec->key->buffer, rowSpec->key->length, &put);
   hb_mutation_set_table(put, (const char *)table_->buffer, table_->length);
   hb_mutation_set_bufferable(put, bufferPuts_);
@@ -208,7 +211,7 @@ OpsRunner::SendGet(uint64_t row) {
   hb_get_t get = NULL;
   RowSpec *rowSpec = new RowSpec();
   rowSpec->runner = this;
-  rowSpec->key = generateRowKey(keyPrefix_, hashKeys_, row);
+  rowSpec->key = keyGenerator_->NextRowKey(keyPrefix_, hashKeys_);
 
   hb_get_create(rowSpec->key->buffer, rowSpec->key->length, &get);
   hb_get_set_table(get, (const char *)table_->buffer, table_->length);
@@ -230,14 +233,19 @@ OpsRunner::Run() {
   double rand_max = RAND_MAX;
   for (uint64_t row = startRow_; row < endRow; ++row) {
     BeginRpc(); // ensures that we have permit to send the rpc
-    double p = rand()/rand_max;
-    if (((p < putWeight_) && (putsSent_ < maxPuts_) && !paused_)
-        || (getsSent_ >= maxGets_)) {
+    if (load_) {
       putsSent_++;
       SendPut(row);
     } else {
-      getsSent_++;
-      SendGet(row);
+      double p = rand()/rand_max;
+      if (((p < putWeight_) && (putsSent_ < maxPuts_) && !paused_)
+          || (getsSent_ >= maxGets_)) {
+        putsSent_++;
+        SendPut(row);
+      } else {
+        getsSent_++;
+        SendGet(row);
+      }
     }
   }
 

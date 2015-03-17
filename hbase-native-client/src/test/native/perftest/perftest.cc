@@ -37,6 +37,7 @@
 #include "byte_buffer.h"
 #include "common_utils.h"
 #include "flusher.h"
+#include "key_gen.h"
 #include "ops_runner.h"
 #include "stats_keeper.h"
 #include "test_types.h"
@@ -46,11 +47,13 @@ namespace test {
 
 static bool argCreateTable = false;
 static bool argCheckRead   = false;
+static bool argLoadData    = false;
 static bool argHashKeys    = true;
 static bool argBufferPuts  = true;
 static bool argWriteToWAL  = true;
+static bool argLogDisabled = false;
 
-static char *argZkQuorum    = (char*) "localhost:2181";
+static char *argZkQuorum    = NULL;
 static char *argZkRootNode  = NULL;
 static char *argTableName   = (char*) "test_table";
 static char *argFamilyName  = (char*) "f";
@@ -68,11 +71,17 @@ static uint32_t argPutPercent     = 100;
 static uint32_t argNumFamilies    = 1;
 static uint32_t argNumColumns     = 1;
 
+enum KeyDistribution {
+  Uniform, Zipfian
+};
+
+static KeyDistribution argKeyDistribution = Uniform;
+
 static
 void usage() {
   fprintf(stderr, "Usage: perftest [options]...\n"
       "Available options: (default values in [])\n"
-      "  -zkQuorum <zk_quorum> [localhost:2181]\n"
+      "  -zkQuorum <zk_quorum> [library default]\n"
       "  -zkRootNode <zk_root_node> [/hbase]\n"
       "  -table <table> [test_table]\n"
       "  -family <family> [f]\n"
@@ -83,7 +92,9 @@ void usage() {
       "  -valueSize <value_size> [1024]\n"
       "  -numOps <numops> [1000000]\n"
       "  -keyPrefix <key_prefix> [user]\n"
+      "  -keyDistribution uniform|zipfian [uniform]\n"
       "  -hashKeys true|false [true]\n"
+      "  -load true|false [false]\n"
       "  -bufferPuts true|false [true]\n"
       "  -writeToWAL true|false [true]\n"
       "  -flushBatchSize <flush_batch_size> [0(disabled)]\n"
@@ -91,7 +102,7 @@ void usage() {
       "  -numThreads <num_threads> [1]\n"
       "  -putPercent <put_percent> [100]\n"
       "  -createTable true|false [false]\n"
-      "  -logFilePath <log_file_path> [stderr]\n");
+      "  -logFilePath <log_file_path>|disabled [stderr]\n");
   exit(1);
 }
 
@@ -120,10 +131,14 @@ parseArgs(int argc,
       argNumColumns = atol(argv[1]);
     } else if (ArgEQ("-keyPrefix")) {
       argKeyPrefix = argv[1];
+    } else if (ArgEQ("-keyDistribution")) {
+      argKeyDistribution = (strcmp(argv[1], "uniform") == 0) ? Uniform : Zipfian;
     } else if (ArgEQ("-createTable")) {
       argCreateTable = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-checkRead")) {
       argCheckRead = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-load")) {
+      argLoadData = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-hashKeys")) {
       argHashKeys = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-bufferPuts")) {
@@ -135,7 +150,11 @@ parseArgs(int argc,
     } else if (ArgEQ("-zkRootNode")) {
       argZkRootNode = argv[1];
     } else if (ArgEQ("-logFilePath")) {
-      argLogFilePath = argv[1];
+      if ((strcmp(argv[1], "disabled") == 0)) {
+        argLogDisabled = true;
+      } else {
+        argLogFilePath = argv[1];
+      }
     } else if (ArgEQ("-flushBatchSize")) {
       // if not set to 0, starts a thread to
       // flush after every 'flushBatchSize' RPCs
@@ -179,8 +198,10 @@ main(int argc,
   bytebuffer table = NULL;
   bytebuffer *columns = NULL;
   bytebuffer *families = NULL;
+  KeyGenerator *keyGenerator = NULL;
 
   parseArgs(argc, argv);
+  srand(time(NULL));
 
   uint64_t opsPerThread = (argNumOps/argNumThreads);
   int32_t maxPendingRPCsPerThread = argMaxPendingRPCs/argNumThreads;
@@ -214,16 +235,28 @@ main(int argc,
     }
   }
 
-  hb_log_set_level(HBASE_LOG_LEVEL_DEBUG); // defaults to INFO
-  if (argLogFilePath != NULL) {
-    logFile = fopen(argLogFilePath, "a");
-    if (!logFile) {
-      retCode = errno;
-      fprintf(stderr, "Unable to open log file \"%s\"", argLogFilePath);
-      perror(NULL);
-      goto cleanup;
+  if (argLogDisabled) {
+    hb_log_set_level(HBASE_LOG_LEVEL_FATAL);
+  } else {
+    hb_log_set_level(HBASE_LOG_LEVEL_DEBUG); // defaults to INFO
+    if (argLogFilePath != NULL) {
+      logFile = fopen(argLogFilePath, "a");
+      if (!logFile) {
+        retCode = errno;
+        fprintf(stderr, "Unable to open log file \"%s\"", argLogFilePath);
+        perror(NULL);
+        goto cleanup;
+      }
+      hb_log_set_stream(logFile); // defaults to stderr
     }
-    hb_log_set_stream(logFile); // defaults to stderr
+  }
+
+  if ((argKeyDistribution == Uniform)) {
+    HBASE_LOG_INFO("Using Uniform distribution for row keys.");
+    keyGenerator = (KeyGenerator *) new UniformKeyGenerator(argStartRow, argStartRow+argNumOps);
+  } else {
+    HBASE_LOG_INFO("Using Zipfian distribution for row keys.");
+    keyGenerator = (KeyGenerator *) new ScrambledZipfianGenerator(argStartRow, argStartRow+argNumOps);
   }
 
   if ((retCode = hb_connection_create(argZkQuorum, argZkRootNode, &connection))) {
@@ -239,7 +272,7 @@ main(int argc,
   }
 
   HBASE_LOG_INFO("Connecting to HBase cluster using Zookeeper ensemble '%s'.",
-                 argZkQuorum);
+                 argZkQuorum ? argZkQuorum : "default");
   if ((retCode = hb_client_create(connection, &client)) != 0) {
     HBASE_LOG_ERROR("Could not connect to HBase cluster : errorCode = %d.", retCode);
     goto cleanup;
@@ -251,15 +284,26 @@ main(int argc,
     Flusher *flushRunner = NULL;
     OpsRunner *runner[argNumThreads];
 
-    srand(time(NULL));
-
     for (size_t i = 0; i < argNumThreads; ++i) {
-      runner[i] = new OpsRunner(client, table, argPutPercent,
-          (argStartRow + (i*opsPerThread)), opsPerThread,
-          families, argNumFamilies, columns, argNumColumns,
-          argKeyPrefix, argValueSize,
-          argHashKeys, argBufferPuts, argWriteToWAL,
-          maxPendingRPCsPerThread, argCheckRead, statKeeper);
+      runner[i] = new OpsRunner(client,
+                                table,
+                                argLoadData,
+                                argPutPercent,
+                                (argStartRow + (i*opsPerThread)),
+                                opsPerThread,
+                                families,
+                                argNumFamilies,
+                                columns,
+                                argNumColumns,
+                                argKeyPrefix,
+                                argValueSize,
+                                argHashKeys,
+                                argBufferPuts,
+                                argWriteToWAL,
+                                maxPendingRPCsPerThread,
+                                argCheckRead,
+                                statKeeper,
+                                keyGenerator);
       runner[i]->Start();
     }
 
@@ -300,6 +344,10 @@ cleanup:
     }
 
     delete [] columns;
+  }
+
+  if (keyGenerator) {
+    delete keyGenerator;
   }
 
   if (families) {
