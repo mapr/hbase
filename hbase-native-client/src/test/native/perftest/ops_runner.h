@@ -36,8 +36,10 @@ public:
       const uint32_t putPercent,
       const uint64_t startRow,
       const uint64_t numOps,
-      const bytebuffer family,
-      const bytebuffer column,
+      const bytebuffer *families,
+      const uint32_t numFamilies,
+      const bytebuffer *columns,
+      const uint32_t numColumns,
       const char *keyPrefix,
       const int valueSize,
       const bool hashKeys,
@@ -53,8 +55,10 @@ public:
         hashKeys_(hashKeys),
         bufferPuts_(bufferPuts),
         writeToWAL_(writeToWAL),
-        family_(family),
-        column_(column),
+        families_(families),
+        numFamilies_(numFamilies),
+        columns_(columns),
+        numColumns_(numColumns),
         keyPrefix_(keyPrefix),
         valueLen_(valueSize),
         getsSent_(0),
@@ -82,8 +86,10 @@ protected:
   const bool hashKeys_;
   const bool bufferPuts_;
   const bool writeToWAL_;
-  const bytebuffer family_;
-  const bytebuffer column_;
+  const bytebuffer *families_;
+  const uint32_t numFamilies_;
+  const bytebuffer *columns_;
+  const uint32_t numColumns_;
   const char *keyPrefix_;
   const int valueLen_;
 

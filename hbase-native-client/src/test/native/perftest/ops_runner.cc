@@ -158,26 +158,45 @@ OpsRunner::SendPut(uint64_t row) {
   hb_mutation_set_bufferable(put, bufferPuts_);
   hb_mutation_set_durability(put, (writeToWAL_ ? DURABILITY_USE_DEFAULT : DURABILITY_SKIP_WAL));
 
-  cell_data_t *cell_data = new_cell_data();
-  rowSpec->first_cell = cell_data;
-  cell_data->value = bytebuffer_random(valueLen_);
+  cell_data_t *prevCell = NULL;
+  for (uint32_t i = 0; i < numFamilies_; ++i) {
+    for (uint32_t j = 0; j < numColumns_; ++j) {
 
-  hb_cell_t *cell = (hb_cell_t*) calloc(1, sizeof(hb_cell_t));
-  cell_data->hb_cell = cell;
+      cell_data_t *cell_data = new_cell_data();
 
-  cell->row = rowSpec->key->buffer;
-  cell->row_len = rowSpec->key->length;
-  cell->family = family_->buffer;
-  cell->family_len = family_->length;
-  cell->qualifier = column_->buffer;
-  cell->qualifier_len = column_->length;
-  cell->value = cell_data->value->buffer;
-  cell->value_len = cell_data->value->length;
-  cell->ts = HBASE_LATEST_TIMESTAMP;
+      if ((i == 0) && (j == 0)) {
+        rowSpec->first_cell = cell_data;
+      } else {
+        prevCell->next_cell = cell_data;
+      }
 
-  hb_put_add_cell(put, cell);
+      cell_data->value = bytebuffer_random(valueLen_);
 
-  HBASE_LOG_TRACE("Sending row with row key : '%.*s'.", cell->row_len, cell->row);
+      hb_cell_t *cell = (hb_cell_t*) calloc(1, sizeof(hb_cell_t));
+      cell_data->hb_cell = cell;
+
+      cell->row = rowSpec->key->buffer;
+      cell->row_len = rowSpec->key->length;
+
+      const bytebuffer family = families_[i];
+      cell->family = family->buffer;
+      cell->family_len = family->length;
+
+      const bytebuffer column = columns_[j];
+      cell->qualifier = column->buffer;
+      cell->qualifier_len = column->length;
+
+      cell->value = cell_data->value->buffer;
+      cell->value_len = cell_data->value->length;
+      cell->ts = HBASE_LATEST_TIMESTAMP;
+
+      hb_put_add_cell(put, cell);
+      prevCell = cell_data;
+    }
+  }
+
+  HBASE_LOG_TRACE("Sending row with row key : '%.*s'.", 
+                  rowSpec->first_cell->hb_cell->row_len, rowSpec->first_cell->hb_cell->row);
   uint64_t startTime = currentTimeMicroSeconds();
   hb_mutation_send(client_, put, OpsRunner::PutCallback, rowSpec);
   uint64_t endTime = currentTimeMicroSeconds();
@@ -205,8 +224,8 @@ OpsRunner::SendGet(uint64_t row) {
 void*
 OpsRunner::Run() {
   uint64_t endRow = startRow_ + numOps_;
-  HBASE_LOG_INFO("Starting OpsRunner(0x%08x) for start row %"
-      PRIu64 ", operation count %" PRIu64 ".", Id(), startRow_, numOps_);
+  HBASE_LOG_INFO("Starting OpsRunner(0x%08x) for start row %llu"
+      ", operation count %llu.", Id(), startRow_, numOps_);
 
   double rand_max = RAND_MAX;
   for (uint64_t row = startRow_; row < endRow; ++row) {

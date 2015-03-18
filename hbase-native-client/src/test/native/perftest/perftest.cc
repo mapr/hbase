@@ -54,6 +54,7 @@ static char *argZkQuorum    = (char*) "localhost:2181";
 static char *argZkRootNode  = NULL;
 static char *argTableName   = (char*) "test_table";
 static char *argFamilyName  = (char*) "f";
+static char *argColumnName  = (char*) "c";
 static char *argLogFilePath = NULL;
 static char *argKeyPrefix   = (char*) "user";
 
@@ -64,6 +65,8 @@ static uint32_t argFlushBatchSize = 0;
 static uint32_t argMaxPendingRPCs = 100000;
 static uint32_t argNumThreads     = 1;
 static uint32_t argPutPercent     = 100;
+static uint32_t argNumFamilies    = 1;
+static uint32_t argNumColumns     = 1;
 
 static
 void usage() {
@@ -73,6 +76,9 @@ void usage() {
       "  -zkRootNode <zk_root_node> [/hbase]\n"
       "  -table <table> [test_table]\n"
       "  -family <family> [f]\n"
+      "  -numFamilies <numfamilies> [1]\n"
+      "  -column <column> [c]\n"
+      "  -numColumns <numcolumns> [1]\n"
       "  -startRow <start_row> [1]\n"
       "  -valueSize <value_size> [1024]\n"
       "  -numOps <numops> [1000000]\n"
@@ -106,6 +112,12 @@ parseArgs(int argc,
       argTableName = argv[1];
     } else if (ArgEQ("-family")) {
       argFamilyName = argv[1];
+    } else if (ArgEQ("-numFamilies")) {
+      argNumFamilies = atol(argv[1]);
+    } else if (ArgEQ("-column")) {
+      argColumnName = argv[1];
+    } else if (ArgEQ("-numColumns")) {
+      argNumColumns = atol(argv[1]);
     } else if (ArgEQ("-keyPrefix")) {
       argKeyPrefix = argv[1];
     } else if (ArgEQ("-createTable")) {
@@ -164,8 +176,9 @@ main(int argc,
   FILE *logFile = NULL;
   hb_connection_t connection = NULL;
   hb_client_t client = NULL;
-  bytebuffer table = NULL, column = NULL;
-  bytebuffer families[1];
+  bytebuffer table = NULL;
+  bytebuffer *columns = NULL;
+  bytebuffer *families = NULL;
 
   parseArgs(argc, argv);
 
@@ -178,8 +191,28 @@ main(int argc,
   }
 
   table = bytebuffer_strcpy(argTableName);
-  families[0] = bytebuffer_strcpy(argFamilyName);
-  column = bytebuffer_strcpy("a");
+
+  families = new bytebuffer[argNumFamilies];
+  if (argNumFamilies == 1) {
+    families[0] = bytebuffer_strcpy(argFamilyName);
+  } else {
+    for (uint32_t i = 0; i < argNumFamilies; ++i) {
+      char tmpFamily[1024] = {0};
+      snprintf(tmpFamily, 1024, "%s%u", argFamilyName, i);
+      families[i] = bytebuffer_strcpy(tmpFamily);
+    }
+  }
+
+  columns = new bytebuffer[argNumColumns];
+  if (argNumColumns == 1) {
+    columns[0] = bytebuffer_strcpy(argColumnName);
+  } else {
+    for (uint32_t i = 0; i < argNumColumns; ++i) {
+      char tmpColumn[1024] = {0};
+      snprintf(tmpColumn, 1024, "%s%u", argColumnName, i);
+      columns[i] = bytebuffer_strcpy(tmpColumn);
+    }
+  }
 
   hb_log_set_level(HBASE_LOG_LEVEL_DEBUG); // defaults to INFO
   if (argLogFilePath != NULL) {
@@ -199,7 +232,7 @@ main(int argc,
   }
 
   if ((retCode = ensureTable(connection,
-      argCreateTable, argTableName, families, 1)) != 0) {
+      argCreateTable, argTableName, families, argNumFamilies)) != 0) {
     HBASE_LOG_ERROR("Failed to ensure table %s : errorCode = %d",
         argTableName, retCode);
     goto cleanup;
@@ -223,7 +256,8 @@ main(int argc,
     for (size_t i = 0; i < argNumThreads; ++i) {
       runner[i] = new OpsRunner(client, table, argPutPercent,
           (argStartRow + (i*opsPerThread)), opsPerThread,
-          families[0], column, argKeyPrefix, argValueSize,
+          families, argNumFamilies, columns, argNumColumns,
+          argKeyPrefix, argValueSize,
           argHashKeys, argBufferPuts, argWriteToWAL,
           maxPendingRPCsPerThread, argCheckRead, statKeeper);
       runner[i]->Start();
@@ -260,12 +294,20 @@ cleanup:
     hb_connection_destroy(connection);
   }
 
-  if (column) {
-    bytebuffer_free(column);
+  if (columns) {
+    for (uint32_t i = 0; i < argNumColumns; ++i) {
+      bytebuffer_free(columns[i]);
+    }
+
+    delete [] columns;
   }
 
-  if (families[0]) {
-    bytebuffer_free(families[0]);
+  if (families) {
+    for (uint32_t i = 0; i < argNumFamilies; ++i) {
+      bytebuffer_free(families[i]);
+    }
+
+    delete [] families;
   }
 
   if (table) {
