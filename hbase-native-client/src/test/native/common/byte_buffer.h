@@ -25,7 +25,7 @@ extern  "C" {
 /**
  * Size of the in-line buffer.
  */
-#define INLINE_BUFFER_SIZE  (128 - ( \
+#define INLINE_BUFFER_SIZE  (256 - ( \
                                    sizeof(char*)  + \
                                    sizeof(size_t) + \
                                    sizeof(size_t) + \

@@ -38,8 +38,7 @@ namespace test {
 
 typedef struct cell_data_t_ {
   bytebuffer value;
-  hb_cell_t  *hb_cell;
-  struct cell_data_t_ *next_cell;
+  hb_cell_t  hb_cell;
 } cell_data_t;
 
 cell_data_t* new_cell_data();
@@ -93,7 +92,7 @@ private:
 
 class RowSpec {
 public:
-  RowSpec();
+  RowSpec(uint64_t numCells);
 
   void Destroy();
 
@@ -101,7 +100,13 @@ public:
 
   bytebuffer key;
 
-  struct cell_data_t_ *first_cell;
+  uint64_t totalCells;
+
+  struct cell_data_t_ *cells;
+
+  uint32_t totalRowsScanned;
+
+  uint32_t maxRowsToScan;
 };
 
 #ifdef __GNUC__

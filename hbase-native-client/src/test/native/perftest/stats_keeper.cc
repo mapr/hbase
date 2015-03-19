@@ -32,7 +32,8 @@ namespace test {
 const char* StatKeeper::OP_TYPE_NAMES[] = {
     (const char*)"PUT",
     (const char*)"GET",
-    (const char*)"FLUSH"
+    (const char*)"FLUSH",
+    (const char*)"SCAN"
 };
 
 StatKeeper::OperationType::

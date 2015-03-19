@@ -29,7 +29,6 @@ namespace test {
 cell_data_t*
 new_cell_data() {
   cell_data_t *cell_data = (cell_data_t*) calloc(1, sizeof(cell_data_t));
-  cell_data->next_cell = NULL;
   return cell_data;
 }
 
@@ -94,21 +93,28 @@ Semaphore::Drain() {
   return permits;
 }
 
-RowSpec::RowSpec()
-    : runner(NULL), key(NULL), first_cell(NULL) {
+RowSpec::RowSpec(uint64_t numCells)
+    : runner(NULL), key(NULL), totalCells(numCells),
+      totalRowsScanned(0), maxRowsToScan(0) {
+  if (totalCells != 0) {
+    cells = (cell_data_t *)calloc(totalCells,  sizeof(cell_data_t));
+  } else {
+    cells = NULL;
+  }
 }
 
 void
 RowSpec::Destroy() {
-  cell_data_t* cell = first_cell;
-  while (cell) {
-    bytebuffer_free(cell->value);
-    free(cell->hb_cell);
-    cell_data_t* cur_cell = cell;
-    cell = cell->next_cell;
-    free(cur_cell);
+  if (cells) {
+    for (uint64_t i = 0; i < totalCells; ++i) {
+      if (cells[i].value) {
+        bytebuffer_free(cells[i].value);
+      }
+    }
+    free(cells);
+    cells = NULL;
   }
-  first_cell = NULL;
+
   if (key) {
     bytebuffer_free(key);
     key = NULL;

@@ -50,7 +50,10 @@ public:
       int32_t maxPendingRPCsPerThread,
       const bool checkRead,
       StatKeeper *statKeeper,
-      KeyGenerator *keyGenerator) :
+      KeyGenerator *keyGenerator,
+      const bool scanOnly,
+      const uint32_t maxRowsPerScan,
+      const uint32_t resumeThreshold) :
         client_(client),
         table_ (table),
         load_(load),
@@ -74,7 +77,10 @@ public:
         paused_(false),
         semaphore_(new Semaphore(maxPendingRPCsPerThread)),
         statKeeper_(statKeeper),
-        keyGenerator_(keyGenerator) {
+        keyGenerator_(keyGenerator),
+        scanOnly_(scanOnly),
+        scanNumRowsGenerator_(1, maxRowsPerScan),
+        resumeThreshold_(resumeThreshold) {
     pthread_mutex_init(&pauseMutex_, 0);
     pthread_cond_init(&pauseCond_, 0);
   }
@@ -116,6 +122,13 @@ protected:
 
   KeyGenerator *keyGenerator_;
 
+  bool scanOnly_;
+
+  UniformKeyGenerator scanNumRowsGenerator_;
+
+  uint32_t resumeThreshold_;
+
+  uint32_t numSemsAcquiredOnPause_;
   void *Run();
 
   void SendPut(uint64_t row);
@@ -132,11 +145,16 @@ protected:
 
   void SendGet(uint64_t row);
 
+  void SendScan(uint64_t row);
+
   static void PutCallback(int32_t err, hb_client_t client,
       hb_mutation_t mutation, hb_result_t result, void *extra);
 
   static void GetCallback(int32_t err, hb_client_t client,
       hb_get_t get, hb_result_t result, void *extra);
+
+  static void ScanCallback(int32_t err, hb_scanner_t scanner,
+      hb_result_t *results, size_t numResults, void *extra);
 };
 
 } /* namespace test */

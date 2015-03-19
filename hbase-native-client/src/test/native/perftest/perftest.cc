@@ -70,6 +70,9 @@ static uint32_t argNumThreads     = 1;
 static uint32_t argPutPercent     = 100;
 static uint32_t argNumFamilies    = 1;
 static uint32_t argNumColumns     = 1;
+static bool     argScanOnly       = false;
+static uint32_t argMaxRowsPerScan = 50;
+static uint32_t argResumeThreshold= 20000;
 
 enum KeyDistribution {
   Uniform, Zipfian
@@ -102,7 +105,10 @@ void usage() {
       "  -numThreads <num_threads> [1]\n"
       "  -putPercent <put_percent> [100]\n"
       "  -createTable true|false [false]\n"
-      "  -logFilePath <log_file_path>|disabled [stderr]\n");
+      "  -logFilePath <log_file_path>|disabled [stderr]\n"
+      "  -scanOnly true|false [false]\n"
+      "  -maxRowsPerScan <max_rows_per_scan> [50]\n"
+      "  -resumeThreshold <thread_resume_threshold> [20000]\n");
   exit(1);
 }
 
@@ -165,6 +171,12 @@ parseArgs(int argc,
       argNumThreads = atoi(argv[1]);
     } else if (ArgEQ("-putPercent")) {
       argPutPercent = atoi(argv[1]);
+    } else if (ArgEQ("-scanOnly")) {
+      argScanOnly = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-maxRowsPerScan")) {
+      argMaxRowsPerScan = atoi(argv[1]);
+    } else if (ArgEQ("-resumeThreshold")) {
+      argResumeThreshold = atoi(argv[1]);
     } else {
       usage();
     }
@@ -303,7 +315,10 @@ main(int argc,
                                 maxPendingRPCsPerThread,
                                 argCheckRead,
                                 statKeeper,
-                                keyGenerator);
+                                keyGenerator,
+                                argScanOnly,
+                                argMaxRowsPerScan,
+                                argResumeThreshold);
       runner[i]->Start();
     }
 

@@ -34,6 +34,7 @@ public:
     OP_PUT = 0,
     OP_GET,
     OP_FLUSH,
+    OP_SCAN,
     OP_LAST
   } OpType;
 
