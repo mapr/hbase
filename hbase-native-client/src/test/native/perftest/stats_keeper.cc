@@ -29,13 +29,6 @@
 namespace hbase {
 namespace test {
 
-const char* StatKeeper::OP_TYPE_NAMES[] = {
-    (const char*)"PUT",
-    (const char*)"GET",
-    (const char*)"FLUSH",
-    (const char*)"SCAN"
-};
-
 StatKeeper::OperationType::
 OperationType(const char* name)
 : name_(name){
@@ -124,10 +117,13 @@ void*
 StatKeeper::Run() {
   uint64_t prevNumOps[OP_LAST] = {0};
   uint64_t currentNumOps[OP_LAST] = {0};
+  uint64_t prevSuccess[OP_LAST] = {0};
+  uint64_t currentSuccess[OP_LAST] = {0};
   uint64_t totalOps;
   uint64_t totalOpsLastSec;
   uint64_t totalFailures;
   uint64_t totalSuccess;
+  uint64_t totalSuccessLastSec;
   int32_t statsCount = 0, lastStatsCount = 0;
 
   int32_t nsec = 0;
@@ -142,22 +138,28 @@ StatKeeper::Run() {
     int secs = timeinfo->tm_sec;
 
     statsCount = totalOps = totalOpsLastSec = 0;
-    totalSuccess = totalFailures = 0;
+    totalSuccess = totalFailures = totalSuccessLastSec = 0;
     for (int i = 0; i < OP_LAST; ++i) {
       uint64_t numOpsForOp = op_[i]->numOps_;
+      uint64_t numSuccessForOp = op_[i]->success_;
       if (!numOpsForOp) continue;
       statsCount++;
-      currentNumOps[i] = numOpsForOp - prevNumOps[i];
-      totalOps += numOpsForOp;
-      totalOpsLastSec += currentNumOps[i];
-      totalFailures   += op_[i]->failure_;
-      totalSuccess    += op_[i]->success_;
+      // submitted
+      totalOps            += numOpsForOp;
+      currentNumOps[i]    = numOpsForOp - prevNumOps[i];
+      totalOpsLastSec     += currentNumOps[i];
+      // successes
+      totalSuccess        += numSuccessForOp;
+      currentSuccess[i]   = numSuccessForOp - prevSuccess[i];
+      totalSuccessLastSec += currentSuccess[i];
+      // failures
+      totalFailures       += op_[i]->failure_;
     }
 
     if ((nsec % 10) == 1 || statsCount > lastStatsCount) {
       lastStatsCount = statsCount;
-      fprintf(stdout, "%8s %5s %9s %6s %8s %8s",
-          "Time", "Secs", "TotalOps", "Ops/s", "TotFail", "TotSuc");
+      fprintf(stdout, "%8s %5s %9s %6s %8s %8s %6s",
+          "Time", "Secs", "TotalOps", "Ops/s", "TotFail", "TotSuc", "Suc/s");
       for (int i = 0; i < OP_LAST; ++i) {
         uint64_t numOpsForOp = op_[i]->numOps_;
         if (!numOpsForOp) continue;
@@ -169,8 +171,10 @@ StatKeeper::Run() {
       fflush(stdout);
     }
 
-    fprintf(stdout, "%02d:%02d:%02d %5d %9" PRIu64 " %6" PRIu64 " %8" PRIu64 " %8" PRIu64,
-            hour, min, secs, nsec, totalOps, totalOpsLastSec, totalFailures, totalSuccess);
+    fprintf(stdout, "%02d:%02d:%02d %5d %9" PRIu64 " %6" PRIu64
+            " %8" PRIu64 " %8" PRIu64 " %6" PRIu64,
+            hour, min, secs, nsec, totalOps, totalOpsLastSec,
+            totalFailures, totalSuccess, totalSuccessLastSec);
     for (int i = 0; i < OP_LAST; ++i) {
       uint64_t numOpsForOp = op_[i]->numOps_;
       if (!numOpsForOp) continue;
@@ -182,7 +186,8 @@ StatKeeper::Run() {
     fprintf(stdout, "|\n");
     fflush(stdout);
     for (int i = 0; i < OP_LAST; ++i) {
-      prevNumOps[i] = op_[i]->numOps_;
+      prevNumOps[i]  = op_[i]->numOps_;
+      prevSuccess[i] = op_[i]->success_;
     }
   }
 

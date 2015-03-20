@@ -17,10 +17,12 @@
 */
 #line 19 "perftest.cc" // ensures short filename in logs.
 
+#include <assert.h>
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>
 #include <pthread.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -41,17 +43,13 @@
 #include "ops_runner.h"
 #include "stats_keeper.h"
 #include "test_types.h"
+#include "testoptions.h"
+#include "version.h"
 
 namespace hbase {
 namespace test {
 
-static bool argCreateTable = false;
-static bool argCheckRead   = false;
-static bool argLoadData    = false;
-static bool argHashKeys    = true;
-static bool argBufferPuts  = true;
-static bool argWriteToWAL  = true;
-static bool argLogDisabled = false;
+static TestOptions options;
 
 static char *argZkQuorum    = NULL;
 static char *argZkRootNode  = NULL;
@@ -59,24 +57,13 @@ static char *argTableName   = (char*) "test_table";
 static char *argFamilyName  = (char*) "f";
 static char *argColumnName  = (char*) "c";
 static char *argLogFilePath = NULL;
-static char *argKeyPrefix   = (char*) "user";
 
-static uint64_t argStartRow       = 1;
-static uint64_t argNumOps         = 1000000;
-static uint32_t argValueSize      = 1024;
-static uint32_t argFlushBatchSize = 0;
+static uint64_t argRecordCount    = 1000000;
+
 static uint32_t argMaxPendingRPCs = 100000;
-static uint32_t argNumThreads     = 1;
-static uint32_t argPutPercent     = 100;
-static uint32_t argNumFamilies    = 1;
-static uint32_t argNumColumns     = 1;
-static bool     argScanOnly       = false;
-static uint32_t argMaxRowsPerScan = 50;
-static uint32_t argResumeThreshold= 20000;
 
-enum KeyDistribution {
-  Uniform, Zipfian
-};
+static bool argLogDisabled = false;
+static bool argCreateTable = false;
 
 static KeyDistribution argKeyDistribution = Uniform;
 
@@ -87,26 +74,26 @@ void usage() {
       "  -zkQuorum <zk_quorum> [library default]\n"
       "  -zkRootNode <zk_root_node> [/hbase]\n"
       "  -table <table> [test_table]\n"
+      "  -workload load|mixed|scan|increment [mixed]\n"
+      "  -putPercent <put_percent> [100]\n"
+      "  -createTable true|false [false]\n"
       "  -family <family> [f]\n"
       "  -numFamilies <numfamilies> [1]\n"
       "  -column <column> [c]\n"
       "  -numColumns <numcolumns> [1]\n"
       "  -startRow <start_row> [1]\n"
-      "  -valueSize <value_size> [1024]\n"
+      "  -recordCount <number_of_records> [1000000]\n"
       "  -numOps <numops> [1000000]\n"
       "  -keyPrefix <key_prefix> [user]\n"
       "  -keyDistribution uniform|zipfian [uniform]\n"
       "  -hashKeys true|false [true]\n"
-      "  -load true|false [false]\n"
+      "  -valueSize <value_size> [1024]\n"
       "  -bufferPuts true|false [true]\n"
       "  -writeToWAL true|false [true]\n"
       "  -flushBatchSize <flush_batch_size> [0(disabled)]\n"
       "  -maxPendingRPCs <max_pending_rpcs> [100000]\n"
       "  -numThreads <num_threads> [1]\n"
-      "  -putPercent <put_percent> [100]\n"
-      "  -createTable true|false [false]\n"
       "  -logFilePath <log_file_path>|disabled [stderr]\n"
-      "  -scanOnly true|false [false]\n"
       "  -maxRowsPerScan <max_rows_per_scan> [50]\n"
       "  -resumeThreshold <thread_resume_threshold> [20000]\n");
   exit(1);
@@ -120,37 +107,70 @@ parseArgs(int argc,
 #define ArgEQ(a) (argc > 1 && (strcmp(argv[0], a) == 0))
   while (argc >= 1) {
     if (ArgEQ("-valueSize")) {
-      argValueSize = atoi(argv[1]);
+      options.valueLen_ = atoi(argv[1]);
+    } else if (ArgEQ("-recordCount")) {
+      argRecordCount = atol(argv[1]);
     } else if (ArgEQ("-numOps")) {
-      argNumOps = atol(argv[1]);
+      options.numOps_ = atol(argv[1]);
     } else if (ArgEQ("-startRow")) {
-      argStartRow = atol(argv[1]);
+      options.startRow_ = atol(argv[1]);
     } else if (ArgEQ("-table")) {
       argTableName = argv[1];
     } else if (ArgEQ("-family")) {
       argFamilyName = argv[1];
     } else if (ArgEQ("-numFamilies")) {
-      argNumFamilies = atol(argv[1]);
+      options.numFamilies_ = atol(argv[1]);
     } else if (ArgEQ("-column")) {
       argColumnName = argv[1];
     } else if (ArgEQ("-numColumns")) {
-      argNumColumns = atol(argv[1]);
+      options.numColumns_ = atol(argv[1]);
     } else if (ArgEQ("-keyPrefix")) {
-      argKeyPrefix = argv[1];
+      options.keyPrefix_ = (byte_t *)argv[1];
     } else if (ArgEQ("-keyDistribution")) {
-      argKeyDistribution = (strcmp(argv[1], "uniform") == 0) ? Uniform : Zipfian;
+      if (strcmp(argv[1], "uniform") == 0) {
+        argKeyDistribution = Uniform;
+      } else if (strcmp(argv[1], "zipfian") == 0) {
+        argKeyDistribution = Zipfian;
+      } else if (strcmp(argv[1], "sequential") == 0) {
+        argKeyDistribution = Sequential;
+      } else {
+        fprintf(stderr, "Invalid key distribution '%s'.", argv[1]);
+        exit(1);
+      }
     } else if (ArgEQ("-createTable")) {
       argCreateTable = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-checkRead")) {
-      argCheckRead = !(strcmp(argv[1], "false") == 0);
-    } else if (ArgEQ("-load")) {
-      argLoadData = !(strcmp(argv[1], "false") == 0);
+      options.checkRead_ = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-workload")) {
+      if (strcmp(argv[1], "load") == 0) {
+        options.workload_ = Load;
+      } else if (strcmp(argv[1], "mixed") == 0) {
+        options.workload_ = Mixed;
+      } else if (strcmp(argv[1], "scan") == 0) {
+        options.workload_ = Scan;
+      } else if (strcmp(argv[1], "increment") == 0) {
+#ifdef HAS_INCREMENT_SUPPORT
+        options.workload_ = Increment;
+#else
+        fprintf(stderr, "Increment operations are not yet implemented.");
+        exit(1);
+#endif
+      } else {
+        fprintf(stderr, "Invalid workload '%s'.", argv[1]);
+        exit(1);
+      }
     } else if (ArgEQ("-hashKeys")) {
-      argHashKeys = !(strcmp(argv[1], "false") == 0);
+      options.hashKeys_ = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-bufferPuts")) {
-      argBufferPuts = !(strcmp(argv[1], "false") == 0);
+      options.bufferPuts_ = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-writeToWAL")) {
-      argWriteToWAL = !(strcmp(argv[1], "false") == 0);
+      options.writeToWAL_ = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-printKeys")) {
+      options.printKeys_ = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-resendNoBufs")) {
+      options.resendNoBufs_ = !(strcmp(argv[1], "false") == 0);
+    } else if (ArgEQ("-staticValues")) {
+      options.staticValues_ = !(strcmp(argv[1], "false") == 0);
     } else if (ArgEQ("-zkQuorum")) {
       argZkQuorum = argv[1];
     } else if (ArgEQ("-zkRootNode")) {
@@ -164,19 +184,17 @@ parseArgs(int argc,
     } else if (ArgEQ("-flushBatchSize")) {
       // if not set to 0, starts a thread to
       // flush after every 'flushBatchSize' RPCs
-      argFlushBatchSize = atoi(argv[1]);
+      options.flushBatchSize_ = atoi(argv[1]);
     } else if (ArgEQ("-maxPendingRPCs")) {
       argMaxPendingRPCs = atoi(argv[1]);
     } else if (ArgEQ("-numThreads")) {
-      argNumThreads = atoi(argv[1]);
+      options.numThreads_ = atoi(argv[1]);
     } else if (ArgEQ("-putPercent")) {
-      argPutPercent = atoi(argv[1]);
-    } else if (ArgEQ("-scanOnly")) {
-      argScanOnly = !(strcmp(argv[1], "false") == 0);
+      options.putPercent_ = atoi(argv[1]);
     } else if (ArgEQ("-maxRowsPerScan")) {
-      argMaxRowsPerScan = atoi(argv[1]);
+      options.maxRowsPerScan_ = atoi(argv[1]);
     } else if (ArgEQ("-resumeThreshold")) {
-      argResumeThreshold = atoi(argv[1]);
+      options.resumeThreshold_ = atoi(argv[1]);
     } else {
       usage();
     }
@@ -184,15 +202,21 @@ parseArgs(int argc,
   }
 #undef ArgEQ
 
-  if (!argBufferPuts && argFlushBatchSize > 0) {
+  if (!options.bufferPuts_ && options.flushBatchSize_ > 0) {
     fprintf(stderr, "'-flushBatchSize' can not be specified if '-bufferPuts' is false");
-  } else if (argPutPercent < 0 || argPutPercent > 100) {
+  } else if (options.putPercent_ < 0 || options.putPercent_ > 100) {
     fprintf(stderr, "'-putPercent' must be between 0 and 100.");
   } else {
     // everything okay
     return;
   }
   exit(1);
+}
+
+void
+trap_sigint(int signum) {
+  HBASE_LOG_INFO("SIGINT detected, terminating test.");
+  options.stopTest_ = true;
 }
 
 /**
@@ -207,43 +231,39 @@ main(int argc,
   FILE *logFile = NULL;
   hb_connection_t connection = NULL;
   hb_client_t client = NULL;
-  bytebuffer table = NULL;
-  bytebuffer *columns = NULL;
-  bytebuffer *families = NULL;
   KeyGenerator *keyGenerator = NULL;
 
   parseArgs(argc, argv);
   srand(time(NULL));
 
-  uint64_t opsPerThread = (argNumOps/argNumThreads);
-  int32_t maxPendingRPCsPerThread = argMaxPendingRPCs/argNumThreads;
-  if (maxPendingRPCsPerThread > SEM_VALUE_MAX) {
+  options.maxPendingRPCsPerThread_ = argMaxPendingRPCs/options.numThreads_;
+  if (options.maxPendingRPCsPerThread_ > SEM_VALUE_MAX) {
     fprintf(stderr, "Can not have more than %d pending RPCs per thread.",
             SEM_VALUE_MAX);
     exit(1);
   }
 
-  table = bytebuffer_strcpy(argTableName);
+  options.table_ = bytebuffer_strcpy(argTableName);
 
-  families = new bytebuffer[argNumFamilies];
-  if (argNumFamilies == 1) {
-    families[0] = bytebuffer_strcpy(argFamilyName);
+  options.families_ = new bytebuffer[options.numFamilies_];
+  if (options.numFamilies_ == 1) {
+    options.families_[0] = bytebuffer_strcpy(argFamilyName);
   } else {
-    for (uint32_t i = 0; i < argNumFamilies; ++i) {
+    for (uint32_t i = 0; i < options.numFamilies_; ++i) {
       char tmpFamily[1024] = {0};
       snprintf(tmpFamily, 1024, "%s%u", argFamilyName, i);
-      families[i] = bytebuffer_strcpy(tmpFamily);
+      options.families_[i] = bytebuffer_strcpy(tmpFamily);
     }
   }
 
-  columns = new bytebuffer[argNumColumns];
-  if (argNumColumns == 1) {
-    columns[0] = bytebuffer_strcpy(argColumnName);
+  options.columns_ = new bytebuffer[options.numColumns_];
+  if (options.numColumns_ == 1) {
+    options.columns_[0] = bytebuffer_strcpy(argColumnName);
   } else {
-    for (uint32_t i = 0; i < argNumColumns; ++i) {
+    for (uint32_t i = 0; i < options.numColumns_; ++i) {
       char tmpColumn[1024] = {0};
       snprintf(tmpColumn, 1024, "%s%u", argColumnName, i);
-      columns[i] = bytebuffer_strcpy(tmpColumn);
+      options.columns_[i] = bytebuffer_strcpy(tmpColumn);
     }
   }
 
@@ -263,12 +283,27 @@ main(int argc,
     }
   }
 
-  if ((argKeyDistribution == Uniform)) {
-    HBASE_LOG_INFO("Using Uniform distribution for row keys.");
-    keyGenerator = (KeyGenerator *) new UniformKeyGenerator(argStartRow, argStartRow+argNumOps);
+  HBASE_LOG_INFO("Starting perftest version " PERFTEST_VERSION_STR ".");
+
+  if (argKeyDistribution == Sequential || options.workload_ == Load) {
+    int64_t start = options.startRow_, stop = options.startRow_ + options.numOps_ - 1;
+    HBASE_LOG_INFO("Using Sequential row keys between %lld and %lld.", start, stop);
+    keyGenerator = (KeyGenerator *) new SequentialKeyGenerator(start, stop);
   } else {
-    HBASE_LOG_INFO("Using Zipfian distribution for row keys.");
-    keyGenerator = (KeyGenerator *) new ScrambledZipfianGenerator(argStartRow, argStartRow+argNumOps);
+    int64_t start = 0, stop = argRecordCount-1;
+    switch (argKeyDistribution) {
+    case Uniform:
+      HBASE_LOG_INFO("Using Uniform distribution [%lld, %lld] for row keys.", start, stop);
+      keyGenerator = (KeyGenerator *) new UniformKeyGenerator(start, stop);
+      break;
+    case Zipfian:
+      HBASE_LOG_INFO("Using Zipfian distribution [%lld, %lld] for row keys.", start, stop);
+      keyGenerator = (KeyGenerator *) new ScrambledZipfianGenerator(start, stop);
+      break;
+    default:
+      assert(0);
+      break;
+    }
   }
 
   if ((retCode = hb_connection_create(argZkQuorum, argZkRootNode, &connection))) {
@@ -277,7 +312,7 @@ main(int argc,
   }
 
   if ((retCode = ensureTable(connection,
-      argCreateTable, argTableName, families, argNumFamilies)) != 0) {
+      argCreateTable, argTableName, options.families_, options.numFamilies_)) != 0) {
     HBASE_LOG_ERROR("Failed to ensure table %s : errorCode = %d",
         argTableName, retCode);
     goto cleanup;
@@ -290,46 +325,26 @@ main(int argc,
     goto cleanup;
   }
 
+  signal(SIGINT, trap_sigint);
   // launch threads
   {
     StatKeeper *statKeeper = new StatKeeper;
     Flusher *flushRunner = NULL;
-    OpsRunner *runner[argNumThreads];
+    OpsRunner *runner[options.numThreads_];
 
-    for (size_t i = 0; i < argNumThreads; ++i) {
-      runner[i] = new OpsRunner(client,
-                                table,
-                                argLoadData,
-                                argPutPercent,
-                                (argStartRow + (i*opsPerThread)),
-                                opsPerThread,
-                                families,
-                                argNumFamilies,
-                                columns,
-                                argNumColumns,
-                                argKeyPrefix,
-                                argValueSize,
-                                argHashKeys,
-                                argBufferPuts,
-                                argWriteToWAL,
-                                maxPendingRPCsPerThread,
-                                argCheckRead,
-                                statKeeper,
-                                keyGenerator,
-                                argScanOnly,
-                                argMaxRowsPerScan,
-                                argResumeThreshold);
-      runner[i]->Start();
+    for (size_t id = 0; id < options.numThreads_; ++id) {
+      runner[id] = new OpsRunner(id, client, &options, statKeeper, keyGenerator);
+      runner[id]->Start();
     }
 
     statKeeper->Start();
 
-    if (argFlushBatchSize > 0) {
-      flushRunner = new Flusher(client, argFlushBatchSize, statKeeper);
+    if (options.flushBatchSize_ > 0) {
+      flushRunner = new Flusher(client, options.flushBatchSize_, statKeeper);
       flushRunner->Start();
     }
 
-    for (size_t i = 0; i < argNumThreads; ++i) {
+    for (size_t i = 0; i < options.numThreads_; ++i) {
       runner[i]->Stop();
       delete runner[i];
     }
@@ -353,28 +368,28 @@ cleanup:
     hb_connection_destroy(connection);
   }
 
-  if (columns) {
-    for (uint32_t i = 0; i < argNumColumns; ++i) {
-      bytebuffer_free(columns[i]);
+  if (options.columns_) {
+    for (uint32_t i = 0; i < options.numColumns_; ++i) {
+      bytebuffer_free(options.columns_[i]);
     }
 
-    delete [] columns;
+    delete [] options.columns_;
   }
 
   if (keyGenerator) {
     delete keyGenerator;
   }
 
-  if (families) {
-    for (uint32_t i = 0; i < argNumFamilies; ++i) {
-      bytebuffer_free(families[i]);
+  if (options.families_) {
+    for (uint32_t i = 0; i < options.numFamilies_; ++i) {
+      bytebuffer_free(options.families_[i]);
     }
 
-    delete [] families;
+    delete [] options.families_;
   }
 
-  if (table) {
-    bytebuffer_free(table);
+  if (options.table_) {
+    bytebuffer_free(options.table_);
   }
 
   if (logFile) {

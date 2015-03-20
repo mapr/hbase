@@ -174,9 +174,11 @@ bytebuffer_random(const size_t length) {
   for (size_t i = 0; i < numInts; ++i) {
     *(uint64_ptr++) = seed = (uint64_t)FNVHash64(seed);
   }
+  seed = (uint64_t)FNVHash64(seed);
   unsigned char *byte_ptr = (unsigned char *)uint64_ptr;
   for (size_t i = numInts*sizeof(uint64_t); i < length; ++i) {
-    *(byte_ptr++) = (unsigned char)rand();
+    *(byte_ptr++) = (unsigned char)seed;
+    seed >>= 8;
   }
   return byte_buf;
 }

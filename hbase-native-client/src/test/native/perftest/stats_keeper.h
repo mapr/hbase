@@ -27,17 +27,9 @@
 namespace hbase {
 namespace test {
 
-class StatKeeper : public TaskRunner {
+class StatKeeper : public TaskRunner, virtual ClientOps {
 
 public:
-  typedef enum {
-    OP_PUT = 0,
-    OP_GET,
-    OP_FLUSH,
-    OP_SCAN,
-    OP_LAST
-  } OpType;
-
   struct OperationType {
     OperationType(const char *name);
     ~OperationType();
@@ -67,19 +59,10 @@ public:
 
   void PrintSummary();
 
-  static const char* GetOpName(OpType type) {
-    if (type < 0 || type >= OP_LAST) {
-      return NULL;
-    }
-    return OP_TYPE_NAMES[type];
-  }
-
 protected:
   volatile uint64_t bufferableOpsCount_;
 
   OperationType **op_;
-
-  static const char *OP_TYPE_NAMES[];
 };
 
 } /* namespace test */

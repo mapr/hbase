@@ -25,21 +25,44 @@ namespace test {
 
 class KeyGenerator {
 public:
-  virtual ~KeyGenerator() {}
-  virtual int64_t NextInt64() = 0;
+  KeyGenerator(int64_t items);
+  KeyGenerator(int64_t lb, int64_t ub);
 
-  int32_t NextInt32();
-  bytebuffer NextRowKey(const char *prefix, const bool hashKeys);
+  virtual ~KeyGenerator() {}
+
+  virtual int64_t NextInt64(Random *random) = 0;
+
+  virtual int32_t NextInt32(Random *random);
+
+  bytebuffer NextRowKey(Random *random,
+      const unsigned char *prefix, const bool hashKeys);
+
+protected:
+  int64_t min_, max_, items_;
+
+private:
+  void Init(int64_t lb, int64_t ub);
+};
+
+class SequentialKeyGenerator : public KeyGenerator {
+public:
+  SequentialKeyGenerator(int64_t items);
+  SequentialKeyGenerator(int64_t lb, int64_t ub);
+
+  virtual int64_t NextInt64(Random *random);
+
+private:
+  void Init();
+
+  volatile int64_t lastNum_;
+  pthread_mutex_t lock_;
 };
 
 class UniformKeyGenerator : public KeyGenerator {
 public:
-  UniformKeyGenerator(int lb, int ub);
+  UniformKeyGenerator(int64_t lb, int64_t ub);
 
-  virtual int64_t NextInt64();
-
-private:
-  int64_t min_, max_, interval_;
+  virtual int64_t NextInt64(Random *random);
 };
 
 class ZipfianGenerator : public KeyGenerator {
@@ -47,20 +70,14 @@ public:
   static const double ZIPFIAN_CONSTANT;
   static const double ZETAN_CONSTANT;
 
-  ZipfianGenerator(int64_t min, int64_t max) {
-    Init(min, max, ZIPFIAN_CONSTANT, ZetaStatic(max-min+1, ZIPFIAN_CONSTANT));
-  }
+  ZipfianGenerator(int64_t lb, int64_t ub);
 
-  ZipfianGenerator(int64_t min, int64_t max, double zipfianconstant, double zetan) {
-    Init(min, max, zipfianconstant, zetan);
-  }
+  ZipfianGenerator(int64_t lb, int64_t ub,
+      double zipfianconstant, double zetan);
 
-  virtual int64_t NextInt64();
+  virtual int64_t NextInt64(Random *random);
 
 private:
-
-  /* Number of items.*/
-  int64_t items_;
 
   /* Min item to generate. */
   int64_t base_;
@@ -78,11 +95,11 @@ private:
 
   pthread_mutex_t lock_;
 
-  int64_t NextInt64(int64_t itemcount);
+  int64_t NextInt64(Random *random, int64_t itemcount);
 
   double Zeta(int64_t n, double theta);
   double Zeta(int64_t st, int64_t n, double theta, double initialsum);
-  void Init(int64_t min, int64_t max, double zipfianconstant, double zetan);
+  void Init(double zipfianconstant, double zetan);
 
   static double ZetaStatic(int64_t n, double theta);
   static double ZetaStatic(int64_t st, int64_t n, double theta, double initialsum);
@@ -92,12 +109,11 @@ class ScrambledZipfianGenerator : public KeyGenerator {
 public:
   ScrambledZipfianGenerator(int64_t lb, int64_t ub);
   ~ScrambledZipfianGenerator();
-  int64_t NextInt64();
+  virtual int64_t NextInt64(Random *random);
 
 private:
   static const int64_t ITEM_COUNT = 10000000000L;
 
-  int64_t min_, max_, interval_;
   ZipfianGenerator *gen;
 };
 

@@ -15,6 +15,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+#line 19 "key_gen.cc" // ensures short filename in logs.
 
 #include "key_gen.h"
 
@@ -29,30 +30,97 @@
 namespace hbase {
 namespace test {
 
+/* KeyGenerator */
+
+KeyGenerator::KeyGenerator(int64_t items)
+{
+  Init(0, items-1);
+}
+
+KeyGenerator::KeyGenerator(int64_t lb, int64_t ub)
+{
+  Init(lb, ub);
+}
+
+void
+KeyGenerator::Init(int64_t lb, int64_t ub)
+{
+  min_ = (lb < ub) ? lb : ub;
+  max_ = (lb < ub) ? ub : lb;
+  items_ = max_ - min_ + 1;
+}
+
 int32_t
-KeyGenerator::NextInt32() {
-  return (int32_t)NextInt64();
+KeyGenerator::NextInt32(Random *random)
+{
+  return (int32_t)NextInt64(random);
 }
 
 bytebuffer
-KeyGenerator::NextRowKey(const char *prefix, const bool hashKeys) {
-  int64_t nextNum = NextInt64();
+KeyGenerator::NextRowKey(Random *random,
+    const unsigned char *prefix, const bool hashKeys)
+{
+  int64_t nextNum = NextInt64(random);
   return bytebuffer_printf("%s%" PRIu64, prefix,
       (hashKeys ? FNVHash64(nextNum) : nextNum));
 }
 
+/* SequentialKeyGenerator */
 
-UniformKeyGenerator::UniformKeyGenerator(int lb, int ub)
+SequentialKeyGenerator::SequentialKeyGenerator(
+    int64_t lb, int64_t ub) : KeyGenerator(lb, ub)
 {
-  min_ = (lb < ub) ? lb : ub;
-  max_ = (lb < ub) ? ub : lb;
-  interval_ = max_ - min_ + 1;
+  Init();
+}
+
+SequentialKeyGenerator::SequentialKeyGenerator(
+    int64_t items) : KeyGenerator(0, items-1)
+{
+  Init();
+}
+
+void
+SequentialKeyGenerator::Init()
+{
+  lastNum_ = min_;
+  pthread_mutex_init(&lock_, 0);
 }
 
 int64_t
-UniformKeyGenerator::NextInt64()
+SequentialKeyGenerator::NextInt64(Random */*ignored*/)
 {
-  return min_ + ((((int64_t)rand()) << 32) + rand()) % interval_;
+  int64_t nextNum = atomic_add64(&lastNum_, 1);
+  if (nextNum > max_) {
+    // reset and roll over
+    pthread_mutex_lock(&lock_);
+    {
+      if (lastNum_ > max_) {
+        lastNum_ = min_;
+      }
+      if (nextNum > max_) {
+        nextNum = atomic_add64(&lastNum_, 1);
+      }
+    }
+    pthread_mutex_unlock(&lock_);
+  }
+  return nextNum;
+}
+
+/* UniformKeyGenerator */
+
+UniformKeyGenerator::UniformKeyGenerator(int64_t lb,
+    int64_t ub) : KeyGenerator(lb, ub)
+{
+}
+
+int64_t
+UniformKeyGenerator::NextInt64(Random *random)
+{
+  /*
+   * Since RandomInt64 generates random int64_t which can be negative, we
+   * shift the bits to the left and back by 1 bit to introduce the MSB as zero.
+   */
+  return min_ + ((((uint64_t)(RandomInt64(random) << 1)) >> 1) % items_);
 }
 
 /*
@@ -61,31 +129,41 @@ UniformKeyGenerator::NextInt64()
 const double ZipfianGenerator::ZIPFIAN_CONSTANT = 0.99;
 const double ZipfianGenerator::ZETAN_CONSTANT = 26.46902820178302;
 
-void
-ZipfianGenerator::Init(int64_t min, int64_t max,
-    double zipfianconstant, double zetan)
+ZipfianGenerator::ZipfianGenerator(int64_t lb, int64_t ub)
+  : KeyGenerator(lb, ub)
 {
-  items_ = max-min+1;
-  base_ = min;
+  Init(ZIPFIAN_CONSTANT, ZetaStatic(items_, ZIPFIAN_CONSTANT));
+}
+
+ZipfianGenerator::ZipfianGenerator(int64_t lb, int64_t ub,
+    double zipfianconstant, double zetan) : KeyGenerator(lb, ub)
+{
+  Init(zipfianconstant, zetan);
+}
+
+void
+ZipfianGenerator::Init(double zipfianconstant, double zetan)
+{
+  base_ = min_;
   zipfianconstant_ = zipfianconstant;
   theta_ = zipfianconstant_;
   zeta2theta_ = Zeta(2, theta_);
   alpha_ = 1.0/(1.0-theta_);
   zetan_ = zetan;
   countforzeta_ = items_;
-  eta_ = (1-pow(2.0/items_,1-theta_))/(1-zeta2theta_/zetan_);
+  eta_ = (1-pow(2.0/items_, 1-theta_))/(1-zeta2theta_/zetan_);
   allowitemcountdecrease_ = false;
   pthread_mutex_init(&lock_, 0);
 }
 
 int64_t
-ZipfianGenerator::NextInt64()
+ZipfianGenerator::NextInt64(Random *random)
 {
-  return NextInt64(items_);
+  return NextInt64(random, items_);
 }
 
 int64_t
-ZipfianGenerator::NextInt64(int64_t itemcount)
+ZipfianGenerator::NextInt64(Random *random, int64_t itemcount)
 {
   //from "Quickly Generating Billion-Record Synthetic Databases", Jim Gray et al, SIGMOD 1994
   if (itemcount != countforzeta_) {
@@ -103,10 +181,10 @@ ZipfianGenerator::NextInt64(int64_t itemcount)
         eta_ = (1 - pow(2.0/items_, 1-theta_)) / (1 - zeta2theta_/zetan_);
       }
     }
+    pthread_mutex_unlock(&lock_);
   }
-  pthread_mutex_unlock(&lock_);
 
-  double u = random_double();
+  double u = RandomDouble(random);
   double uz = u * zetan_;
   if (uz < 1.0) {
     return 0;
@@ -148,12 +226,9 @@ ZipfianGenerator::Zeta(int64_t st, int64_t n, double theta, double initialsum)
   return ZetaStatic(st, n, theta, initialsum);
 }
 
-ScrambledZipfianGenerator::ScrambledZipfianGenerator(int64_t lb,
-                                                     int64_t ub)
+ScrambledZipfianGenerator::ScrambledZipfianGenerator(
+    int64_t lb, int64_t ub) : KeyGenerator(lb, ub)
 {
-  min_ = (lb < ub) ? lb : ub;
-  max_ = (lb < ub) ? ub : lb;
-  interval_ = max_ - min_ + 1;
   gen = new ZipfianGenerator(0, ITEM_COUNT,
                              ZipfianGenerator::ZIPFIAN_CONSTANT,
                              ZipfianGenerator::ZETAN_CONSTANT);
@@ -165,10 +240,10 @@ ScrambledZipfianGenerator::~ScrambledZipfianGenerator()
 }
 
 int64_t
-ScrambledZipfianGenerator::NextInt64()
+ScrambledZipfianGenerator::NextInt64(Random *random)
 {
-  int64_t ret = gen->NextInt64();
-  return min_ + (FNVHash64(ret) % interval_);
+  int64_t ret = gen->NextInt64(random);
+  return min_ + (FNVHash64(ret) % items_);
 }
 
 } /* namespace test */

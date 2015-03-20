@@ -17,6 +17,7 @@
 */
 #line 19 "ops_runner.cc" // ensures short filename in logs.
 
+#include <assert.h>
 #include <errno.h>
 #include <inttypes.h>
 #include <pthread.h>
@@ -31,6 +32,45 @@
 
 namespace hbase {
 namespace test {
+
+OpsRunner::OpsRunner(size_t runnerId,
+                     const hb_client_t client,
+                     const TestOptions *options,
+                     StatKeeper *statKeeper,
+                     KeyGenerator *keyGenerator)
+: runnerId_(runnerId), client_(client), o_(options),
+  statKeeper_(statKeeper), keyGenerator_(keyGenerator)
+{
+  getsSent_ = 0;
+  putsSent_ = 0;
+  paused_ = false;
+  staticPutValue_ = NULL;
+  numSemsAcquiredOnPause_ = 0;
+  numOps_ = o_->numOps_ / o_->numThreads_;
+  maxGets_ = numOps_ * (1.0 - (o_->putPercent_ / 100.0));
+  maxPuts_ = numOps_ - maxGets_; // this must be called after maxGets_
+  putWeight_ = o_->putPercent_ / 100.0;
+  numCells_ = o_->numFamilies_ * o_->numColumns_;
+  sleepUsOnENOBUFS_ = kDefaultSleepUsOnENOBUFS;
+  semaphore_ = new Semaphore(o_->maxPendingRPCsPerThread_);
+  if (o_->workload_ == Scan) {
+    scanNumRowsGenerator_ = new UniformKeyGenerator(1, options->maxRowsPerScan_);
+  }
+  if (o_->staticValues_) {
+    staticPutValue_ = bytebuffer_random(o_->valueLen_);
+  }
+
+  pthread_cond_init(&pauseCond_, 0);
+  pthread_mutex_init(&pauseMutex_, 0);
+
+  pthread_mutex_lock(&pauseMutex_);
+  random_.state[0] = (currentTimeMicroSeconds() & rand()) & 0xffff;
+  random_.state[1] = (currentTimeMicroSeconds() & rand()) & 0xffff;
+  random_.state[2] = (currentTimeMicroSeconds() & rand()) & 0xffff;
+  pthread_mutex_unlock(&pauseMutex_);
+  HBASE_LOG_INFO("Using random seed %d %d %d.", random_.state[0],
+      random_.state[1], random_.state[2]);
+}
 
 void
 OpsRunner::ScanCallback(
@@ -58,7 +98,7 @@ OpsRunner::ScanCallback(
   if ((numResults == 0) ||
       (rowSpec->totalRowsScanned == rowSpec->maxRowsToScan)) {
     rowSpec->Destroy();
-    runner->EndRpc(err, rowSpec->key, StatKeeper::OP_SCAN);
+    runner->EndRpc(err, rowSpec->key, rowSpec->op);
     hb_scanner_destroy(scanner, NULL, NULL);
   } else {
     hb_scanner_next(scanner, ScanCallback, extra);
@@ -75,9 +115,9 @@ OpsRunner::GetCallback(
   RowSpec *rowSpec = reinterpret_cast<RowSpec*>(extra);
   OpsRunner *runner = dynamic_cast<OpsRunner *>(rowSpec->runner);
 
-  runner->EndRpc(err, rowSpec->key, StatKeeper::OP_GET);
+  runner->EndRpc(err, rowSpec->key, rowSpec->op);
 
-  if (runner->checkRead_) {
+  if (runner->o_->checkRead_) {
     size_t cellCount = 0;
     if (result) {
       hb_result_get_cell_count(result, &cellCount);
@@ -96,16 +136,27 @@ OpsRunner::GetCallback(
 }
 
 void
-OpsRunner::PutCallback(
+OpsRunner::MutationCallback(
     int32_t err,
     hb_client_t client,
     hb_mutation_t mutation,
     hb_result_t result,
-    void* extra) {
+    void* extra)
+{
   RowSpec *rowSpec = reinterpret_cast<RowSpec*>(extra);
   OpsRunner *runner = dynamic_cast<OpsRunner *>(rowSpec->runner);
 
-  runner->EndRpc(err, rowSpec->key, StatKeeper::OP_PUT);
+  if (err == ENOBUFS && runner->o_->resendNoBufs_) {
+    HBASE_LOG_TRACE("Received ENOBUFS, sleeping for %lluus before retrying.",
+        runner->sleepUsOnENOBUFS_);
+    usleep(runner->sleepUsOnENOBUFS_);
+    runner->sleepUsOnENOBUFS_ *= 2;
+    hb_mutation_send(client, mutation, OpsRunner::MutationCallback, extra);
+    return;
+  }
+
+  runner->sleepUsOnENOBUFS_ = kDefaultSleepUsOnENOBUFS;
+  runner->EndRpc(err, rowSpec->key, rowSpec->op);
 
   rowSpec->Destroy();
   hb_mutation_destroy(mutation);
@@ -130,10 +181,10 @@ void
 OpsRunner::EndRpc(
     int32_t err,
     bytebuffer key,
-    StatKeeper::OpType type)  {
+    ClientOps::OpType type)  {
   semaphore_->Release();
   statKeeper_->RpcComplete(err, type);
-  const char *opName = StatKeeper::GetOpName(type);
+  const char *opName = ClientOps::GetOpName(type);
   if (err == 0) {
     HBASE_LOG_TRACE("%s completed for row \'%.*s\'.",
         opName, key->length, key->buffer);
@@ -166,7 +217,8 @@ OpsRunner::Resume() {
   if (paused_) {
     pthread_mutex_lock(&pauseMutex_);
     if (paused_&&
-        (semaphore_->NumAcquired() < (numSemsAcquiredOnPause_ - resumeThreshold_))) {
+        (semaphore_->NumAcquired()
+            < (numSemsAcquiredOnPause_ - o_->resumeThreshold_))) {
       HBASE_LOG_TRACE("Resuming OpsRunner(0x%08x) operations.", Id());
       paused_ = false;
       pthread_cond_broadcast(&pauseCond_);
@@ -183,39 +235,44 @@ OpsRunner::WaitForCompletion() {
 }
 
 void
-OpsRunner::SendPut(uint64_t row) {
+OpsRunner::SendPut(bytebuffer key) {
   hb_put_t put = NULL;
-  RowSpec *rowSpec = new RowSpec(numFamilies_ * numColumns_);
+  RowSpec *rowSpec = new RowSpec(numCells_);
   rowSpec->runner = this;
-  rowSpec->key = load_
-      ? generateRowKey(keyPrefix_, hashKeys_, row)
-      : keyGenerator_->NextRowKey(keyPrefix_, hashKeys_);
+  rowSpec->key = key;
+  rowSpec->op = ClientOps::OP_PUT;
 
   hb_put_create(rowSpec->key->buffer, rowSpec->key->length, &put);
-  hb_mutation_set_table(put, (const char *)table_->buffer, table_->length);
-  hb_mutation_set_bufferable(put, bufferPuts_);
-  hb_mutation_set_durability(put, (writeToWAL_ ? DURABILITY_USE_DEFAULT : DURABILITY_SKIP_WAL));
+  hb_mutation_set_table(put, (const char *)o_->table_->buffer, o_->table_->length);
+  hb_mutation_set_bufferable(put, o_->bufferPuts_);
+  hb_mutation_set_durability(put, (o_->writeToWAL_ ? DURABILITY_USE_DEFAULT : DURABILITY_SKIP_WAL));
 
   uint32_t cellNum = 0;
-  for (uint32_t i = 0; i < numFamilies_; ++i) {
-    for (uint32_t j = 0; j < numColumns_; ++j) {
+  for (uint32_t i = 0; i < o_->numFamilies_; ++i) {
+    for (uint32_t j = 0; j < o_->numColumns_; ++j) {
       cell_data_t *cell_data = &rowSpec->cells[cellNum++];
       hb_cell_t *cell = &cell_data->hb_cell;
 
       cell->row = rowSpec->key->buffer;
       cell->row_len = rowSpec->key->length;
 
-      const bytebuffer family = families_[i];
+      const bytebuffer family = o_->families_[i];
       cell->family = family->buffer;
       cell->family_len = family->length;
 
-      const bytebuffer column = columns_[j];
+      const bytebuffer column = o_->columns_[j];
       cell->qualifier = column->buffer;
       cell->qualifier_len = column->length;
 
-      cell_data->value = bytebuffer_random(valueLen_);
-      cell->value = cell_data->value->buffer;
-      cell->value_len = cell_data->value->length;
+      if (o_->staticValues_) {
+        cell->value = staticPutValue_->buffer;
+        cell->value_len = staticPutValue_->length;
+      } else {
+        cell_data->value = bytebuffer_random(o_->valueLen_);
+        cell->value = cell_data->value->buffer;
+        cell->value_len = cell_data->value->length;
+      }
+
       cell->ts = HBASE_LATEST_TIMESTAMP;
 
       hb_put_add_cell(put, cell);
@@ -225,78 +282,147 @@ OpsRunner::SendPut(uint64_t row) {
   HBASE_LOG_TRACE("Sending put with row key : '%.*s'.",
                   rowSpec->key->length, rowSpec->key->buffer);
   uint64_t startTime = currentTimeMicroSeconds();
-  hb_mutation_send(client_, put, OpsRunner::PutCallback, rowSpec);
+  hb_mutation_send(client_, put, OpsRunner::MutationCallback, rowSpec);
   uint64_t endTime = currentTimeMicroSeconds();
-  statKeeper_->UpdateStats(1, endTime - startTime, StatKeeper::OP_PUT, true);
+  statKeeper_->UpdateStats(1, endTime - startTime, ClientOps::OP_PUT, true);
 }
 
 void
-OpsRunner::SendScan(uint64_t row) {
+OpsRunner::SendScan(bytebuffer key) {
   hb_scanner_t scanner = NULL;
   RowSpec *rowSpec = new RowSpec(0);
   rowSpec->runner = this;
-  rowSpec->key = keyGenerator_->NextRowKey(keyPrefix_, hashKeys_);
+  rowSpec->key = key;
+  rowSpec->op = ClientOps::OP_SCAN;
 
   hb_scanner_create(client_, &scanner);
   hb_scanner_set_start_row(scanner, rowSpec->key->buffer, rowSpec->key->length);
 
-  uint64_t totalScanRows = scanNumRowsGenerator_.NextInt64();
+  uint64_t totalScanRows = scanNumRowsGenerator_->NextInt64(&random_);
   hb_scanner_set_num_max_rows(scanner, totalScanRows);
   rowSpec->maxRowsToScan = totalScanRows;
 
-  hb_scanner_set_table(scanner, (const char *)table_->buffer, table_->length);
+  hb_scanner_set_table(scanner,
+      (const char *)o_->table_->buffer, o_->table_->length);
 
   HBASE_LOG_TRACE("Sending row with row key : '%.*s'.",
                   rowSpec->key->length, rowSpec->key->buffer);
   uint64_t startTime = currentTimeMicroSeconds();
   hb_scanner_next(scanner, ScanCallback, rowSpec);
   uint64_t endTime = currentTimeMicroSeconds();
-  statKeeper_->UpdateStats(1, endTime - startTime, StatKeeper::OP_SCAN, false);
+  statKeeper_->UpdateStats(1, endTime - startTime, ClientOps::OP_SCAN, false);
 }
 
 void
-OpsRunner::SendGet(uint64_t row) {
+OpsRunner::SendGet(bytebuffer key) {
   hb_get_t get = NULL;
   RowSpec *rowSpec = new RowSpec(0);
   rowSpec->runner = this;
-  rowSpec->key = keyGenerator_->NextRowKey(keyPrefix_, hashKeys_);
+  rowSpec->key = key;
+  rowSpec->op = ClientOps::OP_GET;
 
   hb_get_create(rowSpec->key->buffer, rowSpec->key->length, &get);
-  hb_get_set_table(get, (const char *)table_->buffer, table_->length);
+  hb_get_set_table(get, (const char *)o_->table_->buffer, o_->table_->length);
 
   HBASE_LOG_TRACE("Sending row with row key : '%.*s'.",
       rowSpec->key->length, rowSpec->key->buffer);
   uint64_t startTime = currentTimeMicroSeconds();
   hb_get_send(client_, get, GetCallback, rowSpec);
   uint64_t endTime = currentTimeMicroSeconds();
-  statKeeper_->UpdateStats(1, endTime - startTime, StatKeeper::OP_GET, false);
+  statKeeper_->UpdateStats(1, endTime - startTime, ClientOps::OP_GET, false);
 }
+
+#ifdef HAS_INCREMENT_SUPPORT
+void
+OpsRunner::SendIncrement(bytebuffer key)
+{
+  hb_increment_t inc = NULL;
+  RowSpec *rowSpec = new RowSpec(numCells_);
+  rowSpec->runner = this;
+  rowSpec->key = key;
+  rowSpec->op = ClientOps::OP_INCREMENT;
+
+  hb_increment_create(rowSpec->key->buffer, rowSpec->key->length, &inc);
+  hb_mutation_set_table(inc, (const char *)o_->table_->buffer, o_->table_->length);
+  hb_mutation_set_durability(inc, (o_->writeToWAL_ ? DURABILITY_USE_DEFAULT : DURABILITY_SKIP_WAL));
+
+  uint32_t cellNum = 0;
+  for (uint32_t i = 0; i < o_->numFamilies_; ++i) {
+    for (uint32_t j = 0; j < o_->numColumns_; ++j) {
+      if (j > 0 && rand() % 2 > 0)
+        continue;
+
+      cell_data_t *cell_data = &rowSpec->cells[cellNum++];
+      hb_cell_t *cell = &cell_data->hb_cell;
+
+      cell->row = rowSpec->key->buffer;
+      cell->row_len = rowSpec->key->length;
+
+      const bytebuffer family = o_->families_[i];
+      cell->family = family->buffer;
+      cell->family_len = family->length;
+
+      const bytebuffer column = o_->columns_[j];
+      cell->qualifier = column->buffer;
+      cell->qualifier_len = column->length;
+
+      hb_increment_add_column(inc, cell, rand() % kMaxIncrementSize);
+    }
+  }
+
+  HBASE_LOG_TRACE("Sending increment with row key : '%.*s'.",
+                  rowSpec->key->length, rowSpec->key->buffer);
+
+  uint64_t startTime = currentTimeMicroSeconds();
+  hb_mutation_send(client_, inc, OpsRunner::MutationCallback, rowSpec);
+  uint64_t endTime = currentTimeMicroSeconds();
+  statKeeper_->UpdateStats(1, endTime - startTime, ClientOps::OP_INCREMENT, true);
+}
+#endif
 
 void*
 OpsRunner::Run() {
-  uint64_t endRow = startRow_ + numOps_;
+  uint64_t numOps = o_->numOps_ / o_->numThreads_;
+  uint64_t startRow = o_->startRow_ + (runnerId_* numOps);
+  uint64_t endRow = startRow + numOps;
   HBASE_LOG_INFO("Starting OpsRunner(0x%08x) for start row %llu"
-      ", operation count %llu.", Id(), startRow_, numOps_);
+      ", operation count %llu.", Id(), startRow, numOps);
 
-  double rand_max = RAND_MAX;
-  for (uint64_t row = startRow_; row < endRow; ++row) {
+  for (uint64_t row = startRow; row < endRow && !o_->stopTest_; ++row) {
     BeginRpc(); // ensures that we have permit to send the rpc
 
-    if (scanOnly_) {
-      SendScan(row);
-    } else if (load_) {
-      putsSent_++;
-      SendPut(row);
-    } else {
-      double p = rand()/rand_max;
-      if (((p < putWeight_) && (putsSent_ < maxPuts_) && !paused_)
-          || (getsSent_ >= maxGets_)) {
+    bytebuffer key = keyGenerator_->NextRowKey(&random_, o_->keyPrefix_, o_->hashKeys_);
+    if (o_->printKeys_) {
+      HBASE_LOG_INFO("OpsRunner(0x%08x): key: %.*s", Id(), key->length, key->buffer);
+    }
+
+    switch (o_->workload_) {
+      case Load:
         putsSent_++;
-        SendPut(row);
-      } else {
-        getsSent_++;
-        SendGet(row);
+        SendPut(key);
+        break;
+      case Mixed: {
+        double p = RandomDouble(&random_);
+        if (((p < putWeight_) && (putsSent_ < maxPuts_) && !paused_)
+            || (getsSent_ >= maxGets_)) {
+          putsSent_++;
+          SendPut(key);
+        } else {
+          getsSent_++;
+          SendGet(key);
+        }
+        break;
       }
+      case Scan:
+        SendScan(key);
+        break;
+#ifdef HAS_INCREMENT_SUPPORT
+      case Increment:
+        SendIncrement(key);
+        break;
+#endif
+      default:
+        assert(0);
     }
   }
 

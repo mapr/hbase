@@ -80,7 +80,7 @@ protected:
   virtual void* Run() = 0;
 
 private:
-  uint64_t  tid_;
+  volatile uint64_t tid_;
 
   volatile bool stop_;
 
@@ -89,6 +89,27 @@ private:
   static void* ThreadFunction(void* arg);
 };
 
+class ClientOps {
+public:
+  typedef enum {
+    OP_PUT = 0,
+    OP_GET,
+    OP_FLUSH,
+    OP_SCAN,
+    OP_INCREMENT,
+    OP_LAST
+  } OpType;
+
+  static const char* GetOpName(OpType type) {
+    if (type < 0 || type >= OP_LAST) {
+      return NULL;
+    }
+    return OP_TYPE_NAMES[type];
+  }
+
+protected:
+  static const char* const OP_TYPE_NAMES[];
+};
 
 class RowSpec {
 public:
@@ -107,7 +128,24 @@ public:
   uint32_t totalRowsScanned;
 
   uint32_t maxRowsToScan;
+
+  ClientOps::OpType op;
 };
+
+typedef struct {
+  unsigned short state[3];
+} Random;
+
+typedef enum {
+  Load,
+  Mixed,
+  Scan,
+  Increment
+} Workload;
+
+typedef enum {
+  Sequential, Uniform, Zipfian
+} KeyDistribution;
 
 #ifdef __GNUC__
   #define atomic_add32(ptr, val) __sync_fetch_and_add ((ptr), (val))
@@ -115,7 +153,7 @@ public:
   #define atomic_add64(ptr, val) __sync_fetch_and_add ((ptr), (val))
   #define atomic_sub64(ptr, val) __sync_fetch_and_sub ((ptr), (val))
 #else
-  #error "Need to port atomic_add32 on this platform"
+  #error "Need to port atomic_FNxx on this platform"
 #endif
 
 } /* namespace test */

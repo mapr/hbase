@@ -40,7 +40,7 @@ Flusher::Run() {
       uint64_t endTime = currentTimeMicroSeconds();
       rpcsSentLast = rpcsSent;
       statKeeper_->UpdateStats(1,
-          (endTime - startTime), StatKeeper::OP_FLUSH, false);
+          (endTime - startTime), ClientOps::OP_FLUSH, false);
     }
   }
   HBASE_LOG_INFO("Stopping Flush thread (0x%08x) after %" PRIu64 " rpcs.",

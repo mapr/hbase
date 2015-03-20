@@ -15,40 +15,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-#ifndef HBASE_TESTS_COMMON_UTILS_H_
-#define HBASE_TESTS_COMMON_UTILS_H_
+#ifndef TEST_NATIVE_PERFTEST_VERSION_H_
+#define TEST_NATIVE_PERFTEST_VERSION_H_
 
-#include <stdint.h>
-#include <stdlib.h>
+#define PERFTEST_VERSION_STR  "1979"
 
-#include <hbase/hbase.h>
-
-#include "test_types.h"
-
-namespace hbase {
-namespace test {
-
-void
-flush_client_and_wait(hb_client_t client);
-
-void
-disconnect_client_and_wait(hb_client_t client);
-
-cell_data_t*
-new_cell_data();
-
-inline double
-RandomDouble(Random *random) {
-  return erand48(random->state);
-}
-
-inline int64_t
-RandomInt64(Random *random) {
-  return (int64_t)(((uint64_t)nrand48(random->state)) << 32)
-                  | (uint64_t)jrand48(random->state);
-}
-
-} /* namespace test */
-} /* namespace hbase */
-
-#endif /* HBASE_TESTS_COMMON_UTILS_H_ */
+#endif /* TEST_NATIVE_PERFTEST_VERSION_H_ */

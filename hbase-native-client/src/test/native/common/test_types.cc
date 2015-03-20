@@ -122,5 +122,14 @@ RowSpec::Destroy() {
   delete this;
 }
 
+const char* const
+ClientOps::OP_TYPE_NAMES[] = {
+    (const char*)"PUT",
+    (const char*)"GET",
+    (const char*)"FLUSH",
+    (const char*)"SCAN",
+    (const char*)"INC"
+};
+
 } /* namespace test */
 } /* namespace hbase */
