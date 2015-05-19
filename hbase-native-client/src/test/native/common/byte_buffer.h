@@ -46,6 +46,8 @@ struct bytebuffer_ {
    * 'buffer' and 'length' to access the data.
    */
   unsigned char internal_[INLINE_BUFFER_SIZE];
+
+  bytebuffer_ *next;
 };
 typedef struct bytebuffer_ *bytebuffer;
 
@@ -111,6 +113,8 @@ bytebuffer_printf(const char *format, ...);
 bytebuffer
 bytebuffer_random(const size_t length);
 
+void
+bytebuffer_randomize(bytebuffer byte_buf, const size_t length);
 
 bytebuffer
 generateRowKey(const char *rowkey_prefix,

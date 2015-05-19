@@ -106,11 +106,6 @@ RowSpec::RowSpec(uint64_t numCells)
 void
 RowSpec::Destroy() {
   if (cells) {
-    for (uint64_t i = 0; i < totalCells; ++i) {
-      if (cells[i].value) {
-        bytebuffer_free(cells[i].value);
-      }
-    }
     free(cells);
     cells = NULL;
   }

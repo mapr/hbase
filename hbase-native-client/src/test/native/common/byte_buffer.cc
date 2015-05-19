@@ -168,19 +168,22 @@ bytebuffer_memcpy(const char *buffer,
 bytebuffer
 bytebuffer_random(const size_t length) {
   bytebuffer byte_buf = bytebuffer_alloc(length);
+  bytebuffer_randomize(byte_buf, length);
+  return byte_buf;
+}
+
+void
+bytebuffer_randomize(bytebuffer byte_buf, const size_t length) {
   uint64_t *uint64_ptr = (uint64_t *)byte_buf->buffer;
   uint64_t seed = currentTimeMicroSeconds();
   size_t numInts = length/sizeof(uint64_t);
-  for (size_t i = 0; i < numInts; ++i) {
-    *(uint64_ptr++) = seed = (uint64_t)FNVHash64(seed);
-  }
   seed = (uint64_t)FNVHash64(seed);
   unsigned char *byte_ptr = (unsigned char *)uint64_ptr;
   for (size_t i = numInts*sizeof(uint64_t); i < length; ++i) {
     *(byte_ptr++) = (unsigned char)seed;
     seed >>= 8;
   }
-  return byte_buf;
+  return;
 }
 
 /**

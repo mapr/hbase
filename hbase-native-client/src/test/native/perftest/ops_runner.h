@@ -22,6 +22,7 @@
 
 #include <pthread.h>
 #include <hbase/hbase.h>
+#include <list>
 
 #include "test_types.h"
 #include "byte_buffer.h"
@@ -45,8 +46,17 @@ public:
     if (o_->workload_ == Scan) {
       delete scanNumRowsGenerator_;
     }
+
+    while (bbufCache_.size() > 0) {
+      bytebuffer byte_buf = bbufCache_.front();
+      bbufCache_.pop_front();
+      bytebuffer_free(byte_buf);
+    }
+
     delete semaphore_;
   }
+
+  void releaseByteBuffers(bytebuffer *bbuf, uint32_t num);
 
 protected:
   const size_t runnerId_;
@@ -62,6 +72,9 @@ protected:
   uint64_t maxPuts_;
   double putWeight_;
   uint32_t numCells_;
+
+  pthread_mutex_t bbufCacheMutex_;
+  std::list<bytebuffer> bbufCache_;
 
   volatile bool paused_;
   pthread_mutex_t pauseMutex_;
@@ -102,6 +115,8 @@ protected:
   void SendScan(bytebuffer key);
 
   void SendIncrement(bytebuffer key);
+
+  void createByteBuffers(bytebuffer *bbufs, uint32_t num, size_t len);
 
   static void MutationCallback(int32_t err, hb_client_t client,
       hb_mutation_t mutation, hb_result_t result, void *extra);

@@ -60,6 +60,9 @@ OpsRunner::OpsRunner(size_t runnerId,
     staticPutValue_ = bytebuffer_random(o_->valueLen_);
   }
 
+  pthread_mutex_init(&bbufCacheMutex_, 0);
+  bbufCache_.clear();
+
   pthread_cond_init(&pauseCond_, 0);
   pthread_mutex_init(&pauseMutex_, 0);
 
@@ -158,6 +161,21 @@ OpsRunner::MutationCallback(
   runner->sleepUsOnENOBUFS_ = kDefaultSleepUsOnENOBUFS;
   runner->EndRpc(err, rowSpec->key, rowSpec->op);
 
+  bytebuffer bbufs[rowSpec->totalCells];
+  bool shouldRelease = false;
+  for (uint32_t i = 0; i < rowSpec->totalCells; ++i) {
+    cell_data_t *cell_data = &rowSpec->cells[i];
+    if (cell_data->value) {
+      bbufs[i] = cell_data->value;
+      shouldRelease = true;
+      cell_data->value = NULL;
+    }
+  }
+
+  if (shouldRelease) {
+    runner->releaseByteBuffers(bbufs, rowSpec->totalCells);
+  }
+
   rowSpec->Destroy();
   hb_mutation_destroy(mutation);
   if (result) {
@@ -235,6 +253,47 @@ OpsRunner::WaitForCompletion() {
 }
 
 void
+OpsRunner::createByteBuffers(bytebuffer *bbufs, uint32_t num, size_t len) {
+  uint32_t nBuf = 0;
+  pthread_mutex_lock(&bbufCacheMutex_);
+  std::list<bytebuffer>::iterator it = bbufCache_.begin();
+  while (it != bbufCache_.end()) {
+    bytebuffer bbuf = *it;
+    if (bbuf->length >= len) {
+      bbufs[nBuf ++ ] = bbuf;
+      bbufCache_.erase(it);
+      if (nBuf == num) {
+        break;
+      }
+      it = bbufCache_.begin();
+    }
+  }
+
+  pthread_mutex_unlock(&bbufCacheMutex_);
+
+  uint32_t j = nBuf;
+  while (nBuf < num) {
+    bbufs[nBuf ++] = bytebuffer_random(len);
+  }
+
+  for (uint32_t i = 0; i < j; ++i) {
+    bytebuffer_randomize(bbufs[i], len);
+  }
+}
+
+void
+OpsRunner::releaseByteBuffers(bytebuffer *bbufs, uint32_t num)
+{
+  pthread_mutex_lock(&bbufCacheMutex_);
+  for (uint32_t i = 0; i < num; ++i) {
+    bbufCache_.push_back(bbufs[i]);
+  }
+
+  pthread_mutex_unlock(&bbufCacheMutex_);
+  return;   
+}
+
+void
 OpsRunner::SendPut(bytebuffer key) {
   hb_put_t put = NULL;
   RowSpec *rowSpec = new RowSpec(numCells_);
@@ -248,9 +307,16 @@ OpsRunner::SendPut(bytebuffer key) {
   hb_mutation_set_durability(put, (o_->writeToWAL_ ? DURABILITY_USE_DEFAULT : DURABILITY_SKIP_WAL));
 
   uint32_t cellNum = 0;
+  uint32_t totalCells = o_->numFamilies_ * o_->numColumns_;
+  bytebuffer bbufs[totalCells];
+
+  if (!o_->staticValues_) {
+    createByteBuffers(bbufs, totalCells, o_->valueLen_);
+  }
+
   for (uint32_t i = 0; i < o_->numFamilies_; ++i) {
     for (uint32_t j = 0; j < o_->numColumns_; ++j) {
-      cell_data_t *cell_data = &rowSpec->cells[cellNum++];
+      cell_data_t *cell_data = &rowSpec->cells[cellNum];
       hb_cell_t *cell = &cell_data->hb_cell;
 
       cell->row = rowSpec->key->buffer;
@@ -268,7 +334,7 @@ OpsRunner::SendPut(bytebuffer key) {
         cell->value = staticPutValue_->buffer;
         cell->value_len = staticPutValue_->length;
       } else {
-        cell_data->value = bytebuffer_random(o_->valueLen_);
+        cell_data->value = bbufs[cellNum];
         cell->value = cell_data->value->buffer;
         cell->value_len = cell_data->value->length;
       }
@@ -276,6 +342,7 @@ OpsRunner::SendPut(bytebuffer key) {
       cell->ts = HBASE_LATEST_TIMESTAMP;
 
       hb_put_add_cell(put, cell);
+      cellNum ++;
     }
   }
 
