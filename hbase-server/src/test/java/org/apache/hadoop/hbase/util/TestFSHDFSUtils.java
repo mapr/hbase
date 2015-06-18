@@ -115,15 +115,18 @@ public class TestFSHDFSUtils {
     FileSystem srcFs = srcPath.getFileSystem(conf);
     FileSystem desFs = desPath.getFileSystem(conf);
 
-    assertTrue(FSHDFSUtils.isSameHdfs(conf, srcFs, desFs));
+    assertTrue(FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs));
+    assertTrue(FSUtils.getInstance(desFs, conf).isSameFileSystem(conf, srcFs, desFs));
 
     desPath = new Path("hdfs://127.0.0.1:8070/");
     desFs = desPath.getFileSystem(conf);
-    assertTrue(!FSHDFSUtils.isSameHdfs(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(desFs, conf).isSameFileSystem(conf, srcFs, desFs));
 
     desPath = new Path("hdfs://127.0.1.1:8020/");
     desFs = desPath.getFileSystem(conf);
-    assertTrue(!FSHDFSUtils.isSameHdfs(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(desFs, conf).isSameFileSystem(conf, srcFs, desFs));
 
     conf.set("fs.defaultFS", "hdfs://haosong-hadoop");
     conf.set("dfs.nameservices", "haosong-hadoop");
@@ -135,13 +138,15 @@ public class TestFSHDFSUtils {
     conf.set("dfs.namenode.rpc-address.haosong-hadoop.nn2", "127.10.2.1:8000");
     desPath = new Path("/");
     desFs = desPath.getFileSystem(conf);
-    assertTrue(FSHDFSUtils.isSameHdfs(conf, srcFs, desFs));
+    assertTrue(FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs));
+    assertTrue(FSUtils.getInstance(desFs, conf).isSameFileSystem(conf, srcFs, desFs));
 
     conf.set("dfs.namenode.rpc-address.haosong-hadoop.nn1", "127.10.2.1:8020");
     conf.set("dfs.namenode.rpc-address.haosong-hadoop.nn2", "127.0.0.1:8000");
     desPath = new Path("/");
     desFs = desPath.getFileSystem(conf);
-    assertTrue(!FSHDFSUtils.isSameHdfs(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs));
+    assertTrue(!FSUtils.getInstance(desFs, conf).isSameFileSystem(conf, srcFs, desFs));
   }
 
   /**

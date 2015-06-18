@@ -1354,6 +1354,14 @@ public abstract class FSUtils {
   }
 
   /**
+   * @param conf the Configuration of HBase
+   * @param srcFs
+   * @param desFs
+   * @return Whether srcFs and desFs are on same hdfs or not
+   */
+  public abstract boolean isSameFileSystem(Configuration conf, FileSystem srcFs, FileSystem desFs);
+
+  /**
    * Recover file lease. Used when a file might be suspect
    * to be had been left open by another process.
    * @param fs FileSystem handle

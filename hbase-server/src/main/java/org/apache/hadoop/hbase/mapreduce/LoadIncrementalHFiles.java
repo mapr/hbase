@@ -77,6 +77,7 @@ import org.apache.hadoop.hbase.security.UserProvider;
 import org.apache.hadoop.hbase.security.token.FsDelegationToken;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.FSHDFSUtils;
+import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -787,7 +788,7 @@ public class LoadIncrementalHFiles extends Configured implements Tool {
             // Check to see if the source and target filesystems are the same
             // If they are the same filesystem, we will try move the files back
             // because previously we moved them to the staging directory.
-            if (FSHDFSUtils.isSameHdfs(getConf(), fs, targetFs)) {
+            if (FSUtils.getInstance(fs, getConf()).isSameFileSystem(getConf(), fs, targetFs)) {
               for(Pair<byte[], String> el : famPaths) {
                 Path hfileStagingPath = null;
                 Path hfileOrigPath = new Path(el.getSecond());

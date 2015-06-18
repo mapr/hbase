@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.Collection;
 
 import com.google.common.collect.Sets;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
@@ -113,7 +114,20 @@ public class FSHDFSUtils extends FSUtils {
    * @param desFs
    * @return Whether srcFs and desFs are on same hdfs or not
    */
+  @Deprecated
   public static boolean isSameHdfs(Configuration conf, FileSystem srcFs, FileSystem desFs) {
+    return FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs);
+  }
+
+  /**
+   * @param conf the Configuration of HBase
+   * @param srcFs
+   * @param desFs
+   * @return Whether srcFs and desFs are on same hdfs or not
+   */
+  @Override
+  public boolean isSameFileSystem(Configuration conf, FileSystem srcFs, FileSystem desFs) {
+
     // By getCanonicalServiceName, we could make sure both srcFs and desFs
     // show a unified format which contains scheme, host and port.
     String srcServiceName = srcFs.getCanonicalServiceName();

@@ -58,6 +58,7 @@ import org.apache.hadoop.hbase.security.UserProvider;
 import org.apache.hadoop.hbase.security.token.FsDelegationToken;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.FSHDFSUtils;
+import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.hbase.util.Methods;
 import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.io.Text;
@@ -383,7 +384,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
       }
 
       // Check to see if the source and target filesystems are the same
-      if (!FSHDFSUtils.isSameHdfs(conf, srcFs, fs)) {
+      if (!FSUtils.getInstance(fs, conf).isSameFileSystem(conf, srcFs, fs)) {
         LOG.debug("Bulk-load file " + srcPath + " is on different filesystem than " +
             "the destination filesystem. Copying file over to destination staging dir.");
         FileUtil.copy(srcFs, p, fs, stageP, false, conf);
@@ -406,7 +407,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
 
     @Override
     public void failedBulkLoad(final byte[] family, final String srcPath) throws IOException {
-      if (!FSHDFSUtils.isSameHdfs(conf, srcFs, fs)) {
+      if (!FSUtils.getInstance(fs, conf).isSameFileSystem(conf, srcFs, fs)) {
         // files are copied so no need to move them back
         return;
       }
