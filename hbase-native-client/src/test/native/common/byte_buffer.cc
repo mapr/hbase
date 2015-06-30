@@ -96,7 +96,7 @@ FNVHash64(uint64_t val) {
     hashval = hashval ^ octet;
     hashval = hashval * 0x100000001b3uLL;
   }
-  return hashval;
+  return labs(hashval);
 }
 
 bytebuffer
