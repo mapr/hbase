@@ -256,16 +256,12 @@ void
 OpsRunner::createByteBuffers(bytebuffer *bbufs, uint32_t num, size_t len) {
   uint32_t nBuf = 0;
   pthread_mutex_lock(&bbufCacheMutex_);
-  std::list<bytebuffer>::iterator it = bbufCache_.begin();
-  while (it != bbufCache_.end()) {
-    bytebuffer bbuf = *it;
-    if (bbuf->length >= len) {
-      bbufs[nBuf ++ ] = bbuf;
-      bbufCache_.erase(it);
-      if (nBuf == num) {
-        break;
-      }
-      it = bbufCache_.begin();
+  while (bbufCache_.size() > 0) {
+    bytebuffer bbuf = bbufCache_.back();
+    bbufCache_.pop_back();
+    bbufs[nBuf ++ ] = bbuf;
+    if (nBuf == num) {
+      break;
     }
   }
 

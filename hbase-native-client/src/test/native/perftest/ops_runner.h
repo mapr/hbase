@@ -22,7 +22,7 @@
 
 #include <pthread.h>
 #include <hbase/hbase.h>
-#include <list>
+#include <vector>
 
 #include "test_types.h"
 #include "byte_buffer.h"
@@ -48,8 +48,8 @@ public:
     }
 
     while (bbufCache_.size() > 0) {
-      bytebuffer byte_buf = bbufCache_.front();
-      bbufCache_.pop_front();
+      bytebuffer byte_buf = bbufCache_.back();
+      bbufCache_.pop_back();
       bytebuffer_free(byte_buf);
     }
 
@@ -74,7 +74,7 @@ protected:
   uint32_t numCells_;
 
   pthread_mutex_t bbufCacheMutex_;
-  std::list<bytebuffer> bbufCache_;
+  std::vector<bytebuffer> bbufCache_;
 
   volatile bool paused_;
   pthread_mutex_t pauseMutex_;
