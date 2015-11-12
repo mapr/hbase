@@ -2668,7 +2668,11 @@ public class HRegionServer extends HasThread implements
     Class<? extends HRegionServer> regionServerClass = (Class<? extends HRegionServer>) conf
         .getClass(HConstants.REGION_SERVER_IMPL, HRegionServer.class);
 
-    new HRegionServerCommandLine(regionServerClass).doMain(args);
+    String[] newArgs = new String[args.length+2];
+    newArgs[0] = "-Dfs.mapr.readbuffering=false";
+    newArgs[1] = "-Dfs.mapr.aggregate.writes=false";
+    System.arraycopy(args, 0, newArgs, 2, args.length);
+    new HRegionServerCommandLine(regionServerClass).doMain(newArgs);
   }
 
   /**
