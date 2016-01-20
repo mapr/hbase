@@ -116,11 +116,15 @@ public class DynamicClassLoader extends ClassLoaderBase {
       remoteDir = new Path(remotePath);
       try {
         remoteDirFs = remoteDir.getFileSystem(conf);
+        if (!remoteDirFs.exists(remoteDir)) {
+          remoteDir = null;
+        }
       } catch (IOException ioe) {
         LOG.warn("Failed to identify the fs of dir "
           + remoteDir + ", ignored", ioe);
         remoteDir = null;
       }
+
     }
   }
 

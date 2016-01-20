@@ -114,7 +114,7 @@ public class Test11HBase extends Configured implements Tool {
 
       System.out.println("-----create another admin through the connection should work-----");
       admin2 = admin.getConnection().getAdmin();
-      admin2.getClusterStatus();
+      //admin2.getClusterStatus();
       table2 = admin.getConnection().getTable(tableName);
       Put put2 = new Put(Bytes.toBytes("row1"));
       put2.addColumn(CF1, Bytes.toBytes("col1"), Bytes.toBytes("changedval11"));
