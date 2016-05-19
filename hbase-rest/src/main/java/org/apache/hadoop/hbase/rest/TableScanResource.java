@@ -132,7 +132,6 @@ public class TableScanResource  extends ResourceBase {
           userRequestedLimit, fetchSize);
       servlet.getMetrics().incrementSucessfulScanRequests(1);
       ResponseBuilder response = Response.ok(stream);
-      response.header("content-type", contentType);
       return response.build();
     } catch (Exception exp) {
       servlet.getMetrics().incrementFailedScanRequests(1);
