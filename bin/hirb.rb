@@ -140,6 +140,20 @@ def debug?
   nil
 end
 
+def usecolor
+  if @shell.usecolor
+    @shell.usecolor = false
+  else
+    @shell.usecolor = true
+  end
+  usecolor?
+end
+
+def usecolor?
+  puts "Color is #{@shell.usecolor ? 'ON' : 'OFF'}\n"
+  nil
+end
+
 # Include hbase constants
 include HBaseConstants
 

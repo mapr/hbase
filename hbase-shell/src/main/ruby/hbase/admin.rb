@@ -625,89 +625,93 @@ module Hbase
 
     def status(format, type)
       status = @admin.getClusterStatus()
-      if format == "detailed"
-        puts("version %s" % [ status.getHBaseVersion() ])
-        # Put regions in transition first because usually empty
-        puts("%d regionsInTransition" % status.getRegionsInTransition().size())
-        for k, v in status.getRegionsInTransition()
-          puts("    %s" % [v])
-        end
-        master_coprocs = java.util.Arrays.toString(@admin.getMasterCoprocessors())
-        if master_coprocs != nil
-          puts("master coprocessors: %s" % master_coprocs)
-        end
-        puts("%d live servers" % [ status.getServersSize() ])
-        for server in status.getServers()
-          puts("    %s:%d %d" % \
-            [ server.getHostname(), server.getPort(), server.getStartcode() ])
-          puts("        %s" % [ status.getLoad(server).toString() ])
-          for name, region in status.getLoad(server).getRegionsLoad()
-            puts("        %s" % [ region.getNameAsString().dump ])
-            puts("            %s" % [ region.toString() ])
-          end
-        end
-        puts("%d dead servers" % [ status.getDeadServers() ])
-        for server in status.getDeadServerNames()
-          puts("    %s" % [ server ])
-        end
-      elsif format == "replication"
-        #check whether replication is enabled or not
-        if (!@admin.getConfiguration().getBoolean(org.apache.hadoop.hbase.HConstants::REPLICATION_ENABLE_KEY, 
-          org.apache.hadoop.hbase.HConstants::REPLICATION_ENABLE_DEFAULT))
-          puts("Please enable replication first.")
-        else
+      if status != nil
+        if format == "detailed"
           puts("version %s" % [ status.getHBaseVersion() ])
+          # Put regions in transition first because usually empty
+          puts("%d regionsInTransition" % status.getRegionsInTransition().size())
+          for k, v in status.getRegionsInTransition()
+            puts("    %s" % [v])
+          end
+          master_coprocs = java.util.Arrays.toString(@admin.getMasterCoprocessors())
+          if master_coprocs != nil
+            puts("master coprocessors: %s" % master_coprocs)
+          end
           puts("%d live servers" % [ status.getServersSize() ])
           for server in status.getServers()
-            sl = status.getLoad(server)
-            rSinkString   = "       SINK  :"
-            rSourceString = "       SOURCE:"
-            rLoadSink = sl.getReplicationLoadSink()
-            rSinkString << " AgeOfLastAppliedOp=" + rLoadSink.getAgeOfLastAppliedOp().to_s
-            rSinkString << ", TimeStampsOfLastAppliedOp=" + 
-			    (java.util.Date.new(rLoadSink.getTimeStampsOfLastAppliedOp())).toString()
-            rLoadSourceList = sl.getReplicationLoadSourceList()
-            index = 0
-            while index < rLoadSourceList.size()
-              rLoadSource = rLoadSourceList.get(index)
-              rSourceString << " PeerID=" + rLoadSource.getPeerID()
-              rSourceString << ", AgeOfLastShippedOp=" + rLoadSource.getAgeOfLastShippedOp().to_s
-              rSourceString << ", SizeOfLogQueue=" + rLoadSource.getSizeOfLogQueue().to_s
-              rSourceString << ", TimeStampsOfLastShippedOp=" + 
-			      (java.util.Date.new(rLoadSource.getTimeStampOfLastShippedOp())).toString()
-              rSourceString << ", Replication Lag=" + rLoadSource.getReplicationLag().to_s
-              index = index + 1
-            end
-            puts("    %s:" %
-            [ server.getHostname() ])
-            if type.casecmp("SOURCE") == 0
-              puts("%s" % rSourceString)
-            elsif type.casecmp("SINK") == 0
-              puts("%s" % rSinkString)
-            else
-              puts("%s" % rSourceString)
-              puts("%s" % rSinkString)
+            puts("    %s:%d %d" % \
+              [ server.getHostname(), server.getPort(), server.getStartcode() ])
+            puts("        %s" % [ status.getLoad(server).toString() ])
+            for name, region in status.getLoad(server).getRegionsLoad()
+              puts("        %s" % [ region.getNameAsString().dump ])
+              puts("            %s" % [ region.toString() ])
             end
           end
+          puts("%d dead servers" % [ status.getDeadServers() ])
+          for server in status.getDeadServerNames()
+            puts("    %s" % [ server ])
+          end
+        elsif format == "replication"
+          #check whether replication is enabled or not
+          if (!@admin.getConfiguration().getBoolean(org.apache.hadoop.hbase.HConstants::REPLICATION_ENABLE_KEY, 
+            org.apache.hadoop.hbase.HConstants::REPLICATION_ENABLE_DEFAULT))
+            puts("Please enable replication first.")
+          else
+            puts("version %s" % [ status.getHBaseVersion() ])
+            puts("%d live servers" % [ status.getServersSize() ])
+            for server in status.getServers()
+              sl = status.getLoad(server)
+              rSinkString   = "       SINK  :"
+              rSourceString = "       SOURCE:"
+              rLoadSink = sl.getReplicationLoadSink()
+              rSinkString << " AgeOfLastAppliedOp=" + rLoadSink.getAgeOfLastAppliedOp().to_s
+              rSinkString << ", TimeStampsOfLastAppliedOp=" + 
+  			    (java.util.Date.new(rLoadSink.getTimeStampsOfLastAppliedOp())).toString()
+              rLoadSourceList = sl.getReplicationLoadSourceList()
+              index = 0
+              while index < rLoadSourceList.size()
+                rLoadSource = rLoadSourceList.get(index)
+                rSourceString << " PeerID=" + rLoadSource.getPeerID()
+                rSourceString << ", AgeOfLastShippedOp=" + rLoadSource.getAgeOfLastShippedOp().to_s
+                rSourceString << ", SizeOfLogQueue=" + rLoadSource.getSizeOfLogQueue().to_s
+                rSourceString << ", TimeStampsOfLastShippedOp=" + 
+  			      (java.util.Date.new(rLoadSource.getTimeStampOfLastShippedOp())).toString()
+                rSourceString << ", Replication Lag=" + rLoadSource.getReplicationLag().to_s
+                index = index + 1
+              end
+              puts("    %s:" %
+              [ server.getHostname() ])
+              if type.casecmp("SOURCE") == 0
+                puts("%s" % rSourceString)
+              elsif type.casecmp("SINK") == 0
+                puts("%s" % rSinkString)
+              else
+                puts("%s" % rSourceString)
+                puts("%s" % rSinkString)
+              end
+            end
+          end
+        elsif format == "simple"
+          load = 0
+          regions = 0
+          puts("%d live servers" % [ status.getServersSize() ])
+          for server in status.getServers()
+            puts("    %s:%d %d" % \
+              [ server.getHostname(), server.getPort(), server.getStartcode() ])
+            puts("        %s" % [ status.getLoad(server).toString() ])
+            load += status.getLoad(server).getNumberOfRequests()
+            regions += status.getLoad(server).getNumberOfRegions()
+          end
+          puts("%d dead servers" % [ status.getDeadServers() ])
+          for server in status.getDeadServerNames()
+            puts("    %s" % [ server ])
+          end
+          puts("Aggregate load: %d, regions: %d" % [ load , regions ] )
+        else
+          puts "#{status.getServersSize} servers, #{status.getDeadServers} dead, #{'%.4f' % status.getAverageLoad} average load"
         end
-      elsif format == "simple"
-        load = 0
-        regions = 0
-        puts("%d live servers" % [ status.getServersSize() ])
-        for server in status.getServers()
-          puts("    %s:%d %d" % \
-            [ server.getHostname(), server.getPort(), server.getStartcode() ])
-          puts("        %s" % [ status.getLoad(server).toString() ])
-          load += status.getLoad(server).getNumberOfRequests()
-          regions += status.getLoad(server).getNumberOfRegions()
-        end
-        puts("%d dead servers" % [ status.getDeadServers() ])
-        for server in status.getDeadServerNames()
-          puts("    %s" % [ server ])
-        end
-        puts("Aggregate load: %d, regions: %d" % [ load , regions ] )
       else
-        puts "#{status.getServersSize} servers, #{status.getDeadServers} dead, #{'%.4f' % status.getAverageLoad} average load"
+        $stderr.puts "Unable to connect to HBase services, HBase status is unavailable"
       end
     end
 
@@ -772,12 +776,45 @@ module Hbase
       end
       if arg.include?(org.apache.hadoop.hbase.HColumnDescriptor::COMPRESSION)
         compression = arg.delete(org.apache.hadoop.hbase.HColumnDescriptor::COMPRESSION).upcase
-        unless org.apache.hadoop.hbase.io.compress.Compression::Algorithm.constants.include?(compression)
-          raise(ArgumentError, "Compression #{compression} is not supported. Use one of " + org.apache.hadoop.hbase.io.compress.Compression::Algorithm.constants.join(" "))
+        if is_mapr_table?(htd.getNameAsString())
+          # Keeping SNAPPY to be backward compatible
+          if (compression == 'SNAPPY')
+            puts "SNAPPY is treated as LZ4"
+            compression = 'LZ4'
+          end
+          incl = com.mapr.fs.hbase.SchemaHelper::Compression.constants.include?(compression)
         else
+          incl = org.apache.hadoop.hbase.io.compress.Compression::Algorithm.constants.include?(compression)
+        end
+        unless incl
+          if is_mapr_table?(htd.getNameAsString())
+            raise(ArgumentError, "Compression #{compression} is not supported for MapRDB tables. Use one of " + com.mapr.fs.hbase.SchemaHelper::Compression.constants.join(" ") + ".")
+          else
+            raise(ArgumentError, "Compression #{compression} is not supported. Use one of " + org.apache.hadoop.hbase.io.compress.Compression::Algorithm.constants.join(" ") + ".")
+          end
+        else
+          # Match the compression to hbase version (same is done in java code)
+          # Better way to do this??
+          if (compression == 'LZF')
+            puts "LZF is treated as LZ4"
+            compression = 'LZ4'
+          end
+          if (compression == 'ZLIB')
+            puts "ZLIB is treated as GZ"
+            compression = 'GZ'
+          end
+          if (compression == 'LZO')
+            puts "LZO is treated as LZ4"
+            compression = 'LZ4'
+          end
+          if (compression == 'OFF')
+            puts "OFF is treated as NONE"
+            compression = 'NONE'
+          end
           family.setCompressionType(org.apache.hadoop.hbase.io.compress.Compression::Algorithm.valueOf(compression))
         end
       end
+
       if arg.include?(org.apache.hadoop.hbase.HColumnDescriptor::ENCRYPTION)
         algorithm = arg.delete(org.apache.hadoop.hbase.HColumnDescriptor::ENCRYPTION).upcase
         family.setEncryptionType(algorithm)

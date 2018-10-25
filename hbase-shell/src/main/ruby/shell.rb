@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+require 'rbconfig'
+
 # Shell commands module
 module Shell
   @@commands = {}
@@ -71,6 +73,7 @@ module Shell
   class Shell
     attr_accessor :hbase
     attr_accessor :formatter
+    attr_accessor :usecolor
 
     @debug = false
     attr_accessor :debug
@@ -78,14 +81,18 @@ module Shell
     def initialize(hbase, formatter)
       self.hbase = hbase
       self.formatter = formatter
+      begin
+        self.usecolor = RbConfig::CONFIG['host_os'] =~ /linux|mac|cygwin|mingw32/i
+      rescue
+      end 
     end
 
     def hbase_admin
       @hbase_admin ||= hbase.admin(formatter)
     end
 
-    def m7_admin
-      @m7_admin ||= hbase.m7admin(formatter)
+    def mapr_admin
+      @mapr_admin ||= hbase.mapr_admin(self, formatter)
     end
 
     def hbase_table(name)
@@ -147,6 +154,11 @@ module Shell
       print 'Version '
       command('version')
       puts
+      if mapr_admin.m7_available?
+        puts "Not all HBase shell commands are applicable to MapR tables."
+        puts "Consult MapR documentation for the list of supported commands."
+        puts
+      end
     end
 
     def help_multi_command(command)
@@ -396,6 +408,8 @@ Shell.load_command_group(
     grant
     revoke
     user_permission
+    set_perm
+    list_perm
   ]
 )
 

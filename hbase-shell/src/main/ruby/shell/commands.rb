@@ -23,6 +23,13 @@ module Shell
 
       def initialize(shell)
         @shell = shell
+        if shell.usecolor
+          @ansi_red = "\e[31m"
+          @ansi_reset = "\e[0m"
+        else
+          @ansi_red = ""
+          @ansi_reset = ""
+        end
       end
 
       #wrap an execution of cmd to catch hbase exceptions
@@ -38,7 +45,7 @@ module Shell
           rootCause = rootCause.cause
         end
         puts
-        puts "ERROR: #{rootCause}"
+        puts "#{@ansi_red}ERROR: #{rootCause}#{@ansi_reset}"
         puts "Backtrace: #{rootCause.backtrace.join("\n           ")}" if debug
         puts
         puts "Here is some help for this command:"
@@ -50,8 +57,8 @@ module Shell
         @shell.hbase_admin
       end
 
-      def m7admin
-        shell.m7_admin
+      def mapr_admin
+        @shell.mapr_admin
       end
 
       def table(name)
