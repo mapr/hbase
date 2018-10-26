@@ -20,6 +20,8 @@ package org.apache.hadoop.hbase;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
@@ -218,6 +220,19 @@ public class HBaseConfiguration extends Configuration {
    * http services. e.g. "curl http://master:16010/dump"
    */
   public static void main(String[] args) throws Exception {
-    HBaseConfiguration.create().writeXml(System.out);
+    Configuration conf = HBaseConfiguration.create();
+    if (args == null || args.length == 0) {
+      conf.writeXml(System.out);
+    } else if ("classpath".equals(args[0])) {
+      System.out.println(System.getProperty("java.class.path"));
+    } else if ("classurls".equals(args[0])) {
+      URLClassLoader classloader = (URLClassLoader)conf.getClassLoader();
+      for (URL url : classloader.getURLs()) {
+        System.out.println(url);
+      }
+    } else {
+      URL url = conf.getClassLoader().getResource(args[0]);
+      System.out.println(args[0] +" found at: " + url);
+    }
   }
 }
