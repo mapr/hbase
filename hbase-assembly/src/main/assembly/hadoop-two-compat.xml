@@ -30,7 +30,13 @@
   </componentDescriptors>
   <moduleSets>
     <moduleSet>
+      <!-- Enable access to all projects in the current multimodule build. Eclipse
+        says this is an error, but builds from the command line just fine. -->
+
       <useAllReactorProjects>true</useAllReactorProjects>
+      <!-- Without the following line, the native client dependencies will get
+        packaged with the other HBase jars -->
+
       <includes>
         <include>org.apache.hbase:hbase-annotations</include>
         <include>org.apache.hbase:hbase-client</include>
@@ -47,6 +53,7 @@
         <include>org.apache.hbase:hbase-shell</include>
         <include>org.apache.hbase:hbase-thrift</include>
       </includes>
+
       <!-- Binaries for the dependencies also go in the hbase-jars directory -->
       <binaries>
         <outputDirectory>lib</outputDirectory>
@@ -56,6 +63,7 @@
             <excludes>
               <exclude>org.slf4j:slf4j-api</exclude>
               <exclude>org.slf4j:slf4j-log4j12</exclude>
+              <exclude>org.apache.hbase:hbase-native-client</exclude>
               <exclude>org.apache.hadoop:hadoop-annotations</exclude>
               <exclude>org.apache.hadoop:hadoop-auth</exclude>
               <exclude>org.apache.hadoop:hadoop-client</exclude>

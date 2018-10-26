@@ -39,9 +39,10 @@ cd ${HBASE_TP_DIR}
 
 if [ ! -d ${HBASE_GTEST_DIR} ]; then
   echo "Fetching gtest"
-  wget -c http://googletest.googlecode.com/files/gtest-${HBASE_GTEST_VERSION}.zip
-  unzip gtest-${HBASE_GTEST_VERSION}.zip
-  rm gtest-${HBASE_GTEST_VERSION}.zip
+  wget -c https://github.com/google/googletest/archive/release-${HBASE_GTEST_VERSION}.zip
+  unzip release-${HBASE_GTEST_VERSION}.zip
+  rm release-${HBASE_GTEST_VERSION}.zip
+  mv googletest-release-${HBASE_GTEST_VERSION} gtest-${HBASE_GTEST_VERSION}
 fi
 
 if [ ! -d ${HBASE_PROTOBUF_DIR} ]; then

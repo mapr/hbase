@@ -44,3 +44,13 @@ This product includes portions of the Guava project v14, specifically
 Copyright (C) 2007 The Guava Authors
 
 Licensed under the Apache License, Version 2.0
+
+--
+this product includes portions of the AsyncHBase project.
+AsyncHBase (https://github.com/OpenTSDB/asynchbase) is a fully asynchronous,
+non-blocking, thread-safe, high-performance HBase client.
+
+--
+this product use Gradle project.
+Gradle (http://www.gradle.org/) is used to build the native HBase client
+under ASL v2.0. See http://www.gradle.org/license.
