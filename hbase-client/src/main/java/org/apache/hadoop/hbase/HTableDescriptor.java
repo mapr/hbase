@@ -53,6 +53,7 @@ import org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema;
 import org.apache.hadoop.hbase.regionserver.BloomType;
 import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.MapRUtil;
 import org.apache.hadoop.hbase.util.Writables;
 import org.apache.hadoop.io.WritableComparable;
 
@@ -724,7 +725,7 @@ public class HTableDescriptor implements WritableComparable<HTableDescriptor> {
 
   @Deprecated
   public HTableDescriptor setName(TableName name) {
-    this.name = name;
+    this.name = MapRUtil.adjustTableName(name);
     setMetaFlags(this.name);
     return this;
   }

@@ -31,7 +31,7 @@ class UnmodifyableHRegionInfo extends HRegionInfo {
    *
    * @param info
    */
-  UnmodifyableHRegionInfo(HRegionInfo info) {
+  public UnmodifyableHRegionInfo(HRegionInfo info) {
     super(info);
   }
 

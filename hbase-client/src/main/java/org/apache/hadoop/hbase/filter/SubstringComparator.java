@@ -108,4 +108,7 @@ public class SubstringComparator extends ByteArrayComparable {
       && this.substr.equals(comparator.substr);
   }
 
+  public String getSubstr() {
+    return substr;
+  }
 }

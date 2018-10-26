@@ -107,6 +107,7 @@ public final class TableName implements Comparable<TableName> {
   private final String namespaceAsString;
   private final byte[] qualifier;
   private final String qualifierAsString;
+  private final String aliasAsString;
   private final boolean systemTable;
   private final int hashCode;
 
@@ -262,6 +263,10 @@ public final class TableName implements Comparable<TableName> {
     return qualifierAsString;
   }
 
+  public String getAliasAsString() {
+    return aliasAsString;
+  }
+
   public byte[] toBytes() {
     return name;
   }
@@ -280,6 +285,10 @@ public final class TableName implements Comparable<TableName> {
    * @throws IllegalArgumentException See {@link #valueOf(byte[])}
    */
   private TableName(ByteBuffer namespace, ByteBuffer qualifier) throws IllegalArgumentException {
+    this(namespace, qualifier, null);
+  }
+
+  private TableName(ByteBuffer namespace, ByteBuffer qualifier, String aliasAsString) throws IllegalArgumentException {
     this.qualifier = new byte[qualifier.remaining()];
     qualifier.duplicate().get(this.qualifier);
     this.qualifierAsString = Bytes.toString(this.qualifier);
@@ -316,10 +325,16 @@ public final class TableName implements Comparable<TableName> {
       this.name = Bytes.toBytes(nameAsString);
     }
 
+    if (aliasAsString == null) {
+      this.aliasAsString = this.nameAsString;
+    } else {
+      this.aliasAsString = aliasAsString;
+    }
+
     this.hashCode = nameAsString.hashCode();
 
     isLegalNamespaceName(this.namespace);
-    isLegalTableQualifierName(this.qualifier);
+    //isLegalTableQualifierName(this.qualifier);
   }
 
   /**
@@ -337,6 +352,8 @@ public final class TableName implements Comparable<TableName> {
     // This is by design.
     this.nameAsString = namespaceAsString + NAMESPACE_DELIM + qualifierAsString;
     this.name = this.qualifier;
+
+    this.aliasAsString = this.nameAsString;
 
     this.hashCode = nameAsString.hashCode();
   }
@@ -423,6 +440,24 @@ public final class TableName implements Comparable<TableName> {
           ByteBuffer.wrap(fullName, 0, namespaceDelimIndex),
           ByteBuffer.wrap(fullName, namespaceDelimIndex + 1,
               fullName.length - (namespaceDelimIndex + 1)));
+    }
+  }
+
+  public static TableName valueOfWithAlias(String fullName, String alias) throws IllegalArgumentException{
+    int namespaceDelimIndex = fullName.indexOf(NAMESPACE_DELIM);
+    byte[] fullNameBytes = Bytes.toBytes(fullName);
+
+    if (namespaceDelimIndex < 0) {
+      return new TableName(
+          ByteBuffer.wrap(NamespaceDescriptor.DEFAULT_NAMESPACE_NAME),
+          ByteBuffer.wrap(fullNameBytes),
+          alias);
+    } else {
+      return new TableName(
+          ByteBuffer.wrap(fullNameBytes, 0, namespaceDelimIndex),
+          ByteBuffer.wrap(fullNameBytes, namespaceDelimIndex + 1,
+              fullNameBytes.length - (namespaceDelimIndex + 1)),
+          alias);
     }
   }
 

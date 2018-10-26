@@ -211,6 +211,14 @@ public class RegexStringComparator extends ByteArrayComparable {
       && engine.getCharset().equals(comparator.getEngine().getCharset());
   }
 
+  public String getCharset() {
+    return engine.getCharset();
+  }
+
+  public String getPattern() {
+    return engine.getPattern();
+  }
+
   Engine getEngine() {
     return engine;
   }
@@ -420,4 +428,5 @@ public class RegexStringComparator extends ByteArrayComparable {
       }
     }
   }
+
 }

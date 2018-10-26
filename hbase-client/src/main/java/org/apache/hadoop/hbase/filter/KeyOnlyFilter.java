@@ -124,4 +124,8 @@ public class KeyOnlyFilter extends FilterBase {
     KeyOnlyFilter other = (KeyOnlyFilter)o;
     return this.lenAsVal == other.lenAsVal;
   }
+
+  public boolean isLenAsVal() {
+    return lenAsVal;
+  }
 }

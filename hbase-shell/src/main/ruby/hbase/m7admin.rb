@@ -1,4 +1,5 @@
 #
+# Copyright 2010 The Apache Software Foundation
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,21 +18,27 @@
 # limitations under the License.
 #
 
-module Shell
-  module Commands
-    class Drop < Command
-      def help
-        return <<-EOF
-Drop the named table. Table must first be disabled:
-  hbase> drop '/tables/t1'
-EOF
-      end
+include Java
 
-      def command(table)
-        format_simple_command do
-          admin.drop(table)
-        end
+module Hbase
+  class M7Admin
+    include HBaseConstants
+
+    def initialize(configuration, formatter)
+      @formatter = formatter
+      begin
+        @mapping_rules = com.mapr.fs.MapRTableMappingRules.new(configuration)
+      rescue NameError
+        @mapping_rules = nil
       end
+    end
+
+    def is_m7_default?()
+      @mapping_rules != nil && @mapping_rules.isMapRDefault
+    end
+
+    def m7_available?()
+      @mapping_rules != nil
     end
   end
 end

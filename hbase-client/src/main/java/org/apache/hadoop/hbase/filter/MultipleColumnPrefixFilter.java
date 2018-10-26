@@ -204,4 +204,8 @@ public class MultipleColumnPrefixFilter extends FilterBase {
     return String.format("%s (%d/%d): [%s]", this.getClass().getSimpleName(),
         count, this.sortedPrefixes.size(), prefixes.toString());
   }
+
+  public TreeSet<byte[]> getSortedPrefixes() {
+    return sortedPrefixes;
+  }
 }

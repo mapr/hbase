@@ -36,6 +36,23 @@ module Hbase
       @admin = admin
       @connection = @admin.getConnection()
       @formatter = formatter
+      @zk_wrapper = nil
+    end
+   
+    def zkInit()
+      if @zk_wrapper == nil
+        connection = @admin.getConnection()
+        if connection != nil
+          @zk_wrapper = org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher.new(
+           @admin.getConfiguration(),
+           "admin",
+            nil)
+          zk = @zk_wrapper.getRecoverableZooKeeper().getZooKeeper()
+          @zk_main = org.apache.zookeeper.ZooKeeperMain.new(zk)
+          return true
+        end
+      end
+      return false
     end
 
     def close
@@ -204,13 +221,11 @@ module Hbase
     #----------------------------------------------------------------------------------------------
     # Returns ZooKeeper status dump
     def zk_dump
-      @zk_wrapper = org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher.new(
-        @admin.getConfiguration(),
-       "admin",
-        nil)
-      zk = @zk_wrapper.getRecoverableZooKeeper().getZooKeeper()
-      @zk_main = org.apache.zookeeper.ZooKeeperMain.new(zk)
-      org.apache.hadoop.hbase.zookeeper.ZKUtil::dump(@zk_wrapper)
+      if zkInit
+        org.apache.hadoop.hbase.zookeeper.ZKUtil::dump(@zk_wrapper)
+      else
+        puts "Could not connect to HBase service"
+      end
     end
 
     #----------------------------------------------------------------------------------------------
@@ -700,6 +715,10 @@ module Hbase
     #
     # Helper methods
     #
+
+    def isMasterRunning
+      @admin.isMasterRunning
+    end
 
     # Does table exist?
     def exists?(table_name)

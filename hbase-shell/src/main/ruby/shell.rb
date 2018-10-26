@@ -84,6 +84,10 @@ module Shell
       @hbase_admin ||= hbase.admin(formatter)
     end
 
+    def m7_admin
+      @m7_admin ||= hbase.m7admin(formatter)
+    end
+
     def hbase_table(name)
       hbase.table(name, self)
     end

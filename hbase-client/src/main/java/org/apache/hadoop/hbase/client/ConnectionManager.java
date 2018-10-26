@@ -694,6 +694,10 @@ class ConnectionManager {
       this.backoffPolicy = ClientBackoffPolicyFactory.create(conf);
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public HTableInterface getTable(String tableName) throws IOException {
       return getTable(TableName.valueOf(tableName));

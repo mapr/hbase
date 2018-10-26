@@ -78,6 +78,7 @@ import org.apache.hadoop.hbase.client.MetaScanner.MetaScannerVisitor;
 import org.apache.hadoop.hbase.client.MetaScanner.MetaScannerVisitorBase;
 import org.apache.hadoop.hbase.client.RegionReplicaUtil;
 import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
 import org.apache.hadoop.hbase.coprocessor.CoprocessorHost;
 import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.executor.ExecutorType;
@@ -396,6 +397,10 @@ public class HMaster extends HRegionServer implements MasterServices, Server {
   public HMaster(final Configuration conf, CoordinatedStateManager csm)
       throws IOException, KeeperException, InterruptedException {
     super(conf, csm);
+
+    // Inform mapping rules that we are in HBase master/regionserver service
+    BaseTableMappingRules.setInHBaseService();
+
     this.rsFatals = new MemoryBoundedLogMessageBuffer(
       conf.getLong("hbase.master.buffer.for.rs.fatals", 1*1024*1024));
 

@@ -278,11 +278,6 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
    */
   private final Map<String, String> configuration = new HashMap<String, String>();
 
-  /*
-   * Cache the max versions rather than calculate it every time.
-   */
-  private int cachedMaxVersions = UNINITIALIZED;
-
   /**
    * Default constructor.
    * @deprecated As of release 0.96
@@ -318,7 +313,8 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
   public HColumnDescriptor(final byte [] familyName) {
     this (familyName == null || familyName.length <= 0?
       HConstants.EMPTY_BYTE_ARRAY: familyName, DEFAULT_VERSIONS,
-      DEFAULT_COMPRESSION, DEFAULT_IN_MEMORY, DEFAULT_BLOCKCACHE,
+      // GooseBump: if not specified, compression should inherit from parent
+      null, DEFAULT_IN_MEMORY, DEFAULT_BLOCKCACHE,
       DEFAULT_TTL, DEFAULT_BLOOMFILTER);
   }
 
@@ -473,8 +469,11 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
     setInMemory(inMemory);
     setBlockCacheEnabled(blockCacheEnabled);
     setTimeToLive(timeToLive);
-    setCompressionType(Compression.Algorithm.
-      valueOf(compression.toUpperCase()));
+    // GooseBump: if not specified, compression should inherit from parent
+    if (compression != null) {
+      setCompressionType(Compression.Algorithm.
+          valueOf(compression.toUpperCase()));
+    }
     setDataBlockEncoding(DataBlockEncoding.
         valueOf(dataBlockEncoding.toUpperCase()));
     setBloomFilterType(BloomType.
@@ -612,11 +611,8 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
 
   /** @return maximum number of versions */
   public int getMaxVersions() {
-    if (this.cachedMaxVersions == UNINITIALIZED) {
-      String v = getValue(HConstants.VERSIONS);
-      this.cachedMaxVersions = Integer.parseInt(v);
-    }
-    return this.cachedMaxVersions;
+    String value = getValue(HConstants.VERSIONS);
+    return (value != null)? Integer.valueOf(value).intValue(): 0;
   }
 
   /**
@@ -635,7 +631,6 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
             + ". Maximum versions must be >= minimum versions ");
     }
     setValue(HConstants.VERSIONS, Integer.toString(maxVersions));
-    cachedMaxVersions = maxVersions;
     return this;
   }
 
@@ -1311,9 +1306,6 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
         // Convert old values.
         setValue(COMPRESSION, Compression.Algorithm.NONE.getName());
       }
-      String value = getValue(HConstants.VERSIONS);
-      this.cachedMaxVersions = (value != null)?
-          Integer.valueOf(value).intValue(): DEFAULT_VERSIONS;
       if (version > 10) {
         configuration.clear();
         int numConfigs = in.readInt();
@@ -1514,6 +1506,27 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
         String.format("Min versions (%d) can not be greater than Max versions (%d).",
           getMinVersions(), getMaxVersions()));
     }
+  }
+
+  /**
+   * MapR extension
+   *
+   * @param key The key.
+   * @param value The value.
+   */
+  public HColumnDescriptor setValueBool(String key, boolean value) {
+    setValue(key, Boolean.toString(value));
+    return this;
+  }
+
+  public HColumnDescriptor setValueInt(String key, int value) {
+    setValue(key, Integer.toString(value));
+    return this;
+  }
+
+  public HColumnDescriptor setValueStr(String key, String value) {
+    setValue(key, value);
+    return this;
   }
 
 }
