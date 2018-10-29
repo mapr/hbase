@@ -23,12 +23,12 @@
     <parent>
         <artifactId>hbase</artifactId>
         <groupId>org.apache.hbase</groupId>
-        <version>1.1.13</version>
+        <version>1.1.13-mapr-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <artifactId>hbase-hadoop-compat</artifactId>
-    <name>Apache HBase - Hadoop Compatibility</name>
+    <name>HBase - Hadoop Compatibility</name>
     <description>
         Interfaces to be implemented in order to smooth
         over hadoop version differences

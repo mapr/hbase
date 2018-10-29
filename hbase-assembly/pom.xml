@@ -23,11 +23,11 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-assembly</artifactId>
-  <name>Apache HBase - Assembly</name>
+  <name>HBase - Assembly</name>
   <description>
         Module that does project assembly and that is all that it does.
     </description>

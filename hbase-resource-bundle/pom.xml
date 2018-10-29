@@ -23,12 +23,12 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-resource-bundle</artifactId>
-  <name>Apache HBase - Resource Bundle</name>
+  <name>HBase - Resource Bundle</name>
   <description>licensing info for use when bundling works</description>
 
   <properties>

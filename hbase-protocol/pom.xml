@@ -23,12 +23,12 @@
     <parent>
         <artifactId>hbase</artifactId>
         <groupId>org.apache.hbase</groupId>
-        <version>1.1.13</version>
+        <version>1.1.13-mapr-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <artifactId>hbase-protocol</artifactId>
-    <name>Apache HBase - Protocol</name>
+    <name>HBase - Protocol</name>
     <description>Protobuf protocol classes used by HBase to communicate.</description>
 
     <properties>

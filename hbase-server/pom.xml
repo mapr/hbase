@@ -23,11 +23,11 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-server</artifactId>
-  <name>Apache HBase - Server</name>
+  <name>HBase - Server</name>
   <description>Main functionality for HBase</description>
   <properties>
     <test.build.webapps>target/test-classes/webapps</test.build.webapps>
@@ -725,6 +725,12 @@
         <dependency>
           <groupId>org.apache.hadoop</groupId>
           <artifactId>hadoop-common</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>xerces</groupId>
+              <artifactId>xercesImpl</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.apache.hadoop</groupId>

@@ -16,7 +16,7 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>../..</relativePath>
   </parent>
   <artifactId>hbase-shaded-check-invariants</artifactId>
@@ -28,7 +28,7 @@
   classes that are in particular packages. Does the enforcement through
   the maven-enforcer-plugin and and integration test.
   </description>
-  <name>Apache HBase Shaded Packaging Invariants</name>
+  <name>HBase Shaded Packaging Invariants</name>
 
   <properties>
   </properties>

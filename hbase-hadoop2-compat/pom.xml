@@ -21,12 +21,12 @@ limitations under the License.
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-hadoop2-compat</artifactId>
-  <name>Apache HBase - Hadoop Two Compatibility</name>
+  <name>HBase - Hadoop Two Compatibility</name>
   <description>
         Interfaces to be implemented in order to smooth
         over hadoop version differences
@@ -180,6 +180,12 @@ limitations under the License.
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-common</artifactId>
       <version>${hadoop-two.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.yammer.metrics</groupId>

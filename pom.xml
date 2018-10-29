@@ -39,8 +39,8 @@
   <groupId>org.apache.hbase</groupId>
   <artifactId>hbase</artifactId>
   <packaging>pom</packaging>
-  <version>1.1.13</version>
-  <name>Apache HBase</name>
+  <version>1.1.13-mapr-SNAPSHOT</version>
+  <name>HBase</name>
   <description>
     Apache HBase is the Hadoop database. Use it when you need
     random, realtime read/write access to your Big Data.
@@ -88,11 +88,6 @@
       <url>http://repository.apache.org/snapshots/</url>
     </pluginRepository>
   </pluginRepositories>
-  <scm>
-    <connection>scm:git:git://git.apache.org/hbase.git</connection>
-    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/hbase.git</developerConnection>
-    <url>https://git-wip-us.apache.org/repos/asf?p=hbase.git</url>
-  </scm>
   <issueManagement>
     <system>JIRA</system>
     <url>http://issues.apache.org/jira/browse/HBASE</url>
@@ -427,6 +422,12 @@
   </developers>
   <repositories>
     <repository>
+      <id>mapr release</id>
+      <url>http://repository.mapr.com/maven/</url>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+    </repository>
+    <repository>
       <id>apache release</id>
       <url>https://repository.apache.org/content/repositories/releases/</url>
     </repository>
@@ -602,6 +603,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
+          <version>2.2.1</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -616,6 +618,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
+          <version>2.4</version>
           <executions>
             <execution>
               <phase>prepare-package</phase>
@@ -837,6 +840,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.3.1</version>
         <dependencies>
           <dependency>
             <groupId>org.codehaus.mojo</groupId>
@@ -1231,11 +1235,24 @@
     <!-- Build dependencies -->
     <maven.min.version>3.0.3</maven.min.version>
     <java.min.version>${compileSource}</java.min.version>
+
+    <!-- MapR specific properties -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- This should be set to the Apache Github tag this release is based upon -->
+    <apache.git.tag>1.1.13</apache.git.tag>
+
     <!-- Dependencies -->
-    <hadoop-two.version>2.5.1</hadoop-two.version>
+    <!-- Latest versions of Hadoop distributed with MapR -->
+    <mapr.release.version>6.1.0-mapr</mapr.release.version>
+    <mapr.hadoop-two.version>4.1.0-mapr</mapr.hadoop-two.version>
+    <hadoop-two.version>2.7.0-mapr-1808</hadoop-two.version>
+
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
-    <hadoop-three.version>3.0.0-SNAPSHOT</hadoop-three.version>
+    <hadoop-three.version>2.7.0-mapr-1808</hadoop-three.version>
+
     <!-- These must be defined here for downstream build tools that don't look at profiles.
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
@@ -1273,8 +1290,8 @@
     <protobuf.version>2.5.0</protobuf.version>
     <thrift.path>thrift</thrift.path>
     <thrift.version>0.9.0</thrift.version>
-    <zookeeper.version>3.4.6</zookeeper.version>
-    <slf4j.version>1.7.7</slf4j.version>
+    <zookeeper.version>3.4.11-mapr-1808</zookeeper.version>
+    <slf4j.version>1.7.5</slf4j.version>
     <hadoop-snappy.version>0.0.1-SNAPSHOT</hadoop-snappy.version>
     <clover.version>4.0.3</clover.version>
     <jamon-runtime.version>2.3.1</jamon-runtime.version>

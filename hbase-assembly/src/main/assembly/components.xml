@@ -138,5 +138,11 @@
       </includes>
       <fileMode>0644</fileMode>
     </fileSet>
+    <fileSet>
+      <directory>target/mapr-patches</directory>
+      <outputDirectory>mapr-patches</outputDirectory>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
+    </fileSet>
   </fileSets>
 </component>

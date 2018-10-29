@@ -23,12 +23,12 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.1.13</version>
+    <version>1.1.13-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-client</artifactId>
-  <name>Apache HBase - Client</name>
+  <name>HBase - Client</name>
   <description>Client of HBase</description>
 
   <build>
@@ -292,6 +292,10 @@
             <exclusion>
               <groupId>tomcat</groupId>
               <artifactId>jasper-runtime</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>xerces</groupId>
+              <artifactId>xercesImpl</artifactId>
             </exclusion>
           </exclusions>
         </dependency>
