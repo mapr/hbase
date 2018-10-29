@@ -26,54 +26,14 @@ import com.google.common.annotations.VisibleForTesting;
  * see HBASE-12128
  */
 @InterfaceAudience.Private
-public class ConnectionConfiguration {
-
-  public static final String WRITE_BUFFER_SIZE_KEY = "hbase.client.write.buffer";
-  public static final long WRITE_BUFFER_SIZE_DEFAULT = 2097152;
-  public static final String MAX_KEYVALUE_SIZE_KEY = "hbase.client.keyvalue.maxsize";
-  public static final int MAX_KEYVALUE_SIZE_DEFAULT = -1;
-
-  private final long writeBufferSize;
-  private final int metaOperationTimeout;
-  private final int operationTimeout;
-  private final int scannerCaching;
-  private final long scannerMaxResultSize;
-  private final int primaryCallTimeoutMicroSecond;
-  private final int replicaCallTimeoutMicroSecondScan;
-  private final int retries;
-  private final int maxKeyValueSize;
+public class ConnectionConfiguration extends TableConfiguration{
 
   /**
    * Constructor
    * @param conf Configuration object
    */
   ConnectionConfiguration(Configuration conf) {
-    this.writeBufferSize = conf.getLong(WRITE_BUFFER_SIZE_KEY, WRITE_BUFFER_SIZE_DEFAULT);
-
-    this.metaOperationTimeout = conf.getInt(
-      HConstants.HBASE_CLIENT_META_OPERATION_TIMEOUT,
-      HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT);
-
-    this.operationTimeout = conf.getInt(
-      HConstants.HBASE_CLIENT_OPERATION_TIMEOUT, HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT);
-
-    this.scannerCaching = conf.getInt(
-      HConstants.HBASE_CLIENT_SCANNER_CACHING, HConstants.DEFAULT_HBASE_CLIENT_SCANNER_CACHING);
-
-    this.scannerMaxResultSize =
-        conf.getLong(HConstants.HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY,
-          HConstants.DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE);
-
-    this.primaryCallTimeoutMicroSecond =
-        conf.getInt("hbase.client.primaryCallTimeout.get", 10000); // 10ms
-
-    this.replicaCallTimeoutMicroSecondScan =
-        conf.getInt("hbase.client.replicaCallTimeout.scan", 1000000); // 1000 ms
-
-    this.retries = conf.getInt(
-       HConstants.HBASE_CLIENT_RETRIES_NUMBER, HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER);
-
-    this.maxKeyValueSize = conf.getInt(MAX_KEYVALUE_SIZE_KEY, MAX_KEYVALUE_SIZE_DEFAULT);
+    super(conf);
   }
 
   /**
@@ -83,50 +43,6 @@ public class ConnectionConfiguration {
    */
   @VisibleForTesting
   protected ConnectionConfiguration() {
-    this.writeBufferSize = WRITE_BUFFER_SIZE_DEFAULT;
-    this.metaOperationTimeout = HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT;
-    this.operationTimeout = HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT;
-    this.scannerCaching = HConstants.DEFAULT_HBASE_CLIENT_SCANNER_CACHING;
-    this.scannerMaxResultSize = HConstants.DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE;
-    this.primaryCallTimeoutMicroSecond = 10000;
-    this.replicaCallTimeoutMicroSecondScan = 1000000;
-    this.retries = HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER;
-    this.maxKeyValueSize = MAX_KEYVALUE_SIZE_DEFAULT;
-  }
-
-  public long getWriteBufferSize() {
-    return writeBufferSize;
-  }
-
-  public int getMetaOperationTimeout() {
-    return metaOperationTimeout;
-  }
-
-  public int getOperationTimeout() {
-    return operationTimeout;
-  }
-
-  public int getScannerCaching() {
-    return scannerCaching;
-  }
-
-  public int getPrimaryCallTimeoutMicroSecond() {
-    return primaryCallTimeoutMicroSecond;
-  }
-
-  public int getReplicaCallTimeoutMicroSecondScan() {
-    return replicaCallTimeoutMicroSecondScan;
-  }
-
-  public int getRetriesNumber() {
-    return retries;
-  }
-
-  public int getMaxKeyValueSize() {
-    return maxKeyValueSize;
-  }
-
-  public long getScannerMaxResultSize() {
-    return scannerMaxResultSize;
+    super();
   }
 }

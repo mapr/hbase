@@ -215,6 +215,11 @@ public abstract class AbstractMapRClusterConnection implements ClusterConnection
   }
 
   @Override
+  public  void cacheLocation(final TableName tableName, final RegionLocations location) {
+    LOG.info("MaprConnection ignores the cacheLocation request of table " + tableName + " with location " + location);
+  }
+
+  @Override
   public HRegionLocation relocateRegion(TableName tableName, byte[] row)
       throws IOException {
       throw new UnsupportedOperationException(
