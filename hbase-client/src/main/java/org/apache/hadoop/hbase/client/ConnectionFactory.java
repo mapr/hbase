@@ -22,8 +22,17 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.GenericHFactory;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules.ClusterType;
+import org.apache.hadoop.hbase.client.mapr.AbstractHTable;
+import org.apache.hadoop.hbase.client.mapr.AbstractMapRClusterConnection;
+import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.security.User;
@@ -57,8 +66,18 @@ import org.apache.hadoop.hbase.security.UserProvider;
 @InterfaceAudience.Public
 @InterfaceStability.Evolving
 public class ConnectionFactory {
+  private static final Log LOG = LogFactory.getLog(ConnectionFactory.class);
 
-  /** No public c.tors */
+  public static final String DEFAULT_DB = "mapr.hbase.default.db";
+
+  public static final String MAPR_ENGINE = "mapr";
+  public static final String MAPR_ENGINE2 = "maprdb";
+  public static final String HBASE_ENGINE = "hbase";
+
+  private static final GenericHFactory<AbstractMapRClusterConnection> maprConnFactory_ =
+      new GenericHFactory<AbstractMapRClusterConnection>();
+
+   /** No public c.tors */
   protected ConnectionFactory() {
   }
 
@@ -218,9 +237,56 @@ public class ConnectionFactory {
     return createConnection(conf, false, pool, user);
   }
 
+  // If a connection created from here, it must be newer than Hbase 1.0. Any connection created newer than
+  // Hbase 1.0 must be either mapr or hbase, but not both.
   static Connection createConnection(final Configuration conf, final boolean managed,
       final ExecutorService pool, final User user)
   throws IOException {
+
+    boolean connAtCtor = conf.getBoolean(HBaseAdmin.HBASE_ADMIN_CONNECT_AT_CONSTRUCTION, false);
+    BaseTableMappingRules tableMappingRule = null;
+    if (BaseTableMappingRules.isInHBaseService()) {
+      tableMappingRule = BaseTableMappingRules.INSTANCE;
+    } else {
+      tableMappingRule = TableMappingRulesFactory.create(conf);
+
+      String defaultDb = conf.get(DEFAULT_DB, org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory.UNSETDB);
+
+      if (defaultDb.equalsIgnoreCase(MAPR_ENGINE) || defaultDb.equalsIgnoreCase(MAPR_ENGINE2)) {
+        tableMappingRule.setClusterType(ClusterType.MAPR_ONLY);
+      } else if (defaultDb.equalsIgnoreCase(HBASE_ENGINE)) {
+        tableMappingRule.setClusterType(ClusterType.HBASE_ONLY);
+      } else { //either not set, or something else which we do not understand
+
+        if (!tableMappingRule.isMapRClientInstalled()) {
+          LOG.info(DEFAULT_DB + " " + defaultDb + " is neither MapRDB or HBase, set HBASE_ONLY mode since mapr client is not installed.");
+          // mapr client is not installed, use hbase cluster connection
+          tableMappingRule.setClusterType(ClusterType.HBASE_ONLY);
+          connAtCtor = true;
+        } else {
+          LOG.info(DEFAULT_DB + " " + defaultDb + " is neither MapRDB or HBase, set HBASE_MAPR mode since mapr client is installed.");
+          // user does not tell which cluster to connect to, and mapr client is installed, will connect to mapr.
+          tableMappingRule.setClusterType(ClusterType.HBASE_MAPR);
+        }
+      }
+      LOG.info("ConnectionFactory receives " + DEFAULT_DB +"(" + defaultDb +"), set clusterType(" + tableMappingRule.getClusterType()
+             + "), hbase_admin_connect_at_construction(" + connAtCtor + ")");
+    }
+
+    if (tableMappingRule.getClusterType() == ClusterType.MAPR_ONLY) {
+      LOG.info("ConnectionFactory creates a maprdb connection!");
+      //set it to MAPR_ENGINE, so that tableMappingRule.isMapRDefault() will be true
+      conf.set("db.engine.default", MAPR_ENGINE);
+      return maprConnFactory_.getImplementorInstance(
+              conf.get("maprclusterconnection.impl.mapr", "com.mapr.fs.hbase.MapRClusterConnectionImpl"),
+              new Object[] {conf, managed, user, tableMappingRule},
+              new Class[] {Configuration.class, boolean.class, User.class, BaseTableMappingRules.class});
+    }
+
+    //set it to HBASE_ENGINE, so that tableMappingRule.isMapRDefault() will be false
+    LOG.info("ConnectionFactory creates a hbase connection!");
+    conf.setBoolean(HBaseAdmin.HBASE_ADMIN_CONNECT_AT_CONSTRUCTION, connAtCtor);
+    conf.set("db.engine.default", HBASE_ENGINE);
     String className = conf.get(HConnection.HBASE_CLIENT_CONNECTION_IMPL,
       ConnectionManager.HConnectionImplementation.class.getName());
     Class<?> clazz = null;

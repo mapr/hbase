@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HRegionInfo;
 import org.apache.hadoop.hbase.HRegionLocation;
@@ -24,11 +26,14 @@ import org.apache.hadoop.hbase.client.Row;
 import org.apache.hadoop.hbase.client.RowMutations;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.coprocessor.Batch;
+import org.apache.hadoop.hbase.client.coprocessor.Batch.Callback;
 import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
 import org.apache.hadoop.hbase.ipc.CoprocessorRpcChannel;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.Pair;
 
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.Message;
 import com.google.protobuf.Service;
 import com.google.protobuf.ServiceException;
 
@@ -36,6 +41,8 @@ import com.google.protobuf.ServiceException;
  * This class defines public methods implemented in {@link HTable} class
  */
 public abstract class AbstractHTable {
+
+  private final static Log LOG = LogFactory.getLog(AbstractHTable.class);
 
   public abstract void batch(List<? extends Row> actions, Object[] results)
       throws IOException, InterruptedException;
@@ -89,31 +96,6 @@ public abstract class AbstractHTable {
     /* NO-OP */
   }
 
-  public CoprocessorRpcChannel coprocessorService(byte[] row) {
-    return null;
-  }
-
-  public <T extends Service, R> Map<byte[], R> coprocessorService(final Class<T> service,
-      byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable)
-      throws ServiceException, Throwable {
-    return null;
-  }
-
-  public <T extends Service, R> void coprocessorService(final Class<T> service,
-      byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable,
-      final Batch.Callback<R> callback) throws ServiceException, Throwable {
-  }
-
-  public void clearRegionCache() {
-  }
-
-  public int getOperationTimeout() {
-    return 0;
-  }
-
-  public void setOperationTimeout(int operationTimeout) {
-  }
-
   public abstract byte[] getTableName();
 
   public abstract Configuration getConfiguration();
@@ -140,12 +122,24 @@ public abstract class AbstractHTable {
   public abstract boolean checkAndPut(byte[] row, byte[] family, 
       byte[] qualifier, byte[] value, Put put) throws IOException;
 
+  public boolean checkAndPut(byte [] row, byte [] family,
+      byte [] qualifier, CompareOp compareOp, byte [] value,
+      Put put) throws IOException {
+    throw new UnsupportedOperationException("checkAndDelete() is not supported for this version of MapR-DB tables.");
+  }
+
   public abstract void delete(Delete delete) throws IOException;
 
   public abstract void delete(List<Delete> deletes) throws IOException;
 
   public abstract boolean checkAndDelete(byte[] row, byte[] family,
       byte[] qualifier, byte[] value, Delete delete) throws IOException;
+
+  public boolean checkAndDelete(byte [] row, byte [] family,
+      byte [] qualifier, CompareOp compareOp, byte [] value,
+      Delete delete) throws IOException {
+    throw new UnsupportedOperationException("checkAndDelete() is not supported for this version of MapR-DB tables.");
+  }
 
   public abstract void mutateRow(RowMutations rm) throws IOException;
 
@@ -175,6 +169,53 @@ public abstract class AbstractHTable {
   public boolean checkAndMutate(byte[] row, byte[] family, byte[] qualifier,
       CompareOp compareOp, byte[] value, RowMutations rm) throws IOException {
     throw new UnsupportedOperationException("checkAndMutate() is not supported for this version of MapR-DB tables.");
+  }
+
+  /**
+   * <b>NO-OP for MapR Tables</b><p>
+   * Explicitly clears the region cache to fetch the latest value from META.
+   * This is a power user function: avoid unless you know the ramifications.
+   */
+  public void clearRegionCache() {
+    LOG.warn("clearRegionCache() called for a MapR Table, silently ignoring.");
+  }
+  /**
+   * <b>NO-OP for MapR Tables, returns <code>null</code>.</b><p>
+   * {@inheritDoc}
+   */
+  public CoprocessorRpcChannel coprocessorService(byte[] row) {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+
+  public <T extends Service, R> Map<byte[], R> coprocessorService(final Class<T> service,
+      byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable)
+      throws ServiceException, Throwable {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+
+  public <T extends Service, R> void coprocessorService(final Class<T> service,
+      byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable,
+      final Batch.Callback<R> callback) throws ServiceException, Throwable {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public <R extends Message> Map<byte[], R> batchCoprocessorService(
+      Descriptors.MethodDescriptor methodDescriptor, Message request,
+      byte[] startKey, byte[] endKey, R responsePrototype) throws ServiceException, Throwable {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public <R extends Message> void batchCoprocessorService(
+      final Descriptors.MethodDescriptor methodDescriptor, final Message request,
+      byte[] startKey, byte[] endKey, final R responsePrototype, final Callback<R> callback)
+      throws ServiceException, Throwable {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
   }
 
 }

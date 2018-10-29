@@ -38,7 +38,7 @@ module Hbase
       @formatter = formatter
       @zk_wrapper = nil
       begin
-        @mapping_rules = com.mapr.fs.hbase.MapRTableMappingRules.new(configuration)
+        @mapping_rules = com.mapr.fs.hbase.MapRTableMappingRules.new(admin.getConfiguration())
       rescue NameError => e
         @mapping_rules = nil
         return

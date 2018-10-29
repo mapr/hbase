@@ -202,6 +202,8 @@ public class TableMapReduceUtil {
       boolean addDependencyJars, boolean initCredentials,
       Class<? extends InputFormat> inputFormatClass)
   throws IOException {
+
+    configureConnectionType(job, table);
     job.setInputFormatClass(inputFormatClass);
     if (outputValueClass != null) job.setMapOutputValueClass(outputValueClass);
     if (outputKeyClass != null) job.setMapOutputKeyClass(outputKeyClass);
@@ -521,6 +523,25 @@ public class TableMapReduceUtil {
 
   public static String getMapRTablePath(final Configuration conf) {
     return conf.get(MAPR_TABLE_PATH_CONF_KEY);
+  }
+
+  public static void configureConnectionType(Job job, String tableName)
+  throws IOException {
+    Configuration conf = job.getConfiguration();
+
+    BaseTableMappingRules tableMappingRule =  TableMappingRulesFactory.create(conf);
+    String defaultdb = null;
+    if (tableMappingRule.isMapRTable(tableName)) {
+      defaultdb = "maprdb";
+    } else {
+      //only support mapr and hbase now.
+      defaultdb = "hbase";
+    }
+
+    conf.set(ConnectionFactory.DEFAULT_DB, defaultdb);
+    addDependencyJars(conf, tableMappingRule.getClass());
+    addDependencyJars(job);
+    LOG.info("Configured " + ConnectionFactory.DEFAULT_DB + " " + defaultdb);
   }
 
   public static void configureMapRTablePath(Job job, String tableName)

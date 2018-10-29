@@ -18,6 +18,8 @@
  */
 package org.apache.hadoop.hbase.mapreduce;
 
+import static org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory.UNSETDB;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -179,8 +181,12 @@ implements Configurable {
     // Do we have to worry about mis-matches between the Configuration from setConf and the one
     // in this context?
     TableName tableName = TableName.valueOf(conf.get(INPUT_TABLE));
+    Configuration connconf = new Configuration(conf);
+    connconf.set(ConnectionFactory.DEFAULT_DB, UNSETDB);
+    //TODO: Ask whether we should add an extra createConnection function which takes
+    //tableName as well, so that we can decide which connection to create.
     try {
-      initializeTable(ConnectionFactory.createConnection(new Configuration(conf)), tableName);
+      initializeTable(ConnectionFactory.createConnection(connconf), tableName);
     } catch (Exception e) {
       LOG.error(StringUtils.stringifyException(e));
     }

@@ -68,6 +68,7 @@ import org.apache.hadoop.hbase.client.MetaScanner.MetaScannerVisitorBase;
 import org.apache.hadoop.hbase.client.backoff.ClientBackoffPolicy;
 import org.apache.hadoop.hbase.client.backoff.ClientBackoffPolicyFactory;
 import org.apache.hadoop.hbase.client.coprocessor.Batch;
+import org.apache.hadoop.hbase.client.mapr.AbstractMapRClusterConnection;
 import org.apache.hadoop.hbase.exceptions.RegionMovedException;
 import org.apache.hadoop.hbase.exceptions.RegionOpeningException;
 import org.apache.hadoop.hbase.ipc.RpcClient;
@@ -289,11 +290,22 @@ class ConnectionManager {
     synchronized (CONNECTION_INSTANCES) {
       HConnectionImplementation connection = CONNECTION_INSTANCES.get(connectionKey);
       if (connection == null) {
-        connection = (HConnectionImplementation)createConnection(conf, true);
+        // For mapr connection, we do not cache them
+        HConnection hconn = createConnection(conf, true);
+        if (hconn instanceof AbstractMapRClusterConnection) {
+          return (ClusterConnection) hconn;
+        }
+        connection = (HConnectionImplementation)hconn;
         CONNECTION_INSTANCES.put(connectionKey, connection);
       } else if (connection.isClosed()) {
         ConnectionManager.deleteConnection(connectionKey, true);
-        connection = (HConnectionImplementation)createConnection(conf, true);
+
+        // For mapr connection, we do not cache them
+        HConnection hconn = createConnection(conf, true);
+        if (hconn instanceof AbstractMapRClusterConnection) {
+          return (ClusterConnection) hconn;
+        }
+        connection = (HConnectionImplementation)hconn;
         CONNECTION_INSTANCES.put(connectionKey, connection);
       }
       connection.incCount();
@@ -737,6 +749,7 @@ class ConnectionManager {
         throw new IllegalArgumentException("TableName cannot be null.");
       }
       if (params.getPool() == null) {
+        LOG.info("ConnectionManager get a newly created ThreadPool from HTable");
         params.pool(HTable.getDefaultExecutor(getConfiguration()));
       }
       if (params.getWriteBufferSize() == BufferedMutatorParams.UNSET) {

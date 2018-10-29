@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.NavigableMap;
 import java.util.Map.Entry;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HRegionInfo;
 import org.apache.hadoop.hbase.HRegionLocation;
@@ -32,6 +34,10 @@ import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
+import org.apache.hadoop.hbase.client.mapr.AbstractHTable;
+import org.apache.hadoop.hbase.client.mapr.AbstractMapRClusterConnection;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.util.Pair;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -48,12 +54,45 @@ import com.google.common.annotations.VisibleForTesting;
 @InterfaceStability.Stable
 public class HRegionLocator implements RegionLocator {
 
+  private static final Log LOG = LogFactory.getLog(HRegionLocator.class);
   private final TableName tableName;
   private final ClusterConnection connection;
+
+  // Band-aid with a cached maprTable handle. We should implement a mapr version RegionLocator
+  // in the com.mapr.fs.hbase, so that we use maprRegionLocator handle here.
+  private AbstractHTable maprTable_ = null;
 
   public HRegionLocator(TableName tableName, ClusterConnection connection) {
     this.connection = connection;
     this.tableName = tableName;
+
+    if (BaseTableMappingRules.isInHBaseService()) {
+      // Calling from the hbase servers, we are done.
+      return;
+    }
+
+    if (connection instanceof AbstractMapRClusterConnection) {
+      maprTable_ = ((AbstractMapRClusterConnection) connection).createAbstractMapRTable(connection.getConfiguration(), tableName);
+      if (maprTable_ == null) {
+        throw new IllegalArgumentException("Could not find table " + this.tableName + " through MapRClusterConnection.");
+      }
+      return;
+    } else if (connection instanceof org.apache.hadoop.hbase.client.ConnectionManager.HConnectionImplementation) {
+      BaseTableMappingRules tableMappingRule = null;
+      try {
+        tableMappingRule = TableMappingRulesFactory.create(connection.getConfiguration());
+      } catch (IOException e) {
+        throw new IllegalArgumentException("Could not get tableMappingRule for table " + this.tableName + " through HConnection. Reason:"
+                                         + e.getStackTrace());
+      }
+      if ((tableMappingRule != null) && tableMappingRule.isMapRTable(tableName)) {
+        maprTable_ = HTable.createMapRTable(connection.getConfiguration(), tableName);
+      }
+      //maprTable_ can be null in this case.
+      return;
+    } else {
+      LOG.warn("Unknown connection type "+connection.getClass().getName());
+    }
   }
 
   /**
@@ -61,8 +100,13 @@ public class HRegionLocator implements RegionLocator {
    */
   @Override
   public void close() throws IOException {
+    if (maprTable_ != null) {
+      maprTable_.close();
+      maprTable_ = null;
+      return;
+    }
     // This method is required by the RegionLocator interface. This implementation does not have any
-    // persistent state, so there is no need to do anything here.
+    // persistent state in hbase, so there is no need to do anything here for hbase.
   }
 
   /**
@@ -71,6 +115,9 @@ public class HRegionLocator implements RegionLocator {
   @Override
   public HRegionLocation getRegionLocation(final byte [] row)
   throws IOException {
+    if (maprTable_ != null) {
+      return maprTable_.getRegionLocation(row);
+    }
     return connection.getRegionLocation(tableName, row, false);
   }
 
@@ -80,14 +127,21 @@ public class HRegionLocator implements RegionLocator {
   @Override
   public HRegionLocation getRegionLocation(final byte [] row, boolean reload)
   throws IOException {
+    if (maprTable_ != null) {
+      return maprTable_.getRegionLocation(row, reload);
+    }
     return connection.getRegionLocation(tableName, row, reload);
   }
 
   @Override
   public List<HRegionLocation> getAllRegionLocations() throws IOException {
     TableName tableName = getName();
-    NavigableMap<HRegionInfo, ServerName> locations =
-        MetaScanner.allTableRegions(this.connection, tableName);
+    NavigableMap<HRegionInfo, ServerName> locations = null;
+    if (maprTable_ != null) {
+      locations = maprTable_.getRegionLocations();
+    } else {
+      locations = MetaScanner.allTableRegions(this.connection, tableName);
+    }
     ArrayList<HRegionLocation> regions = new ArrayList<>(locations.size());
     for (Entry<HRegionInfo, ServerName> entry : locations.entrySet()) {
       regions.add(new HRegionLocation(entry.getKey(), entry.getValue()));
@@ -103,6 +157,9 @@ public class HRegionLocator implements RegionLocator {
    */
   @Override
   public byte[][] getStartKeys() throws IOException {
+    if (maprTable_ != null) {
+      return maprTable_.getStartKeys();
+    }
     return getStartEndKeys().getFirst();
   }
 
@@ -111,6 +168,9 @@ public class HRegionLocator implements RegionLocator {
    */
   @Override
   public byte[][] getEndKeys() throws IOException {
+    if (maprTable_ != null) {
+      return maprTable_.getEndKeys();
+    }
     return getStartEndKeys().getSecond();
   }
 
@@ -119,11 +179,18 @@ public class HRegionLocator implements RegionLocator {
    */
   @Override
   public Pair<byte[][], byte[][]> getStartEndKeys() throws IOException {
+    if (maprTable_ != null) {
+      return maprTable_.getStartEndKeys();
+    }
     return getStartEndKeys(listRegionLocations());
   }
 
   @VisibleForTesting
   Pair<byte[][], byte[][]> getStartEndKeys(List<RegionLocations> regions) {
+    if (maprTable_ != null) {
+        throw new UnsupportedOperationException("This is not a public API, and should not be called for MapRDB");
+    }
+
     final byte[][] startKeyList = new byte[regions.size()][];
     final byte[][] endKeyList = new byte[regions.size()][];
 
@@ -143,10 +210,17 @@ public class HRegionLocator implements RegionLocator {
 
   @VisibleForTesting
   List<RegionLocations> listRegionLocations() throws IOException {
+    if (maprTable_ != null) {
+      throw new UnsupportedOperationException("This is not a public API, and should not be called for MapRDB");
+    }
     return MetaScanner.listTableRegionLocations(getConfiguration(), this.connection, getName());
   }
 
   public Configuration getConfiguration() {
     return connection.getConfiguration();
+  }
+
+  public boolean isMapRTable() {
+    return (maprTable_ != null);
   }
 }

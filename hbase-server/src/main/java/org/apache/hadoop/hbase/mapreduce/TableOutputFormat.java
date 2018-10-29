@@ -18,7 +18,8 @@
  */
 package org.apache.hadoop.hbase.mapreduce;
 
-import java.io.IOException;
+
+import static org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory.UNSETDB;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +34,6 @@ import org.apache.hadoop.hbase.client.BufferedMutator;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Delete;
-import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Mutation;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.zookeeper.ZKUtil;
@@ -42,6 +42,8 @@ import org.apache.hadoop.mapreduce.OutputCommitter;
 import org.apache.hadoop.mapreduce.OutputFormat;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
+
+import java.io.IOException;
 
 /**
  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored
@@ -182,6 +184,7 @@ implements Configurable {
   @Override
   public void setConf(Configuration otherConf) {
     this.conf = HBaseConfiguration.create(otherConf);
+    this.conf.set(ConnectionFactory.DEFAULT_DB, UNSETDB);
 
     String tableName = this.conf.get(OUTPUT_TABLE);
     if(tableName == null || tableName.length() <= 0) {

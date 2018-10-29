@@ -553,6 +553,7 @@ public class HRegionInfo implements Comparable<HRegionInfo> {
         break;
       }
     }
+    if (offset == -1) { offset = regionName.length; }
     byte[] buff  = new byte[offset];
     System.arraycopy(regionName, 0, buff, 0, offset);
     return buff;
