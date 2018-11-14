@@ -50,6 +50,7 @@ import org.apache.hadoop.hbase.protobuf.generated.AdminProtos.AdminService;
 import org.apache.hadoop.hbase.protobuf.generated.ClientProtos.ClientService;
 import org.apache.hadoop.hbase.protobuf.generated.MasterProtos.MasterService;
 import org.apache.hadoop.hbase.security.User;
+import org.apache.hadoop.hbase.security.UserProvider;
 
 /**
  */
@@ -97,6 +98,17 @@ public abstract class AbstractMapRClusterConnection implements ClusterConnection
               conf.get("maprclusterconnection.impl.mapr", "com.mapr.fs.hbase.MapRClusterConnectionImpl"),
               new Object[] {conf, managed, user, tableMappingRule},
               new Class[] {Configuration.class, boolean.class, User.class, BaseTableMappingRules.class});
+  }
+
+  public User getUser() {
+    UserProvider provider = UserProvider.instantiate(getConfiguration());
+    User user = null;
+    try {
+      user = provider.getCurrent();
+    } catch (IOException e) {
+      LOG.error("Failed to get the current user. Set it to Null.");
+    }
+    return user;
   }
 
   public abstract HTableInterface getTable(String tableName) throws IOException;

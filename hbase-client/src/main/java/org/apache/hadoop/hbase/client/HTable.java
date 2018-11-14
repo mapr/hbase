@@ -511,6 +511,14 @@ public class HTable implements HTableInterface, RegionLocator {
                   return createMapRTable(configuration, tableName);
                 }
               });
+        } else if (this.connection instanceof AbstractMapRClusterConnection) {
+          return ((AbstractMapRClusterConnection)this.connection).getUser().getUGI().doAs(
+              new PrivilegedAction<AbstractHTable>() {
+                @Override
+                public AbstractHTable run() {
+                  return createMapRTable(configuration, tableName);
+                }
+              });
         } else {
           return createMapRTable(this.configuration, tableName);
         }

@@ -344,12 +344,8 @@ public class HBaseAdmin implements Admin {
       } catch (IOException e) {
         throw new MasterNotRunningException("Failed to connect to mapr cluster. Reason:"+e.getStackTrace());
       }
-      UserProvider provider = UserProvider.instantiate(this.conf);
-      try {
-        maprHBaseAdmin_.setUser(provider.getCurrent());
-      } catch (IOException e) {
-        throw new MasterNotRunningException("Failed to get current user. Reason:"+e.getStackTrace());
-      }
+
+      maprHBaseAdmin_.setUser(((AbstractMapRClusterConnection)connection).getUser());
       hbaseConnector_ = null;
       maprConnection_ = connection;
       cleanupMapRConnectionOnClose_ = false;

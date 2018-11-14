@@ -270,11 +270,11 @@ public class ConnectionFactory {
         }
       }
       LOG.info("ConnectionFactory receives " + DEFAULT_DB +"(" + defaultDb +"), set clusterType(" + tableMappingRule.getClusterType()
-             + "), hbase_admin_connect_at_construction(" + connAtCtor + ")");
+             + "), user(" + user.getName() + "), hbase_admin_connect_at_construction(" + connAtCtor + ")");
     }
 
     if (tableMappingRule.getClusterType() == ClusterType.MAPR_ONLY) {
-      LOG.info("ConnectionFactory creates a maprdb connection!");
+      LOG.debug("ConnectionFactory creates a maprdb connection!");
       //set it to MAPR_ENGINE, so that tableMappingRule.isMapRDefault() will be true
       conf.set("db.engine.default", MAPR_ENGINE);
       return maprConnFactory_.getImplementorInstance(
@@ -284,7 +284,7 @@ public class ConnectionFactory {
     }
 
     //set it to HBASE_ENGINE, so that tableMappingRule.isMapRDefault() will be false
-    LOG.info("ConnectionFactory creates a hbase connection!");
+    LOG.debug("ConnectionFactory creates a hbase connection!");
     conf.setBoolean(HBaseAdmin.HBASE_ADMIN_CONNECT_AT_CONSTRUCTION, connAtCtor);
     conf.set("db.engine.default", HBASE_ENGINE);
     String className = conf.get(HConnection.HBASE_CLIENT_CONNECTION_IMPL,
