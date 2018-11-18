@@ -208,11 +208,18 @@ class NaiveEncoder extends BytesEncoder {
         Bytes.putDouble(result, 1, value.asInstanceOf[Double])
         result
       case BinaryType =>
-        val v = value.asInstanceOf[Array[Bytes]]
-        val result = new Array[Byte](v.length + 1)
-        result(0) = BinaryEnc
-        System.arraycopy(v, 0, result, 1, v.length)
-        result
+        value match {
+          case arr: Array[Byte] =>
+            val result = new Array[Byte](arr.length + 1)
+            result(0) = BinaryEnc
+            System.arraycopy(arr, 0, result, 1, arr.length)
+            result
+          case arr: Array[Bytes] =>
+            val result = new Array[Byte](arr.length + 1)
+            result(0) = BinaryEnc
+            System.arraycopy(arr, 0, result, 1, arr.length)
+            result
+        }
       case StringType =>
         val bytes = Bytes.toBytes(value.asInstanceOf[String])
         val result = new Array[Byte](bytes.length + 1)

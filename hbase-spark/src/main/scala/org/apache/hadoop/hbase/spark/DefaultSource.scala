@@ -442,14 +442,17 @@ case class HBaseRelation (
     filter match {
       case EqualTo(attr, value) =>
         val field = catalog.getField(attr)
+        val byteValue = value match {
+          case v: Array[Byte] => v
+          case _ => DefaultSourceStaticUtils.getByteValue(field, value.toString)
+        }
+
         if (field != null) {
           if (field.isRowKey) {
             parentRowKeyFilter.mergeIntersect(new RowKeyFilter(
-              DefaultSourceStaticUtils.getByteValue(field,
-                value.toString), null))
+              byteValue, null))
           }
-          val byteValue =
-            DefaultSourceStaticUtils.getByteValue(field, value.toString)
+
           valueArray += byteValue
         }
         new EqualLogicExpression(attr, valueArray.length - 1, false)
