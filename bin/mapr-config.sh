@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 #/**
 # * Copyright The Apache Software Foundation
@@ -19,10 +20,15 @@
 # * limitations under the License.
 # */
 
-# Source env.sh from MapR distribution
 BASE_MAPR=${MAPR_HOME:-/opt/mapr}
+
+# Source env.sh from MapR distribution
 env=${BASE_MAPR}/conf/env.sh
 [ -f $env ] && . $env
+
+MAPR_LOGIN_CONF=${MAPR_LOGIN_CONF:-${BASE_MAPR}/conf/mapr.login.conf}
+MAPR_CLUSTERS_CONF=${MAPR_CLUSTERS_CONF:-${BASE_MAPR}/conf/mapr-clusters.conf}
+SSL_TRUST_STORE=${SSL_TRUST_STORE:-${BASE_MAPR}/conf/ssl_truststore}
 
 # Set the user if not set in the environment
 if [ "$HBASE_IDENT_STRING" == "" ]; then
@@ -61,3 +67,25 @@ done
 HBASE_MAPR_EXTRA_JARS="${HBASE_MAPR_EXTRA_JARS#:}"
 
 export HBASE_OPTS HBASE_MAPR_OVERRIDE_JARS HBASE_MAPR_EXTRA_JARS HBASE_IDENT_STRING
+
+# Configure secure options
+if [ -z "${MAPR_SECURITY_STATUS}" -a -r "${MAPR_CLUSTERS_CONF}" ]; then
+    MAPR_SECURITY_STATUS=$(head -n 1 ${MAPR_CLUSTERS_CONF} | grep secure= | sed 's/^.*secure=//' | sed 's/ .*$//')
+fi
+
+MAPR_JAAS_CONFIG_OPTS=${MAPR_JAAS_CONFIG_OPTS:-"-Djava.security.auth.login.config=${MAPR_LOGIN_CONF}"}
+
+if [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+    MAPR_ZOOKEEPER_OPTS=${MAPR_ZOOKEEPER_OPTS:-"-Dzookeeper.saslprovider=com.mapr.security.maprsasl.MaprSaslProvider"}
+    MAPR_ZOOKEEPER_OPTS="${MAPR_ZOOKEEPER_OPTS} -Dzookeeper.sasl.client=true"
+    MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=maprsasl_keytab"
+    MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=maprsasl"
+    MAPR_SSL_OPTS=${MAPR_SSL_OPTS:-"-Djavax.net.ssl.trustStore=${SSL_TRUST_STORE}"}
+else
+    MAPR_ZOOKEEPER_OPTS=${MAPR_ZOOKEEPER_OPTS:-"-Dzookeeper.sasl.clientconfig=Client_simple -Dzookeeper.saslprovider=com.mapr.security.simplesasl.SimpleSaslProvider"}
+    MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=simple"
+    MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=simple"
+fi
+
+export MAPR_HBASE_SERVER_OPTS="${MAPR_HBASE_SERVER_OPTS} ${MAPR_JAAS_CONFIG_OPTS} ${MAPR_ZOOKEEPER_OPTS} ${MAPR_SSL_OPTS} -Dmapr.library.flatclass"
+export MAPR_HBASE_CLIENT_OPTS="${MAPR_HBASE_CLIENT_OPTS} ${MAPR_JAAS_CONFIG_OPTS} ${MAPR_ZOOKEEPER_OPTS} ${MAPR_SSL_OPTS} -Dmapr.library.flatclass"
