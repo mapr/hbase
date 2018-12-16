@@ -17,25 +17,28 @@
 
 package org.apache.hadoop.hbase.spark.example.hbasecontext
 
-import org.apache.hadoop.hbase.spark.HBaseContext
-import org.apache.spark.SparkContext
-import org.apache.hadoop.hbase.{TableName, HBaseConfiguration}
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.client.Put
-import org.apache.hadoop.mapred.TextInputFormat
+import org.apache.hadoop.hbase.spark.HBaseContext
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.TableName
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text
+import org.apache.hadoop.mapred.TextInputFormat
 import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
  * This is a simple example of putting records in HBase
  * with the bulkPut function.  In this example we are
  * getting the put information from a file
  */
+@InterfaceAudience.Private
 object HBaseBulkPutExampleFromFile {
   def main(args: Array[String]) {
     if (args.length < 3) {
-      println("HBaseBulkPutExampleFromFile {tableName} {columnFamily} {inputFile}")
+      println("HBaseBulkPutExampleFromFile {tableName} {columnFamily} {inputFile} are missing an argument")
       return
     }
 
@@ -48,7 +51,7 @@ object HBaseBulkPutExampleFromFile {
     val sc = new SparkContext(sparkConf)
 
     try {
-      val rdd = sc.hadoopFile(
+      var rdd = sc.hadoopFile(
         inputFile,
         classOf[TextInputFormat],
         classOf[LongWritable],
@@ -65,9 +68,8 @@ object HBaseBulkPutExampleFromFile {
         (putRecord) => {
           System.out.println("hbase-" + putRecord)
           val put = new Put(Bytes.toBytes("Value- " + putRecord))
-          put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("1"),
+          put.addColumn(Bytes.toBytes("c"), Bytes.toBytes("1"),
             Bytes.toBytes(putRecord.length()))
-
           put
         });
     } finally {

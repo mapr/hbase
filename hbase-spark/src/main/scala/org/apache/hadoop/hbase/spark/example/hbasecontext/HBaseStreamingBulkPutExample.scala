@@ -17,23 +17,26 @@
 
 package org.apache.hadoop.hbase.spark.example.hbasecontext
 
-import org.apache.hadoop.hbase.spark.HBaseContext
-import org.apache.spark.SparkContext
-import org.apache.hadoop.hbase.{TableName, HBaseConfiguration}
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.client.Put
-import org.apache.spark.streaming.StreamingContext
-import org.apache.spark.streaming.Seconds
+import org.apache.hadoop.hbase.spark.HBaseContext
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.TableName
 import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.streaming.Seconds
+import org.apache.spark.streaming.StreamingContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
-  * This is a simple example of BulkPut with Spark Streaming
-  */
+ * This is a simple example of BulkPut with Spark Streaming
+ */
+@InterfaceAudience.Private
 object HBaseStreamingBulkPutExample {
   def main(args: Array[String]) {
     if (args.length < 4) {
       println("HBaseStreamingBulkPutExample " +
-        "{host} {port} {tableName} {columnFamily}")
+        "{host} {port} {tableName} {columnFamily} are missing an argument")
       return
     }
 
@@ -45,26 +48,30 @@ object HBaseStreamingBulkPutExample {
     val sparkConf = new SparkConf().setAppName("HBaseStreamingBulkPutExample " +
       tableName + " " + columnFamily)
     val sc = new SparkContext(sparkConf)
-    val ssc = new StreamingContext(sc, Seconds(1))
+    try {
+      val ssc = new StreamingContext(sc, Seconds(1))
 
-    val lines = ssc.socketTextStream(host, port.toInt)
+      val lines = ssc.socketTextStream(host, port.toInt)
 
-    val conf = HBaseConfiguration.create()
+      val conf = HBaseConfiguration.create()
 
-    val hbaseContext = new HBaseContext(sc, conf)
+      val hbaseContext = new HBaseContext(sc, conf)
 
-    hbaseContext.streamBulkPut[String](lines,
-      TableName.valueOf(tableName),
-      (putRecord) => {
-        if (putRecord.length() > 0) {
-          val put = new Put(Bytes.toBytes(putRecord))
-          put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("foo"), Bytes.toBytes("bar"))
-          put
-        } else {
-          null
-        }
-      })
-    ssc.start()
-    ssc.awaitTermination()
+      hbaseContext.streamBulkPut[String](lines,
+        TableName.valueOf(tableName),
+        (putRecord) => {
+          if (putRecord.length() > 0) {
+            val put = new Put(Bytes.toBytes(putRecord))
+            put.addColumn(Bytes.toBytes("c"), Bytes.toBytes("foo"), Bytes.toBytes("bar"))
+            put
+          } else {
+            null
+          }
+        })
+      ssc.start()
+      ssc.awaitTerminationOrTimeout(60000)
+    } finally {
+      sc.stop()
+    }
   }
 }

@@ -18,10 +18,13 @@ package org.apache.hadoop.hbase.spark
 
 import java.util
 
+import org.apache.yetus.audience.InterfaceAudience;
+
 /**
  * This object is a clean way to store and sort all cells that will be bulk
  * loaded into a single row
  */
+@InterfaceAudience.Public
 class FamiliesQualifiersValues extends Serializable {
   //Tree maps are used because we need the results to
   // be sorted when we read them
@@ -51,5 +54,15 @@ class FamiliesQualifiersValues extends Serializable {
     }
 
     qualifierValues.put(new ByteArrayWrapper(qualifier), value)
+  }
+
+  /**
+    * A wrapper for "+=" method above, can be used by Java
+    * @param family    HBase column family
+    * @param qualifier HBase column qualifier
+    * @param value     HBase cell value
+    */
+  def add(family: Array[Byte], qualifier: Array[Byte], value: Array[Byte]): Unit = {
+    this += (family, qualifier, value)
   }
 }
