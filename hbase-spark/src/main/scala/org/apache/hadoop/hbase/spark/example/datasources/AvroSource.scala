@@ -20,22 +20,25 @@ package org.apache.hadoop.hbase.spark.example.datasources
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.hadoop.hbase.spark.AvroSerdes
-import org.apache.spark.sql.datasources.hbase.HBaseTableCatalog
-import org.apache.spark.sql.{DataFrame, SQLContext}
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.hadoop.hbase.spark.datasources.HBaseTableCatalog
+import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
  * @param col0 Column #0, Type is String
  * @param col1 Column #1, Type is Array[Byte]
  */
+@InterfaceAudience.Private
 case class AvroHBaseRecord(col0: String,
                            col1: Array[Byte])
-
+@InterfaceAudience.Private
 object AvroHBaseRecord {
   val schemaString =
     s"""{"namespace": "example.avro",
-        |   "type": "record",
-        |   "name": "User",
+        |   "type": "record",      "name": "User",
         |    "fields": [
         |        {"name": "name", "type": "string"},
         |        {"name": "favorite_number",  "type": ["int", "null"]},
@@ -51,58 +54,52 @@ object AvroHBaseRecord {
 
   def apply(i: Int): AvroHBaseRecord = {
 
-    val user = new GenericData.Record(avroSchema)
+    val user = new GenericData.Record(avroSchema);
     user.put("name", s"name${"%03d".format(i)}")
     user.put("favorite_number", i)
     user.put("favorite_color", s"color${"%03d".format(i)}")
     val favoriteArray = new GenericData.Array[String](2, avroSchema.getField("favorite_array").schema())
-    favoriteArray.add(s"number$i")
+    favoriteArray.add(s"number${i}")
     favoriteArray.add(s"number${i+1}")
     user.put("favorite_array", favoriteArray)
-    import collection.JavaConverters._
-    val favoriteMap = Map[String, Int]("key1" -> i, "key2" -> (i + 1)).asJava
+    import scala.collection.JavaConverters._
+    val favoriteMap = Map[String, Int](("key1" -> i), ("key2" -> (i+1))).asJava
     user.put("favorite_map", favoriteMap)
     val avroByte = AvroSerdes.serialize(user, avroSchema)
     AvroHBaseRecord(s"name${"%03d".format(i)}", avroByte)
   }
 }
 
+@InterfaceAudience.Private
 object AvroSource {
+  def catalog = s"""{
+                    |"table":{"namespace":"default", "name":"ExampleAvrotable"},
+                    |"rowkey":"key",
+                    |"columns":{
+                    |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
+                    |"col1":{"cf":"cf1", "col":"col1", "type":"binary"}
+                    |}
+                    |}""".stripMargin
+
+  def avroCatalog = s"""{
+                        |"table":{"namespace":"default", "name":"ExampleAvrotable"},
+                        |"rowkey":"key",
+                        |"columns":{
+                        |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
+                        |"col1":{"cf":"cf1", "col":"col1", "avro":"avroSchema"}
+                        |}
+                        |}""".stripMargin
+
+  def avroCatalogInsert = s"""{
+                              |"table":{"namespace":"default", "name":"ExampleAvrotableInsert"},
+                              |"rowkey":"key",
+                              |"columns":{
+                              |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
+                              |"col1":{"cf":"cf1", "col":"col1", "avro":"avroSchema"}
+                              |}
+                              |}""".stripMargin
 
   def main(args: Array[String]) {
-    if (args.length < 1) {
-      throw new RuntimeException("Table name should be specified")
-    }
-
-    val tableName: String = args(0)
-
-    def catalog = s"""{
-                      |"table":{"namespace":"default", "name":"$tableName"},
-                      |"rowkey":"key",
-                      |"columns":{
-                      |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
-                      |"col1":{"cf":"cf1", "col":"col1", "type":"binary"}
-                      |}
-                      |}""".stripMargin
-
-    def avroCatalog = s"""{
-                          |"table":{"namespace":"default", "name":"$tableName"},
-                          |"rowkey":"key",
-                          |"columns":{
-                          |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
-                          |"col1":{"cf":"cf1", "col":"col1", "avro":"avroSchema"}
-                          |}
-                          |}""".stripMargin
-
-    def avroCatalogInsert = s"""{
-                                |"table":{"namespace":"default", "name":"${tableName}Insert"},
-                                |"rowkey":"key",
-                                |"columns":{
-                                |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
-                                |"col1":{"cf":"cf1", "col":"col1", "avro":"avroSchema"}
-                                |}
-                                |}""".stripMargin
-
     val sparkConf = new SparkConf().setAppName("AvroSourceExample")
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
@@ -112,8 +109,7 @@ object AvroSource {
     def withCatalog(cat: String): DataFrame = {
       sqlContext
         .read
-        .options(Map("avroSchema" -> AvroHBaseRecord.schemaString,
-          HBaseTableCatalog.tableCatalog -> avroCatalog))
+        .options(Map("avroSchema" -> AvroHBaseRecord.schemaString, HBaseTableCatalog.tableCatalog -> avroCatalog))
         .format("org.apache.hadoop.hbase.spark")
         .load()
     }
@@ -127,19 +123,17 @@ object AvroSource {
       .format("org.apache.hadoop.hbase.spark")
       .save()
 
-    val sqlFriendlyTableName = "avrosource"
-
     val df = withCatalog(catalog)
-    df.show
+    df.show()
     df.printSchema()
-    df.createOrReplaceTempView(sqlFriendlyTableName)
-    val c = sqlContext.sql(s"select count(1) from $sqlFriendlyTableName")
-    c.show
+    df.registerTempTable("ExampleAvrotable")
+    val c = sqlContext.sql("select count(1) from ExampleAvrotable")
+    c.show()
 
     val filtered = df.select($"col0", $"col1.favorite_array").where($"col0" === "name001")
-    filtered.show
+    filtered.show()
     val collected = filtered.collect()
-    if (collected(0).getSeq[String](1).head != "number1") {
+    if (collected(0).getSeq[String](1)(0) != "number1") {
       throw new UserCustomizedSampleException("value invalid")
     }
     if (collected(0).getSeq[String](1)(1) != "number2") {
@@ -152,7 +146,7 @@ object AvroSource {
       .format("org.apache.hadoop.hbase.spark")
       .save()
     val newDF = withCatalog(avroCatalogInsert)
-    newDF.show
+    newDF.show()
     newDF.printSchema()
     if(newDF.count() != 256) {
       throw new UserCustomizedSampleException("value invalid")
@@ -160,10 +154,10 @@ object AvroSource {
 
     df.filter($"col1.name" === "name005" || $"col1.name" <= "name005")
       .select("col0", "col1.favorite_color", "col1.favorite_number")
-      .show
+      .show()
 
     df.filter($"col1.name" <= "name005" || $"col1.name".contains("name007"))
       .select("col0", "col1.favorite_color", "col1.favorite_number")
-      .show
+      .show()
   }
 }

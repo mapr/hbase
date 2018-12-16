@@ -17,23 +17,26 @@
 
 package org.apache.hadoop.hbase.spark.example.hbasecontext
 
-import org.apache.hadoop.hbase.spark.HBaseContext
-import org.apache.spark.SparkContext
-import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.client.Get
 import org.apache.hadoop.hbase.client.Result
-import org.apache.hadoop.hbase.util.Bytes._
+import org.apache.hadoop.hbase.spark.HBaseContext
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.CellUtil
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.TableName
 import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
- * This is a simple example of getting records in HBase
+ * This is a simple example of getting records from HBase
  * with the bulkGet function.
  */
+@InterfaceAudience.Private
 object HBaseBulkGetExample {
   def main(args: Array[String]) {
     if (args.length < 1) {
-      println("HBaseBulkGetExample {tableName}")
+      println("HBaseBulkGetExample {tableName} missing an argument")
       return
     }
 
@@ -46,11 +49,13 @@ object HBaseBulkGetExample {
 
       //[(Array[Byte])]
       val rdd = sc.parallelize(Array(
-        toBytes("1"),
-        toBytes("2"),
-        toBytes("3"),
-        toBytes("4"),
-        toBytes("5")))
+        Bytes.toBytes("1"),
+        Bytes.toBytes("2"),
+        Bytes.toBytes("3"),
+        Bytes.toBytes("4"),
+        Bytes.toBytes("5"),
+        Bytes.toBytes("6"),
+        Bytes.toBytes("7")))
 
       val conf = HBaseConfiguration.create()
 
@@ -75,7 +80,7 @@ object HBaseBulkGetExample {
             val cell = it.next()
             val q = Bytes.toString(CellUtil.cloneQualifier(cell))
             if (q.equals("counter")) {
-              b.append("(" + q + "," + toLong(CellUtil.cloneValue(cell)) + ")")
+              b.append("(" + q + "," + Bytes.toLong(CellUtil.cloneValue(cell)) + ")")
             } else {
               b.append("(" + q + "," + Bytes.toString(CellUtil.cloneValue(cell)) + ")")
             }

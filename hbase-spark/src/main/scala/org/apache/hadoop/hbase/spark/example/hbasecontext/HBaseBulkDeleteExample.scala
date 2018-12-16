@@ -17,21 +17,24 @@
 
 package org.apache.hadoop.hbase.spark.example.hbasecontext
 
-import org.apache.hadoop.hbase.spark.HBaseContext
-import org.apache.spark.SparkContext
-import org.apache.hadoop.hbase.{TableName, HBaseConfiguration}
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.client.Delete
+import org.apache.hadoop.hbase.spark.HBaseContext
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.TableName
 import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
  * This is a simple example of deleting records in HBase
  * with the bulkDelete function.
  */
+@InterfaceAudience.Private
 object HBaseBulkDeleteExample {
   def main(args: Array[String]) {
     if (args.length < 1) {
-      println("HBaseBulkDeletesExample {tableName} ")
+      println("HBaseBulkDeleteExample {tableName} missing an argument")
       return
     }
 

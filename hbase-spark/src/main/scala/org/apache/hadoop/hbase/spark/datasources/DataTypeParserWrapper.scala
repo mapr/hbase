@@ -15,11 +15,18 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.datasources.hbase
+package org.apache.hadoop.hbase.spark.datasources
 
 import org.apache.spark.sql.catalyst.parser.CatalystSqlParser
 import org.apache.spark.sql.types.DataType
+import org.apache.yetus.audience.InterfaceAudience
 
-object DataTypeParserWrapper {
-  def parse(dataTypeString: String): DataType =CatalystSqlParser.parseDataType(dataTypeString)
+@InterfaceAudience.Private
+trait DataTypeParser {
+  def parse(dataTypeString: String): DataType
+}
+
+@InterfaceAudience.Private
+object DataTypeParserWrapper extends DataTypeParser{
+  def parse(dataTypeString: String): DataType = CatalystSqlParser.parseDataType(dataTypeString)
 }

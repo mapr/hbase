@@ -16,11 +16,13 @@ package org.apache.hadoop.hbase.spark.datasources
  * limitations under the License.
  */
 
+import org.apache.hadoop.hbase.spark.Logging
 import org.apache.hadoop.hbase.spark.datasources.JavaBytesEncoder.JavaBytesEncoder
 import org.apache.hadoop.hbase.spark.hbase._
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.sql.types._
 import org.apache.spark.unsafe.types.UTF8String
+import org.apache.yetus.audience.InterfaceAudience
 import org.slf4j.LoggerFactory
 
 
@@ -31,10 +33,8 @@ import org.slf4j.LoggerFactory
   * can work correctly, which is done by wrapping the type into the first byte
   * of the serialized array.
   */
-class NaiveEncoder extends BytesEncoder {
-
-  val logger = LoggerFactory.getLogger(classOf[NaiveEncoder])
-
+@InterfaceAudience.Private
+class NaiveEncoder extends BytesEncoder with Logging{
   var code = 0
   def nextCode: Byte = {
     code += 1
@@ -69,7 +69,7 @@ class NaiveEncoder extends BytesEncoder {
     case a: Integer =>
       val b =  Bytes.toBytes(a)
       if (a >= 0) {
-        logger.debug(s"range is 0 to $a and ${Integer.MIN_VALUE} to -1")
+        logDebug(s"range is 0 to $a and ${Integer.MIN_VALUE} to -1")
         Some(BoundRanges(
           Array(BoundRange(Bytes.toBytes(0: Int), b),
             BoundRange(Bytes.toBytes(Integer.MIN_VALUE),  Bytes.toBytes(-1: Int))),

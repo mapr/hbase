@@ -19,25 +19,24 @@ package org.apache.hadoop.hbase.spark.datasources
 
 import java.util.ArrayList
 
+import org.apache.yetus.audience.InterfaceAudience;
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.spark._
 import org.apache.hadoop.hbase.spark.hbase._
 import org.apache.hadoop.hbase.spark.datasources.HBaseResources._
 import org.apache.hadoop.hbase.util.ShutdownHookManager
-import org.apache.spark.sql.datasources.hbase.Field
-import org.apache.spark.{Partition, SparkEnv, TaskContext}
+import org.apache.spark.{SparkEnv, TaskContext, Partition}
 import org.apache.spark.rdd.RDD
-import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
+@InterfaceAudience.Private
 class HBaseTableScanRDD(relation: HBaseRelation,
                        val hbaseContext: HBaseContext,
                        @transient val filter: Option[SparkSQLPushDownFilter] = None,
                         val columns: Seq[Field] = Seq.empty
-     )extends RDD[Result](relation.sqlContext.sparkContext, Nil)  {
-  val logger = LoggerFactory.getLogger(classOf[HBaseTableScanRDD])
-
+     ) extends RDD[Result](relation.sqlContext.sparkContext, Nil)
+  {
   private def sparkConf = SparkEnv.get.conf
   @transient var ranges = Seq.empty[Range]
   @transient var points = Seq.empty[Array[Byte]]
@@ -74,13 +73,13 @@ class HBaseTableScanRDD(relation: HBaseRelation,
   override def getPartitions: Array[Partition] = {
     val regions = RegionResource(relation)
     var idx = 0
-    logger.debug(s"There are ${regions.size} regions")
+    logDebug(s"There are ${regions.size} regions")
     val ps = regions.flatMap { x =>
       val rs = Ranges.and(Range(x), ranges)
       val ps = Points.and(Range(x), points)
       if (rs.size > 0 || ps.size > 0) {
-        if(logger.isDebugEnabled) {
-          rs.foreach(x => logger.debug(x.toString))
+        if(log.isDebugEnabled) {
+          rs.foreach(x => logDebug(x.toString))
         }
         idx += 1
         Some(HBaseScanPartition(idx - 1, x, rs, ps, SerializedFilter.toSerializedTypedFilter(filter)))
@@ -110,7 +109,7 @@ class HBaseTableScanRDD(relation: HBaseRelation,
       columns: Seq[Field],
       hbaseContext: HBaseContext): Iterator[Result] = {
     g.grouped(relation.bulkGetSize).flatMap{ x =>
-      val gets = new ArrayList[Get]()
+      val gets = new ArrayList[Get](x.size)
       x.foreach{ y =>
         val g = new Get(y)
         handleTimeSemantics(g)
@@ -266,6 +265,7 @@ class HBaseTableScanRDD(relation: HBaseRelation,
   }
 }
 
+@InterfaceAudience.Private
 case class SerializedFilter(b: Option[Array[Byte]])
 
 object SerializedFilter {
@@ -278,13 +278,14 @@ object SerializedFilter {
   }
 }
 
+@InterfaceAudience.Private
 private[hbase] case class HBaseRegion(
     override val index: Int,
     val start: Option[HBaseType] = None,
     val end: Option[HBaseType] = None,
     val server: Option[String] = None) extends Partition
 
-
+@InterfaceAudience.Private
 private[hbase] case class HBaseScanPartition(
     override val index: Int,
     val regions: HBaseRegion,
@@ -292,6 +293,7 @@ private[hbase] case class HBaseScanPartition(
     val points: Seq[Array[Byte]],
     val sf: SerializedFilter) extends Partition
 
+@InterfaceAudience.Private
 case class RDDResources(set: mutable.HashSet[Resource]) {
   def addResource(s: Resource) {
     set += s

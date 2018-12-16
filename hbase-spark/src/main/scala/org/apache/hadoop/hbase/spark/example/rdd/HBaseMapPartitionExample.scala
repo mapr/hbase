@@ -18,38 +18,43 @@
 package org.apache.hadoop.hbase.spark.example.rdd
 
 import org.apache.hadoop.hbase.client.Get
-import org.apache.hadoop.hbase.{HBaseConfiguration, TableName}
 import org.apache.hadoop.hbase.spark.HBaseContext
 import org.apache.hadoop.hbase.spark.HBaseRDDFunctions._
 import org.apache.hadoop.hbase.util.Bytes
-import org.apache.hadoop.hbase.util.Bytes._
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.TableName
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.yetus.audience.InterfaceAudience
 
 /**
  * This is a simple example of using the mapPartitions
  * method with a HBase connection
  */
+@InterfaceAudience.Private
 object HBaseMapPartitionExample {
   def main(args: Array[String]) {
     if (args.length < 1) {
-      println("HBaseBulkGetExample {tableName}")
+      println("HBaseMapPartitionExample {tableName} is missing an argument")
       return
     }
 
     val tableName = args(0)
 
-    val sparkConf = new SparkConf().setAppName("HBaseBulkGetExample " + tableName)
+    val sparkConf = new SparkConf().setAppName("HBaseMapPartitionExample " + tableName)
     val sc = new SparkContext(sparkConf)
 
     try {
 
       //[(Array[Byte])]
       val rdd = sc.parallelize(Array(
-        toBytes("1"),
-        toBytes("2"),
-        toBytes("3"),
-        toBytes("4"),
-        toBytes("5")))
+        Bytes.toBytes("1"),
+        Bytes.toBytes("2"),
+        Bytes.toBytes("3"),
+        Bytes.toBytes("4"),
+        Bytes.toBytes("5"),
+        Bytes.toBytes("6"),
+        Bytes.toBytes("7")))
 
       val conf = HBaseConfiguration.create()
 
@@ -70,7 +75,7 @@ object HBaseMapPartitionExample {
             val cell = it.next()
             val q = Bytes.toString(cell.getQualifierArray)
             if (q.equals("counter")) {
-              b.append("(" + q + "," + toLong(cell.getValueArray) + ")")
+              b.append("(" + q + "," + Bytes.toLong(cell.getValueArray) + ")")
             } else {
               b.append("(" + q + "," + Bytes.toString(cell.getValueArray) + ")")
             }

@@ -15,23 +15,20 @@
  * limitations under the License.
  */
 
-package org.apache.spark.sql.datasources.hbase
+package org.apache.hadoop.hbase.spark.datasources
 
 import org.apache.avro.Schema
-import org.apache.hadoop.hbase.spark.SchemaConverters
-import org.apache.hadoop.hbase.spark.datasources._
-import org.apache.hadoop.hbase.spark.hbase._
+import org.apache.hadoop.hbase.spark.{Logging, SchemaConverters}
 import org.apache.hadoop.hbase.util.Bytes
-import org.apache.spark.sql.catalyst.parser.CatalystSqlParser
 import org.apache.spark.sql.types._
+import org.apache.yetus.audience.InterfaceAudience
 import org.json4s.jackson.JsonMethods._
-import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
-// Due the access issue defined in spark, we have to locate the file in this package.
 // The definition of each column cell, which may be composite type
 // TODO: add avro support
+@InterfaceAudience.Private
 case class Field(
     colName: String,
     cf: String,
@@ -39,14 +36,12 @@ case class Field(
     sType: Option[String] = None,
     avroSchema: Option[String] = None,
     serdes: Option[SerDes]= None,
-    len: Int = -1) {
-  val logger = LoggerFactory.getLogger(classOf[Field])
-
+    len: Int = -1) extends Logging {
   override def toString = s"$colName $cf $col"
   val isRowKey = cf == HBaseTableCatalog.rowKey
   var start: Int = _
   def schema: Option[Schema] = avroSchema.map { x =>
-    logger.debug(s"avro: $x")
+    logDebug(s"avro: $x")
     val p = new Schema.Parser
     p.parse(x)
   }
@@ -55,7 +50,7 @@ case class Field(
 
   // converter from avro to catalyst structure
   lazy val avroToCatalyst: Option[Any => Any] = {
-    schema.map(SchemaConverters.createConverterToSQL)
+    schema.map(SchemaConverters.createConverterToSQL(_))
   }
 
   // converter from catalyst to avro
@@ -79,7 +74,7 @@ case class Field(
   }
 
   val dt = {
-    sType.map(CatalystSqlParser.parseDataType).getOrElse{
+    sType.map(DataTypeParserWrapper.parse(_)).getOrElse{
       schema.map{ x=>
         SchemaConverters.toSqlType(x).dataType
       }.get
@@ -114,6 +109,7 @@ case class Field(
 
 // The row key definition, with each key refer to the col defined in Field, e.g.,
 // key1:key2:key3
+@InterfaceAudience.Private
 case class RowKey(k: String) {
   val keys = k.split(":")
   var fields: Seq[Field] = _
@@ -129,6 +125,7 @@ case class RowKey(k: String) {
   }
 }
 // The map between the column presented to Spark and the HBase field
+@InterfaceAudience.Private
 case class SchemaMap(map: mutable.HashMap[String, Field]) {
   def toFields = map.map { case (name, field) =>
     StructField(name, field.dt)
@@ -141,31 +138,30 @@ case class SchemaMap(map: mutable.HashMap[String, Field]) {
 
 
 // The definition of HBase and Relation relation schema
+@InterfaceAudience.Private
 case class HBaseTableCatalog(
      namespace: String,
      name: String,
      row: RowKey,
      sMap: SchemaMap,
-     @transient params: Map[String, String]) {
-  val logger = LoggerFactory.getLogger(classOf[HBaseTableCatalog])
-
+     @transient params: Map[String, String]) extends Logging {
   def toDataType = StructType(sMap.toFields)
   def getField(name: String) = sMap.getField(name)
   def getRowKey: Seq[Field] = row.fields
   def getPrimaryKey= row.keys(0)
   def getColumnFamilies = {
-    sMap.fields.map(_.cf).filter(_ != HBaseTableCatalog.rowKey)
+    sMap.fields.map(_.cf).filter(_ != HBaseTableCatalog.rowKey).toSeq.distinct
   }
 
   def get(key: String) = params.get(key)
 
   // Setup the start and length for each dimension of row key at runtime.
   def dynSetupRowKey(rowKey: Array[Byte]) {
-    logger.debug(s"length: ${rowKey.length}")
+    logDebug(s"length: ${rowKey.length}")
     if(row.varLength) {
       var start = 0
       row.fields.foreach { f =>
-        logger.debug(s"start: $start")
+        logDebug(s"start: $start")
         f.start = start
         f.length = {
           // If the length is not defined
@@ -194,7 +190,7 @@ case class HBaseTableCatalog(
     val fields = sMap.fields.filter(_.cf == HBaseTableCatalog.rowKey)
     row.fields = row.keys.flatMap(n => fields.find(_.col == n))
     // The length is determined at run time if it is string or binary and the length is undefined.
-    if (!row.fields.exists(_.length == -1)) {
+    if (row.fields.filter(_.length == -1).isEmpty) {
       var start = 0
       row.fields.foreach { f =>
         f.start = start
@@ -207,6 +203,7 @@ case class HBaseTableCatalog(
   initRowKey
 }
 
+@InterfaceAudience.Public
 object HBaseTableCatalog {
   // If defined and larger than 3, a new table will be created with the nubmer of region specified.
   val newTable = "newtable"
@@ -290,6 +287,7 @@ object HBaseTableCatalog {
                       |}""".stripMargin
    */
   @deprecated("Please use new json format to define HBaseCatalog")
+  // TODO: There is no need to deprecate since this is the first release.
   def convert(parameters: Map[String, String]): Map[String, String] = {
     val tableName = parameters.get(TABLE_KEY).getOrElse(null)
     // if the hbase.table is not defined, we assume it is json format already.
@@ -323,6 +321,7 @@ object HBaseTableCatalog {
     * @param schemaMappingString The schema mapping string from the SparkSQL map
     * @return                    A map of definitions keyed by the SparkSQL column name
     */
+  @InterfaceAudience.Private
   def generateSchemaMappingMap(schemaMappingString:String):
   java.util.HashMap[String, SchemaQualifierDefinition] = {
     println(schemaMappingString)
@@ -366,6 +365,7 @@ object HBaseTableCatalog {
   * @param columnFamily HBase column family
   * @param qualifier    HBase qualifier name
   */
+@InterfaceAudience.Private
 case class SchemaQualifierDefinition(columnName:String,
     colType:String,
     columnFamily:String,
