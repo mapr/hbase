@@ -21,6 +21,8 @@ package org.apache.hadoop.hbase.rest.client;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -123,6 +125,19 @@ public class Client {
    */
   public void addExtraHeader(final String name, final String value) {
     extraHeaders.put(name, value);
+  }
+
+  /**
+   * Add basic authorization extra header. User and password transformed to encoded string.
+   * Could be removed as normal extra header using 'Authorization' key.
+   * @param user user
+   * @param password password
+   */
+  public void addBasicAuthExtraHeader(String user, String password) {
+    String authString = user + ':' + password;
+    String encoding = Base64.getEncoder().encodeToString(authString.getBytes(Charset.forName("UTF-8")));
+    String authHeader = "Basic " + encoding;
+    extraHeaders.put("Authorization", authHeader);
   }
 
   /**
