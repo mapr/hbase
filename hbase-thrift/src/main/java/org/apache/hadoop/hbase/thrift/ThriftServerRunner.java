@@ -21,6 +21,9 @@ package org.apache.hadoop.hbase.thrift;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.KERBEROS;
+import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
 import java.io.IOException;
@@ -113,6 +116,7 @@ import org.apache.hadoop.hbase.util.Strings;
 import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.SaslRpcServer.SaslGssCallbackHandler;
 import org.apache.hadoop.security.UserGroupInformation;
+import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
 import org.apache.hadoop.security.authorize.ProxyUsers;
 import org.apache.hadoop.security.rpcauth.RpcAuthMethod;
 import org.apache.thrift.TException;
@@ -137,6 +141,7 @@ import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.servlet.Context;
+import org.mortbay.jetty.servlet.FilterHolder;
 import org.mortbay.jetty.servlet.ServletHolder;
 import org.mortbay.thread.QueuedThreadPool;
 
@@ -184,8 +189,6 @@ public class ThriftServerRunner implements Runnable {
   public static final int THRIFT_SERVER_SOCKET_READ_TIMEOUT_DEFAULT = 60000;
 
 
-  static final String HBASE_THRIFT_SECURITY_CONF_KEY = "hbase.thrift.security.authentication";
-  static final String MAPR_SASL = "maprsasl";
   static final String MAPR_CALLBACK_HANDLER_CONF_KEY = "mapr.security.callbackhandler";
   static final String MAPR_CALLBACK_HANDLER_CONF_KEY_DEFAULT = "com.mapr.security.callback.MaprSaslCallbackHandler";
 
@@ -218,7 +221,7 @@ public class ThriftServerRunner implements Runnable {
   private final String qop;
   private String host;
 
-  private final boolean securityEnabled;
+  private final String authMethod;
   private final boolean doAsEnabled;
 
   /** An enum of server implementation selections */
@@ -322,9 +325,8 @@ public class ThriftServerRunner implements Runnable {
   public ThriftServerRunner(Configuration conf) throws IOException {
     UserProvider userProvider = UserProvider.instantiate(conf);
     // login the server principal (if using secure Hadoop)
-    securityEnabled = userProvider.isHadoopSecurityEnabled()
-      && userProvider.isHBaseSecurityEnabled();
-    if (securityEnabled) {
+    authMethod = conf.get(HBASE_SECURITY_CONF_KEY);
+    if (KERBEROS.equalsIgnoreCase(authMethod) || MAPR_SASL.equalsIgnoreCase(authMethod)) {
       host = Strings.domainNamePointerToHostName(DNS.getDefaultHost(
         conf.get("hbase.thrift.dns.interface", "default"),
         conf.get("hbase.thrift.dns.nameserver", "default")));
@@ -352,7 +354,7 @@ public class ThriftServerRunner implements Runnable {
         throw new IOException("Invalid " + THRIFT_QOP_KEY + ": " + qop
           + ", it must be 'auth', 'auth-int', or 'auth-conf'");
       }
-      if (!securityEnabled) {
+      if (!KERBEROS.equalsIgnoreCase(authMethod) && !MAPR_SASL.equalsIgnoreCase(authMethod)) {
         throw new IOException("Thrift server must"
           + " run in secure mode to support authentication");
       }
@@ -407,7 +409,7 @@ public class ThriftServerRunner implements Runnable {
     TProtocolFactory protocolFactory = new TBinaryProtocol.Factory();
     TProcessor processor = new Hbase.Processor<Hbase.Iface>(handler);
     TServlet thriftHttpServlet = new ThriftHttpServlet(processor, protocolFactory, realUser,
-        conf, hbaseHandler, securityEnabled, doAsEnabled);
+        conf, hbaseHandler, authMethod, doAsEnabled);
 
     httpServer = new Server();
     // Context handler
@@ -416,6 +418,10 @@ public class ThriftServerRunner implements Runnable {
     String httpPath = "/*";
     httpServer.setHandler(context);
     context.addServlet(new ServletHolder(thriftHttpServlet), httpPath);
+    if (MAPR_SASL.equalsIgnoreCase(authMethod)) {
+      FilterHolder authFilter = makeAuthFilter();
+      context.addFilter(authFilter, "/*", 1);
+    }
 
     // set up Jetty and run the embedded server
     Connector connector = new SelectChannelConnector();
@@ -457,6 +463,16 @@ public class ThriftServerRunner implements Runnable {
     LOG.info("Starting Thrift HTTP Server on " + Integer.toString(listenPort));
   }
 
+  public FilterHolder makeAuthFilter() {
+    FilterHolder authFilter = new FilterHolder(AuthenticationFilter.class);
+    authFilter.setInitParameter("config.prefix", "hadoop.http.authentication");
+    authFilter.setInitParameter("hadoop.http.authentication.type",
+        "org.apache.hadoop.security.authentication.server.MultiMechsAuthenticationHandler");
+    authFilter.setInitParameter("hadoop.http.authentication.signature.secret",
+        "com.mapr.security.maprauth.MaprSignatureSecretFactory");
+    return authFilter;
+  }
+
   /**
    * Setting up the thrift TServer
    */
@@ -485,8 +501,7 @@ public class ThriftServerRunner implements Runnable {
       transportFactory = new TFramedTransport.Factory(
           conf.getInt(MAX_FRAME_SIZE_CONF_KEY, 2)  * 1024 * 1024);
       LOG.debug("Using framed transport");
-    } else if (qop == null
-        && !MAPR_SASL.equalsIgnoreCase(conf.get(HBASE_THRIFT_SECURITY_CONF_KEY))) {
+    } else if (qop == null && !MAPR_SASL.equalsIgnoreCase(authMethod)) {
       transportFactory = new TTransportFactory();
     } else {
       transportFactory = createTransportFactory();
@@ -603,9 +618,11 @@ public class ThriftServerRunner implements Runnable {
     if (SaslRpcServer.AuthMethod.KERBEROS.getMechanismName().equals(mechanism)) {
       protocol = SecurityUtil.getUserFromPrincipal(
               conf.get("hbase.thrift.kerberos.principal"));
-      saslProperties.put(Sasl.QOP, qop);
     }
 
+    if (qop != null) {
+      saslProperties.put(Sasl.QOP, qop);
+    }
     TSaslServerTransport.Factory saslFactory = new TSaslServerTransport.Factory();
     saslFactory.addServerDefinition(
             mechanism,

@@ -44,6 +44,8 @@ import org.ietf.jgss.GSSManager;
 import org.ietf.jgss.GSSName;
 import org.ietf.jgss.Oid;
 
+import static org.apache.hadoop.hbase.security.User.KERBEROS;
+
 /**
  * Thrift Http Servlet is used for performing Kerberos authentication if security is enabled and
  * also used for setting the user specified in "doAs" parameter.
@@ -54,7 +56,7 @@ public class ThriftHttpServlet extends TServlet {
   public static final Log LOG = LogFactory.getLog(ThriftHttpServlet.class.getName());
   private transient final UserGroupInformation realUser;
   private transient final Configuration conf;
-  private final boolean securityEnabled;
+  private final String authMethod;
   private final boolean doAsEnabled;
   private transient ThriftServerRunner.HBaseHandler hbaseHandler;
   private String outToken;
@@ -66,12 +68,12 @@ public class ThriftHttpServlet extends TServlet {
 
   public ThriftHttpServlet(TProcessor processor, TProtocolFactory protocolFactory,
       UserGroupInformation realUser, Configuration conf, ThriftServerRunner.HBaseHandler
-      hbaseHandler, boolean securityEnabled, boolean doAsEnabled) {
+      hbaseHandler, String authMethod, boolean doAsEnabled) {
     super(processor, protocolFactory);
     this.realUser = realUser;
     this.conf = conf;
     this.hbaseHandler = hbaseHandler;
-    this.securityEnabled = securityEnabled;
+    this.authMethod = authMethod; // may be null
     this.doAsEnabled = doAsEnabled;
   }
 
@@ -79,7 +81,7 @@ public class ThriftHttpServlet extends TServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String effectiveUser = request.getRemoteUser();
-    if (securityEnabled) {
+    if (KERBEROS.equalsIgnoreCase(authMethod)) {
       try {
         // As Thrift HTTP transport doesn't support SPNEGO yet (THRIFT-889),
         // Kerberos authentication is being done at servlet level.

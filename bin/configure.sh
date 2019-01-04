@@ -216,10 +216,6 @@ function configure_hbase_encryption_insecure() {
 ###############################################
 
 function configure_thrift_secure() {
-  if ! grep -q hbase.thrift.security.authentication "$HBASE_SITE" ; then
-      add_comment "Enabling Hbase thrift authentication"
-      add_property hbase.thrift.security.authentication maprsasl
-  fi
   if ! grep -q hbase.thrift.ssl.enabled "$HBASE_SITE" ; then
     add_comment "Enabling Hbase thrift encryption"
     add_property hbase.thrift.ssl.enabled true
@@ -235,10 +231,6 @@ function configure_thrift_insecure(){
   #disable encryption
   remove_comment "Enabling Hbase thrift encryption"
   remove_property hbase.thrift.ssl.enabled
-
-  #disable authentication
-  remove_comment "Enabling Hbase thrift authentication"
-  remove_property hbase.thrift.security.authentication
 
   #disable impersonation
   remove_comment "Enabling Hbase thrift impersonation"
