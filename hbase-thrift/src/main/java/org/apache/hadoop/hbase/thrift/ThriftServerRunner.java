@@ -19,6 +19,9 @@
 package org.apache.hadoop.hbase.thrift;
 
 
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
 import java.io.IOException;
@@ -414,9 +417,9 @@ public class ThriftServerRunner implements Runnable {
     Connector connector = new SelectChannelConnector();
     if(conf.getBoolean(THRIFT_SSL_ENABLED, false)) {
       SslSelectChannelConnectorSecure sslConnector = new SslSelectChannelConnectorSecure();
-      String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE);
-      String password = conf.get(THRIFT_SSL_KEYSTORE_PASSWORD, null);
-      String keyPassword = conf.get(THRIFT_SSL_KEYSTORE_KEYPASSWORD, password);
+      String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
+      String password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, getClientKeystorePassword());
+      String keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, getClientKeyPassword());
       sslConnector.setKeystore(keystore);
       sslConnector.setPassword(password);
       sslConnector.setKeyPassword(keyPassword);

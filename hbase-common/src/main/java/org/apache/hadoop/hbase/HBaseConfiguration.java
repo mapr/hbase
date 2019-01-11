@@ -32,9 +32,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.io.util.HeapMemorySizeUtil;
 import org.apache.hadoop.hbase.util.VersionInfo;
 
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
 
 /**
  * Adds HBase configuration files to a Configuration
@@ -44,15 +41,6 @@ import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassw
 public class HBaseConfiguration extends Configuration {
 
   private static final Log LOG = LogFactory.getLog(HBaseConfiguration.class);
-
-  static final String THRIFT_SSL_ENABLED = "hbase.thrift.ssl.enabled";
-  static final String THRIFT_SSL_KEYSTORE_STORE = "hbase.thrift.ssl.keystore.store";
-  static final String THRIFT_SSL_KEYSTORE_PASSWORD = "hbase.thrift.ssl.keystore.password";
-  static final String THRIFT_SSL_KEYSTORE_KEYPASSWORD = "hbase.thrift.ssl.keystore.keypassword";
-  static final String REST_SSL_ENABLED = "hbase.rest.ssl.enabled";
-  static final String REST_SSL_KEYSTORE_STORE = "hbase.rest.ssl.keystore.store";
-  static final String REST_SSL_KEYSTORE_PASSWORD = "hbase.rest.ssl.keystore.password";
-  static final String REST_SSL_KEYSTORE_KEYPASSWORD = "hbase.rest.ssl.keystore.keypassword";
 
   /**
    * Instantinating HBaseConfiguration() is deprecated. Please use
@@ -93,52 +81,9 @@ public class HBaseConfiguration extends Configuration {
     conf.addResource("hbase-default.xml");
     conf.addResource("hbase-site.xml");
 
-    initializeHBaseRestSsl(conf);
-    initializeHBaseThriftSsl(conf);
-
     checkDefaultsVersion(conf);
     HeapMemorySizeUtil.checkForClusterFreeMemoryLimit(conf);
     return conf;
-  }
-
-  private static void initializeHBaseRestSsl(Configuration conf) {
-    if (conf.getBoolean(REST_SSL_ENABLED, false)) {
-      String keystore = conf.get(REST_SSL_KEYSTORE_STORE, null);
-      String password = null;
-      String keyPassword = null;
-      try {
-        password = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_PASSWORD, null);
-        keyPassword = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_KEYPASSWORD, null);
-      } catch (IOException e) {
-        String errorMessage = String.format("Error while reading hbase rest keystore password: %s", e.getMessage());
-        LOG.error(errorMessage);
-        throw new RuntimeException(errorMessage);
-      }
-
-      conf.set(REST_SSL_KEYSTORE_STORE, keystore == null ? getClientKeystoreLocation() : keystore);
-      conf.set(REST_SSL_KEYSTORE_PASSWORD, password == null ? getClientKeystorePassword() : password);
-      conf.set(REST_SSL_KEYSTORE_KEYPASSWORD, keyPassword == null ? getClientKeyPassword() : keyPassword);
-    }
-  }
-
-  private static void initializeHBaseThriftSsl(Configuration conf) {
-    if (conf.getBoolean(THRIFT_SSL_ENABLED, false)) {
-      String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, null);
-      String password = null;
-      String keyPassword = null;
-      try {
-        password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, null);
-        keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, null);
-      } catch (IOException e) {
-        String errorMessage = String.format("Error while reading hbase thrift keystore password: %s", e.getMessage());
-        LOG.error(errorMessage);
-        throw new RuntimeException(errorMessage);
-      }
-
-      conf.set(THRIFT_SSL_KEYSTORE_STORE, keystore == null ? getClientKeystoreLocation() : keystore);
-      conf.set(THRIFT_SSL_KEYSTORE_PASSWORD, password == null ? getClientKeystorePassword() : password);
-      conf.set(THRIFT_SSL_KEYSTORE_KEYPASSWORD, keyPassword == null ? getClientKeyPassword() : keyPassword);
-    }
   }
 
   /**
