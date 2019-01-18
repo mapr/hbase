@@ -212,6 +212,23 @@ function configure_hbase_encryption_insecure() {
 }
 
 ###############################################
+#    HBASE WEB UIs SECURITY CONFIGURATION     #
+###############################################
+
+function configure_hbase_webui_ssl_secure() {
+  if ! grep -q hbase.ssl.enabled "$HBASE_SITE" ; then
+    add_comment "Enabling Hbase Web UIs encryption"
+    add_property hbase.ssl.enabled true
+  fi
+}
+
+function configure_hbase_webui_ssl_insecure() {
+  remove_comment "Enabling Hbase Web UIs encryption"
+  remove_property hbase.ssl.enabled
+}
+
+
+###############################################
 #    HBASE THRIFT CONFIGURATION               #
 ###############################################
 
@@ -380,6 +397,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
     if [ "$isSecure" = "true" ]; then
       configure_hbase_authorization_secure
       configure_hbase_encryption_secure
+      configure_hbase_webui_ssl_secure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_secure
       fi
@@ -389,6 +407,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
     elif [ "$isSecure" = "false" ]; then
       configure_hbase_authorization_insecure
       configure_hbase_encryption_insecure
+      configure_hbase_webui_ssl_insecure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_insecure
       fi

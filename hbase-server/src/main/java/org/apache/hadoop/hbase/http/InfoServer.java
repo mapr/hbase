@@ -21,11 +21,17 @@ package org.apache.hadoop.hbase.http;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
+
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
 
 /**
  * Create a Jetty embedded server to answer http requests. The primary goal
@@ -66,15 +72,28 @@ public class InfoServer {
         builder.setLogDir(logDir);
       }
     if (httpConfig.isSecure()) {
-    builder.keyPassword(c.get("ssl.server.keystore.keypassword"))
-      .keyStore(c.get("ssl.server.keystore.location"),
-        c.get("ssl.server.keystore.password"),
-        c.get("ssl.server.keystore.type", "jks"))
-      .trustStore(c.get("ssl.server.truststore.location"),
-        c.get("ssl.server.truststore.password"),
-        c.get("ssl.server.truststore.type", "jks"));
+      builder.keyPassword(c.get("ssl.server.keystore.keypassword"))
+        .keyStore(c.get("ssl.server.keystore.location"),
+          c.get("ssl.server.keystore.password"),
+          c.get("ssl.server.keystore.type", "jks"))
+        .trustStore(c.get("ssl.server.truststore.location"),
+          c.get("ssl.server.truststore.password"),
+          c.get("ssl.server.truststore.type", "jks"));
     }
     this.httpServer = builder.build();
+    if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
+      this.httpServer.addFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
+    }
+  }
+
+  private Map<String, String> createAuthParams() {
+    Map<String, String> params = new HashMap<>();
+    params.put("config.prefix", "hadoop.http.authentication");
+    params.put("hadoop.http.authentication.type",
+        "org.apache.hadoop.security.authentication.server.MultiMechsAuthenticationHandler");
+    params.put("hadoop.http.authentication.signature.secret",
+        "com.mapr.security.maprauth.MaprSignatureSecretFactory");
+    return params;
   }
 
   public void addServlet(String name, String pathSpec,
