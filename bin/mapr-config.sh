@@ -21,6 +21,7 @@
 # */
 
 BASE_MAPR=${MAPR_HOME:-/opt/mapr}
+MAPR_CONF="${BASE_MAPR}/conf"
 
 # Source env.sh from MapR distribution
 env=${BASE_MAPR}/conf/env.sh
@@ -89,3 +90,16 @@ fi
 
 export MAPR_HBASE_SERVER_OPTS="${MAPR_HBASE_SERVER_OPTS} ${MAPR_JAAS_CONFIG_OPTS} ${MAPR_ZOOKEEPER_OPTS} ${MAPR_SSL_OPTS} -Dmapr.library.flatclass"
 export MAPR_HBASE_CLIENT_OPTS="${MAPR_HBASE_CLIENT_OPTS} ${MAPR_JAAS_CONFIG_OPTS} ${MAPR_ZOOKEEPER_OPTS} ${MAPR_SSL_OPTS} -Dmapr.library.flatclass"
+
+HBASE_JMX_BASE="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false"
+if [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+    HBASE_JMX_BASE="${HBASE_JMX_BASE} -Dcom.sun.management.jmxremote.authenticate=true \
+    -Dcom.sun.management.jmxremote.password.file=${MAPR_CONF}/jmxremote.password \
+    -Dcom.sun.management.jmxremote.access.file=${MAPR_CONF}/jmxremote.access"
+else
+    HBASE_JMX_BASE="${HBASE_JMX_BASE} -Dcom.sun.management.jmxremote.authenticate=false"
+fi
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10101"
+export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10102"
+export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10103"
+export HBASE_REST_OPTS="$HBASE_REST_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10104"
