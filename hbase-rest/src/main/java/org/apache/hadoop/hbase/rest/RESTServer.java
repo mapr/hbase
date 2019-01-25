@@ -183,20 +183,6 @@ public class RESTServer implements Constants {
       ResourceConfig.class.getCanonicalName());
     sh.setInitParameter("com.sun.jersey.config.property.packages",
       "jetty");
-    // The servlet holder below is instantiated to only handle the case
-    // of the /status/cluster returning arrays of nodes (live/dead). Without
-    // this servlet holder, the problem is that the node arrays in the response
-    // are collapsed to single nodes. We want to be able to treat the
-    // node lists as POJO in the response to /status/cluster servlet call,
-    // but not change the behavior for any of the other servlets
-    // Hence we don't use the servlet holder for all servlets / paths
-    ServletHolder shPojoMap = new ServletHolder(containerClass);
-    @SuppressWarnings("unchecked")
-    Map<String, String> shInitMap = sh.getInitParameters();
-    for (Entry<String, String> e : shInitMap.entrySet()) {
-      shPojoMap.setInitParameter(e.getKey(), e.getValue());
-    }
-    shPojoMap.setInitParameter(JSONConfiguration.FEATURE_POJO_MAPPING, "true");
 
     // set up Jetty and run the embedded server
 
@@ -235,7 +221,6 @@ public class RESTServer implements Constants {
     server.setStopAtShutdown(true);
       // set up context
     Context context = new Context(server, "/", Context.SESSIONS);
-    context.addServlet(shPojoMap, "/status/cluster");
     context.addServlet(sh, "/*");
     if (authFilter != null) {
       context.addFilter(authFilter, "/*", 1);
