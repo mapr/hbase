@@ -20,11 +20,9 @@ package org.apache.hadoop.hbase.spark.datasources
 import java.io.{IOException, ObjectInputStream, ObjectOutputStream}
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.yetus.audience.InterfaceAudience;
 
 import scala.util.control.NonFatal
 
-@InterfaceAudience.Private
 class SerializableConfiguration(@transient var value: Configuration) extends Serializable {
   private def writeObject(out: ObjectOutputStream): Unit = tryOrIOException {
     out.defaultWriteObject()

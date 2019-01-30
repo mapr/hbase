@@ -19,8 +19,6 @@ package org.apache.hadoop.hbase.spark
 
 import java.io.Serializable
 
-import org.apache.yetus.audience.InterfaceAudience;
-
 /**
  * This object will hold optional data for how a given column family's
  * writer will work
@@ -31,7 +29,6 @@ import org.apache.yetus.audience.InterfaceAudience;
  * @param dataBlockEncoding String to define the data block encoding to be used
  *                          in the HFile
  */
-@InterfaceAudience.Public
 class FamilyHFileWriteOptions( val compression:String,
                                val bloomType: String,
                                val blockSize: Int,

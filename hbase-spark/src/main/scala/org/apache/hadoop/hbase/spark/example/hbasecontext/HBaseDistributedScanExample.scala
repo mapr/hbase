@@ -16,23 +16,20 @@
  */
 package org.apache.hadoop.hbase.spark.example.hbasecontext
 
-import org.apache.hadoop.hbase.client.Scan
 import org.apache.hadoop.hbase.spark.HBaseContext
-import org.apache.hadoop.hbase.util.Bytes
-import org.apache.hadoop.hbase.HBaseConfiguration
-import org.apache.hadoop.hbase.TableName
-import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import org.apache.yetus.audience.InterfaceAudience
+import org.apache.hadoop.hbase.{TableName, HBaseConfiguration}
+import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.client.Scan
+import org.apache.spark.SparkConf
 /**
  * This is a simple example of scanning records from HBase
- * with the hbaseRDD function in Distributed fashion.
+ * with the hbaseRDD function.
  */
-@InterfaceAudience.Private
 object HBaseDistributedScanExample {
   def main(args: Array[String]) {
     if (args.length < 1) {
-      println("HBaseDistributedScanExample {tableName} missing an argument")
+      println("GenerateGraphs {tableName}")
       return
     }
 
@@ -54,6 +51,8 @@ object HBaseDistributedScanExample {
       getRdd.foreach(v => println(Bytes.toString(v._1.get())))
 
       println("Length: " + getRdd.map(r => r._1.copyBytes()).collect().length);
+
+        //.collect().foreach(v => println(Bytes.toString(v._1.get())))
     } finally {
       sc.stop()
     }

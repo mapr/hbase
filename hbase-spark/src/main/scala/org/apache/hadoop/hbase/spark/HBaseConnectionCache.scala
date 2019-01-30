@@ -20,22 +20,17 @@ package org.apache.hadoop.hbase.spark
 import java.io.IOException
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.client.Admin
-import org.apache.hadoop.hbase.client.Connection
-import org.apache.hadoop.hbase.client.ConnectionFactory
-import org.apache.hadoop.hbase.client.RegionLocator
-import org.apache.hadoop.hbase.client.Table
+import org.apache.hadoop.hbase.client.{Admin, Connection, ConnectionFactory, RegionLocator, Table}
 import org.apache.hadoop.hbase.ipc.RpcControllerFactory
-import org.apache.hadoop.hbase.security.User
-import org.apache.hadoop.hbase.security.UserProvider
+import org.apache.hadoop.hbase.security.{User, UserProvider}
 import org.apache.hadoop.hbase.spark.datasources.HBaseSparkConf
-import org.apache.hadoop.hbase.HConstants
-import org.apache.hadoop.hbase.TableName
-import org.apache.yetus.audience.InterfaceAudience
+import org.apache.hadoop.hbase.{HConstants, TableName}
+import org.slf4j.LoggerFactory
+
 import scala.collection.mutable
 
-@InterfaceAudience.Private
-private[spark] object HBaseConnectionCache extends Logging {
+private[spark] object HBaseConnectionCache {
+  val logger = LoggerFactory.getLogger("HBaseConnectionCache")
 
   // A hashmap of Spark-HBase connections. Key is HBaseConnectionKey.
   val connectionMap = new mutable.HashMap[HBaseConnectionKey, SmartConnection]()
@@ -43,7 +38,7 @@ private[spark] object HBaseConnectionCache extends Logging {
   val cacheStat = HBaseConnectionCacheStat(0, 0, 0)
 
   // in milliseconds
-  private final val DEFAULT_TIME_OUT: Long = HBaseSparkConf.DEFAULT_CONNECTION_CLOSE_DELAY
+  private final val DEFAULT_TIME_OUT: Long = HBaseSparkConf.connectionCloseDelay
   private var timeout = DEFAULT_TIME_OUT
   private var closed: Boolean = false
 
@@ -84,7 +79,7 @@ private[spark] object HBaseConnectionCache extends Logging {
         HBaseConnectionCache.performHousekeeping(true)
       }
     } catch {
-      case e: Exception => logWarning("Error in finalHouseKeeping", e)
+      case e: Exception => logger.warn("Error in finalHouseKeeping", e)
     }
   }
 
@@ -94,14 +89,14 @@ private[spark] object HBaseConnectionCache extends Logging {
       connectionMap.foreach {
         x => {
           if(x._2.refCount < 0) {
-            logError(s"Bug to be fixed: negative refCount of connection ${x._2}")
+            logger.error(s"Bug to be fixed: negative refCount of connection ${x._2}")
           }
 
           if(forceClean || ((x._2.refCount <= 0) && (tsNow - x._2.timestamp > timeout))) {
             try{
               x._2.connection.close()
             } catch {
-              case e: IOException => logWarning(s"Fail to close connection ${x._2}", e)
+              case e: IOException => logger.error(s"Fail to close connection ${x._2}", e)
             }
             connectionMap.remove(x._1)
           }
@@ -137,7 +132,6 @@ private[spark] object HBaseConnectionCache extends Logging {
   }
 }
 
-@InterfaceAudience.Private
 private[hbase] case class SmartConnection (
     connection: Connection, var refCount: Int = 0, var timestamp: Long = 0) {
   def getTable(tableName: TableName): Table = connection.getTable(tableName)
@@ -161,13 +155,15 @@ private[hbase] case class SmartConnection (
  * that may be used in the process of establishing a connection.
  *
  */
-@InterfaceAudience.Private
-class HBaseConnectionKey(c: Configuration) extends Logging {
+class HBaseConnectionKey(c: Configuration) {
+  val logger = LoggerFactory.getLogger("HBaseConnectionCache")
+
   val conf: Configuration = c
   val CONNECTION_PROPERTIES: Array[String] = Array[String](
     HConstants.ZOOKEEPER_QUORUM,
     HConstants.ZOOKEEPER_ZNODE_PARENT,
     HConstants.ZOOKEEPER_CLIENT_PORT,
+    HConstants.ZOOKEEPER_RECOVERABLE_WAITTIME,
     HConstants.HBASE_CLIENT_PAUSE,
     HConstants.HBASE_CLIENT_RETRIES_NUMBER,
     HConstants.HBASE_RPC_TIMEOUT_KEY,
@@ -195,7 +191,7 @@ class HBaseConnectionKey(c: Configuration) extends Logging {
     }
     catch {
       case e: IOException => {
-        logWarning("Error obtaining current user, skipping username in HBaseConnectionKey", e)
+        logger.warn("Error obtaining current user, skipping username in HBaseConnectionKey", e)
       }
     }
   }
@@ -265,7 +261,8 @@ class HBaseConnectionKey(c: Configuration) extends Logging {
  * @param numActualConnectionsCreated number of actual HBase connections the cache ever created
  * @param numActiveConnections number of current alive HBase connections the cache is holding
  */
-@InterfaceAudience.Private
 case class HBaseConnectionCacheStat(var numTotalRequests: Long,
                                     var numActualConnectionsCreated: Long,
                                     var numActiveConnections: Long)
+
+

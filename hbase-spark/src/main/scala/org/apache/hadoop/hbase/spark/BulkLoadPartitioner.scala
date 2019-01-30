@@ -20,7 +20,6 @@ package org.apache.hadoop.hbase.spark
 import java.util
 import java.util.Comparator
 
-import org.apache.yetus.audience.InterfaceAudience;
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.Partitioner
 
@@ -30,11 +29,10 @@ import org.apache.spark.Partitioner
  *
  * @param startKeys   The start keys for the given table
  */
-@InterfaceAudience.Public
 class BulkLoadPartitioner(startKeys:Array[Array[Byte]])
   extends Partitioner {
-  // when table not exist, startKeys = Byte[0][]
-  override def numPartitions: Int = if (startKeys.length == 0) 1 else startKeys.length
+
+  override def numPartitions: Int = startKeys.length
 
   override def getPartition(key: Any): Int = {
 
@@ -53,11 +51,8 @@ class BulkLoadPartitioner(startKeys:Array[Array[Byte]])
         case _ =>
           key.asInstanceOf[Array[Byte]]
       }
-    var partition = util.Arrays.binarySearch(startKeys, rowKey, comparator)
-    if (partition < 0)
-      partition = partition * -1 + -2
-    if (partition < 0)
-      partition = 0
-    partition
+    val partition = util.Arrays.binarySearch(startKeys, rowKey, comparator)
+    if (partition < 0) partition * -1 + -2
+    else partition
   }
 }

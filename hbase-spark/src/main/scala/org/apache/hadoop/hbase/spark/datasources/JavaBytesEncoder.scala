@@ -17,12 +17,7 @@
 
 package org.apache.hadoop.hbase.spark.datasources
 
-import org.apache.hadoop.hbase.HBaseInterfaceAudience;
-import org.apache.hadoop.hbase.spark.Logging
-import org.apache.yetus.audience.InterfaceAudience;
-import org.apache.yetus.audience.InterfaceStability;
 import org.apache.hadoop.hbase.spark.datasources.JavaBytesEncoder.JavaBytesEncoder
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.sql.types._
 import org.slf4j.LoggerFactory
 
@@ -33,7 +28,6 @@ import org.slf4j.LoggerFactory
   * @param low: the lower bound of the range.
   * @param upper: the upper bound of the range.
   */
-@InterfaceStability.Evolving
 case class BoundRange(low: Array[Byte],upper: Array[Byte])
 
 /**
@@ -45,7 +39,6 @@ case class BoundRange(low: Array[Byte],upper: Array[Byte])
   * @param greater: the set of ranges for GreaterThan/GreaterThanOrEqualTo
   * @param value: the byte array of the original value
   */
-@InterfaceStability.Evolving
 case class BoundRanges(less: Array[BoundRange], greater: Array[BoundRange], value: Array[Byte])
 
 /**
@@ -53,7 +46,6 @@ case class BoundRanges(less: Array[BoundRange], greater: Array[BoundRange], valu
   * encode is used for serializing the data type to byte array and the filter is
   * used to filter out the unnecessary records.
   */
-@InterfaceStability.Evolving
 trait BytesEncoder {
   def encode(dt: DataType, value: Any): Array[Byte]
 
@@ -90,11 +82,11 @@ trait BytesEncoder {
   def ranges(in: Any): Option[BoundRanges]
 }
 
-@InterfaceStability.Evolving
-object JavaBytesEncoder extends Enumeration with Logging{
+object JavaBytesEncoder extends Enumeration {
   type JavaBytesEncoder = Value
   val Greater, GreaterEqual, Less, LessEqual, Equal, Unknown = Value
 
+  val logger = LoggerFactory.getLogger(classOf[JavaBytesEncoder])
   /**
     * create the encoder/decoder
     *
@@ -106,7 +98,7 @@ object JavaBytesEncoder extends Enumeration with Logging{
       Class.forName(clsName).newInstance.asInstanceOf[BytesEncoder]
     } catch {
       case _: Throwable =>
-        logWarning(s"$clsName cannot be initiated, falling back to naive encoder")
+        logger.warn(s"$clsName cannot be initiated, falling back to naive encoder")
         new NaiveEncoder()
     }
   }

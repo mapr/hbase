@@ -16,16 +16,13 @@
  * limitations under the License.
  */
 
-package org.apache.hadoop.hbase.spark.datasources
+package org.apache.spark.sql.datasources.hbase
 
 import org.apache.hadoop.hbase.spark.AvroSerdes
 import org.apache.hadoop.hbase.util.Bytes
-//import org.apache.spark.sql.execution.SparkSqlSerializer
 import org.apache.spark.sql.types._
 import org.apache.spark.unsafe.types.UTF8String
-import org.apache.yetus.audience.InterfaceAudience;
 
-@InterfaceAudience.Private
 object Utils {
 
 
@@ -59,7 +56,8 @@ object Utils {
           val newArray = new Array[Byte](length)
           System.arraycopy(src, offset, newArray, 0, length)
           newArray
-        // TODO: SparkSqlSerializer.deserialize[Any](src)
+        // TODO: add more data type support
+        //case _ => SparkSqlSerializer.deserialize[Any](src)
         case _ => throw new Exception(s"unsupported data type ${f.dt}")
       }
     }

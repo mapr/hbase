@@ -20,7 +20,6 @@ package org.apache.hadoop.hbase.spark
 import java.util
 import java.util.concurrent.ConcurrentLinkedQueue
 
-import org.apache.yetus.audience.InterfaceAudience
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapred.TableOutputFormat
@@ -34,18 +33,17 @@ import org.apache.hadoop.hbase.TableName
 import org.apache.hadoop.hbase.CellUtil
 import org.apache.hadoop.mapred.JobConf
 import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.datasources.hbase.{Field, HBaseTableCatalog, Utils}
 import org.apache.spark.sql.{DataFrame, Row, SQLContext, SaveMode}
 import org.apache.spark.sql.sources._
 import org.apache.spark.sql.types._
+import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
 /**
  * DefaultSource for integration with Spark's dataframe datasources.
  * This class will produce a relationProvider based on input given to it from spark
- *
- * This class needs to stay in the current package 'org.apache.hadoop.hbase.spark'
- * for Spark to match the hbase data source name.
  *
  * In all this DefaultSource support the following datasource functionality
  * - Scan range pruning through filter push down logic based on rowKeys
@@ -54,8 +52,7 @@ import scala.collection.mutable
  * - Type conversions of basic SQL types.  All conversions will be
  *   Through the HBase Bytes object commands.
  */
-@InterfaceAudience.Private
-class DefaultSource extends RelationProvider  with CreatableRelationProvider with Logging {
+class DefaultSource extends RelationProvider  with CreatableRelationProvider {
   /**
    * Is given input from SparkSQL to construct a BaseRelation
     *
@@ -66,7 +63,7 @@ class DefaultSource extends RelationProvider  with CreatableRelationProvider wit
   override def createRelation(sqlContext: SQLContext,
                               parameters: Map[String, String]):
   BaseRelation = {
-    new HBaseRelation(parameters, None)(sqlContext)
+    HBaseRelation(parameters, None)(sqlContext)
   }
 
 
@@ -88,51 +85,63 @@ class DefaultSource extends RelationProvider  with CreatableRelationProvider wit
   *
   * @param sqlContext              SparkSQL context
  */
-@InterfaceAudience.Private
 case class HBaseRelation (
     @transient parameters: Map[String, String],
     userSpecifiedSchema: Option[StructType]
   )(@transient val sqlContext: SQLContext)
-  extends BaseRelation with PrunedFilteredScan  with InsertableRelation  with Logging {
+  extends BaseRelation with PrunedFilteredScan  with InsertableRelation{
+  val logger = LoggerFactory.getLogger(classOf[HBaseRelation])
+
   val timestamp = parameters.get(HBaseSparkConf.TIMESTAMP).map(_.toLong)
-  val minTimestamp = parameters.get(HBaseSparkConf.TIMERANGE_START).map(_.toLong)
-  val maxTimestamp = parameters.get(HBaseSparkConf.TIMERANGE_END).map(_.toLong)
+  val minTimestamp = parameters.get(HBaseSparkConf.MIN_TIMESTAMP).map(_.toLong)
+  val maxTimestamp = parameters.get(HBaseSparkConf.MAX_TIMESTAMP).map(_.toLong)
   val maxVersions = parameters.get(HBaseSparkConf.MAX_VERSIONS).map(_.toInt)
-  val encoderClsName = parameters.get(HBaseSparkConf.QUERY_ENCODER).getOrElse(HBaseSparkConf.DEFAULT_QUERY_ENCODER)
+  val encoderClsName = parameters.getOrElse(HBaseSparkConf.ENCODER, HBaseSparkConf.defaultEncoder)
 
   @transient val encoder = JavaBytesEncoder.create(encoderClsName)
 
   val catalog = HBaseTableCatalog(parameters)
   def tableName = catalog.name
-
-  val configResources = parameters.get(HBaseSparkConf.HBASE_CONFIG_LOCATION)
-  val useHBaseContext =  parameters.get(HBaseSparkConf.USE_HBASECONTEXT).map(_.toBoolean).getOrElse(HBaseSparkConf.DEFAULT_USE_HBASECONTEXT)
-  val usePushDownColumnFilter = parameters.get(HBaseSparkConf.PUSHDOWN_COLUMN_FILTER)
-    .map(_.toBoolean).getOrElse(HBaseSparkConf.DEFAULT_PUSHDOWN_COLUMN_FILTER)
+  val isMapRDB = tableName.startsWith("/")
+  val configResources = parameters.getOrElse(HBaseSparkConf.HBASE_CONFIG_RESOURCES_LOCATIONS, "")
+  val useHBaseContext =  parameters.get(HBaseSparkConf.USE_HBASE_CONTEXT)
+    .forall(_.toBoolean)
+  val usePushDownColumnFilter = parameters.getOrElse(HBaseSparkConf.PUSH_DOWN_COLUMN_FILTER, {
+    if (isMapRDB)
+      HBaseSparkConf.maprDbDefaultPushDownColumnFilter
+    else
+      HBaseSparkConf.defaultPushDownColumnFilter
+  }).toBoolean
 
   // The user supplied per table parameter will overwrite global ones in SparkConf
-  val blockCacheEnable = parameters.get(HBaseSparkConf.QUERY_CACHEBLOCKS).map(_.toBoolean)
+  val blockCacheEnable = parameters.get(HBaseSparkConf.BLOCK_CACHE_ENABLE).map(_.toBoolean)
     .getOrElse(
       sqlContext.sparkContext.getConf.getBoolean(
-        HBaseSparkConf.QUERY_CACHEBLOCKS, HBaseSparkConf.DEFAULT_QUERY_CACHEBLOCKS))
-  val cacheSize = parameters.get(HBaseSparkConf.QUERY_CACHEDROWS).map(_.toInt)
+        HBaseSparkConf.BLOCK_CACHE_ENABLE, HBaseSparkConf.defaultBlockCacheEnable))
+  val cacheSize = parameters.get(HBaseSparkConf.CACHE_SIZE).map(_.toInt)
     .getOrElse(
       sqlContext.sparkContext.getConf.getInt(
-      HBaseSparkConf.QUERY_CACHEDROWS, -1))
-  val batchNum = parameters.get(HBaseSparkConf.QUERY_BATCHSIZE).map(_.toInt)
+      HBaseSparkConf.CACHE_SIZE, HBaseSparkConf.defaultCachingSize))
+  val batchNum = parameters.get(HBaseSparkConf.BATCH_NUM).map(_.toInt)
     .getOrElse(sqlContext.sparkContext.getConf.getInt(
-    HBaseSparkConf.QUERY_BATCHSIZE,  -1))
+    HBaseSparkConf.BATCH_NUM,  HBaseSparkConf.defaultBatchNum))
 
   val bulkGetSize =  parameters.get(HBaseSparkConf.BULKGET_SIZE).map(_.toInt)
     .getOrElse(sqlContext.sparkContext.getConf.getInt(
-    HBaseSparkConf.BULKGET_SIZE,  HBaseSparkConf.DEFAULT_BULKGET_SIZE))
+    HBaseSparkConf.BULKGET_SIZE,  HBaseSparkConf.defaultBulkGetSize))
 
   //create or get latest HBaseContext
-  val hbaseContext:HBaseContext = if (useHBaseContext) {
-    LatestHBaseContextCache.latest
+  val hbaseContext:HBaseContext = if (useHBaseContext
+    && LatestHBaseContextCache.latest.isDefined) {
+
+    LatestHBaseContextCache.latest.get
   } else {
     val config = HBaseConfiguration.create()
-    configResources.map(resource => resource.split(",").foreach(r => config.addResource(r)))
+
+    configResources.split(",")
+      .filter(!_.isEmpty)
+      .foreach( r => config.addResource(r))
+
     new HBaseContext(sqlContext.sparkContext, config)
   }
 
@@ -152,11 +161,9 @@ case class HBaseRelation (
   def createTable() {
     val numReg = parameters.get(HBaseTableCatalog.newTable).map(x => x.toInt).getOrElse(0)
     val startKey =  Bytes.toBytes(
-      parameters.get(HBaseTableCatalog.regionStart)
-        .getOrElse(HBaseTableCatalog.defaultRegionStart))
+      parameters.getOrElse(HBaseTableCatalog.regionStart, HBaseTableCatalog.defaultRegionStart))
     val endKey = Bytes.toBytes(
-      parameters.get(HBaseTableCatalog.regionEnd)
-        .getOrElse(HBaseTableCatalog.defaultRegionEnd))
+      parameters.getOrElse(HBaseTableCatalog.regionEnd, HBaseTableCatalog.defaultRegionEnd))
     if (numReg > 3) {
       val tName = TableName.valueOf(catalog.name)
       val cfs = catalog.getColumnFamilies
@@ -169,7 +176,7 @@ case class HBaseRelation (
           val tableDesc = new HTableDescriptor(tName)
           cfs.foreach { x =>
             val cf = new HColumnDescriptor(x.getBytes())
-            logDebug(s"add family $x to ${catalog.name}")
+            logger.debug(s"add family $x to ${catalog.name}")
             tableDesc.addFamily(cf)
           }
           val splitKeys = Bytes.split(startKey, endKey, numReg);
@@ -181,7 +188,7 @@ case class HBaseRelation (
         connection.close()
       }
     } else {
-      logInfo(
+      logger.info(
         s"""${HBaseTableCatalog.newTable}
            |is not defined or no larger than 3, skip the create table""".stripMargin)
     }
@@ -316,12 +323,12 @@ case class HBaseRelation (
       pushDownDynamicLogicExpression = null
     }
 
-    logDebug("pushDownRowKeyFilter:           " + pushDownRowKeyFilter.ranges)
+    logger.debug("pushDownRowKeyFilter:           " + pushDownRowKeyFilter.ranges)
     if (pushDownDynamicLogicExpression != null) {
-      logDebug("pushDownDynamicLogicExpression: " +
+      logger.debug("pushDownDynamicLogicExpression: " +
         pushDownDynamicLogicExpression.toExpressionString)
     }
-    logDebug("valueArray:                     " + valueArray.length)
+    logger.debug("valueArray:                     " + valueArray.length)
 
     val requiredQualifierDefinitionList =
       new mutable.MutableList[Field]
@@ -577,7 +584,6 @@ case class HBaseRelation (
  * @param lowerBound          Lower bound of scan
  * @param isLowerBoundEqualTo Include lower bound value in the results
  */
-@InterfaceAudience.Private
 class ScanRange(var upperBound:Array[Byte], var isUpperBoundEqualTo:Boolean,
                 var lowerBound:Array[Byte], var isLowerBoundEqualTo:Boolean)
   extends Serializable {
@@ -731,7 +737,6 @@ class ScanRange(var upperBound:Array[Byte], var isUpperBoundEqualTo:Boolean,
  * @param currentPoint the initial point when the filter is created
  * @param currentRange the initial scanRange when the filter is created
  */
-@InterfaceAudience.Private
 class ColumnFilter (currentPoint:Array[Byte] = null,
                      currentRange:ScanRange = null,
                      var points:mutable.MutableList[Array[Byte]] =
@@ -861,7 +866,6 @@ class ColumnFilter (currentPoint:Array[Byte] = null,
  * Also contains merge commends that will consolidate the filters
  * per column name
  */
-@InterfaceAudience.Private
 class ColumnFilterCollection {
   val columnFilterMap = new mutable.HashMap[String, ColumnFilter]
 
@@ -927,7 +931,6 @@ class ColumnFilterCollection {
  * Status object to store static functions but also to hold last executed
  * information that can be used for unit testing.
  */
-@InterfaceAudience.Private
 object DefaultSourceStaticUtils {
 
   val rawInteger = new RawInteger
@@ -1070,7 +1073,6 @@ object DefaultSourceStaticUtils {
  * @param currentPoint the initial point when the filter is created
  * @param currentRange the initial scanRange when the filter is created
  */
-@InterfaceAudience.Private
 class RowKeyFilter (currentPoint:Array[Byte] = null,
                     currentRange:ScanRange =
                     new ScanRange(null, true, new Array[Byte](0), true),
@@ -1221,6 +1223,7 @@ class RowKeyFilter (currentPoint:Array[Byte] = null,
   }
 }
 
-@InterfaceAudience.Private
+
+
 class ExecutionRuleForUnitTesting(val rowKeyFilter: RowKeyFilter,
                                   val dynamicLogicExpression: DynamicLogicExpression)

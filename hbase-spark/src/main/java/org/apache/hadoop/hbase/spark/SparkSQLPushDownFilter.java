@@ -17,40 +17,34 @@
 
 package org.apache.hadoop.hbase.spark;
 
-import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.exceptions.DeserializationException;
-import org.apache.hadoop.hbase.filter.Filter.ReturnCode;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.spark.datasources.BytesEncoder;
-import org.apache.hadoop.hbase.spark.datasources.Field;
 import org.apache.hadoop.hbase.spark.datasources.JavaBytesEncoder;
 import org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos;
 import org.apache.hadoop.hbase.util.ByteStringer;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.yetus.audience.InterfaceAudience;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.apache.spark.sql.datasources.hbase.Field;
 import scala.collection.mutable.MutableList;
+
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.ByteString;
 
 /**
  * This filter will push down all qualifier logic given to us
  * by SparkSQL so that we have make the filters at the region server level
  * and avoid sending the data back to the client to be filtered.
  */
-@InterfaceAudience.Private
 public class SparkSQLPushDownFilter extends FilterBase{
-  protected static final Logger log = LoggerFactory.getLogger(SparkSQLPushDownFilter.class);
+  protected static final Log log = LogFactory.getLog(SparkSQLPushDownFilter.class);
 
   //The following values are populated with protobuffer
   DynamicLogicExpression dynamicLogicExpression;
@@ -183,7 +177,7 @@ public class SparkSQLPushDownFilter extends FilterBase{
   /**
    * @param pbBytes A pb serialized instance
    * @return An instance of SparkSQLPushDownFilter
-   * @throws DeserializationException if the filter cannot be parsed from the given bytes
+   * @throws org.apache.hadoop.hbase.exceptions.DeserializationException
    */
   @SuppressWarnings("unused")
   public static SparkSQLPushDownFilter parseFrom(final byte[] pbBytes)
@@ -275,35 +269,5 @@ public class SparkSQLPushDownFilter extends FilterBase{
 
 
     return builder.build().toByteArray();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (!(obj instanceof SparkSQLPushDownFilter)) {
-      return false;
-    }
-    if (this == obj) {
-      return true;
-    }
-    SparkSQLPushDownFilter f = (SparkSQLPushDownFilter) obj;
-    if (this.valueFromQueryArray.length != f.valueFromQueryArray.length) {
-      return false;
-    }
-    int i = 0;
-    for (byte[] val : this.valueFromQueryArray) {
-      if (!Bytes.equals(val, f.valueFromQueryArray[i])) {
-        return false;
-      }
-      i++;
-    }
-    return this.dynamicLogicExpression.equals(f.dynamicLogicExpression) &&
-      this.currentCellToColumnIndexMap.equals(f.currentCellToColumnIndexMap) &&
-      this.encoderClassName.equals(f.encoderClassName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.dynamicLogicExpression, Arrays.hashCode(this.valueFromQueryArray),
-      this.currentCellToColumnIndexMap, this.encoderClassName);
   }
 }
