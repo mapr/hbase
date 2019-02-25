@@ -64,6 +64,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.StringUtils;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
+
 /**
  * Utility for {@link TableMapper} and {@link TableReducer}
  */
@@ -449,7 +451,7 @@ public class TableMapReduceUtil {
       }
     }
 
-    if (userProvider.isHBaseSecurityEnabled()) {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job.getConfiguration())) {
       try {
         // init credentials for remote cluster
         String quorumAddress = job.getConfiguration().get(TableOutputFormat.QUORUM_ADDRESS);
@@ -457,19 +459,13 @@ public class TableMapReduceUtil {
         if (quorumAddress != null) {
           Configuration peerConf = HBaseConfiguration.create(job.getConfiguration());
           ZKUtil.applyClusterKeyToConf(peerConf, quorumAddress);
-          Connection peerConn = ConnectionFactory.createConnection(peerConf);
-          try {
+          try (Connection peerConn = ConnectionFactory.createConnection(peerConf)) {
             TokenUtil.addTokenForJob(peerConn, user, job);
-          } finally {
-            peerConn.close();
           }
         }
 
-        Connection conn = ConnectionFactory.createConnection(job.getConfiguration());
-        try {
+        try (Connection conn = ConnectionFactory.createConnection(job.getConfiguration())) {
           TokenUtil.addTokenForJob(conn, user, job);
-        } finally {
-          conn.close();
         }
       } catch (InterruptedException ie) {
         LOG.info("Interrupted obtaining user authentication token");
@@ -492,15 +488,12 @@ public class TableMapReduceUtil {
   public static void initCredentialsForCluster(Job job, String quorumAddress)
       throws IOException {
     UserProvider userProvider = UserProvider.instantiate(job.getConfiguration());
-    if (userProvider.isHBaseSecurityEnabled()) {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job.getConfiguration())) {
       try {
         Configuration peerConf = HBaseConfiguration.create(job.getConfiguration());
         ZKUtil.applyClusterKeyToConf(peerConf, quorumAddress);
-        Connection peerConn = ConnectionFactory.createConnection(peerConf);
-        try {
+        try (Connection peerConn = ConnectionFactory.createConnection(peerConf)) {
           TokenUtil.addTokenForJob(peerConn, userProvider.getCurrent(), job);
-        } finally {
-          peerConn.close();
         }
       } catch (InterruptedException e) {
         LOG.info("Interrupted obtaining user authentication token");

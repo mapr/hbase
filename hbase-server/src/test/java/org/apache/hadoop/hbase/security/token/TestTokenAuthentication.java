@@ -454,15 +454,12 @@ public class TestTokenAuthentication {
     assertNotNull(firstToken);
     assertEquals(token, firstToken);
 
-    Connection conn = ConnectionFactory.createConnection(TEST_UTIL.getConfiguration());
-    try {
+    try (Connection conn = ConnectionFactory.createConnection(TEST_UTIL.getConfiguration())) {
       assertFalse(TokenUtil.addTokenIfMissing(conn, user));
       // make sure we still have the same token
       Token<AuthenticationTokenIdentifier> secondToken =
           new AuthenticationTokenSelector().selectToken(token.getService(), user.getTokens());
       assertEquals(firstToken, secondToken);
-    } finally {
-      conn.close();
     }
   }
 }

@@ -47,6 +47,8 @@ import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.token.Token;
 import org.apache.zookeeper.KeeperException;
 
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
+
 /**
  * Utility methods for obtaining authentication tokens.
  */
@@ -77,25 +79,19 @@ public class TokenUtil {
    */
   public static Token<AuthenticationTokenIdentifier> obtainToken(
       Connection conn) throws IOException {
-    Table meta = null;
-    try {
-      meta = conn.getTable(TableName.META_TABLE_NAME);
+    try (Table meta = conn.getTable(TableName.META_TABLE_NAME)) {
       CoprocessorRpcChannel rpcChannel = meta.coprocessorService(HConstants.EMPTY_START_ROW);
       AuthenticationProtos.AuthenticationService.BlockingInterface service =
           AuthenticationProtos.AuthenticationService.newBlockingStub(rpcChannel);
-      AuthenticationProtos.GetAuthenticationTokenResponse response = service.getAuthenticationToken(null,
-          AuthenticationProtos.GetAuthenticationTokenRequest.getDefaultInstance());
+      AuthenticationProtos.GetAuthenticationTokenResponse response =
+          service.getAuthenticationToken(null, AuthenticationProtos.GetAuthenticationTokenRequest.getDefaultInstance());
 
       return ProtobufUtil.toToken(response.getToken());
     } catch (ServiceException se) {
       ProtobufUtil.toIOException(se);
-    } finally {
-      if (meta != null) {
-        meta.close();
-      }
+      // dummy return for ServiceException block
+      return null;
     }
-    // dummy return for ServiceException block
-    return null;
   }
 
   /**
@@ -105,17 +101,11 @@ public class TokenUtil {
    */
   public static Token<AuthenticationTokenIdentifier> obtainToken(
       final Connection conn, User user) throws IOException, InterruptedException {
-    return user.runAs(new PrivilegedExceptionAction<Token<AuthenticationTokenIdentifier>>() {
-      @Override
-      public Token<AuthenticationTokenIdentifier> run() throws Exception {
-        return obtainToken(conn);
-      }
-    });
+    return user.runAs((PrivilegedExceptionAction<Token<AuthenticationTokenIdentifier>>) () -> obtainToken(conn));
   }
 
 
-  private static Text getClusterId(Token<AuthenticationTokenIdentifier> token)
-      throws IOException {
+  private static Text getClusterId(Token<AuthenticationTokenIdentifier> token) {
     return token.getService() != null
         ? token.getService() : new Text("default");
   }
@@ -130,49 +120,27 @@ public class TokenUtil {
    * @deprecated Replaced by {@link #obtainAndCacheToken(Connection,User)}
    */
   @Deprecated
-  public static void obtainAndCacheToken(final Configuration conf,
-                                         UserGroupInformation user)
+  public static void obtainAndCacheToken(final Configuration conf, UserGroupInformation user)
       throws IOException, InterruptedException {
-    Connection conn = ConnectionFactory.createConnection(conf);
-    try {
+    try (Connection conn = ConnectionFactory.createConnection(conf)) {
       UserProvider userProvider = UserProvider.instantiate(conf);
       obtainAndCacheToken(conn, userProvider.create(user));
-    } finally {
-      conn.close();
     }
   }
 
   /**
    * Obtain an authentication token for the given user and add it to the
-   * user's credentials.
+   * user's credentials. Skip adding for MapRDB cluster.
    * @param conn The HBase cluster connection
    * @param user The user for whom to obtain the token
    * @throws IOException If making a remote call to the authentication service fails
    * @throws InterruptedException If executing as the given user is interrupted
    */
-  public static void obtainAndCacheToken(final Connection conn,
-      User user)
+  public static void obtainAndCacheToken(final Connection conn, User user)
       throws IOException, InterruptedException {
-    try {
-      Token<AuthenticationTokenIdentifier> token = obtainToken(conn, user);
-
-      if (token == null) {
-        throw new IOException("No token returned for user " + user.getName());
-      }
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Obtained token " + token.getKind().toString() + " for user " +
-            user.getName());
-      }
+    if (!isMapRDBOnlyCluster(conn.getConfiguration())) {
+      Token<AuthenticationTokenIdentifier> token = obtainTokenWithCheck(conn, user);
       user.addToken(token);
-    } catch (IOException ioe) {
-      throw ioe;
-    } catch (InterruptedException ie) {
-      throw ie;
-    } catch (RuntimeException re) {
-      throw re;
-    } catch (Exception e) {
-      throw new UndeclaredThrowableException(e,
-          "Unexpected exception obtaining token for user " + user.getName());
     }
   }
 
@@ -187,51 +155,29 @@ public class TokenUtil {
    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,User,Job)}
    */
   @Deprecated
-  public static void obtainTokenForJob(final Configuration conf,
-                                       UserGroupInformation user, Job job)
+  public static void obtainTokenForJob(final Configuration conf, UserGroupInformation user, Job job)
       throws IOException, InterruptedException {
-    Connection conn = ConnectionFactory.createConnection(conf);
-    try {
+    try (Connection conn = ConnectionFactory.createConnection(conf)) {
       UserProvider userProvider = UserProvider.instantiate(conf);
       obtainTokenForJob(conn, userProvider.create(user), job);
-    } finally {
-      conn.close();
     }
   }
 
   /**
    * Obtain an authentication token on behalf of the given user and add it to
-   * the credentials for the given map reduce job.
+   * the credentials for the given map reduce job. Skip adding for MapRDB cluster.
    * @param conn The HBase cluster connection
    * @param user The user for whom to obtain the token
    * @param job The job instance in which the token should be stored
    * @throws IOException If making a remote call to the authentication service fails
    * @throws InterruptedException If executing as the given user is interrupted
    */
-  public static void obtainTokenForJob(final Connection conn,
-      User user, Job job)
+  public static void obtainTokenForJob(final Connection conn, User user, Job job)
       throws IOException, InterruptedException {
-    try {
-      Token<AuthenticationTokenIdentifier> token = obtainToken(conn, user);
-
-      if (token == null) {
-        throw new IOException("No token returned for user " + user.getName());
-      }
+    if (!isMapRDBOnlyCluster(conn.getConfiguration())) {
+      Token<AuthenticationTokenIdentifier> token = obtainTokenWithCheck(conn, user);
       Text clusterId = getClusterId(token);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Obtained token " + token.getKind().toString() + " for user " +
-            user.getName() + " on cluster " + clusterId.toString());
-      }
       job.getCredentials().addToken(clusterId, token);
-    } catch (IOException ioe) {
-      throw ioe;
-    } catch (InterruptedException ie) {
-      throw ie;
-    } catch (RuntimeException re) {
-      throw re;
-    } catch (Exception e) {
-      throw new UndeclaredThrowableException(e,
-          "Unexpected exception obtaining token for user " + user.getName());
     }
   }
 
@@ -245,21 +191,17 @@ public class TokenUtil {
    * @deprecated Replaced by {@link #obtainTokenForJob(Connection,JobConf,User)}
    */
   @Deprecated
-  public static void obtainTokenForJob(final JobConf job,
-                                       UserGroupInformation user)
+  public static void obtainTokenForJob(final JobConf job, UserGroupInformation user)
       throws IOException, InterruptedException {
-    Connection conn = ConnectionFactory.createConnection(job);
-    try {
+    try (Connection conn = ConnectionFactory.createConnection(job)) {
       UserProvider userProvider = UserProvider.instantiate(job);
       obtainTokenForJob(conn, job, userProvider.create(user));
-    } finally {
-      conn.close();
     }
   }
 
   /**
    * Obtain an authentication token on behalf of the given user and add it to
-   * the credentials for the given map reduce job.
+   * the credentials for the given map reduce job. Skip adding for MapRDB cluster.
    * @param conn The HBase cluster connection
    * @param user The user for whom to obtain the token
    * @param job The job configuration in which the token should be stored
@@ -268,27 +210,10 @@ public class TokenUtil {
    */
   public static void obtainTokenForJob(final Connection conn, final JobConf job, User user)
       throws IOException, InterruptedException {
-    try {
-      Token<AuthenticationTokenIdentifier> token = obtainToken(conn, user);
-
-      if (token == null) {
-        throw new IOException("No token returned for user " + user.getName());
-      }
+    if (!isMapRDBOnlyCluster(conn.getConfiguration())) {
+      Token<AuthenticationTokenIdentifier> token = obtainTokenWithCheck(conn, user);
       Text clusterId = getClusterId(token);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Obtained token " + token.getKind().toString() + " for user " +
-            user.getName() + " on cluster " + clusterId.toString());
-      }
       job.getCredentials().addToken(clusterId, token);
-    } catch (IOException ioe) {
-      throw ioe;
-    } catch (InterruptedException ie) {
-      throw ie;
-    } catch (RuntimeException re) {
-      throw re;
-    } catch (Exception e) {
-      throw new UndeclaredThrowableException(e,
-          "Unexpected exception obtaining token for user "+user.getName());
     }
   }
 
@@ -304,7 +229,6 @@ public class TokenUtil {
    */
   public static void addTokenForJob(final Connection conn, final JobConf job, User user)
       throws IOException, InterruptedException {
-
     Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
     if (token == null) {
       token = obtainToken(conn, user);
@@ -334,20 +258,22 @@ public class TokenUtil {
   /**
    * Checks if an authentication tokens exists for the connected cluster,
    * obtaining one if needed and adding it to the user's credentials.
-   *
+   * Skip adding for MapRDB cluster.
    * @param conn The HBase cluster connection
    * @param user The user for whom to obtain the token
    * @throws IOException If making a remote call to the authentication service fails
    * @throws InterruptedException If executing as the given user is interrupted
-   * @return true if the token was added, false if it already existed
+   * @return true if the token was added, false otherwise
    */
   public static boolean addTokenIfMissing(Connection conn, User user)
       throws IOException, InterruptedException {
-    Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
-    if (token == null) {
-      token = obtainToken(conn, user);
-      user.getUGI().addToken(token.getService(), token);
-      return true;
+    if (!isMapRDBOnlyCluster(conn.getConfiguration())) {
+      Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
+      if (token == null) {
+        token = obtainToken(conn, user);
+        user.getUGI().addToken(token.getService(), token);
+        return true;
+      }
     }
     return false;
   }
@@ -371,4 +297,32 @@ public class TokenUtil {
       zkw.close();
     }
   }
+
+  /**
+   * Obtain an authentication token on behalf of the given user with successful token retrieval check.
+   * @param conn The HBase cluster connection
+   * @param user The user for whom to obtain the token
+   * @throws IOException If making a remote call to the authentication service fails
+   * @throws InterruptedException If executing as the given user is interrupted
+   */
+  public static Token<AuthenticationTokenIdentifier> obtainTokenWithCheck(final Connection conn, User user)
+      throws IOException, InterruptedException {
+    try {
+      Token<AuthenticationTokenIdentifier> token = obtainToken(conn, user);
+      if (token == null) {
+        throw new IOException("No token returned for user " + user.getName());
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Obtained token " + token.getKind().toString() + " for user " +
+            user.getName());
+      }
+      return token;
+    } catch (IOException | InterruptedException | RuntimeException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new UndeclaredThrowableException(e,
+          "Unexpected exception obtaining token for user " + user.getName());
+    }
+  }
+
 }

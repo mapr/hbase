@@ -20,7 +20,6 @@ package org.apache.hadoop.hbase.mapred;
 
 import java.io.IOException;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
 import org.apache.hadoop.fs.Path;
@@ -33,22 +32,17 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.MutationSerialization;
 import org.apache.hadoop.hbase.mapreduce.ResultSerialization;
-import org.apache.hadoop.hbase.security.token.AuthenticationTokenIdentifier;
-import org.apache.hadoop.hbase.security.token.AuthenticationTokenSelector;
 import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.security.UserProvider;
 import org.apache.hadoop.hbase.security.token.TokenUtil;
-import org.apache.hadoop.hbase.zookeeper.ZKClusterId;
-import org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.InputFormat;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.OutputFormat;
 import org.apache.hadoop.mapred.TextInputFormat;
 import org.apache.hadoop.mapred.TextOutputFormat;
-import org.apache.hadoop.security.token.Token;
-import org.apache.zookeeper.KeeperException;
+
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
 
 /**
  * Utility for {@link TableMap} and {@link TableReduce}
@@ -238,17 +232,14 @@ public class TableMapReduceUtil {
       }
     }
 
-    if (userProvider.isHBaseSecurityEnabled()) {
-      Connection conn = ConnectionFactory.createConnection(job);
-      try {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job)) {
+      try (Connection conn = ConnectionFactory.createConnection(job)) {
         // login the server principal (if using secure Hadoop)
         User user = userProvider.getCurrent();
         TokenUtil.addTokenForJob(conn, job, user);
       } catch (InterruptedException ie) {
         ie.printStackTrace();
         Thread.currentThread().interrupt();
-      } finally {
-        conn.close();
       }
     }
   }
