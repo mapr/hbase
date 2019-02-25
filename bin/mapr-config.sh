@@ -27,6 +27,8 @@ MAPR_CONF="${BASE_MAPR}/conf"
 env=${BASE_MAPR}/conf/env.sh
 [ -f $env ] && . $env
 
+KERBEROS_ENABLE=$(head -n 1 $MAPR_CLUSTERS_CONF | grep kerberosEnable= | sed 's/^.*kerberosEnable=\(.*\) .*$/\1/')
+
 MAPR_LOGIN_CONF=${MAPR_LOGIN_CONF:-${BASE_MAPR}/conf/mapr.login.conf}
 MAPR_CLUSTERS_CONF=${MAPR_CLUSTERS_CONF:-${BASE_MAPR}/conf/mapr-clusters.conf}
 SSL_TRUST_STORE=${SSL_TRUST_STORE:-${BASE_MAPR}/conf/ssl_truststore}
@@ -79,8 +81,13 @@ MAPR_JAAS_CONFIG_OPTS=${MAPR_JAAS_CONFIG_OPTS:-"-Djava.security.auth.login.confi
 if [ "$MAPR_SECURITY_STATUS" = "true" ]; then
     MAPR_ZOOKEEPER_OPTS=${MAPR_ZOOKEEPER_OPTS:-"-Dzookeeper.saslprovider=com.mapr.security.maprsasl.MaprSaslProvider"}
     MAPR_ZOOKEEPER_OPTS="${MAPR_ZOOKEEPER_OPTS} -Dzookeeper.sasl.client=true"
-    MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=maprsasl_keytab"
-    MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=maprsasl"
+    if [ "$KERBEROS_ENABLE" = "true" ]; then
+        MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=kerberos_keytab"
+        MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=kerberos"
+    else
+        MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=maprsasl_keytab"
+        MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=maprsasl"
+    fi
     MAPR_SSL_OPTS=${MAPR_SSL_OPTS:-"-Djavax.net.ssl.trustStore=${SSL_TRUST_STORE}"}
 else
     MAPR_ZOOKEEPER_OPTS=${MAPR_ZOOKEEPER_OPTS:-"-Dzookeeper.sasl.clientconfig=Client_simple -Dzookeeper.saslprovider=com.mapr.security.simplesasl.SimpleSaslProvider"}
