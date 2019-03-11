@@ -37,12 +37,12 @@
       <id>mapr public</id>
       <name>MapR Public Maven Repository</name>
       <url>http://repository.mapr.com/maven/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
+    </repository>
+    <repository>
+      <id>mapr maven repo</id>
+      <url>${env.MAPR_MAVEN_REPO}</url>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
     </repository>
   </repositories>
 
