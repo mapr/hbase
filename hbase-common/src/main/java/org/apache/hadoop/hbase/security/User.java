@@ -54,6 +54,8 @@ public abstract class User {
       "hbase.security.authentication";
   public static final String HBASE_SECURITY_AUTHORIZATION_CONF_KEY =
       "hbase.security.authorization";
+  public static final String MAPR_SASL = "maprsasl";
+  public static final String KERBEROS = "kerberos";
 
   protected UserGroupInformation ugi;
 
@@ -269,7 +271,8 @@ public abstract class User {
    * recommended that secure HBase should run on secure HDFS.
    */
   public static boolean isHBaseSecurityEnabled(Configuration conf) {
-    return "kerberos".equalsIgnoreCase(conf.get(HBASE_SECURITY_CONF_KEY));
+    String hbaseConfSecurityValue = conf.get(HBASE_SECURITY_CONF_KEY);
+    return KERBEROS.equalsIgnoreCase(hbaseConfSecurityValue) || MAPR_SASL.equalsIgnoreCase(hbaseConfSecurityValue);
   }
 
   /* Concrete implementations */

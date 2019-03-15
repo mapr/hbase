@@ -77,6 +77,10 @@ import org.apache.zookeeper.server.ZooKeeperSaslServer;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.KERBEROS;
+import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
+
 /**
  * Internal HBase utility class for ZooKeeper.
  *
@@ -1017,7 +1021,8 @@ public class ZKUtil {
     }
 
     // Master & RSs uses hbase.zookeeper.client.*
-    return "kerberos".equalsIgnoreCase(conf.get("hbase.security.authentication"));
+    String securityConfValue = conf.get(HBASE_SECURITY_CONF_KEY);
+    return KERBEROS.equalsIgnoreCase(securityConfValue) || MAPR_SASL.equalsIgnoreCase(securityConfValue);
   }
 
   private static ArrayList<ACL> createACL(ZooKeeperWatcher zkw, String node) {

@@ -77,17 +77,12 @@ public class TokenProvider implements AuthenticationProtos.AuthenticationService
    * @param ugi A user group information.
    * @return true if delegation token operation is allowed
    */
-  private boolean isAllowedDelegationTokenOp(UserGroupInformation ugi) throws IOException {
+  private boolean isAllowedDelegationTokenOp(UserGroupInformation ugi) {
     AuthenticationMethod authMethod = ugi.getAuthenticationMethod();
     if (authMethod == AuthenticationMethod.PROXY) {
       authMethod = ugi.getRealUser().getAuthenticationMethod();
     }
-    if (authMethod != AuthenticationMethod.KERBEROS
-        && authMethod != AuthenticationMethod.KERBEROS_SSL
-        && authMethod != AuthenticationMethod.CERTIFICATE) {
-      return false;
-    }
-    return true;
+    return authMethod.allowsDelegation();
   }
 
   // AuthenticationService implementation

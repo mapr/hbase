@@ -59,6 +59,9 @@ import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
 
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.KERBEROS;
+
 /**
  * Main class for launching REST gateway as a servlet hosted by Jetty.
  * <p>
@@ -97,7 +100,8 @@ public class RESTServer implements Constants {
       String machineName = Strings.domainNamePointerToHostName(
         DNS.getDefaultHost(conf.get(REST_DNS_INTERFACE, "default"),
           conf.get(REST_DNS_NAMESERVER, "default")));
-      if (userProvider.isHBaseSecurityEnabled()) {
+      if (userProvider.isHBaseSecurityEnabled() &&
+          KERBEROS.equalsIgnoreCase(conf.get(HBASE_SECURITY_CONF_KEY))) {
         String keytabFilename = conf.get(REST_KEYTAB_FILE);
         Preconditions.checkArgument(keytabFilename != null && !keytabFilename.isEmpty(),
             REST_KEYTAB_FILE + " should be set if security is enabled");

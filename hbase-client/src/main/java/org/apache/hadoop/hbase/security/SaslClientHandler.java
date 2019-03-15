@@ -34,6 +34,7 @@ import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenIdentifier;
 
 import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.Sasl;
 import javax.security.sasl.SaslClient;
 import javax.security.sasl.SaslException;
@@ -99,6 +100,12 @@ public class SaslClientHandler extends ChannelDuplexHandler {
       saslClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
           SaslUtil.SASL_DEFAULT_REALM, new HBaseSaslRpcClient.SaslClientCallbackHandler(token));
       break;
+    case MAPRSASL:
+      if (LOG.isDebugEnabled())
+        LOG.debug("Creating SASL " + AuthMethod.MAPRSASL.getMechanismName()
+            + " client to authenticate to service.");
+      saslClient = createMaprSaslClient(new String[] { AuthMethod.MAPRSASL.getMechanismName() });
+      break;
     case KERBEROS:
       if (LOG.isDebugEnabled()) {
         LOG.debug("Creating SASL " + AuthMethod.KERBEROS.getMechanismName()
@@ -152,6 +159,14 @@ public class SaslClientHandler extends ChannelDuplexHandler {
     return Sasl
         .createSaslClient(mechanismNames, null, userFirstPart, userSecondPart, SaslUtil.SASL_PROPS,
             null);
+  }
+
+  protected SaslClient createMaprSaslClient(String[] mechanismNames) throws IOException {
+    return Sasl.createSaslClient(mechanismNames, null, null,
+        null, SaslUtil.SASL_PROPS,
+        callbacks -> {
+          throw new UnsupportedCallbackException(callbacks[0]);
+        });
   }
 
   @Override

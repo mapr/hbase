@@ -193,7 +193,23 @@ function configure_hbase_authorization_insecure() {
   remove_property hbase.coprocessor.region.classes
 }
 
+###############################################
+#    HBASE ENCRYPTION CONFIGURATION           #
+###############################################
 
+function configure_hbase_encryption_secure() {
+  if ! grep -q hbase.security.authentication "$HBASE_SITE" ; then
+    add_comment "Enabling Hbase encryption"
+    add_property hbase.security.authentication maprsasl
+    [ ! $(grep -q hbase.rpc.protection "$HBASE_SITE") ] && add_property hbase.rpc.protection privacy
+  fi
+}
+
+function configure_hbase_encryption_insecure() {
+  remove_comment "Enabling Hbase encryption"
+  remove_property hbase.security.authentication
+  remove_property hbase.rpc.protection
+}
 
 ###############################################
 #    HBASE THRIFT CONFIGURATION               #
@@ -371,6 +387,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
       configure_hbase_authorization_secure
+      configure_hbase_encryption_secure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_secure
       fi
@@ -379,6 +396,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
       fi
     elif [ "$isSecure" = "false" ]; then
       configure_hbase_authorization_insecure
+      configure_hbase_encryption_insecure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_insecure
       fi

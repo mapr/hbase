@@ -99,6 +99,8 @@ import com.google.protobuf.Message;
 import com.google.protobuf.Message.Builder;
 import com.google.protobuf.RpcCallback;
 
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+
 /**
  * Does RPC against a cluster.  Manages connections per regionserver in the cluster.
  * <p>See HBaseServer
@@ -339,8 +341,8 @@ public class RpcClientImpl extends AbstractRpcClient {
         authMethod = AuthMethod.SIMPLE;
       } else if (token != null) {
         authMethod = AuthMethod.DIGEST;
-      } else {
-        authMethod = AuthMethod.KERBEROS;
+      } else { //Only "maprsasl" or "kerberos" value could appear here if security is enabled, null check is unnecessary
+        authMethod = AuthMethod.valueOf(conf.get(HBASE_SECURITY_CONF_KEY).toUpperCase());
       }
 
       if (LOG.isDebugEnabled()) {
@@ -385,7 +387,7 @@ public class RpcClientImpl extends AbstractRpcClient {
         return null;
       }
       UserInformation.Builder userInfoPB = UserInformation.newBuilder();
-      if (authMethod == AuthMethod.KERBEROS) {
+      if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
         // Send effective user for Kerberos auth
         userInfoPB.setEffectiveUser(ugi.getUserName());
       } else if (authMethod == AuthMethod.SIMPLE) {
@@ -725,7 +727,7 @@ public class RpcClientImpl extends AbstractRpcClient {
             final InputStream in2 = inStream;
             final OutputStream out2 = outStream;
             UserGroupInformation ticket = remoteId.getTicket().getUGI();
-            if (authMethod == AuthMethod.KERBEROS) {
+            if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
               if (ticket != null && ticket.getRealUser() != null) {
                 ticket = ticket.getRealUser();
               }

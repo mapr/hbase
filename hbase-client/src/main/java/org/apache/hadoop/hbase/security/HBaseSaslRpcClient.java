@@ -106,6 +106,12 @@ public class HBaseSaslRpcClient {
           new String[] { AuthMethod.DIGEST.getMechanismName() },
           SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
       break;
+    case MAPRSASL:
+      if (LOG.isDebugEnabled())
+        LOG.debug("Creating SASL " + AuthMethod.MAPRSASL.getMechanismName()
+            + " client to authenticate to service.");
+      saslClient = createMaprSaslClient(new String[] { AuthMethod.MAPRSASL.getMechanismName() });
+      break;
     case KERBEROS:
       if (LOG.isDebugEnabled()) {
         LOG
@@ -145,6 +151,14 @@ public class HBaseSaslRpcClient {
       String userFirstPart, String userSecondPart) throws IOException {
     return Sasl.createSaslClient(mechanismNames, null, userFirstPart,
         userSecondPart, SaslUtil.SASL_PROPS, null);
+  }
+
+  protected SaslClient createMaprSaslClient(String[] mechanismNames) throws IOException {
+    return Sasl.createSaslClient(mechanismNames, null, null,
+        null, SaslUtil.SASL_PROPS,
+        callbacks -> {
+          throw new UnsupportedCallbackException(callbacks[0]);
+        });
   }
 
   private static void readStatus(DataInputStream inStream) throws IOException {

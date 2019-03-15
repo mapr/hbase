@@ -75,6 +75,8 @@ import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 import com.google.protobuf.RpcCallback;
 
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+
 /**
  * Netty RPC channel
  */
@@ -181,7 +183,7 @@ public class AsyncRpcChannel {
             channel.writeAndFlush(b).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
             if (useSasl) {
               UserGroupInformation ticket = AsyncRpcChannel.this.ticket.getUGI();
-              if (authMethod == AuthMethod.KERBEROS) {
+              if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
                 if (ticket != null && ticket.getRealUser() != null) {
                   ticket = ticket.getRealUser();
                 }
@@ -479,8 +481,8 @@ public class AsyncRpcChannel {
       authMethod = AuthMethod.SIMPLE;
     } else if (token != null) {
       authMethod = AuthMethod.DIGEST;
-    } else {
-      authMethod = AuthMethod.KERBEROS;
+    } else { //Only "maprsasl" or "kerberos" value could appear here if security is enabled, null check is unnecessary
+      authMethod = AuthMethod.valueOf(client.conf.get(HBASE_SECURITY_CONF_KEY).toUpperCase());
     }
 
     if (LOG.isDebugEnabled()) {
@@ -503,7 +505,7 @@ public class AsyncRpcChannel {
       return null;
     }
     RPCProtos.UserInformation.Builder userInfoPB = RPCProtos.UserInformation.newBuilder();
-    if (authMethod == AuthMethod.KERBEROS) {
+    if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
       // Send effective user for Kerberos auth
       userInfoPB.setEffectiveUser(ugi.getUserName());
     } else if (authMethod == AuthMethod.SIMPLE) {

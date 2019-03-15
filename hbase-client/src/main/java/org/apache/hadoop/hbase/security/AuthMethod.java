@@ -31,7 +31,8 @@ import java.io.IOException;
 public enum AuthMethod {
   SIMPLE((byte) 80, "", UserGroupInformation.AuthenticationMethod.SIMPLE),
   KERBEROS((byte) 81, "GSSAPI", UserGroupInformation.AuthenticationMethod.KERBEROS),
-  DIGEST((byte) 82, "DIGEST-MD5", UserGroupInformation.AuthenticationMethod.TOKEN);
+  DIGEST((byte) 82, "DIGEST-MD5", UserGroupInformation.AuthenticationMethod.TOKEN),
+  MAPRSASL((byte) 83, "MAPR-SECURITY", UserGroupInformation.AuthenticationMethod.CUSTOM);
 
   /** The code for this method. */
   public final byte code;
