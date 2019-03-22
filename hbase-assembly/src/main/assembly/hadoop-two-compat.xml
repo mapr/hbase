@@ -98,7 +98,7 @@
       <lineEnding>unix</lineEnding>
     </file>
     <file>
-      <source>${project.build.directory}/NOTICE.aggregate</source>
+      <source>${basedir}/../NOTICE.txt</source>
       <outputDirectory>.</outputDirectory>
       <destName>NOTICE.txt</destName>
       <lineEnding>unix</lineEnding>
