@@ -37,6 +37,12 @@ module Hbase
       @connection = @admin.getConnection()
       @formatter = formatter
       @zk_wrapper = nil
+      begin
+        @mapping_rules = com.mapr.fs.hbase.MapRTableMappingRules.new(configuration)
+      rescue NameError => e
+        @mapping_rules = nil
+        return
+      end
     end
    
     def zkInit()
@@ -229,6 +235,39 @@ module Hbase
     end
 
     #----------------------------------------------------------------------------------------------
+    # Is it a MapR table? Used during creation, so wont exist
+    def is_mapr_table?(table_path)
+      # Table name should be a string
+      raise(ArgumentError, "Table name must be of type String") unless table_path.kind_of?(String)
+      if @mapping_rules != nil && @mapping_rules.isMapRTable(table_path)
+        true;
+      else
+        false;
+      end
+    end
+
+    #----------------------------------------------------------------------------------------------
+    # Check if bulkload option needs to be added to the descriptor.
+    # Caller ensures that arg[BULKLOAD] exists in the command line.
+    def check_bulkload(table_name, arg, htd)
+      if is_mapr_table?(table_name)
+        raise(ArgumentError, "Bulkload value must be of type String") unless arg[BULKLOAD].kind_of?(String)
+        raise(ArgumentError, "Bulkload value can be 'true' or 'false' only.") unless arg[BULKLOAD].capitalize == 'False' or arg[BULKLOAD].capitalize == 'True'
+        htd.setValue(BULKLOAD, arg[BULKLOAD])
+      else
+        raise(ArgumentError, "BULKLOAD not supported for HBase tables")
+      end
+    end
+
+    # BULKLOAD is a per table property and cannot be specified with other
+    # options.
+    # Caller ensures that arg[BULKLOAD] exists in the command line.
+    def disallow_bulkload(loc)
+      raise(ArgumentError, "BULKLOAD cannot be combined with " +
+            loc + " option.")
+    end
+
+    #----------------------------------------------------------------------------------------------
     # Creates a table
     def create(table_name, *args)
       # Fail if table name is not a string
@@ -241,7 +280,7 @@ module Hbase
       # Start defining the table
       htd = org.apache.hadoop.hbase.HTableDescriptor.new(org.apache.hadoop.hbase.TableName.valueOf(table_name))
       splits = nil
-      # Args are either columns or splits, add them to the table definition
+      # Args are either columns, splits or bulkload, add them to the table definition
       # TODO: add table options support
       args.each do |arg|
         unless arg.kind_of?(String) || arg.kind_of?(Hash)
@@ -276,6 +315,12 @@ module Hbase
 
         # The hash is not a column family. Figure out what's in it.
         # First, handle splits.
+        if (arg.has_key?(SPLITS) or arg.has_key?(SPLITS_FILE))
+          if (arg.has_key?(BULKLOAD))
+            disallow_bulkload("splits")
+          end
+        end
+
         if arg.has_key?(SPLITS_FILE)
           splits_file = arg.delete(SPLITS_FILE)
           unless File.exist?(splits_file)
@@ -300,9 +345,22 @@ module Hbase
           raise(ArgumentError, "Number of regions must be specified") unless arg.has_key?(NUMREGIONS)
           raise(ArgumentError, "Split algorithm must be specified") unless arg.has_key?(SPLITALGO)
           raise(ArgumentError, "Number of regions must be greater than 1") unless arg[NUMREGIONS] > 1
+
+          if (arg.has_key?(BULKLOAD))
+            if (arg.has_key?(NUMREGIONS))
+              disallow_bulkload("numRegions")
+            else
+              disallow_bulkload("SplitAlgo");
+            end
+          end
+
           num_regions = arg.delete(NUMREGIONS)
           split_algo = RegionSplitter.newSplitAlgoInstance(@conf, arg.delete(SPLITALGO))
           splits = split_algo.split(JInteger.valueOf(num_regions))
+        elsif (arg.has_key?(BULKLOAD))
+          # (3) bulkload - only for M7 tables
+          check_bulkload(table_name, arg, htd)
+          arg.delete(BULKLOAD)
         end
 
         # Done with splits; apply formerly-table_att parameters.
@@ -589,6 +647,12 @@ module Hbase
         set_user_metadata(htd, arg.delete(METADATA)) if arg[METADATA]
         set_descriptor_config(htd, arg.delete(CONFIGURATION)) if arg[CONFIGURATION]
 
+        # Note that we handle BULKLOAD and ignore else after.
+        if arg[BULKLOAD]
+          check_bulkload(table_name, arg, htd)
+          arg.delete(BULKLOAD)
+        end
+
         # set a coprocessor attribute
         valid_coproc_keys = []
         if arg.kind_of?(Hash)
@@ -748,6 +812,10 @@ module Hbase
       return org.apache.hadoop.hbase.HColumnDescriptor.new(arg) if arg.kind_of?(String)
 
       raise(ArgumentError, "Column family #{arg} must have a name") unless name = arg.delete(NAME)
+
+      if (arg.has_key?(BULKLOAD))
+        disallow_bulkload("ColFam")
+      end
 
       family = htd.getFamily(name.to_java_bytes)
       # create it if it's a new family

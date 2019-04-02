@@ -88,6 +88,13 @@ There could be more than one alteration in one command:
   hbase> alter 't1', { NAME => 'f1', VERSIONS => 3 }, 
    { MAX_FILESIZE => '134217728' }, { METHOD => 'delete', NAME => 'f2' },
    OWNER => 'johndoe', METADATA => { 'mykey' => 'myvalue' }
+
+For MapR tables, the 'BULKLOAD' attribute can be changed to 'false' only.
+This option is not applicable for Apache HBase tables.
+  hbase> alter '/a0', BULKLOAD => 'false'
+  hbase> alter '/a0', METHOD => 'table_att', MAX_FILESIZE => '134217728',
+         BULKLOAD => 'false'
+
 EOF
       end
 
