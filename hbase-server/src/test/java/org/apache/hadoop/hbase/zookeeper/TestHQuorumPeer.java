@@ -137,7 +137,7 @@ public class TestHQuorumPeer {
     config.clear();
     Properties p = ZKConfig.makeZKProps(config);
     assertNotNull(p);
-    assertEquals(2181, p.get("clientPort"));
+    assertEquals(5181, p.get("clientPort"));
   }
 
   @Test
