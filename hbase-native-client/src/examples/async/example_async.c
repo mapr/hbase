@@ -395,7 +395,7 @@ main(int argc, char **argv) {
   bytebuffer column_b = bytebuffer_strcpy("column-b");
 
   const char *table_name      = (argc > 1) ? argv[1] : "TempTable";
-  const char *zk_ensemble     = (argc > 2) ? argv[2] : "localhost:2181";
+  const char *zk_ensemble     = (argc > 2) ? argv[2] : "localhost:5181";
   const char *zk_root_znode   = (argc > 3) ? argv[3] : NULL;
   const size_t table_name_len = strlen(table_name);
 

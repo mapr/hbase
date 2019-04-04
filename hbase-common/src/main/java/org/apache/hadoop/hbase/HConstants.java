@@ -181,7 +181,7 @@ public final class HConstants {
       ZK_CFG_PROPERTY_PREFIX + CLIENT_PORT_STR;
 
   /** Default client port that the zookeeper listens on */
-  public static final int DEFAULT_ZOOKEPER_CLIENT_PORT = 2181;
+  public static final int DEFAULT_ZOOKEPER_CLIENT_PORT = 5181;
 
   /** Parameter name for the wait time for the recoverable zookeeper */
   public static final String ZOOKEEPER_RECOVERABLE_WAITTIME = "hbase.zookeeper.recoverable.waittime";

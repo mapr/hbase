@@ -29,6 +29,6 @@ const char *HConstants::ZK_ENSEMBLE = "hbase.zookeeper.ensemble";
 
 const char *HConstants::ZK_QUORUM = "hbase.zookeeper.quorum";
 
-const char *HConstants::ZK_DEFAULT_PORT = "2181";
+const char *HConstants::ZK_DEFAULT_PORT = "5181";
 
 } /* namespace hbase */
