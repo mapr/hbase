@@ -37,7 +37,7 @@
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <spark.version>2.4.0.0-mapr-SNAPSHOT</spark.version>
+    <spark.version>2.4.0.0-mapr-620</spark.version>
     <scala.version>2.11.8</scala.version>
     <scala.binary.version>2.11</scala.binary.version>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
