@@ -1256,7 +1256,7 @@
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
-    <mapr.release.version>6.1.0-mapr</mapr.release.version>
+    <mapr.release.version>6.2.0-mapr-SNAPSHOT</mapr.release.version>
     <mapr.hadoop-two.version>4.1.0-mapr</mapr.hadoop-two.version>
     <hadoop-two.version>2.7.0-mapr-1808</hadoop-two.version>
 
@@ -1270,7 +1270,7 @@
     <hadoop.version>${hadoop-two.version}</hadoop.version>
     <compat.module>hbase-hadoop2-compat</compat.module>
     <assembly.file>src/main/assembly/hadoop-two-compat.xml</assembly.file>
-    <!-- end HBASE-15925 default hadoop compatibility values -->
+    <!-- end HBASE-15925 default hadoop compatibilty values -->
     <commons-cli.version>1.2</commons-cli.version>
     <commons-codec.version>1.9</commons-codec.version>
     <!-- pretty outdated -->
