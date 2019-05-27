@@ -39,7 +39,7 @@
   <groupId>org.apache.hbase</groupId>
   <artifactId>hbase</artifactId>
   <packaging>pom</packaging>
-  <version>1.1.8-mapr-mep-6.2-SNAPSHOT</version>
+  <version>1.1.8-mapr-mep-6.2-1904</version>
   <name>HBase</name>
   <description>
     Apache HBase is the Hadoop database. Use it when you need
@@ -1189,7 +1189,7 @@
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
-    <mapr.release.version>6.1.0-mapr-SNAPSHOT</mapr.release.version> <!-- TODO: remove SNAPSHOT after 6.1.0 release -->
+    <mapr.release.version>6.1.0-mapr</mapr.release.version> <!-- TODO: remove SNAPSHOT after 6.1.0 release -->
     <mapr.hadoop-two.version>4.1.0-mapr</mapr.hadoop-two.version>
     <hadoop-two.version>2.7.0-mapr-1710-SNAPSHOT</hadoop-two.version>
 
@@ -1235,7 +1235,7 @@
     <protobuf.version>2.5.0</protobuf.version>
     <thrift.path>thrift</thrift.path>
     <thrift.version>0.12.0</thrift.version>
-    <zookeeper.version>3.4.11-mapr-SNAPSHOT</zookeeper.version>
+    <zookeeper.version>3.4.11-mapr-1808</zookeeper.version>
     <slf4j.version>1.7.5</slf4j.version>
     <hadoop-snappy.version>0.0.1-SNAPSHOT</hadoop-snappy.version>
     <clover.version>4.0.3</clover.version>
