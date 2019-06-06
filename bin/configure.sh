@@ -390,8 +390,8 @@ if [ "$isOnlyRoles" == 1 ] ; then
   if is_hbase_not_configured_yet; then
     configure_hbase_pid_dir
     configure_zookeeper_quorum
+    configure_hbase_default_db
   fi
-  configure_hbase_default_db
 
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
