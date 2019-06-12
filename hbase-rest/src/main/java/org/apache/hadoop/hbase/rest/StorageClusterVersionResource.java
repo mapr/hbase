@@ -32,8 +32,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.hadoop.hbase.ClusterStatus;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.rest.model.StorageClusterVersionModel;
+import org.apache.hadoop.hbase.util.VersionInfo;
 
 @InterfaceAudience.Private
 public class StorageClusterVersionResource extends ResourceBase {
@@ -64,7 +66,9 @@ public class StorageClusterVersionResource extends ResourceBase {
     servlet.getMetrics().incrementRequests(1);
     try {
       StorageClusterVersionModel model = new StorageClusterVersionModel();
-      model.setVersion(servlet.getAdmin().getClusterStatus().getHBaseVersion());
+      ClusterStatus clusterStatus = servlet.getAdmin().getClusterStatus();
+      String version = clusterStatus != null ? clusterStatus.getHBaseVersion() : VersionInfo.getVersion();
+      model.setVersion(version);
       ResponseBuilder response = Response.ok(model);
       response.cacheControl(cacheControl);
       servlet.getMetrics().incrementSucessfulGetRequests(1);
