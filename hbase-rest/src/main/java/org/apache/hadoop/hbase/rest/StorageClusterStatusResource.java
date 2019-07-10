@@ -29,6 +29,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,6 +39,8 @@ import org.apache.hadoop.hbase.ServerLoad;
 import org.apache.hadoop.hbase.RegionLoad;
 import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.rest.model.StorageClusterStatusModel;
+
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
 
 @InterfaceAudience.Private
 public class StorageClusterStatusResource extends ResourceBase {
@@ -67,35 +70,34 @@ public class StorageClusterStatusResource extends ResourceBase {
       LOG.trace("GET " + uriInfo.getAbsolutePath());
     }
     servlet.getMetrics().incrementRequests(1);
+    ResponseBuilder response;
     try {
-      ClusterStatus status = servlet.getAdmin().getClusterStatus();
-      StorageClusterStatusModel model = new StorageClusterStatusModel();
-      model.setRegions(status.getRegionsCount());
-      model.setRequests(status.getRequestsCount());
-      model.setAverageLoad(status.getAverageLoad());
-      for (ServerName info: status.getServers()) {
-        ServerLoad load = status.getLoad(info);
-        StorageClusterStatusModel.Node node =
-          model.addLiveNode(
-            info.getHostname() + ":" +
-            Integer.toString(info.getPort()),
-            info.getStartcode(), load.getUsedHeapMB(),
-            load.getMaxHeapMB());
-        node.setRequests(load.getNumberOfRequests());
-        for (RegionLoad region: load.getRegionsLoad().values()) {
-          node.addRegion(region.getName(), region.getStores(),
-            region.getStorefiles(), region.getStorefileSizeMB(),
-            region.getMemStoreSizeMB(), region.getStorefileIndexSizeMB(),
-            region.getReadRequestsCount(), region.getWriteRequestsCount(),
-            region.getRootIndexSizeKB(), region.getTotalStaticIndexSizeKB(),
-            region.getTotalStaticBloomSizeKB(), region.getTotalCompactingKVs(),
-            region.getCurrentCompactedKVs());
+      if (isMapRDBOnlyCluster(servlet.getAdmin().getConfiguration())) {
+        response = Response.ok();
+      } else {
+        ClusterStatus status = servlet.getAdmin().getClusterStatus();
+        StorageClusterStatusModel model = new StorageClusterStatusModel();
+        model.setRegions(status.getRegionsCount());
+        model.setRequests(status.getRequestsCount());
+        model.setAverageLoad(status.getAverageLoad());
+        for (ServerName info : status.getServers()) {
+          ServerLoad load = status.getLoad(info);
+          StorageClusterStatusModel.Node node = model
+              .addLiveNode(info.getHostname() + ":" + Integer.toString(info.getPort()), info.getStartcode(), load.getUsedHeapMB(),
+                  load.getMaxHeapMB());
+          node.setRequests(load.getNumberOfRequests());
+          for (RegionLoad region : load.getRegionsLoad().values()) {
+            node.addRegion(region.getName(), region.getStores(), region.getStorefiles(), region.getStorefileSizeMB(),
+                region.getMemStoreSizeMB(), region.getStorefileIndexSizeMB(), region.getReadRequestsCount(), region.getWriteRequestsCount(),
+                region.getRootIndexSizeKB(), region.getTotalStaticIndexSizeKB(), region.getTotalStaticBloomSizeKB(), region.getTotalCompactingKVs(),
+                region.getCurrentCompactedKVs());
+          }
         }
+        for (ServerName name : status.getDeadServerNames()) {
+          model.addDeadNode(name.toString());
+        }
+        response = Response.ok(model);
       }
-      for (ServerName name: status.getDeadServerNames()) {
-        model.addDeadNode(name.toString());
-      }
-      ResponseBuilder response = Response.ok(model);
       response.cacheControl(cacheControl);
       servlet.getMetrics().incrementSucessfulGetRequests(1);
       return response.build();
