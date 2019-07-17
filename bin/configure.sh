@@ -52,6 +52,9 @@ HBASE_SITE_CHECK_SUM_FILE="${HBASE_HOME}/conf/.hbase_site_check_sum"
 # Warden-specific
 MAPR_CONF_DIR=${MAPR_CONF_DIR:-"$MAPR_HOME/conf"}
 
+is_hbase_not_configured_yet(){
+  [ -f "$HBASE_CONF/.not_configured_yet" ]
+}
 
 # Parse options
 
@@ -66,7 +69,13 @@ while [ ${#} -gt 0 ] ; do
       isSecure="false";
       shift 1;;
     --customSecure)
-      isSecure="custom";
+      if is_hbase_not_configured_yet ; then
+        # Custom secure flag is passed to components during upgrade from 4.x/5.x to 6.x core versions.
+        # Need to configure basic security for fresh install in this case.
+        isSecure="true"
+      else
+        isSecure="custom"
+      fi
       shift 1;;
     -R)
       isOnlyRoles=1;
@@ -314,10 +323,6 @@ read_secure() {
 
 write_secure() {
   echo "$1" > "${HBASE_SECURE_FILE}"
-}
-
-is_hbase_not_configured_yet(){
-  [ -f "$HBASE_CONF/.not_configured_yet" ]
 }
 
 
