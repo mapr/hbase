@@ -229,11 +229,13 @@ public class TokenUtil {
    */
   public static void addTokenForJob(final Connection conn, final JobConf job, User user)
       throws IOException, InterruptedException {
-    Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
-    if (token == null) {
-      token = obtainToken(conn, user);
+    if (!isMapRDBOnlyCluster(job)) {
+      Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
+      if (token == null) {
+        token = obtainToken(conn, user);
+      }
+      job.getCredentials().addToken(token.getService(), token);
     }
-    job.getCredentials().addToken(token.getService(), token);
   }
 
   /**
@@ -248,11 +250,13 @@ public class TokenUtil {
    */
   public static void addTokenForJob(final Connection conn, User user, Job job)
       throws IOException, InterruptedException {
-    Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
-    if (token == null) {
-      token = obtainToken(conn, user);
+    if (!isMapRDBOnlyCluster(job.getConfiguration())) {
+      Token<AuthenticationTokenIdentifier> token = getAuthToken(conn.getConfiguration(), user);
+      if (token == null) {
+        token = obtainToken(conn, user);
+      }
+      job.getCredentials().addToken(token.getService(), token);
     }
-    job.getCredentials().addToken(token.getService(), token);
   }
 
   /**
