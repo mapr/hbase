@@ -31,6 +31,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
 
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.KERBEROS;
 import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
 
 /**
@@ -81,7 +82,7 @@ public class InfoServer {
           c.get("ssl.server.truststore.type", "jks"));
     }
     this.httpServer = builder.build();
-    if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
+    if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY)) || KERBEROS.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
       this.httpServer.addFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
     }
   }
