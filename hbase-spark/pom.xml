@@ -37,13 +37,13 @@
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <spark.version>2.4.3.0-mapr-SNAPSHOT</spark.version>
-    <scala.version>2.11.8</scala.version>
+    <spark.version>2.4.4.0-mapr-SNAPSHOT</spark.version>
+    <scala.version>2.11.12</scala.version>
     <scala.binary.version>2.11</scala.binary.version>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
     <top.dir>${project.basedir}/..</top.dir>
-    <avro.version>1.7.6</avro.version>
-    <avro.mapred.classifier></avro.mapred.classifier>
+    <avro.version>1.8.2</avro.version>
+    <avro.mapred.classifier>hadoop2</avro.mapred.classifier>
   </properties>
 
   <dependencies>
