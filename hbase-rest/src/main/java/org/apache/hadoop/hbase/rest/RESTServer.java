@@ -20,8 +20,6 @@ package org.apache.hadoop.hbase.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
@@ -35,6 +33,7 @@ import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseInterfaceAudience;
+import org.apache.hadoop.hbase.http.FiltersUtil;
 import org.apache.hadoop.hbase.http.InfoServer;
 import org.apache.hadoop.hbase.jetty.SslSelectChannelConnectorSecure;
 import org.apache.hadoop.hbase.rest.filter.AuthFilter;
@@ -52,7 +51,6 @@ import org.mortbay.jetty.servlet.ServletHolder;
 import org.mortbay.thread.QueuedThreadPool;
 
 import com.google.common.base.Preconditions;
-import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
@@ -225,6 +223,8 @@ public class RESTServer implements Constants {
     if (authFilter != null) {
       context.addFilter(authFilter, "/*", 1);
     }
+
+    FiltersUtil.addCustomHeadersFilterIfPresent(context, conf);
 
     // Load filters from configuration.
     String[] filterClasses = servlet.getConfiguration().getStrings(FILTER_CLASSES,

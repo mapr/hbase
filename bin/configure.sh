@@ -120,7 +120,7 @@ function set_property() {
   if ! grep -q $property_name "$HBASE_SITE" ; then
     add_property ${property_name} ${property_value}
   else
-    sed -i '/'${property_name}'/{:a;N;/<\/value>/!ba; s/<value>.*<\/value>/<value>'${property_value}'<\/value>/}' ${HBASE_SITE}
+    sed -i '/'${property_name}'/{:a;N;/<\/value>/!ba; s|<value>.*</value>|<value>'${property_value}'</value>|}' ${HBASE_SITE}
   fi
 }
 
@@ -158,6 +158,11 @@ function configure_hbase_default_db() {
     default_db="maprdb"
   fi
   set_property mapr.hbase.default.db "${default_db}"
+}
+
+function configure_custom_headers() {
+  local default_headers_location="${HBASE_HOME}/conf/jetty-headers.xml"
+  set_property hbase.custom.headers.file ${default_headers_location}
 }
 
 function change_permissions() {
@@ -396,6 +401,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
     configure_hbase_pid_dir
     configure_zookeeper_quorum
     configure_hbase_default_db
+    configure_custom_headers
   fi
 
   if [ "$(read_secure)" != "$isSecure" ] ; then

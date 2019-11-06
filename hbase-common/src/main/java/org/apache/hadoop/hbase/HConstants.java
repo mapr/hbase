@@ -1210,6 +1210,9 @@ public final class HConstants {
   public static final String DEFAULT_TEMPORARY_HDFS_DIRECTORY = "/user/"
       + System.getProperty("user.name") + "/hbase-staging";
 
+  /** Custom headers file location parameter. */
+  public static final String CUSTOM_HEADERS_FILE = "hbase.custom.headers.file";
+
   private HConstants() {
     // Can't be instantiated with this ctor.
   }
