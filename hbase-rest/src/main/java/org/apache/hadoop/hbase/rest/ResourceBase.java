@@ -51,52 +51,35 @@ public class ResourceBase implements Constants {
   
   protected Response processException(Throwable exp) {
     Throwable curr = exp;
-    if(accessDeniedClazz != null) {
+    if (accessDeniedClazz != null) {
       //some access denied exceptions are buried
       while (curr != null) {
-        if(accessDeniedClazz.isAssignableFrom(curr.getClass())
-            || accessControlExceptionClazz.isAssignableFrom(curr.getClass())) {
-          throw new WebApplicationException(
-              Response.status(Response.Status.FORBIDDEN)
-                .type(MIMETYPE_TEXT).entity("Forbidden" + CRLF +
-                   StringUtils.stringifyException(exp) + CRLF)
-                .build());
+        if (accessDeniedClazz.isAssignableFrom(curr.getClass()) || accessControlExceptionClazz
+            .isAssignableFrom(curr.getClass())) {
+          return Response.status(Response.Status.FORBIDDEN).type(MIMETYPE_TEXT)
+              .entity("Forbidden" + CRLF + StringUtils.stringifyException(exp) + CRLF).build();
         }
         curr = curr.getCause();
       }
     }
     //TableNotFound may also be buried one level deep
-    if (exp instanceof TableNotFoundException ||
-        exp.getCause() instanceof TableNotFoundException) {
-      throw new WebApplicationException(
-        Response.status(Response.Status.NOT_FOUND)
-          .type(MIMETYPE_TEXT).entity("Not found" + CRLF +
-             StringUtils.stringifyException(exp) + CRLF)
-          .build());
+    if (exp instanceof TableNotFoundException || exp.getCause() instanceof TableNotFoundException) {
+      return Response.status(Response.Status.NOT_FOUND).type(MIMETYPE_TEXT)
+          .entity("Not found" + CRLF + StringUtils.stringifyException(exp) + CRLF).build();
     }
-    if (exp instanceof NoSuchColumnFamilyException){
-      throw new WebApplicationException(
-        Response.status(Response.Status.NOT_FOUND)
-          .type(MIMETYPE_TEXT).entity("Not found" + CRLF +
-             StringUtils.stringifyException(exp) + CRLF)
-          .build());
+    if (exp instanceof NoSuchColumnFamilyException) {
+      return Response.status(Response.Status.NOT_FOUND).type(MIMETYPE_TEXT)
+          .entity("Not found" + CRLF + StringUtils.stringifyException(exp) + CRLF).build();
     }
     if (exp instanceof RuntimeException) {
-      throw new WebApplicationException(
-          Response.status(Response.Status.BAD_REQUEST)
-            .type(MIMETYPE_TEXT).entity("Bad request" + CRLF +
-              StringUtils.stringifyException(exp) + CRLF)
-            .build());
+      return Response.status(Response.Status.BAD_REQUEST).type(MIMETYPE_TEXT)
+          .entity("Bad request" + CRLF + StringUtils.stringifyException(exp) + CRLF).build();
     }
     if (exp instanceof RetriesExhaustedWithDetailsException) {
-      RetriesExhaustedWithDetailsException retryException =
-          (RetriesExhaustedWithDetailsException) exp;
-      processException(retryException.getCause(0));
+      RetriesExhaustedWithDetailsException retryException = (RetriesExhaustedWithDetailsException) exp;
+      return processException(retryException.getCause(0));
     }
-    throw new WebApplicationException(
-      Response.status(Response.Status.SERVICE_UNAVAILABLE)
-        .type(MIMETYPE_TEXT).entity("Unavailable" + CRLF +
-          StringUtils.stringifyException(exp) + CRLF)
-        .build());
+    return Response.status(Response.Status.SERVICE_UNAVAILABLE).type(MIMETYPE_TEXT)
+        .entity("Unavailable" + CRLF + StringUtils.stringifyException(exp) + CRLF).build();
   }
 }
