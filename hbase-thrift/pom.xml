@@ -324,6 +324,11 @@
       <groupId>tomcat</groupId>
       <artifactId>jasper-runtime</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.kerby</groupId>
+      <artifactId>kerb-simplekdc</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
