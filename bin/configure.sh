@@ -36,8 +36,8 @@ HBASE_HOME="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"
 HBASE_CONF="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"/conf
 HBASE_SITE=${HBASE_CONF}/hbase-site.xml
 
-HB_MASTER_ROLE="hbasemaster"
-HB_REGIONSERVER_ROLE="hbaseregionserver"
+HB_MASTER_ROLE="hbmaster"
+HB_REGIONSERVER_ROLE="hbregionserver"
 HB_REST_ROLE="hbaserest"
 HB_THRIFT_ROLE="hbasethrift"
 declare -A PORTS=( ["$HB_MASTER_ROLE"]="16000" ["$HB_REGIONSERVER_ROLE"]="16020" ["$HB_REST_ROLE"]="8080" ["$HB_THRIFT_ROLE"]="9090")
@@ -347,6 +347,18 @@ function copy_warden_file() {
   fi
 }
 
+remove_old_warden_entries() {
+  local warden_conf_file="$MAPR_CONF_DIR/warden.conf"
+  if grep -q hbmaster ${warden_conf_file} ; then
+    sed -i '/hbmaster.*=/d' ${warden_conf_file}
+    sed -i 's/hbmaster:all:cldb;//' ${warden_conf_file}
+  fi
+  if grep -q hbregion ${warden_conf_file} ; then
+    sed -i '/hbregion.*=/d' ${warden_conf_file}
+    sed -i 's/hbregionserver:all:hbmaster;//' ${warden_conf_file}
+  fi
+}
+
 create_restart_file(){
   local role="$1"
   mkdir -p ${MAPR_CONF_DIR}/restart
@@ -402,6 +414,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
     configure_zookeeper_quorum
     configure_hbase_default_db
     configure_custom_headers
+    remove_old_warden_entries
   fi
 
   if [ "$(read_secure)" != "$isSecure" ] ; then
