@@ -73,6 +73,7 @@ while [ ${#} -gt 0 ] ; do
       if is_hbase_not_configured_yet ; then
         # Custom secure flag is passed to components during upgrade from 4.x/5.x to 6.x core versions.
         # Need to configure basic security for fresh install in this case.
+        logWarn "Hbase components are being configured with default MapR security even though we are in customSecure mode - may need manual interchanges"
         isSecure="true"
       else
         isSecure="custom"
@@ -433,13 +434,11 @@ configure_roles(){
 
 if [ "$isOnlyRoles" == 1 ] ; then
 
-  if is_hbase_not_configured_yet; then
-    configure_hbase_pid_dir
-    configure_zookeeper_quorum
-    configure_hbase_default_db
-    configure_custom_headers
-    remove_old_warden_entries
-  fi
+  configure_hbase_pid_dir
+  configure_zookeeper_quorum
+  configure_hbase_default_db
+  configure_custom_headers
+  remove_old_warden_entries
 
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
