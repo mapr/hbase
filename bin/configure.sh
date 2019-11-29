@@ -44,6 +44,7 @@ declare -A PORTS=( ["$HB_MASTER_ROLE"]="16000" ["$HB_REGIONSERVER_ROLE"]="16020"
 
 # Initialize arguments
 isOnlyRoles=${isOnlyRoles:-0}
+hb_default_db=""
 
 # Initialize backup options files location
 HBASE_SECURE_FILE="${HBASE_HOME}/conf/.isSecure"
@@ -58,7 +59,7 @@ is_hbase_not_configured_yet(){
 
 # Parse options
 
-USAGE="usage: $0 [-h] [-R] [--secure|--unsecure|--customSecure] [-EC <options>]"
+USAGE="usage: $0 [-h] [-R] [--secure|--unsecure|--customSecure] [--defaultdb <hbase|maprdb>] [-EC <options>]"
 
 while [ ${#} -gt 0 ] ; do
   case "$1" in
@@ -77,17 +78,38 @@ while [ ${#} -gt 0 ] ; do
         isSecure="custom"
       fi
       shift 1;;
+    --defaultdb|-defaultdb)
+      hb_default_db=$2
+      shift 2;;
     -R)
       isOnlyRoles=1;
       shift 1;;
     -EC)
-      for i in $2 ; do
-        case $i in
-          -R) isOnlyRoles=1 ;;
-          *) : ;; # unused in Hbase
+      #Parse Common options
+      #Ingore ones we don't care about
+      ecOpts=($2)
+      shift 2
+      restOpts="$@"
+      eval set -- "${ecOpts[@]} --"
+      while (( $# )) ; do
+        case "$1" in
+          --defaultdb|-defaultdb)
+              hb_default_db="$2"
+              shift 2;;
+          --R|-R)
+              isOnlyRoles=1
+              shift 1
+              ;;
+         --) shift
+              ;;
+         *)
+              #echo "Ignoring common option $j"
+              shift 1;;
         esac
       done
-      shift 2;;
+      shift 2
+      eval set -- "$restOpts"
+      ;;
     -h)
       echo "${USAGE}"
       exit ${RETURN_SUCCESS}
@@ -151,13 +173,15 @@ function configure_zookeeper_quorum() {
 }
 
 function configure_hbase_default_db() {
-  local default_db=""
   if [ -e "/opt/mapr/roles/$HB_MASTER_ROLE" -o -e "/opt/mapr/roles/$HB_REGIONSERVER_ROLE" ]; then
-    default_db="hbase"
-  else
-    default_db="maprdb"
+    # HBase Mater and HBase Region server requires defaultdb for the node to be "hbase"
+    logInfo "Forcing defaultdb to \"hbase\" on Master/Region Server node"
+    hb_default_db="hbase"
+  elif [ -z "$hb_default_db" ]; then
+    logWarn "HBASE defaultdb not set - defaulting to maprdb"
+    hb_default_db="maprdb"
   fi
-  set_property mapr.hbase.default.db "${default_db}"
+  set_property mapr.hbase.default.db "${hb_default_db}"
 }
 
 function configure_custom_headers() {
