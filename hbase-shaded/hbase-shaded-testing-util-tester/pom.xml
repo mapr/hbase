@@ -25,12 +25,12 @@
     <parent>
         <artifactId>hbase</artifactId>
         <groupId>org.apache.hbase</groupId>
-        <version>1.4.12</version>
+        <version>1.4.12.0-mapr-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>hbase-shaded-testing-util-tester</artifactId>
-    <name>Apache HBase - Shaded - Testing Util Tester</name>
+    <name>HBase - Shaded - Testing Util Tester</name>
     <description>Ensures that hbase-shaded-testing-util works with hbase-shaded-client.</description>
 
     <profiles>

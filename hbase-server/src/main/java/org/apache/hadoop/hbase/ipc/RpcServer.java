@@ -1443,7 +1443,7 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
       } else {
         authorizedUgi = UserGroupInformation.createRemoteUser(authorizedId);
       }
-      authorizedUgi.setAuthenticationMethod(authMethod.authenticationMethod.getAuthMethod());
+      authorizedUgi.setAuthenticationMethod(authMethod.authenticationMethod);
       return authorizedUgi;
     }
 

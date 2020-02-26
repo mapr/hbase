@@ -26,12 +26,12 @@
   <parent>
     <artifactId>hbase-archetypes</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-client-project</artifactId>
   <packaging>jar</packaging>
-  <name>Apache HBase - Exemplar for hbase-client archetype</name>
+  <name>HBase - Exemplar for hbase-client archetype</name>
   <description>Exemplar project for archetype with hbase-client dependency</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

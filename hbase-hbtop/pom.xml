@@ -25,11 +25,11 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-hbtop</artifactId>
-  <name>Apache HBase - HBTop</name>
+  <name>HBase - HBTop</name>
   <description>A real-time monitoring tool for HBase like Unix's top command</description>
 
   <build>

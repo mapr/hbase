@@ -25,11 +25,11 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-external-blockcache</artifactId>
-  <name>Apache HBase - External Block Cache</name>
+  <name>HBase - External Block Cache</name>
   <description>
     HBase module that provides out of process block cache.
     Currently Memcached is the reference implementation for external block cache.

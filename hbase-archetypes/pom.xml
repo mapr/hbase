@@ -24,14 +24,14 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-archetypes</artifactId>
   <packaging>pom</packaging>
 
-  <name>Apache HBase - Archetypes</name>
+  <name>HBase - Archetypes</name>
   <description>Maven archetypes for generation of fully-configured HBase client projects</description>
 
   <modules>

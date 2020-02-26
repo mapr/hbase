@@ -23,12 +23,12 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-rsgroup</artifactId>
-  <name>Apache HBase - RSGroup</name>
+  <name>HBase - RSGroup</name>
   <description>Regionserver Groups for HBase</description>
 
   <build>

@@ -23,11 +23,11 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-examples</artifactId>
-  <name>Apache HBase - Examples</name>
+  <name>HBase - Examples</name>
   <description>Examples of HBase usage</description>
   <build>
     <plugins>

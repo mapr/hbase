@@ -23,12 +23,12 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-prefix-tree</artifactId>
-  <name>Apache HBase - Prefix Tree</name>
+  <name>HBase - Prefix Tree</name>
   <description>Prefix Tree Data Block Encoder; DEPRECATED! Removed in hbase-2.0.0</description>
 
   <build>

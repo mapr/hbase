@@ -25,14 +25,14 @@
   <parent>
     <artifactId>hbase-archetypes</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.12</version>
+    <version>1.4.12.0-mapr-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>hbase-archetype-builder</artifactId>
   <packaging>pom</packaging>
 
-  <name>Apache HBase - Archetype builder</name>
+  <name>HBase - Archetype builder</name>
   <description>Manager of plugins for building Maven archetypes from exemplars</description>
 
   <properties>

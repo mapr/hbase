@@ -24,11 +24,11 @@
     <parent>
         <artifactId>hbase-shaded</artifactId>
         <groupId>org.apache.hbase</groupId>
-        <version>1.4.12</version>
+        <version>1.4.12.0-mapr-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
     <artifactId>hbase-shaded-server</artifactId>
-    <name>Apache HBase - Shaded - Server</name>
+    <name>HBase - Shaded - Server</name>
     <build>
         <plugins>
             <plugin>
