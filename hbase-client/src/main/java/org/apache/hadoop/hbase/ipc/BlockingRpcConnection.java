@@ -69,6 +69,7 @@ import org.apache.hadoop.hbase.security.HBaseSaslRpcClient;
 import org.apache.hadoop.hbase.security.SaslUtil.QualityOfProtection;
 import org.apache.hadoop.hbase.util.EnvironmentEdgeManager;
 import org.apache.hadoop.hbase.util.ExceptionUtil;
+import org.apache.hadoop.hbase.util.JVM;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.hadoop.net.NetUtils;
@@ -456,6 +457,7 @@ class BlockingRpcConnection extends RpcConnection implements Runnable {
               }
             });
           } catch (Exception ex) {
+            JVM.INSTANCE.checkJCEKeyStrength();
             ExceptionUtil.rethrowIfInterrupt(ex);
             handleSaslConnectionFailure(numRetries++, MAX_RETRIES, ex, ticket);
             continue;

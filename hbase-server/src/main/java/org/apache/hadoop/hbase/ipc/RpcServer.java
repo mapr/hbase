@@ -118,11 +118,7 @@ import org.apache.hadoop.hbase.security.SaslUtil;
 import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.security.UserProvider;
 import org.apache.hadoop.hbase.security.token.AuthenticationTokenSecretManager;
-import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.hbase.util.Counter;
-import org.apache.hadoop.hbase.util.GsonUtil;
-import org.apache.hadoop.hbase.util.Pair;
-import org.apache.hadoop.hbase.util.Threads;
+import org.apache.hadoop.hbase.util.*;
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Writable;
@@ -1512,6 +1508,7 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
           }
           replyToken = saslServer.evaluateResponse(saslToken.array());
         } catch (IOException e) {
+          JVM.INSTANCE.checkJCEKeyStrength();
           IOException sendToClient = e;
           Throwable cause = e;
           while (cause != null) {
