@@ -28,6 +28,7 @@ import java.io.SequenceInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.hadoop.hbase.util.ByteStringer;
 import org.apache.commons.logging.Log;
@@ -152,6 +153,21 @@ public class HRegionInfo implements Comparable<HRegionInfo> {
   public static final int DEFAULT_REPLICA_ID = 0;
 
   public static final String INVALID_REGION_NAME_FORMAT_MESSAGE = "Invalid regionName format";
+  static final Pattern ENCODED_REGION_PATTERN = Pattern.compile("[a-fA-F0-9]{32}");
+
+  /**
+   * Does region name contain its encoded name?
+   * @param regionName region name
+   * @return boolean indicating if this a new format region
+   *         name which contains its encoded name.
+   */
+  public static boolean isEncodedName(final byte[] regionName) {
+    return regionName != null && isEncodedName(Bytes.toString(regionName));
+  }
+
+  public static boolean isEncodedName(String regionName) {
+    return regionName != null && ENCODED_REGION_PATTERN.matcher(regionName).matches();
+  }
 
   /**
    * Does region name contain its encoded name?
@@ -535,6 +551,17 @@ public class HRegionInfo implements Comparable<HRegionInfo> {
     }
 
     return b;
+  }
+
+  /**
+   * Gets the tablename from the specified table or region name
+   * @param tableOrRegionName
+   * @return
+   */
+  public static String getTableName(String tableOrRegionName) {
+    int offset = tableOrRegionName.indexOf(HConstants.DELIMITER);
+    return (offset != -1)
+            ? tableOrRegionName.substring(0, offset) : tableOrRegionName;
   }
 
   /**

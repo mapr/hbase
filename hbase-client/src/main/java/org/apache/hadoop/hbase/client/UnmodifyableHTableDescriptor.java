@@ -39,7 +39,7 @@ public class UnmodifyableHTableDescriptor extends HTableDescriptor {
    * Create an unmodifyable copy of an HTableDescriptor
    * @param desc
    */
-  UnmodifyableHTableDescriptor(final HTableDescriptor desc) {
+  public UnmodifyableHTableDescriptor(final HTableDescriptor desc) {
     super(desc.getTableName(), getUnmodifyableFamilies(desc), desc.getValues());
   }
 

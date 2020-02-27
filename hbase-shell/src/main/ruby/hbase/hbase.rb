@@ -22,6 +22,7 @@ java_import org.apache.hadoop.hbase.client.ConnectionFactory
 java_import org.apache.hadoop.hbase.HBaseConfiguration
 
 require 'hbase/admin'
+require 'hbase/m7admin'
 require 'hbase/table'
 require 'hbase/taskmonitor'
 require 'hbase/quotas'
@@ -56,6 +57,10 @@ module Hbase
 
     def rsgroup_admin()
       ::Hbase::RSGroupAdmin.new(@connection)
+    end
+
+    def m7admin(formatter)
+      ::Hbase::M7Admin.new(configuration, formatter)
     end
 
     # Create new one each time

@@ -57,6 +57,10 @@ module Shell
         @shell.hbase_admin
       end
 
+      def m7admin
+        shell.m7_admin
+      end
+
       def taskmonitor
         @shell.hbase_taskmonitor
       end

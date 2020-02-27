@@ -90,6 +90,10 @@ module Shell
       @hbase_taskmonitor ||= hbase.taskmonitor()
     end
 
+    def m7_admin
+      @m7_admin ||= hbase.m7admin(formatter)
+    end
+
     def hbase_table(name)
       hbase.table(name, self)
     end

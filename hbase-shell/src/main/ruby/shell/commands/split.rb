@@ -23,13 +23,19 @@ module Shell
       def help
         return <<-EOF
 Split entire table or pass a region to split individual region.  With the 
-second parameter, you can specify an explicit split key for the region.  
+second parameter, you can specify an explicit split key for the region.
+
+For MapR tables, use "<table_path>[,<region_fid>]" format for the first parameter.
+Region split with 'splitKey' is not currently supported for MapR tables.
+
 Examples:
     split 'tableName'
     split 'namespace:tableName'
     split 'regionName' # format: 'tableName,startKey,id'
     split 'tableName', 'splitKey'
     split 'regionName', 'splitKey'
+    split "/user/admin/usertable"
+    split "/user/admin/usertable,2085.39.131212"
 EOF
       end
 

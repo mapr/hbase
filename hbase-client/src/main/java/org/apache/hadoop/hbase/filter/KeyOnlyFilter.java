@@ -128,6 +128,10 @@ public class KeyOnlyFilter extends FilterBase {
     return this.lenAsVal == other.lenAsVal;
   }
 
+  public boolean isLenAsVal() {
+    return lenAsVal;
+  }
+
   @Override
   public boolean equals(Object obj) {
     return obj instanceof Filter && areSerializedFieldsEqual((Filter) obj);

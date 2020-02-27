@@ -283,11 +283,6 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
    */
   private final Map<String, String> configuration = new HashMap<String, String>();
 
-  /*
-   * Cache the max versions rather than calculate it every time.
-   */
-  private int cachedMaxVersions = UNINITIALIZED;
-
   /**
    * Default constructor.
    * @deprecated As of release 0.96
@@ -323,7 +318,8 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
   public HColumnDescriptor(final byte [] familyName) {
     this (familyName == null || familyName.length <= 0?
       HConstants.EMPTY_BYTE_ARRAY: familyName, DEFAULT_VERSIONS,
-      DEFAULT_COMPRESSION, DEFAULT_IN_MEMORY, DEFAULT_BLOCKCACHE,
+            // GooseBump: if not specified, compression should inherit from parent
+      null, DEFAULT_IN_MEMORY, DEFAULT_BLOCKCACHE,
       DEFAULT_TTL, DEFAULT_BLOOMFILTER);
   }
 
@@ -478,8 +474,11 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
     setInMemory(inMemory);
     setBlockCacheEnabled(blockCacheEnabled);
     setTimeToLive(timeToLive);
-    setCompressionType(Compression.Algorithm.
-      valueOf(compression.toUpperCase(Locale.ROOT)));
+    // GooseBump: if not specified, compression should inherit from parent
+    if (compression != null) {
+      setCompressionType(Compression.Algorithm.
+              valueOf(compression.toUpperCase(Locale.ROOT)));
+    }
     setDataBlockEncoding(DataBlockEncoding.
         valueOf(dataBlockEncoding.toUpperCase(Locale.ROOT)));
     setBloomFilterType(BloomType.
@@ -570,19 +569,18 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
    * @return this (for chained invocation)
    */
   public HColumnDescriptor setValue(byte[] key, byte[] value) {
-    if (Bytes.compareTo(Bytes.toBytes(HConstants.VERSIONS), key) == 0) {
-      cachedMaxVersions = UNINITIALIZED;
-    } else if (Bytes.compareTo(REPLICATION_SCOPE_BYTES, key) == 0) {
+    if (Bytes.compareTo(REPLICATION_SCOPE_BYTES, key) == 0
+            && Bytes.compareTo(Bytes.toBytes(HConstants.VERSIONS), key) != 0) {
       // as bytes are encoded from string, we have to decode value as string
       int scopeType = Integer.parseInt(Bytes.toString(value));
       if (scopeType != WALProtos.ScopeType.REPLICATION_SCOPE_GLOBAL_VALUE &&
-          scopeType != WALProtos.ScopeType.REPLICATION_SCOPE_LOCAL_VALUE) {
+              scopeType != WALProtos.ScopeType.REPLICATION_SCOPE_LOCAL_VALUE) {
         throw new IllegalArgumentException("Invalid value '" + scopeType +
-            "' for REPLICATION_SCOPE.");
+                "' for REPLICATION_SCOPE.");
       }
     }
     values.put(new ImmutableBytesWritable(key),
-      new ImmutableBytesWritable(value));
+            new ImmutableBytesWritable(value));
     return this;
   }
 
@@ -628,11 +626,8 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
 
   /** @return maximum number of versions */
   public int getMaxVersions() {
-    if (this.cachedMaxVersions == UNINITIALIZED) {
-      String v = getValue(HConstants.VERSIONS);
-      this.cachedMaxVersions = Integer.parseInt(v);
-    }
-    return this.cachedMaxVersions;
+    String value = getValue(HConstants.VERSIONS);
+    return (value != null)? Integer.parseInt(value) : 0;
   }
 
   /**
@@ -651,7 +646,6 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
             + ". Maximum versions must be >= minimum versions ");
     }
     setValue(HConstants.VERSIONS, Integer.toString(maxVersions));
-    cachedMaxVersions = maxVersions;
     return this;
   }
 
@@ -1354,9 +1348,7 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
         // Convert old values.
         setValue(COMPRESSION, Compression.Algorithm.NONE.getName());
       }
-      String value = getValue(HConstants.VERSIONS);
-      this.cachedMaxVersions = (value != null)?
-          Integer.parseInt(value): DEFAULT_VERSIONS;
+
       if (version > 10) {
         configuration.clear();
         int numConfigs = in.readInt();
@@ -1590,4 +1582,26 @@ public class HColumnDescriptor implements WritableComparable<HColumnDescriptor> 
                       getMinVersions(), getMaxVersions()));
     }
   }
+
+  /**
+   * MapR extension
+   *
+   * @param key The key.
+   * @param value The value.
+   */
+  public HColumnDescriptor setValueBool(String key, boolean value) {
+    setValue(key, Boolean.toString(value));
+    return this;
+  }
+
+  public HColumnDescriptor setValueInt(String key, int value) {
+    setValue(key, Integer.toString(value));
+    return this;
+  }
+
+  public HColumnDescriptor setValueStr(String key, String value) {
+    setValue(key, value);
+    return this;
+  }
+
 }

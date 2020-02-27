@@ -209,6 +209,10 @@ public class MultipleColumnPrefixFilter extends FilterBase {
         count, this.sortedPrefixes.size(), prefixes.toString());
   }
 
+  public TreeSet<byte[]> getSortedPrefixes() {
+    return sortedPrefixes;
+  }
+
   @Override
   public boolean equals(Object obj) {
     return obj instanceof Filter && areSerializedFieldsEqual((Filter) obj);
