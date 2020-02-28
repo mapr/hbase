@@ -127,24 +127,26 @@ public class RESTServer implements Constants {
   private static Pair<FilterHolder, Class<? extends ServletContainer>> loginServerPrincipal(
     UserProvider userProvider, Configuration conf) throws Exception {
     Class<? extends ServletContainer> containerClass = ServletContainer.class;
-    if (userProvider.isHadoopSecurityEnabled() && userProvider.isHBaseSecurityEnabled()) {
+    if (userProvider.isHadoopSecurityEnabled()) {
       String machineName = Strings.domainNamePointerToHostName(
-        DNS.getDefaultHost(conf.get(REST_DNS_INTERFACE, "default"),
-          conf.get(REST_DNS_NAMESERVER, "default")));
-      String keytabFilename = conf.get(REST_KEYTAB_FILE);
-      Preconditions.checkArgument(keytabFilename != null && !keytabFilename.isEmpty(),
-        REST_KEYTAB_FILE + " should be set if security is enabled");
-      String principalConfig = conf.get(REST_KERBEROS_PRINCIPAL);
-      Preconditions.checkArgument(principalConfig != null && !principalConfig.isEmpty(),
-        REST_KERBEROS_PRINCIPAL + " should be set if security is enabled");
-      userProvider.login(REST_KEYTAB_FILE, REST_KERBEROS_PRINCIPAL, machineName);
-      if (conf.get(REST_AUTHENTICATION_TYPE) != null) {
-        containerClass = RESTServletContainer.class;
-        FilterHolder authFilter = new FilterHolder();
-        authFilter.setClassName(AuthFilter.class.getName());
-        authFilter.setName("AuthenticationFilter");
-        return new Pair<FilterHolder, Class<? extends ServletContainer>>(authFilter,containerClass);
+              DNS.getDefaultHost(conf.get(REST_DNS_INTERFACE, "default"),
+                      conf.get(REST_DNS_NAMESERVER, "default")));
+      if (userProvider.isHBaseSecurityEnabled()) {
+        String keytabFilename = conf.get(REST_KEYTAB_FILE);
+        Preconditions.checkArgument(keytabFilename != null && !keytabFilename.isEmpty(),
+                REST_KEYTAB_FILE + " should be set if security is enabled");
+        String principalConfig = conf.get(REST_KERBEROS_PRINCIPAL);
+        Preconditions.checkArgument(principalConfig != null && !principalConfig.isEmpty(),
+                REST_KERBEROS_PRINCIPAL + " should be set if security is enabled");
       }
+      userProvider.login(REST_KEYTAB_FILE, REST_KERBEROS_PRINCIPAL, machineName);
+    }
+    if (conf.get(REST_AUTHENTICATION_TYPE) != null) {
+      containerClass = RESTServletContainer.class;
+      FilterHolder authFilter = new FilterHolder();
+      authFilter.setClassName(AuthFilter.class.getName());
+      authFilter.setName("AuthenticationFilter");
+      return new Pair<FilterHolder, Class<? extends ServletContainer>>(authFilter,containerClass);
     }
     return new Pair<FilterHolder, Class<? extends ServletContainer>>(null, containerClass);
   }
