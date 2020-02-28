@@ -473,6 +473,8 @@ public class ImportTsv extends Configured implements Tool {
         if (actualSeparator != null) {
           conf.set(SEPARATOR_CONF_KEY,
               Base64.encodeBytes(actualSeparator.getBytes()));
+        } else {
+          actualSeparator = ImportTsv.DEFAULT_SEPARATOR;
         }
 
         // See if a non-default Mapper was set
@@ -480,7 +482,8 @@ public class ImportTsv extends Configured implements Tool {
         Class mapperClass =
             mapperClassName != null ? Class.forName(mapperClassName) : DEFAULT_MAPPER;
 
-        TableName tableName = TableName.valueOf(args[0]);
+        String strTableName = args[0];
+        TableName tableName = TableName.valueOf(strTableName);
         Path inputDir = new Path(args[1]);
         String jobName = conf.get(JOB_NAME_CONF_KEY,NAME + "_" + tableName.getNameAsString());
         job = Job.getInstance(conf, jobName);
@@ -495,6 +498,16 @@ public class ImportTsv extends Configured implements Tool {
           String fileLoc = conf.get(CREDENTIALS_LOCATION);
           Credentials cred = Credentials.readTokenStorageFile(new File(fileLoc), conf);
           job.getCredentials().addAll(cred);
+        }
+
+        TableMapReduceUtil.configureMapRTablePath(job, strTableName);
+        if (TableMapReduceUtil.getMapRTablePath(job.getConfiguration()) != null) {
+          TsvParser parser = new ImportTsv.TsvParser(
+                  conf.get(ImportTsv.COLUMNS_CONF_KEY), actualSeparator);
+          if (parser.hasCellVisibility()) {
+            System.err.println("ERROR: HBASE_CELL_VISIBILITY can not be used with MapR-DB tables.");
+            System.exit(-1);
+          }
         }
 
         if (hfileOutPath != null) {

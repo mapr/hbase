@@ -54,6 +54,7 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.RegionLocator;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.mapr.GenericHFactory;
 import org.apache.hadoop.hbase.fs.HFileSystem;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.io.compress.Compression;
@@ -133,10 +134,27 @@ public class HFileOutputFormat2
   static <V extends Cell> RecordWriter<ImmutableBytesWritable, V>
       createRecordWriter(final TaskAttemptContext context, final OutputCommitter committer)
           throws IOException {
+    final Configuration conf = context.getConfiguration();
+    final String tablePathName = TableMapReduceUtil.getMapRTablePath(conf);
+    if (tablePathName != null) {
+      LOG.info("detected MapR table " + tablePathName +
+              ", switching to BulkLoadRecordWriter");
+
+      Path tablePath = new Path(tablePathName);
+      try {
+        final GenericHFactory<RecordWriter<ImmutableBytesWritable, V>> recWriterFactory_ =
+                new GenericHFactory<RecordWriter<ImmutableBytesWritable, V>>();
+        return recWriterFactory_.getImplementorInstance(
+                "com.mapr.fs.hbase.BulkLoadRecordWriter",
+                new Object[] { conf, tablePath },
+                new Class[] { Configuration.class, Path.class });
+      } catch (Throwable e) {
+        GenericHFactory.handleIOException(e);
+      }
+    }
 
     // Get the path of the temporary output file
     final Path outputdir = ((FileOutputCommitter) committer).getWorkPath();
-    final Configuration conf = context.getConfiguration();
     final FileSystem fs = outputdir.getFileSystem(conf);
     // These configs. are from hbase-*.xml
     final long maxsize = conf.getLong(HConstants.HREGION_MAX_FILESIZE,
@@ -351,6 +369,12 @@ public class HFileOutputFormat2
     };
   }
 
+  @Deprecated
+  public static void configureMapRTablePath(Job job, String tableName)
+          throws IOException {
+    TableMapReduceUtil.configureMapRTablePath(job, tableName);
+  }
+
   /*
    * Data structure to hold a Writer and amount of data written on it.
    */
@@ -501,6 +525,11 @@ public class HFileOutputFormat2
         MutationSerialization.class.getName(), ResultSerialization.class.getName(),
         KeyValueSerialization.class.getName());
 
+    // Remember the tablePath in jobConf
+    String tableName = tableDescriptor.getTableName().getNameAsString();
+    // Won't do anything if it is not a mapr table
+    TableMapReduceUtil.configureMapRTablePath(job, tableName);
+
     if (conf.getBoolean(LOCALITY_SENSITIVE_CONF_KEY, DEFAULT_LOCALITY_SENSITIVE)) {
       // record this table name for creating writer by favored nodes
       LOG.info("bulkload locality sensitive enabled");
@@ -533,12 +562,19 @@ public class HFileOutputFormat2
     job.setOutputValueClass(KeyValue.class);
     job.setOutputFormatClass(HFileOutputFormat2.class);
 
+    //TODO: now this relies on configureMapRTablePath "do-nothing" when the table is not MapR table,
+    // Will fix it during connection fix.
+    //if (table.isMapRTable()) {
+    // Remember the tablePath in jobConf
+      String tableName = table.getTableDescriptor().getTableName().getAliasAsString();
+      TableMapReduceUtil.configureMapRTablePath(job, tableName);
+    //} else {
     // Set compression algorithms based on column families
-    configureCompression(conf, table.getTableDescriptor());
-    configureBloomType(table.getTableDescriptor(), conf);
-    configureBlockSize(table.getTableDescriptor(), conf);
-    HTableDescriptor tableDescriptor = table.getTableDescriptor();
-    configureDataBlockEncoding(tableDescriptor, conf);
+      configureCompression(conf, table.getTableDescriptor());
+      configureBloomType(table.getTableDescriptor(), conf);
+      configureBlockSize(table.getTableDescriptor(), conf);
+      HTableDescriptor tableDescriptor = table.getTableDescriptor();
+    //}
 
     TableMapReduceUtil.addDependencyJars(job);
     TableMapReduceUtil.initCredentials(job);

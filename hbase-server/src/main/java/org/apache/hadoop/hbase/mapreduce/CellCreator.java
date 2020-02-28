@@ -20,6 +20,8 @@ package org.apache.hadoop.hbase.mapreduce;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
 import org.apache.hadoop.conf.Configuration;
@@ -35,17 +37,23 @@ import org.apache.hadoop.util.ReflectionUtils;
 @InterfaceStability.Evolving
 public class CellCreator {
 
+  protected static final Log LOG = LogFactory.getLog(CellCreator.class);
+
   public static final String VISIBILITY_EXP_RESOLVER_CLASS =
       "hbase.mapreduce.visibility.expression.resolver.class";
 
   private VisibilityExpressionResolver visExpResolver;
 
   public CellCreator(Configuration conf) {
-    Class<? extends VisibilityExpressionResolver> clazz = conf.getClass(
-        VISIBILITY_EXP_RESOLVER_CLASS, DefaultVisibilityExpressionResolver.class,
-        VisibilityExpressionResolver.class);
-    this.visExpResolver = ReflectionUtils.newInstance(clazz, conf);
-    this.visExpResolver.init();
+    if (TableMapReduceUtil.getMapRTablePath(conf) != null) {
+      LOG.info("The job is configured with a MapR-DB table. Visibility Labels will not be added to the Cells");
+    } else {
+      Class<? extends VisibilityExpressionResolver> clazz = conf.getClass(
+          VISIBILITY_EXP_RESOLVER_CLASS, DefaultVisibilityExpressionResolver.class,
+          VisibilityExpressionResolver.class);
+      this.visExpResolver = ReflectionUtils.newInstance(clazz, conf);
+      this.visExpResolver.init();
+    }
   }
 
   /**
@@ -95,7 +103,7 @@ public class CellCreator {
       byte[] qualifier, int qoffset, int qlength, long timestamp, byte[] value, int voffset,
       int vlength, String visExpression) throws IOException {
     List<Tag> visTags = null;
-    if (visExpression != null) {
+    if (visExpResolver != null && visExpression != null) {
       visTags = this.visExpResolver.createVisibilityExpTags(visExpression);
     }
     return new KeyValue(row, roffset, rlength, family, foffset, flength, qualifier, qoffset,

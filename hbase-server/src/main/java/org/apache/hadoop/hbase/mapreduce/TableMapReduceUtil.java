@@ -42,6 +42,8 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.protobuf.ProtobufUtil;
 import org.apache.hadoop.hbase.protobuf.generated.ClientProtos;
@@ -65,6 +67,10 @@ import org.apache.hadoop.hbase.util.RegionSplitter;
 @InterfaceStability.Stable
 public class TableMapReduceUtil {
   private static final Log LOG = LogFactory.getLog(TableMapReduceUtil.class);
+
+  public static final String BULKLOAD = "BULKLOAD";
+
+  public static final String MAPR_TABLE_PATH_CONF_KEY = "hbase.mapreduce.mapr.tablepath";
 
   /**
    * Use this before submitting a TableMap job. It will appropriately set up
@@ -595,6 +601,32 @@ public class TableMapReduceUtil {
   public static String convertScanToString(Scan scan) throws IOException {
     ClientProtos.Scan proto = ProtobufUtil.toScan(scan);
     return Base64.encodeBytes(proto.toByteArray());
+  }
+
+  public static String getMapRTablePath(final Configuration conf) {
+    return conf.get(MAPR_TABLE_PATH_CONF_KEY);
+  }
+
+  public static void configureMapRTablePath(Job job, String tableName)
+      throws IOException {
+    Configuration conf = job.getConfiguration();
+
+    BaseTableMappingRules tableMappingRule =  TableMappingRulesFactory.create(conf);
+    if (!tableMappingRule.isMapRTable(tableName))
+      return;
+
+    Path tablePath = tableMappingRule.getMaprTablePath(tableName.getBytes());
+    conf.set(MAPR_TABLE_PATH_CONF_KEY, tablePath.toString());
+    // turn off the speculative execution for the MapR bulkload jobs
+    LOG.info("Setting speculative execution off for bulkload operation");
+    job.setSpeculativeExecution(false);
+    conf.setStrings("io.serializations", conf.get("io.serializations"),
+        MutationSerialization.class.getName(), ResultSerialization.class.getName(),
+        KeyValueSerialization.class.getName());
+
+    addDependencyJars(conf, tableMappingRule.getClass());
+    addDependencyJars(job);
+    LOG.info("Configured '" + MAPR_TABLE_PATH_CONF_KEY + "' to " + tablePath);
   }
 
   /**
