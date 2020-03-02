@@ -51,7 +51,6 @@ import org.apache.hadoop.hbase.backup.HFileArchiver;
 import org.apache.hadoop.hbase.fs.HFileSystem;
 import org.apache.hadoop.hbase.io.Reference;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.hbase.util.FSHDFSUtils;
 import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.hbase.util.ServerRegionReplicaUtil;
@@ -507,7 +506,7 @@ public class HRegionFileSystem {
     // We can't compare FileSystem instances as equals() includes UGI instance
     // as part of the comparison and won't work when doing SecureBulkLoad
     // TODO deal with viewFS
-    if (!FSHDFSUtils.isSameHdfs(conf, realSrcFs, desFs)) {
+    if (!FSUtils.getInstance(srcFs, conf).isSameFileSystem(conf, srcFs, desFs)) {
       LOG.info("Bulk-load file " + srcPath + " is on different filesystem than " +
           "the destination store. Copying file over to destination filesystem.");
       Path tmpPath = createTempName();

@@ -919,7 +919,7 @@ public class LoadIncrementalHFiles extends Configured implements Tool {
             // Check to see if the source and target filesystems are the same
             // If they are the same filesystem, we will try move the files back
             // because previously we moved them to the staging directory.
-            if (FSHDFSUtils.isSameHdfs(getConf(), fs, targetFs)) {
+            if (FSUtils.getInstance(fs, getConf()).isSameFileSystem(getConf(), fs, targetFs)) {
               for(Pair<byte[], String> el : famPaths) {
                 Path hfileStagingPath = null;
                 Path hfileOrigPath = new Path(el.getSecond());
