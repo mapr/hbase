@@ -105,7 +105,7 @@ import org.apache.htrace.Trace;
 @InterfaceAudience.Private
 @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="JLM_JSR166_UTILCONCURRENT_MONITORENTER",
   justification="Synchronization on tasks in progress counter is intended")
-class AsyncProcess {
+public class AsyncProcess {
   private static final Log LOG = LogFactory.getLog(AsyncProcess.class);
   protected static final AtomicLong COUNTER = new AtomicLong();
 

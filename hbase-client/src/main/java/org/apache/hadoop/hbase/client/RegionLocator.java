@@ -98,4 +98,9 @@ public interface RegionLocator extends Closeable {
    * Gets the fully qualified table name instance of this table.
    */
   TableName getName();
+
+  /**
+   * Return whether this table is a maprdb table.
+   */
+  public boolean isMapRTable();
 }

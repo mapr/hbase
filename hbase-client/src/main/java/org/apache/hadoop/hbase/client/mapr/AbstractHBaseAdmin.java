@@ -24,24 +24,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.hbase.ClusterStatus;
 import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HConstants;
 import org.apache.hadoop.hbase.HRegionInfo;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.MasterNotRunningException;
+import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.TableExistsException;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.TableNotFoundException;
 import org.apache.hadoop.hbase.UnknownRegionException;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.ipc.CoprocessorRpcChannel;
+import org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetRegionInfoResponse.CompactionState;
+import org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescription;
+import org.apache.hadoop.hbase.protobuf.generated.MasterProtos.SnapshotResponse;
+import org.apache.hadoop.hbase.quotas.QuotaFilter;
+import org.apache.hadoop.hbase.quotas.QuotaRetriever;
+import org.apache.hadoop.hbase.quotas.QuotaSettings;
+import org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException;
 import org.apache.hadoop.hbase.security.User;
+import org.apache.hadoop.hbase.snapshot.HBaseSnapshotException;
+import org.apache.hadoop.hbase.snapshot.RestoreSnapshotException;
+import org.apache.hadoop.hbase.snapshot.SnapshotCreationException;
+import org.apache.hadoop.hbase.snapshot.UnknownSnapshotException;
+import org.apache.hadoop.hbase.util.Pair;
 
 /**
  * Provides an interface to manage HBase database table metadata + general
@@ -53,7 +67,7 @@ import org.apache.hadoop.hbase.security.User;
  * example, an HBaseAdmin instance will not ride over a Master restart.
  */
 public abstract class AbstractHBaseAdmin implements Closeable {
-  private final static Log LOG = LogFactory.getLog(HBaseAdmin.class);
+  private final static Log LOG = LogFactory.getLog(AbstractHBaseAdmin.class);
 
   /**
    * Sets the User for the Admin instance.
@@ -61,7 +75,17 @@ public abstract class AbstractHBaseAdmin implements Closeable {
   public void setUser(User user) {
     LOG.debug("setUser() called with MapR Table without impersonation support.");
   }
-
+  /** @return - true if the master server is running. Throws an exception
+   *  otherwise.
+   * @throws ZooKeeperConnectionException
+   * @throws MasterNotRunningException
+   * @deprecated this has been deprecated without a replacement
+   */
+  @Deprecated
+  public boolean isMasterRunning() {
+    LOG.warn("isMasterRunning() called for a MapR Table, returning true.");
+    return true;
+  }
   /**
    * @param tableName Table to check.
    * @return True if table exists already.
@@ -276,6 +300,25 @@ public abstract class AbstractHBaseAdmin implements Closeable {
                                            byte[][] splitKeys) throws IOException;
 
   /**
+   * <b>MapR Notes: </b>For MapR tables, both values will always be 0.<p>
+   *
+   * Get the status of alter command - indicates how many regions have received
+   * the updated schema Asynchronous operation.
+   *
+   * @param tableName TableName instance
+   * @return Pair indicating the number of regions updated Pair.getFirst() is the
+   *         regions that are yet to be updated Pair.getSecond() is the total number
+   *         of regions of the table
+   * @throws IOException
+   *           if a remote or network exception occurs
+   */
+  public Pair<Integer, Integer> getAlterStatus(TableName tableName)
+  throws IOException {
+    // FIXME Revisit if we need to return tablet count
+    LOG.warn("getAlterStatus() called for a MapR Table, return Pair(0,0).");
+    return new Pair<Integer, Integer>(0, 0);
+  }
+  /**
    * Add a column to an existing table.
    * Asynchronous operation.
    *
@@ -337,17 +380,69 @@ public abstract class AbstractHBaseAdmin implements Closeable {
     LOG.warn("closeRegion() called for a MapR Table, silently ignoring.");
   }
 
-  public void closeRegionWithEncodedRegionName(String encodedRegionName,
-      String serverName) throws IOException {
-    LOG.warn("closeRegionWithEncodedRegionName() called for a MapR Table, silently ignoring.");
+  /**
+   * For expert-admins. Runs close on the regionserver. Closes a region based on
+   * the encoded region name. The region server name is mandatory. If the
+   * servername is provided then based on the online regions in the specified
+   * regionserver the specified region will be closed. The master will not be
+   * informed of the close. Note that the regionname is the encoded regionname.
+   *
+   * @param encodedRegionName
+   *          The encoded region name; i.e. the hash that makes up the region
+   *          name suffix: e.g. if regionname is
+   *          <code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>
+   *          , then the encoded region name is:
+   *          <code>527db22f95c8a9e0116f0cc13c680396</code>.
+   * @param serverName
+   *          The servername of the regionserver. A server name is made of host,
+   *          port and startcode. This is mandatory. Here is an example:
+   *          <code> host187.example.com,60020,1289493121758</code>
+   * @return true if the region was closed, false if not.
+   * @throws IOException
+   *           if a remote or network exception occurs
+   */
+  public boolean closeRegionWithEncodedRegionName(final String encodedRegionName,
+      final String serverName) throws IOException {
+    throw new UnsupportedOperationException("closeRegionWithEncodedRegionName for MapR is unsupported.");
   }
-
   public void closeRegion(ServerName sn, HRegionInfo hri) throws IOException {
     LOG.warn("closeRegion() called for a MapR Table, silently ignoring.");
   }
 
+  public List<HRegionInfo> getOnlineRegions(final ServerName sn) throws IOException {
+      throw new UnsupportedOperationException("getOnlineRegions for MapR is unsupported.");
+  }
+
   public void flush(byte[] tableNameOrRegionName) throws IOException {
     LOG.warn("flush() called for a MapR Table, silently ignoring.");
+  }
+
+  public void createNamespace(final NamespaceDescriptor descriptor) throws IOException {
+    throw new UnsupportedOperationException("createNamespace for a MapR is unsupported.");
+  }
+
+  public void modifyNamespace(final NamespaceDescriptor descriptor) throws IOException {
+    throw new UnsupportedOperationException("modifyNamespace for a MapR is unsupported.");
+  }
+
+  public void deleteNamespace(final String name) throws IOException {
+    throw new UnsupportedOperationException("deleteNamespace for a MapR is unsupported.");
+  }
+
+  public NamespaceDescriptor getNamespaceDescriptor(final String name) throws IOException {
+    throw new UnsupportedOperationException("getNamespaceDescriptor for a MapR is unsupported.");
+  }
+
+  public NamespaceDescriptor[] listNamespaceDescriptors() throws IOException {
+    throw new UnsupportedOperationException("listNamespaceDescriptors for a MapR is unsupported.");
+  }
+
+  public HTableDescriptor[] listTableDescriptorsByNamespace(final String name) throws IOException {
+    throw new UnsupportedOperationException("listTableDescriptorsByNamespace for a MapR is unsupported.");
+  }
+
+  public TableName[] listTableNamesByNamespace(final String name) throws IOException {
+    throw new UnsupportedOperationException("listTableNamesByNamespace for a MapR is unsupported.");
   }
 
   public void compact(byte[] tableNameOrRegionName, byte[] columnFamily,
@@ -395,6 +490,12 @@ public abstract class AbstractHBaseAdmin implements Closeable {
     LOG.warn("unassign() called for a MapR Table, silently ignoring.");
   }
 
+  public void mergeRegions(final byte[] encodedNameOfRegionA,
+          final byte[] encodedNameOfRegionB, final boolean forcible)
+          throws IOException {
+    throw new UnsupportedOperationException("mergeRegions for a MapR is unsupported.");
+  }
+
   public void split(byte[] tableNameOrRegionName, byte[] splitPoint) throws IOException {
     LOG.warn("split() called for a MapR Table, silently ignoring.");
   }
@@ -433,4 +534,373 @@ public abstract class AbstractHBaseAdmin implements Closeable {
     createTable(htd, splitKeys);
   }
 
+  public abstract TableName[] listTableNames(String regex) throws IOException;
+
+  /**
+   * Shuts down the cluster
+   * @throws IOException if a remote or network exception occurs
+   */
+  public synchronized void shutdown() throws IOException {
+    LOG.warn("shutdown() called for a MapR cluster, silently ignoring.");
+  }
+
+  /**
+   * Shuts down the current master only.
+   * Does not shutdown the cluster.
+   * @see #shutdown()
+   * @throws IOException if a remote or network exception occurs
+   */
+  public synchronized void stopMaster() throws IOException {
+    LOG.warn("stopMaster() called for a MapR cluster, silently ignoring.");
+  }
+
+  /**
+   * Stop the designated regionserver
+   * @param hostnamePort Hostname and port delimited by a <code>:</code> as in
+   * <code>example.org:1234</code>
+   * @throws IOException if a remote or network exception occurs
+   */
+  public synchronized void stopRegionServer(final String hostnamePort)
+  throws IOException {
+    LOG.warn("stopRegionServer() called for a MapR cluster, silently ignoring.");
+  }
+  /**
+   * @return cluster status
+   * @throws IOException if a remote or network exception occurs
+   */
+  public ClusterStatus getClusterStatus() throws IOException {
+    LOG.warn("getClusterStatus() called for a MapR cluster, return null.");
+    return null;
+  }
+
+  /**
+   * Roll the log writer. I.e. when using a file system based write ahead log,
+   * start writing log messages to a new file.
+   *
+   * Note that when talking to a version 1.0+ HBase deployment, the rolling is asynchronous.
+   * This method will return as soon as the roll is requested and the return value will
+   * always be null. Additionally, the named region server may schedule store flushes at the
+   * request of the wal handling the roll request.
+   *
+   * When talking to a 0.98 or older HBase deployment, the rolling is synchronous and the
+   * return value may be either null or a list of encoded region names.
+   *
+   * @param serverName
+   *          The servername of the regionserver. A server name is made of host,
+   *          port and startcode. This is mandatory. Here is an example:
+   *          <code> host187.example.com,60020,1289493121758</code>
+   * @return a set of {@link HRegionInfo#getEncodedName()} that would allow the wal to
+   *         clean up some underlying files. null if there's nothing to flush.
+   * @throws IOException if a remote or network exception occurs
+   * @throws FailedLogCloseException
+   * @deprecated use {@link #rollWALWriter(ServerName)}
+   */
+  @Deprecated
+  public synchronized byte[][] rollHLogWriter(String serverName)
+      throws IOException, FailedLogCloseException {
+    LOG.warn("rollHLogWriter() called for a MapR cluster, returning null.");
+    return null;
+  }
+
+  public synchronized void rollWALWriter(ServerName serverName)
+      throws IOException, FailedLogCloseException {
+    LOG.warn("rollHLogWriter() called for a MapR cluster, silently ignoring.");
+  }
+
+  public String[] getMasterCoprocessors() {
+    LOG.warn("getMasterCoprocessors() called for a MapR cluster, returning empty.");
+    return new String[0];
+  }
+
+  public CompactionState getCompactionState(TableName tableName)
+  throws IOException {
+    LOG.warn("getCompactionState() called for a MapR cluster, returning CompactionState.NONE.");
+    return CompactionState.NONE;
+  }
+
+  public CompactionState getCompactionStateForRegion(final byte[] regionName)
+  throws IOException {
+    LOG.warn("getCompactionStateForRegion() called for a MapR cluster, returning CompactionState.NONE.");
+    return CompactionState.NONE;
+  }
+
+  /**
+   * Create typed snapshot of the table.
+   * <p>
+   * Snapshots are considered unique based on <b>the name of the snapshot</b>. Attempts to take a
+   * snapshot with the same name (even a different type or with different parameters) will fail with
+   * a {@link SnapshotCreationException} indicating the duplicate naming.
+   * <p>
+   * Snapshot names follow the same naming constraints as tables in HBase. See
+   * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.
+   * <p>
+   * @param snapshotName name to give the snapshot on the filesystem. Must be unique from all other
+   *          snapshots stored on the cluster
+   * @param tableName name of the table to snapshot
+   * @param type type of snapshot to take
+   * @throws IOException we fail to reach the master
+   * @throws SnapshotCreationException if snapshot creation failed
+   * @throws IllegalArgumentException if the snapshot request is formatted incorrectly
+   */
+  public void snapshot(final String snapshotName,
+          TableName tableName,
+         SnapshotDescription.Type type) throws IOException, SnapshotCreationException,
+IllegalArgumentException {
+    throw new UnsupportedOperationException("snapshot for a MapR is unsupported.");
+  }
+
+  /**
+   * Take a snapshot and wait for the server to complete that snapshot (blocking).
+   * <p>
+   * Only a single snapshot should be taken at a time for an instance of HBase, or results may be
+   * undefined (you can tell multiple HBase clusters to snapshot at the same time, but only one at a
+   * time for a single cluster).
+   * <p>
+   * Snapshots are considered unique based on <b>the name of the snapshot</b>. Attempts to take a
+   * snapshot with the same name (even a different type or with different parameters) will fail with
+   * a {@link SnapshotCreationException} indicating the duplicate naming.
+   * <p>
+   * Snapshot names follow the same naming constraints as tables in HBase. See
+   * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.
+   * <p>
+   * You should probably use {@link #snapshot(String, String)} or {@link #snapshot(byte[], byte[])}
+   * unless you are sure about the type of snapshot that you want to take.
+   * @param snapshot snapshot to take
+   * @throws IOException or we lose contact with the master.
+   * @throws SnapshotCreationException if snapshot failed to be taken
+   * @throws IllegalArgumentException if the snapshot request is formatted incorrectly
+   */
+  public void snapshot(SnapshotDescription snapshot) throws IOException, SnapshotCreationException,
+      IllegalArgumentException {
+    throw new UnsupportedOperationException("snapshot for a MapR is unsupported.");
+  }
+
+  /**
+   * Take a snapshot without waiting for the server to complete that snapshot (asynchronous)
+   * <p>
+   * Only a single snapshot should be taken at a time, or results may be undefined.
+   * @param snapshot snapshot to take
+   * @return response from the server indicating the max time to wait for the snapshot
+   * @throws IOException if the snapshot did not succeed or we lose contact with the master.
+   * @throws SnapshotCreationException if snapshot creation failed
+   * @throws IllegalArgumentException if the snapshot request is formatted incorrectly
+   */
+  public SnapshotResponse takeSnapshotAsync(SnapshotDescription snapshot) throws IOException,
+      SnapshotCreationException {
+    throw new UnsupportedOperationException("takeSnapshotAsync for a MapR is unsupported.");
+  }
+
+  /**
+   * Check the current state of the passed snapshot.
+   * <p>
+   * There are three possible states:
+   * <ol>
+   * <li>running - returns <tt>false</tt></li>
+   * <li>finished - returns <tt>true</tt></li>
+   * <li>finished with error - throws the exception that caused the snapshot to fail</li>
+   * </ol>
+   * <p>
+   * The cluster only knows about the most recent snapshot. Therefore, if another snapshot has been
+   * run/started since the snapshot your are checking, you will recieve an
+   * {@link UnknownSnapshotException}.
+   * @param snapshot description of the snapshot to check
+   * @return <tt>true</tt> if the snapshot is completed, <tt>false</tt> if the snapshot is still
+   *         running
+   * @throws IOException if we have a network issue
+   * @throws HBaseSnapshotException if the snapshot failed
+   * @throws UnknownSnapshotException if the requested snapshot is unknown
+   */
+  public boolean isSnapshotFinished(final SnapshotDescription snapshot)
+      throws IOException, HBaseSnapshotException, UnknownSnapshotException {
+    throw new UnsupportedOperationException("isSnapshotFinished for a MapR is unsupported.");
+  }
+
+  /**
+   * Create a new table by cloning the snapshot content.
+   *
+   * @param snapshotName name of the snapshot to be cloned
+   * @param tableName name of the table where the snapshot will be restored
+   * @throws IOException if a remote or network exception occurs
+   * @throws TableExistsException if table to be created already exists
+   * @throws RestoreSnapshotException if snapshot failed to be cloned
+   * @throws IllegalArgumentException if the specified table has not a valid name
+   */
+  public void cloneSnapshot(final String snapshotName, final TableName tableName)
+      throws IOException, TableExistsException, RestoreSnapshotException {
+    throw new UnsupportedOperationException("cloneSnapshot for a MapR is unsupported.");
+  }
+
+  /**
+   * Execute a distributed procedure on a cluster synchronously with return data
+   *
+   * @param signature A distributed procedure is uniquely identified
+   * by its signature (default the root ZK node name of the procedure).
+   * @param instance The instance name of the procedure. For some procedures, this parameter is
+   * optional.
+   * @param props Property/Value pairs of properties passing to the procedure
+   * @return data returned after procedure execution. null if no return data.
+   * @throws IOException
+   */
+  public byte[] execProcedureWithRet(String signature, String instance,
+      Map<String, String> props) throws IOException {
+    throw new UnsupportedOperationException("execProcedureWithRet for a MapR is unsupported.");
+  }
+
+  /**
+   * Execute a distributed procedure on a cluster.
+   *
+   * @param signature A distributed procedure is uniquely identified
+   * by its signature (default the root ZK node name of the procedure).
+   * @param instance The instance name of the procedure. For some procedures, this parameter is
+   * optional.
+   * @param props Property/Value pairs of properties passing to the procedure
+   * @throws IOException
+   */
+  public void execProcedure(String signature, String instance,
+      Map<String, String> props) throws IOException {
+    throw new UnsupportedOperationException("execProcedure for a MapR is unsupported.");
+  }
+
+  /**
+   * Check the current state of the specified procedure.
+   * <p>
+   * There are three possible states:
+   * <ol>
+   * <li>running - returns <tt>false</tt></li>
+   * <li>finished - returns <tt>true</tt></li>
+   * <li>finished with error - throws the exception that caused the procedure to fail</li>
+   * </ol>
+   * <p>
+   *
+   * @param signature The signature that uniquely identifies a procedure
+   * @param instance The instance name of the procedure
+   * @param props Property/Value pairs of properties passing to the procedure
+   * @return true if the specified procedure is finished successfully, false if it is still running
+   * @throws IOException if the specified procedure finished with error
+   */
+  public boolean isProcedureFinished(String signature, String instance, Map<String, String> props)
+      throws IOException {
+    throw new UnsupportedOperationException("isProcedureFinished for a MapR is unsupported.");
+  }
+
+  /**
+   * List completed snapshots.
+   * @return a list of snapshot descriptors for completed snapshots
+   * @throws IOException if a network error occurs
+   */
+  public List<SnapshotDescription> listSnapshots() throws IOException {
+    throw new UnsupportedOperationException("listSnapshots for a MapR is unsupported.");
+  }
+
+  /**
+   * List all the completed snapshots matching the given pattern.
+   *
+   * @param pattern The compiled regular expression to match against
+   * @return - returns a List of SnapshotDescription
+   * @throws IOException if a remote or network exception occurs
+   */
+  public List<SnapshotDescription> listSnapshots(Pattern pattern) throws IOException {
+    throw new UnsupportedOperationException("listSnapshots for a MapR is unsupported.");
+  }
+  /**
+   * Delete an existing snapshot.
+   * @param snapshotName name of the snapshot
+   * @throws IOException if a remote or network exception occurs
+   */
+  public void deleteSnapshot(final String snapshotName) throws IOException {
+    throw new UnsupportedOperationException("deleteSnapshot for a MapR is unsupported.");
+  }
+  /**
+   * Delete existing snapshots whose names match the pattern passed.
+   * @param pattern pattern for names of the snapshot to match
+   * @throws IOException if a remote or network exception occurs
+   */
+  public void deleteSnapshots(final Pattern pattern) throws IOException {
+    throw new UnsupportedOperationException("deleteSnapshot for a MapR is unsupported.");
+  }
+  /**
+   * Apply the new quota settings.
+   * @param quota the quota settings
+   * @throws IOException if a remote or network exception occurs
+   */
+  public void setQuota(final QuotaSettings quota) throws IOException {
+    throw new UnsupportedOperationException("setQuota is not supported for MapR.");
+  }
+  /**
+   * Return a Quota Scanner to list the quotas based on the filter.
+   * @param filter the quota settings filter
+   * @return the quota scanner
+   * @throws IOException if a remote or network exception occurs
+   */
+  public QuotaRetriever getQuotaRetriever(final QuotaFilter filter) throws IOException {
+    throw new UnsupportedOperationException("getQuotaRetriever is not supported for MapR.");
+  }
+  /**
+   * Creates and returns a {@link com.google.protobuf.RpcChannel} instance
+   * connected to the active master.
+   *
+   * <p>
+   * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published
+   * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:
+   * </p>
+   *
+   * <div style="background-color: #cccccc; padding: 2px">
+   * <blockquote><pre>
+   * CoprocessorRpcChannel channel = myAdmin.coprocessorService();
+   * MyService.BlockingInterface service = MyService.newBlockingStub(channel);
+   * MyCallRequest request = MyCallRequest.newBuilder()
+   *     ...
+   *     .build();
+   * MyCallResponse response = service.myCall(null, request);
+   * </pre></blockquote></div>
+   *
+   * @return A MasterCoprocessorRpcChannel instance
+   */
+  public CoprocessorRpcChannel coprocessorService() {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+  /**
+   * Creates and returns a {@link com.google.protobuf.RpcChannel} instance
+   * connected to the passed region server.
+   *
+   * <p>
+   * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published
+   * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:
+   * </p>
+   *
+   * <div style="background-color: #cccccc; padding: 2px">
+   * <blockquote><pre>
+   * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);
+   * MyService.BlockingInterface service = MyService.newBlockingStub(channel);
+   * MyCallRequest request = MyCallRequest.newBuilder()
+   *     ...
+   *     .build();
+   * MyCallResponse response = service.myCall(null, request);
+   * </pre></blockquote></div>
+   *
+   * @param sn the server name to which the endpoint call is made
+   * @return A RegionServerCoprocessorRpcChannel instance
+   */
+  public CoprocessorRpcChannel coprocessorService(ServerName sn) {
+    throw new UnsupportedOperationException("coprocessorService is not supported for MapR.");
+  }
+  public void updateConfiguration(ServerName server) throws IOException {
+    LOG.warn("updateConfiguration() called for a MapR Table, silently ignoring.");
+  }
+  public void updateConfiguration() throws IOException {
+    LOG.warn("updateConfiguration() called for a MapR Table, silently ignoring.");
+  }
+
+  public int getMasterInfoPort() throws IOException {
+    LOG.warn("getMasterInfoPort() called for a MapR Table, return 0.");
+    return 0;
+  }
+  public long getLastMajorCompactionTimestamp(final TableName tableName) throws IOException {
+    LOG.warn("getMasterInfoPort() called for a MapR Table, return 0.");
+    return 0;
+  }
+  public long getLastMajorCompactionTimestampForRegion(final byte[] regionName) throws IOException {
+    LOG.warn("getMasterInfoPort() called for a MapR Table, return 0.");
+    return 0;
+  }
 }

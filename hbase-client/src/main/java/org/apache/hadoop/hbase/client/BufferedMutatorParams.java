@@ -32,7 +32,7 @@ import org.apache.hadoop.hbase.classification.InterfaceStability;
 @InterfaceStability.Evolving
 public class BufferedMutatorParams {
 
-  static final int UNSET = -1;
+  public static final int UNSET = -1;
 
   private final TableName tableName;
   private long writeBufferSize = UNSET;
@@ -106,5 +106,10 @@ public class BufferedMutatorParams {
   public BufferedMutatorParams listener(BufferedMutator.ExceptionListener listener) {
     this.listener = listener;
     return this;
+  }
+
+  public String toString() {
+    return "tableName:"+tableName + ", writeBufferSize:"+writeBufferSize + ", maxKeyValueSize:"+maxKeyValueSize
+         +"pool:"+pool.toString() + ", listener:"+listener.toString();
   }
 }

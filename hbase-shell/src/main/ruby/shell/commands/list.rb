@@ -45,7 +45,6 @@ EOF
               $stderr.puts "Unable to connect to HBase services."
             end
           end
-          regex = ".*"
         end
 
         now = Time.now

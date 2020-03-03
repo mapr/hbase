@@ -23,6 +23,10 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
+import org.apache.hadoop.hbase.client.mapr.AbstractHTable;
+import org.apache.hadoop.hbase.client.mapr.AbstractMapRClusterConnection;
+import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.ipc.RpcControllerFactory;
 
 import java.io.IOException;
@@ -64,6 +68,12 @@ public class BufferedMutatorImpl implements BufferedMutator {
 
   protected ClusterConnection connection; // non-final so can be overridden in test
   private final TableName tableName;
+
+  // Band-aid with a cached maprTable handle, since connection.getTable will create
+  // a new instance of the table every time. We should implement a mapr version BufferedMutator
+  // in the com.mapr.fs.hbase, so that we can cache that maprBufferedMutator here.
+  private AbstractHTable maprTable_ = null;
+
   private volatile Configuration conf;
   @VisibleForTesting
   final ConcurrentLinkedQueue<Mutation> writeAsyncBuffer = new ConcurrentLinkedQueue<Mutation>();
@@ -79,24 +89,42 @@ public class BufferedMutatorImpl implements BufferedMutator {
   private long writeBufferSize;
   private final int maxKeyValueSize;
   private boolean closed = false;
+  private final boolean cleanupPoolOnClose_;
   private final ExecutorService pool;
   private int writeRpcTimeout; // needed to pass in through AsyncProcess constructor
   private int operationTimeout;
 
   @VisibleForTesting
-  protected AsyncProcess ap; // non-final so can be overridden in test
+  protected AsyncProcess ap = null; // non-final so can be overridden in test
 
-  BufferedMutatorImpl(ClusterConnection conn, RpcRetryingCallerFactory rpcCallerFactory,
-      RpcControllerFactory rpcFactory, BufferedMutatorParams params) {
+  public BufferedMutatorImpl(ClusterConnection conn, RpcRetryingCallerFactory rpcCallerFactory,
+                             RpcControllerFactory rpcFactory, BufferedMutatorParams params)
+  {
+    this(conn, rpcCallerFactory, rpcFactory, params, true /* cleanupPoolOnClose */);
+  }
+
+  public BufferedMutatorImpl(ClusterConnection conn, RpcRetryingCallerFactory rpcCallerFactory,
+      RpcControllerFactory rpcFactory, BufferedMutatorParams params, boolean cleanupPoolOnClose) {
     if (conn == null || conn.isClosed()) {
       throw new IllegalArgumentException("Connection is null or closed.");
     }
 
     this.tableName = params.getTableName();
+    if (tableName == null) {
+      LOG.warn("BufferedMutator is constructed with tableName as null");
+    }
     this.connection = conn;
     this.conf = connection.getConfiguration();
+    if (this.conf == null) {
+      LOG.warn("BufferedMutator is constructed with conf as null");
+    }
+
+    this.cleanupPoolOnClose_ = cleanupPoolOnClose;
     this.pool = params.getPool();
     this.listener = params.getListener();
+    if (this.listener != null && this.pool == null) {
+      throw new IllegalArgumentException("BufferedMutator for " + this.tableName + " has a listener, but does not have a pool");
+    }
 
     ConnectionConfiguration connConf = conn.getConnectionConfiguration();
     if (connConf == null) {
@@ -108,10 +136,40 @@ public class BufferedMutatorImpl implements BufferedMutator {
     this.maxKeyValueSize = params.getMaxKeyValueSize() != BufferedMutatorParams.UNSET ?
         params.getMaxKeyValueSize() : connConf.getMaxKeyValueSize();
 
+    if (!BaseTableMappingRules.isInHBaseService()) {
+      if (connection instanceof AbstractMapRClusterConnection) {
+        maprTable_ = AbstractMapRClusterConnection.createAbstractMapRTable(
+                connection.getConfiguration(), tableName, this, this.listener, this.pool);
+        if (maprTable_ == null) {
+          throw new IllegalArgumentException("Could not find table " + this.tableName + " through MapRClusterConnection.");
+        }
+      } else if (connection instanceof org.apache.hadoop.hbase.client.ConnectionManager.HConnectionImplementation) {
+        BaseTableMappingRules tableMappingRule = null;
+        try {
+          tableMappingRule = TableMappingRulesFactory.create(connection.getConfiguration());
+        } catch (IOException e) {
+          throw new IllegalArgumentException("Could not get tableMappingRule for table " + this.tableName + " through HConnection. Reason:"
+                  + e.getStackTrace());
+        }
+        if ((tableMappingRule != null) && tableMappingRule.isMapRTable(tableName)) {
+          maprTable_ = HTable.createMapRTable(connection.getConfiguration(), tableName, this, this.listener, this.pool);
+        }
+        //maprTable_ can be null in this case.
+      } else {
+        LOG.warn("Unknown connection type!");
+      }
+
+    }
+
     this.writeRpcTimeout = connConf.getWriteRpcTimeout();
     this.operationTimeout = connConf.getOperationTimeout();
-    // puts need to track errors globally due to how the APIs currently work.
-    ap = new AsyncProcess(connection, conf, pool, rpcCallerFactory, true, rpcFactory, writeRpcTimeout);
+
+    if (maprTable_ == null) {
+      // puts need to track errors globally due to how the APIs currently work.
+      ap = new AsyncProcess(connection, conf, pool, rpcCallerFactory, true, rpcFactory, writeRpcTimeout);
+    } else {
+      maprTable_.setAutoFlush(false);
+    }
   }
 
   @Override
@@ -136,6 +194,23 @@ public class BufferedMutatorImpl implements BufferedMutator {
 
     if (closed) {
       throw new IllegalStateException("Cannot put when the BufferedMutator is closed.");
+    }
+
+    //TODO: add maprTable_.mutate() to com.mapr.fs.hbase
+    if (maprTable_ != null) {
+      for (Mutation m : ms) {
+        try {
+          if (m instanceof Put) {
+            maprTable_.put((Put) m);
+          }
+          if (m instanceof Delete) {
+            maprTable_.delete((Delete) m);
+          }
+        } catch (IOException e) {
+          throw new InterruptedIOException("Cannot put to this mapr table. Reason: " + e);
+        }
+      }
+      return;
     }
 
     long toAddSize = 0;
@@ -183,19 +258,25 @@ public class BufferedMutatorImpl implements BufferedMutator {
       // As we can have an operation in progress even if the buffer is empty, we call
       // backgroundFlushCommits at least one time.
       backgroundFlushCommits(true);
-      this.pool.shutdown();
-      boolean terminated;
-      int loopCnt = 0;
-      do {
-        // wait until the pool has terminated
-        terminated = this.pool.awaitTermination(60, TimeUnit.SECONDS);
-        loopCnt += 1;
-        if (loopCnt >= 10) {
-          LOG.warn("close() failed to terminate pool after 10 minutes. Abandoning pool.");
-          break;
-        }
-      } while (!terminated);
+      if (maprTable_ != null) {
+        maprTable_.close();
+        maprTable_ = null;
+      }
 
+      if (cleanupPoolOnClose_) {
+        this.pool.shutdown();
+        boolean terminated;
+        int loopCnt = 0;
+        do {
+          // wait until the pool has terminated
+          terminated = this.pool.awaitTermination(60, TimeUnit.SECONDS);
+          loopCnt += 1;
+          if (loopCnt >= 10) {
+            LOG.warn("close() failed to terminate pool after 10 minutes. Abandoning pool.");
+            break;
+          }
+        } while (!terminated);
+      }
     } catch (InterruptedException e) {
       LOG.warn("waitForTermination interrupted");
 
@@ -223,6 +304,10 @@ public class BufferedMutatorImpl implements BufferedMutator {
   private void backgroundFlushCommits(boolean synchronous) throws
       InterruptedIOException,
       RetriesExhaustedWithDetailsException {
+    if (maprTable_ != null) {
+      maprTable_.flushCommits();
+      return;
+    }
     if (!synchronous && writeAsyncBuffer.isEmpty()) {
       return;
     }
@@ -266,6 +351,14 @@ public class BufferedMutatorImpl implements BufferedMutator {
   @Deprecated
   public void setWriteBufferSize(long writeBufferSize) throws RetriesExhaustedWithDetailsException,
       InterruptedIOException {
+    if (maprTable_ != null) {
+      try {
+        maprTable_.setWriteBufferSize(writeBufferSize);
+      } catch (IOException e) {
+        throw new InterruptedIOException("Cannot set write buffer size for this mapr table. Reason:"+e);
+      }
+      return;
+    }
     this.writeBufferSize = writeBufferSize;
     if (currentWriteBufferSize.get() > writeBufferSize) {
       flush();
@@ -277,6 +370,9 @@ public class BufferedMutatorImpl implements BufferedMutator {
    */
   @Override
   public long getWriteBufferSize() {
+    if (maprTable_ != null) {
+      return maprTable_.getWriteBufferSize();
+    }
     return this.writeBufferSize;
   }
 
@@ -297,6 +393,9 @@ public class BufferedMutatorImpl implements BufferedMutator {
 Ó   */
   @Deprecated
   public List<Row> getWriteBuffer() {
+    if (maprTable_ != null) {
+      return null;
+    }
     return Arrays.asList(writeAsyncBuffer.toArray(new Row[0]));
   }
 

@@ -13,6 +13,8 @@ public class BaseTableMappingRules {
   @InterfaceAudience.Private
   public static final BaseTableMappingRules INSTANCE = new BaseTableMappingRules();
 
+  private ClusterType clusterType_ = ClusterType.HBASE_ONLY;
+
   static protected volatile boolean inHBaseService_ = false;
 
   /**
@@ -37,11 +39,19 @@ public class BaseTableMappingRules {
   }
 
   /**
+   * Set one of the possible {@link ClusterType}
+   * @return
+   */
+  public void setClusterType(ClusterType ctype) {
+    clusterType_ = ctype;
+  }
+
+  /**
    * Returns one of the possible {@link ClusterType}
    * @return
    */
   public ClusterType getClusterType() {
-    return ClusterType.HBASE_ONLY;
+    return clusterType_;
   }
 
   /**
@@ -139,4 +149,11 @@ public class BaseTableMappingRules {
     return inHBaseService_;
   }
 
+  /**
+   * @return {@code true} if the mapr client exists (mapr-hbase-xxx.jar files exists in the mapr installed directory)
+   */
+  @InterfaceAudience.Private
+  public boolean isMapRClientInstalled() {
+    return false;
+  }
 }

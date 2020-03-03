@@ -26,6 +26,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 
 public class TableMappingRulesFactory {
+
+  public static final String UNSETDB = "unsetDB";  //default.db is not set, mapping rule will be old style in hbase 0.98
+
   private static final Log LOG = LogFactory.getLog(TableMappingRulesFactory.class);
   private static final GenericHFactory<BaseTableMappingRules> ruleFactory_ =
       new GenericHFactory<BaseTableMappingRules>();
@@ -44,7 +47,7 @@ public class TableMappingRulesFactory {
         return base_instance;
       }
       try {
-        return ruleFactory_.getImplementorInstance(
+          return ruleFactory_.getImplementorInstance(
           conf.get("hbase.mappingrule.impl", "com.mapr.fs.hbase.MapRTableMappingRules"),
           new Object[] {conf}, new Class[] {Configuration.class});
       } catch (Throwable t) {

@@ -45,6 +45,8 @@ import org.apache.hadoop.mapreduce.OutputFormat;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 
+import static org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory.UNSETDB;
+
 /**
  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored
  * while the output value <u>must</u> be either a {@link Put} or a
@@ -222,6 +224,7 @@ implements Configurable {
 
     try {
       this.conf = HBaseConfiguration.createClusterConf(otherConf, address, OUTPUT_CONF_PREFIX);
+      this.conf.set(ConnectionFactory.DEFAULT_DB, UNSETDB);
 
       if (serverClass != null) {
         this.conf.set(HConstants.REGION_SERVER_IMPL, serverImpl);

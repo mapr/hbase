@@ -50,6 +50,7 @@ import org.apache.hadoop.hbase.client.RegionLocator;
 @InterfaceAudience.Private
 public class RegionSizeCalculator {
 
+  private boolean isMaprTable_ = false;
   private static final Log LOG = LogFactory.getLog(RegionSizeCalculator.class);
 
   /**
@@ -66,11 +67,12 @@ public class RegionSizeCalculator {
    */
   @Deprecated
   public RegionSizeCalculator(HTable table) throws IOException {
-	//TODO: SU remove this when the TODO in the init function is fixed  
-	if (table.isMapRTable()) {
+    if (table.isMapRTable()) {
       LOG.info("Region size calculation disabled for MapR tables.");
+      isMaprTable_ = true;
       return;
     }
+    isMaprTable_ = false;
     HBaseAdmin admin = new HBaseAdmin(table.getConfiguration());
     try {
       init(table.getRegionLocator(), admin);
@@ -88,18 +90,17 @@ public class RegionSizeCalculator {
 
   private void init(RegionLocator regionLocator, Admin admin)
       throws IOException {
+    if (regionLocator.isMapRTable()) {
+      LOG.info("Region size calculation disabled for MapR tables " + regionLocator.getName());
+      isMaprTable_ = true;
+      return;
+    }
+
+    isMaprTable_ = false;
     if (!enabled(admin.getConfiguration())) {
       LOG.info("Region size calculation disabled.");
       return;
     }
-
-    //TODO: SU Fix this by the connection member inside regionLocator, add isMapRConnection into Connection class
-    //if (regionLocator.getName().isMapRTable()) {
-      //LOG.info("Region size calculation disabled for MapR tables.");
-      //return;
-    //}
-
-    LOG.info("Calculating region sizes for table \"" + regionLocator.getName() + "\".");
 
     //get regions for table
     List<HRegionLocation> tableRegionInfos = regionLocator.getAllRegionLocations();
@@ -134,7 +135,11 @@ public class RegionSizeCalculator {
   }
 
   boolean enabled(Configuration configuration) {
-    return configuration.getBoolean(ENABLE_REGIONSIZECALCULATOR, true);
+    if (isMaprTable_) {
+      return false;
+    } else {
+      return configuration.getBoolean(ENABLE_REGIONSIZECALCULATOR, true);
+    }
   }
 
   /**
