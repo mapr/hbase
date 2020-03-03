@@ -53,6 +53,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
+import java.security.AccessControlContext;
+import java.security.AccessController;
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,10 +72,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.security.auth.Subject;
 import javax.security.sasl.Sasl;
 import javax.security.sasl.SaslException;
 import javax.security.sasl.SaslServer;
 
+import com.mapr.security.callback.MaprSaslCallbackHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
@@ -1459,6 +1463,7 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
         }
       } else {
         byte[] replyToken;
+        UserGroupInformation currentUgi = UserGroupInformation.getCurrentUser();
         try {
           if (saslServer == null) {
             switch (authMethod) {
@@ -1472,9 +1477,8 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
                   HBaseSaslRpcServer.getSaslProps(), new SaslDigestCallbackHandler(
                       secretManager, this));
               break;
-            default:
-              UserGroupInformation current = UserGroupInformation.getCurrentUser();
-              String fullName = current.getUserName();
+            case KERBEROS:
+              String fullName = currentUgi.getUserName();
               if (LOG.isDebugEnabled()) {
                 LOG.debug("Kerberos principal name is " + fullName);
               }
@@ -1484,7 +1488,7 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
                     "Kerberos principal name does NOT have the expected "
                         + "hostname part: " + fullName);
               }
-              current.doAs(new PrivilegedExceptionAction<Object>() {
+              currentUgi.doAs(new PrivilegedExceptionAction<Object>() {
                 @Override
                 public Object run() throws SaslException {
                   saslServer = Sasl.createSaslServer(AuthMethod.KERBEROS
@@ -1493,6 +1497,15 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
                   return null;
                 }
               });
+              break;
+            default: //MAPRSASL
+              AccessControlContext context = AccessController.getContext();
+              final String primaryName = currentUgi.getShortUserName();
+              final Subject subject = Subject.getSubject(context);
+
+              saslServer = currentUgi.doAs((PrivilegedExceptionAction<SaslServer>) () -> Sasl.createSaslServer(
+                      AuthMethod.MAPRSASL.getMechanismName(), null, SaslUtil.SASL_DEFAULT_REALM,
+                      HBaseSaslRpcServer.getSaslProps(), new MaprSaslCallbackHandler(subject, primaryName)));
             }
             if (saslServer == null)
               throw new AccessDeniedException(

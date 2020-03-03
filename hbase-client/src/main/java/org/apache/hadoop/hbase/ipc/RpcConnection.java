@@ -46,6 +46,8 @@ import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenIdentifier;
 import org.apache.hadoop.security.token.TokenSelector;
 
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+
 /**
  * Base class for ipc connection.
  */
@@ -118,8 +120,8 @@ abstract class RpcConnection {
       authMethod = AuthMethod.SIMPLE;
     } else if (token != null) {
       authMethod = AuthMethod.DIGEST;
-    } else {
-      authMethod = AuthMethod.KERBEROS;
+    } else { //Only "maprsasl" or "kerberos" value could appear here if security is enabled, null check is unnecessary
+      authMethod = AuthMethod.valueOf(conf.get(HBASE_SECURITY_CONF_KEY).toUpperCase());
     }
 
     if (LOG.isDebugEnabled()) {
@@ -136,7 +138,7 @@ abstract class RpcConnection {
       return null;
     }
     UserInformation.Builder userInfoPB = UserInformation.newBuilder();
-    if (authMethod == AuthMethod.KERBEROS) {
+    if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
       // Send effective user for Kerberos auth
       userInfoPB.setEffectiveUser(ugi.getUserName());
     } else if (authMethod == AuthMethod.SIMPLE) {
@@ -151,7 +153,7 @@ abstract class RpcConnection {
 
   protected UserGroupInformation getUGI() {
     UserGroupInformation ticket = remoteId.getTicket().getUGI();
-    if (authMethod == AuthMethod.KERBEROS) {
+    if (authMethod == AuthMethod.KERBEROS || authMethod == AuthMethod.MAPRSASL) {
       if (ticket != null && ticket.getRealUser() != null) {
         ticket = ticket.getRealUser();
       }

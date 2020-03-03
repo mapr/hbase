@@ -89,6 +89,12 @@ public abstract class AbstractHBaseSaslRpcClient {
         saslClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
           SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
         break;
+      case MAPRSASL:
+        if (LOG.isDebugEnabled())
+          LOG.debug("Creating SASL " + AuthMethod.MAPRSASL.getMechanismName()
+                  + " client to authenticate to service.");
+        saslClient = createMaprSaslClient(new String[] { AuthMethod.MAPRSASL.getMechanismName() });
+        break;
       case KERBEROS:
         if (LOG.isDebugEnabled()) {
           LOG.debug("Creating SASL " + AuthMethod.KERBEROS.getMechanismName()
@@ -123,6 +129,14 @@ public abstract class AbstractHBaseSaslRpcClient {
       String userSecondPart) throws IOException {
     return Sasl.createSaslClient(mechanismNames, null, userFirstPart, userSecondPart, saslProps,
       null);
+  }
+
+  protected SaslClient createMaprSaslClient(String[] mechanismNames) throws IOException {
+    return Sasl.createSaslClient(mechanismNames, null, null,
+            null, saslProps,
+            callbacks -> {
+              throw new UnsupportedCallbackException(callbacks[0]);
+            });
   }
 
   public byte[] getInitialResponse() throws SaslException {
