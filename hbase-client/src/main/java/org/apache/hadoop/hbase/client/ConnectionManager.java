@@ -590,6 +590,7 @@ class ConnectionManager {
 
     private volatile boolean closed;
     private volatile boolean aborted;
+    private boolean initialized = false;
 
     // package protected for the tests
     ClusterStatusListener clusterStatusListener;
@@ -642,13 +643,27 @@ class ConnectionManager {
     /**
      * Cluster registry of basic info such as clusterid and meta region location.
      */
-    Registry registry;
+    private Registry registry;
 
     private final ClientBackoffPolicy backoffPolicy;
 
     /** lock guards against multiple threads trying to query the meta region at the same time */
     private final ReentrantLock userRegionLock = new ReentrantLock();
 
+    /**
+     * Defer the part of initialization which need info from ZK in a cluster where hbase and maprdb
+     * are both running.
+     * @return The cluster registry implementation to use.
+     * @throws IOException
+     */
+    private void ensureInitialized() throws IOException {
+      if (!this.initialized) {
+        this.registry = setupRegistry();
+        retrieveClusterId();
+        this.rpcClient = RpcClientFactory.createClient(this.conf, this.clusterId);
+        this.initialized = true;
+      }
+    }
 
     HConnectionImplementation(Configuration conf, boolean managed) throws IOException {
       this(conf, managed, null, null);
@@ -726,11 +741,6 @@ class ConnectionManager {
               ClusterStatusListener.Listener.class);
 
       try {
-        this.registry = setupRegistry();
-        retrieveClusterId();
-
-        this.rpcClient = RpcClientFactory.createClient(this.conf, this.clusterId, this.metrics);
-
         // Do we publish the status?
         if (shouldListen) {
           if (listenerClass == null) {
@@ -746,6 +756,11 @@ class ConnectionManager {
                   }
                 }, conf, listenerClass);
           }
+        }
+        // Connect to ZK in constructor for a hbase only cluster (Defer the connection
+        // for clusters where hbase and maprdb are both running)
+        if (conf.getBoolean(HBaseAdmin.HBASE_ADMIN_CONNECT_AT_CONSTRUCTION, false)) {
+          ensureInitialized();
         }
       } catch (Throwable e) {
         // avoid leaks: registry, rpcClient, ...
@@ -941,6 +956,13 @@ class ConnectionManager {
      */
     @VisibleForTesting
     RpcClient getRpcClient() {
+      try {
+        ensureInitialized();
+      } catch (IOException e) {
+        LOG.error("HConnectionImplementation initialization failed. Reason:");
+        e.printStackTrace();
+        return null;
+      }
       return rpcClient;
     }
 
@@ -954,7 +976,7 @@ class ConnectionManager {
 
     protected String clusterId = null;
 
-    void retrieveClusterId() {
+    private void retrieveClusterId() {
       if (clusterId != null) return;
       this.clusterId = this.registry.getClusterId();
       if (clusterId == null) {
@@ -996,6 +1018,14 @@ class ConnectionManager {
     @Override
     public boolean isMasterRunning()
     throws MasterNotRunningException, ZooKeeperConnectionException {
+      try {
+        ensureInitialized();
+      } catch (IOException e) {
+        String errorMsg = "HConnectionImplementation initialization failed. Reason" + e.getMessage();
+        LOG.error(errorMsg);
+        throw new MasterNotRunningException(errorMsg, e);
+      }
+
       // When getting the master connection, we check it's running,
       // so if there is no exception, it means we've been able to get a
       // connection on a running master
@@ -1008,6 +1038,7 @@ class ConnectionManager {
     public HRegionLocation getRegionLocation(final TableName tableName,
         final byte [] row, boolean reload)
     throws IOException {
+      ensureInitialized();
       return reload? relocateRegion(tableName, row): locateRegion(tableName, row);
     }
 
@@ -1015,11 +1046,13 @@ class ConnectionManager {
     public HRegionLocation getRegionLocation(final byte[] tableName,
         final byte [] row, boolean reload)
     throws IOException {
+      ensureInitialized();
       return getRegionLocation(TableName.valueOf(tableName), row, reload);
     }
 
     @Override
     public boolean isTableEnabled(TableName tableName) throws IOException {
+      ensureInitialized();
       return this.registry.isTableOnlineState(tableName, true);
     }
 
@@ -1030,6 +1063,7 @@ class ConnectionManager {
 
     @Override
     public boolean isTableDisabled(TableName tableName) throws IOException {
+      ensureInitialized();
       return this.registry.isTableOnlineState(tableName, false);
     }
 
@@ -1040,6 +1074,7 @@ class ConnectionManager {
 
     @Override
     public boolean isTableAvailable(final TableName tableName) throws IOException {
+      ensureInitialized();
       final AtomicBoolean available = new AtomicBoolean(true);
       final AtomicInteger regionCount = new AtomicInteger(0);
       MetaScannerVisitor visitor = new MetaScannerVisitorBase() {
@@ -1074,6 +1109,7 @@ class ConnectionManager {
     @Override
     public boolean isTableAvailable(final TableName tableName, final byte[][] splitKeys)
         throws IOException {
+      ensureInitialized();
       final AtomicBoolean available = new AtomicBoolean(true);
       final AtomicInteger regionCount = new AtomicInteger(0);
       MetaScannerVisitor visitor = new MetaScannerVisitorBase() {
@@ -1127,6 +1163,13 @@ class ConnectionManager {
 
     @Override
     public boolean isDeadServer(ServerName sn) {
+      try {
+        ensureInitialized();
+      } catch (IOException e) {
+        LOG.error("Not sure whether server " + sn + " is dead. HConnectionImplementation initialization failed. Reason:");
+        e.printStackTrace();
+        return false;
+      }
       if (clusterStatusListener == null) {
         return false;
       } else {
@@ -1149,6 +1192,7 @@ class ConnectionManager {
     @Override
     public List<HRegionLocation> locateRegions(final TableName tableName,
         final boolean useCache, final boolean offlined) throws IOException {
+      ensureInitialized();
       NavigableMap<HRegionInfo, ServerName> regions = MetaScanner.allTableRegions(this, tableName);
       final List<HRegionLocation> locations = new ArrayList<HRegionLocation>();
       for (HRegionInfo regionInfo : regions.keySet()) {
@@ -1246,6 +1290,7 @@ class ConnectionManager {
 
     private RegionLocations locateMeta(final TableName tableName,
         boolean useCache, int replicaId) throws IOException {
+      ensureInitialized();
       // We cache the location of the META itself, so that we are not overloading
       // zookeeper with one request for every region lookup. If relocating, bypass
       // the cache immediately.
@@ -1287,7 +1332,7 @@ class ConnectionManager {
       */
     private RegionLocations locateRegionInMeta(TableName tableName, byte[] row,
                    boolean useCache, boolean retry, int replicaId) throws IOException {
-
+      ensureInitialized();
       // If we are supposed to be using the cache, look in the cache to see if
       // we already have the region.
       if (useCache) {
@@ -1533,6 +1578,15 @@ class ConnectionManager {
       }
 
       boolean isMasterRunning() throws ServiceException {
+        try {
+          HConnectionImplementation hconnImpl = (HConnectionImplementation) this.connection;
+          hconnImpl.ensureInitialized();
+        } catch (IOException e) {
+          String errorMsg = "HConnectionImplementation initialization failed. Reason" + e.getMessage();
+          LOG.error(errorMsg);
+          throw new ServiceException(e);
+        }
+
         IsMasterRunningResponse response =
           this.stub.isMasterRunning(null, RequestConverter.buildIsMasterRunningRequest());
         return response != null? response.getIsMasterRunning(): false;
@@ -1676,6 +1730,7 @@ class ConnectionManager {
     public AdminService.BlockingInterface getAdmin(final ServerName serverName,
       final boolean master)
     throws IOException {
+      ensureInitialized();
       if (isDeadServer(serverName)) {
         throw new RegionServerStoppedException(serverName + " is dead.");
       }
@@ -1698,6 +1753,7 @@ class ConnectionManager {
     @Override
     public ClientService.BlockingInterface getClient(final ServerName sn)
     throws IOException {
+      ensureInitialized();
       if (isDeadServer(sn)) {
         throw new RegionServerStoppedException(sn + " is dead.");
       }
@@ -1803,6 +1859,13 @@ class ConnectionManager {
     @Override
     public MasterKeepAliveConnection getKeepAliveMasterService()
     throws MasterNotRunningException {
+      try {
+        ensureInitialized();
+      } catch (IOException e) {
+        String errorMsg = "HConnectionImplementation initialization failed. Reason" + e.getMessage();
+        LOG.error(errorMsg);
+        throw new MasterNotRunningException(errorMsg, e);
+      }
       synchronized (masterAndZKLock) {
         if (!isKeepAliveMasterConnectedAndRunning(this.masterServiceState)) {
           MasterServiceStubMaker stubMaker = new MasterServiceStubMaker();
@@ -2302,6 +2365,14 @@ class ConnectionManager {
     @Override
     public void updateCachedLocations(final TableName tableName, byte[] regionName, byte[] rowkey,
       final Object exception, final ServerName source) {
+      try {
+        ensureInitialized();
+      } catch (IOException e) {
+        LOG.error("updateCachedLocation failed. Reason:" + e.getMessage());
+        // Cannot connect to zk, it means that can cannot be sure about the location, so we remove it from
+        // the cache. Do not send the source because source can be a new server in the same host:port
+        metaCache.clearCache(tableName, rowkey, source);
+      }
       if (rowkey == null || tableName == null) {
         LOG.warn("Coding error, see method javadoc. row=" + (rowkey == null ? "null" : rowkey) +
             ", tableName=" + (tableName == null ? "null" : tableName));
@@ -2414,6 +2485,8 @@ class ConnectionManager {
       Batch.Callback<R> callback)
       throws IOException, InterruptedException {
 
+      ensureInitialized();
+
       AsyncRequestFuture ars = this.asyncProcess.submitAll(
           pool, tableName, list, callback, results);
       ars.waitUntilDone();
@@ -2524,6 +2597,7 @@ class ConnectionManager {
 
     @Override
     public int getCurrentNrHRS() throws IOException {
+      ensureInitialized();
       return this.registry.getCurrentNrHRS();
     }
 
@@ -2610,6 +2684,7 @@ class ConnectionManager {
     @Deprecated
     @Override
     public HTableDescriptor[] listTables() throws IOException {
+      ensureInitialized();
       MasterKeepAliveConnection master = getKeepAliveMasterService();
       try {
         GetTableDescriptorsRequest req =
@@ -2642,6 +2717,7 @@ class ConnectionManager {
     @Deprecated
     @Override
     public TableName[] listTableNames() throws IOException {
+      ensureInitialized();
       MasterKeepAliveConnection master = getKeepAliveMasterService();
       try {
         return ProtobufUtil.getTableNameArray(master.getTableNames(null,
@@ -2662,6 +2738,7 @@ class ConnectionManager {
     public HTableDescriptor[] getHTableDescriptorsByTableName(
         List<TableName> tableNames) throws IOException {
       if (tableNames == null || tableNames.isEmpty()) return new HTableDescriptor[0];
+      ensureInitialized();
       MasterKeepAliveConnection master = getKeepAliveMasterService();
       try {
         GetTableDescriptorsRequest req =
@@ -2706,6 +2783,7 @@ class ConnectionManager {
     public HTableDescriptor getHTableDescriptor(final TableName tableName)
     throws IOException {
       if (tableName == null) return null;
+      ensureInitialized();
       MasterKeepAliveConnection master = getKeepAliveMasterService();
       GetTableDescriptorsResponse htds;
       try {
