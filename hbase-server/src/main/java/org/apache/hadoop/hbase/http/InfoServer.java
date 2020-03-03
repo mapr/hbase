@@ -21,12 +21,18 @@ package org.apache.hadoop.hbase.http;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
+
+import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
+import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
 
 /**
  * Create a Jetty embedded server to answer http requests. The primary goal
@@ -67,13 +73,13 @@ public class InfoServer {
         builder.setLogDir(logDir);
       }
     if (httpConfig.isSecure()) {
-    builder.keyPassword(HBaseConfiguration.getPassword(c, "ssl.server.keystore.keypassword", null))
-      .keyStore(c.get("ssl.server.keystore.location"),
-        HBaseConfiguration.getPassword(c,"ssl.server.keystore.password", null),
-        c.get("ssl.server.keystore.type", "jks"))
-      .trustStore(c.get("ssl.server.truststore.location"),
-        HBaseConfiguration.getPassword(c, "ssl.server.truststore.password", null),
-        c.get("ssl.server.truststore.type", "jks"));
+      builder.keyPassword(HBaseConfiguration.getPassword(c, "ssl.server.keystore.keypassword", null))
+        .keyStore(c.get("ssl.server.keystore.location"),
+          HBaseConfiguration.getPassword(c,"ssl.server.keystore.password", null),
+          c.get("ssl.server.keystore.type", "jks"))
+        .trustStore(c.get("ssl.server.truststore.location"),
+          HBaseConfiguration.getPassword(c, "ssl.server.truststore.password", null),
+          c.get("ssl.server.truststore.type", "jks"));
     }
     // Enable SPNEGO authentication
     if ("kerberos".equalsIgnoreCase(c.get(HttpServer.HTTP_UI_AUTHENTICATION, null))) {
@@ -85,6 +91,19 @@ public class InfoServer {
         .setSecurityEnabled(true);
     }
     this.httpServer = builder.build();
+    if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
+      this.httpServer.addFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
+    }
+  }
+
+  private Map<String, String> createAuthParams() {
+    Map<String, String> params = new HashMap<>();
+    params.put("config.prefix", "hadoop.http.authentication");
+    params.put("hadoop.http.authentication.type",
+            "org.apache.hadoop.security.authentication.server.MultiMechsAuthenticationHandler");
+    params.put("hadoop.http.authentication.signature.secret",
+            "com.mapr.security.maprauth.MaprSignatureSecretFactory");
+    return params;
   }
 
   public void addServlet(String name, String pathSpec,
