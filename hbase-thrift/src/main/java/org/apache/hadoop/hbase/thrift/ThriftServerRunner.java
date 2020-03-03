@@ -21,9 +21,11 @@ package org.apache.hadoop.hbase.thrift;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
+import static org.apache.hadoop.hbase.security.User.*;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -41,9 +43,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.sasl.AuthorizeCallback;
+import javax.security.sasl.Sasl;
 import javax.security.sasl.SaslServer;
 
 import org.apache.commons.cli.CommandLine;
@@ -78,6 +83,7 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
+import org.apache.hadoop.hbase.client.mapr.GenericHFactory;
 import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.ParseFilter;
@@ -108,9 +114,12 @@ import org.apache.hadoop.hbase.util.DNS;
 import org.apache.hadoop.hbase.util.HttpServerUtil;
 import org.apache.hadoop.hbase.util.JvmPauseMonitor;
 import org.apache.hadoop.hbase.util.Strings;
+import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.SaslRpcServer.SaslGssCallbackHandler;
 import org.apache.hadoop.security.UserGroupInformation;
+import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
 import org.apache.hadoop.security.authorize.ProxyUsers;
+import org.apache.hadoop.security.rpcauth.RpcAuthMethod;
 import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -133,6 +142,7 @@ import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.servlet.Context;
+import org.mortbay.jetty.servlet.FilterHolder;
 import org.mortbay.jetty.servlet.ServletHolder;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.thread.QueuedThreadPool;
@@ -149,6 +159,8 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 public class ThriftServerRunner implements Runnable {
 
   private static final Log LOG = LogFactory.getLog(ThriftServerRunner.class);
+  private static final GenericHFactory<CallbackHandler> callbackHandlerFactory =
+          new GenericHFactory<CallbackHandler>();
 
   static final String SERVER_TYPE_CONF_KEY =
       "hbase.regionserver.thrift.server.type";
@@ -167,6 +179,9 @@ public class ThriftServerRunner implements Runnable {
   static final String THRIFT_SSL_KEYSTORE_STORE = "hbase.thrift.ssl.keystore.store";
   static final String THRIFT_SSL_KEYSTORE_PASSWORD = "hbase.thrift.ssl.keystore.password";
   static final String THRIFT_SSL_KEYSTORE_KEYPASSWORD = "hbase.thrift.ssl.keystore.keypassword";
+
+  static final String MAPR_CALLBACK_HANDLER_CONF_KEY = "mapr.security.callbackhandler";
+  static final String MAPR_CALLBACK_HANDLER_CONF_KEY_DEFAULT = "com.mapr.security.callback.MaprSaslCallbackHandler";
 
   /**
    * Amount of time in milliseconds before a server thread will timeout
@@ -207,7 +222,7 @@ public class ThriftServerRunner implements Runnable {
   private SaslUtil.QualityOfProtection qop;
   private String host;
 
-  private final boolean securityEnabled;
+  private final String authMethod;
   private final boolean doAsEnabled;
 
   private final JvmPauseMonitor pauseMonitor;
@@ -316,9 +331,8 @@ public class ThriftServerRunner implements Runnable {
   public ThriftServerRunner(Configuration conf) throws IOException {
     UserProvider userProvider = UserProvider.instantiate(conf);
     // login the server principal (if using secure Hadoop)
-    securityEnabled = userProvider.isHadoopSecurityEnabled()
-      && userProvider.isHBaseSecurityEnabled();
-    if (securityEnabled) {
+    authMethod = conf.get(HBASE_SECURITY_CONF_KEY);
+    if (KERBEROS.equalsIgnoreCase(authMethod) || MAPR_SASL.equalsIgnoreCase(authMethod)) {
       host = Strings.domainNamePointerToHostName(DNS.getDefaultHost(
         conf.get("hbase.thrift.dns.interface", "default"),
         conf.get("hbase.thrift.dns.nameserver", "default")));
@@ -355,7 +369,7 @@ public class ThriftServerRunner implements Runnable {
                               QualityOfProtection.PRIVACY.name()));
       }
       checkHttpSecurity(qop, conf);
-      if (!securityEnabled) {
+      if (!KERBEROS.equalsIgnoreCase(authMethod) && !MAPR_SASL.equalsIgnoreCase(authMethod)) {
         throw new IOException("Thrift server must"
           + " run in secure mode to support authentication");
       }
@@ -423,7 +437,7 @@ public class ThriftServerRunner implements Runnable {
     TProtocolFactory protocolFactory = new TBinaryProtocol.Factory();
     TProcessor processor = new Hbase.Processor<Hbase.Iface>(handler);
     TServlet thriftHttpServlet = new ThriftHttpServlet(processor, protocolFactory, realUser,
-        conf, hbaseHandler, securityEnabled, doAsEnabled);
+        conf, hbaseHandler, authMethod, doAsEnabled);
 
     httpServer = new Server();
     // Context handler
@@ -433,6 +447,10 @@ public class ThriftServerRunner implements Runnable {
     String httpPath = "/*";
     httpServer.setHandler(context);
     context.addServlet(new ServletHolder(thriftHttpServlet), httpPath);
+    if (MAPR_SASL.equalsIgnoreCase(authMethod)) {
+      FilterHolder authFilter = makeAuthFilter();
+      context.addFilter(authFilter, "/*", 1);
+    }
     HttpServerUtil.constrainHttpMethods(context,
         conf.getBoolean(THRIFT_HTTP_ALLOW_OPTIONS_METHOD, THRIFT_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT));
 
@@ -476,6 +494,16 @@ public class ThriftServerRunner implements Runnable {
     LOG.info("Starting Thrift HTTP Server on " + Integer.toString(listenPort));
   }
 
+  public FilterHolder makeAuthFilter() {
+    FilterHolder authFilter = new FilterHolder(AuthenticationFilter.class);
+    authFilter.setInitParameter("config.prefix", "hadoop.http.authentication");
+    authFilter.setInitParameter("hadoop.http.authentication.type",
+            "org.apache.hadoop.security.authentication.server.MultiMechsAuthenticationHandler");
+    authFilter.setInitParameter("hadoop.http.authentication.signature.secret",
+            "com.mapr.security.maprauth.MaprSignatureSecretFactory");
+    return authFilter;
+  }
+
   /**
    * Setting up the thrift TServer
    */
@@ -504,43 +532,10 @@ public class ThriftServerRunner implements Runnable {
       transportFactory = new TFramedTransport.Factory(
           conf.getInt(MAX_FRAME_SIZE_CONF_KEY, 2)  * 1024 * 1024);
       LOG.debug("Using framed transport");
-    } else if (qop == null) {
+    } else if (qop == null && !MAPR_SASL.equalsIgnoreCase(authMethod)) {
       transportFactory = new TTransportFactory();
     } else {
-      // Extract the name from the principal
-      String name = SecurityUtil.getUserFromPrincipal(
-        conf.get("hbase.thrift.kerberos.principal"));
-      Map<String, String> saslProperties = SaslUtil.initSaslProperties(qop.name());
-      TSaslServerTransport.Factory saslFactory = new TSaslServerTransport.Factory();
-      saslFactory.addServerDefinition("GSSAPI", name, host, saslProperties,
-        new SaslGssCallbackHandler() {
-          @Override
-          public void handle(Callback[] callbacks)
-              throws UnsupportedCallbackException {
-            AuthorizeCallback ac = null;
-            for (Callback callback : callbacks) {
-              if (callback instanceof AuthorizeCallback) {
-                ac = (AuthorizeCallback) callback;
-              } else {
-                throw new UnsupportedCallbackException(callback,
-                    "Unrecognized SASL GSSAPI Callback");
-              }
-            }
-            if (ac != null) {
-              String authid = ac.getAuthenticationID();
-              String authzid = ac.getAuthorizationID();
-              if (!authid.equals(authzid)) {
-                ac.setAuthorized(false);
-              } else {
-                ac.setAuthorized(true);
-                String userName = SecurityUtil.getUserFromPrincipal(authzid);
-                LOG.info("Effective user: " + userName);
-                ac.setAuthorizedID(userName);
-              }
-            }
-          }
-        });
-      transportFactory = saslFactory;
+      transportFactory = createTransportFactory();
 
       // Create a processor wrapper, to get the caller
       processor = new TProcessor() {
@@ -645,6 +640,79 @@ public class ThriftServerRunner implements Runnable {
 
 
     registerFilters(conf);
+  }
+
+  TTransportFactory createTransportFactory() throws Exception {
+    Map<String, String> saslProperties = null;
+    RpcAuthMethod authMethod = realUser.getRpcAuthMethodList().get(0);
+    String mechanism = authMethod.getMechanismName();
+    String protocol = authMethod.getProtocol();
+    String serverId = authMethod.getServerId();
+
+    if (SaslRpcServer.AuthMethod.KERBEROS.getMechanismName().equals(mechanism)) {
+      protocol = SecurityUtil.getUserFromPrincipal(
+              conf.get("hbase.thrift.kerberos.principal"));
+    }
+
+    if (qop != null) {
+      saslProperties = SaslUtil.initSaslProperties(qop.name());
+    }
+
+    TSaslServerTransport.Factory saslFactory = new TSaslServerTransport.Factory();
+    saslFactory.addServerDefinition(
+            mechanism,
+            protocol,
+            serverId,
+            saslProperties,
+            createCallbackHandler(authMethod));
+
+    return saslFactory;
+  }
+
+  CallbackHandler createCallbackHandler(RpcAuthMethod authMethod) throws Exception {
+    try {
+      Method method = authMethod.getClass().getDeclaredMethod("createCallbackHandler");
+      return (CallbackHandler) method.invoke(authMethod);
+    } catch (NoSuchMethodException e) {
+      LOG.warn("Unexpected version of "+ authMethod.getClass().getName()
+              + " class found: " + e.getMessage() + ". Using fallback.");
+
+      String mechanism = authMethod.getMechanismName();
+      if (SaslRpcServer.AuthMethod.KERBEROS.getMechanismName().equals(mechanism)) {
+        return new SaslGssCallbackHandler() {
+          @Override
+          public void handle(Callback[] callbacks)
+                  throws UnsupportedCallbackException {
+            AuthorizeCallback ac = null;
+            for (Callback callback : callbacks) {
+              if (callback instanceof AuthorizeCallback) {
+                ac = (AuthorizeCallback) callback;
+              } else {
+                throw new UnsupportedCallbackException(callback,
+                        "Unrecognized SASL GSSAPI Callback");
+              }
+            }
+            if (ac != null) {
+              String authid = ac.getAuthenticationID();
+              String authzid = ac.getAuthorizationID();
+              if (!authid.equals(authzid)) {
+                ac.setAuthorized(false);
+              } else {
+                ac.setAuthorized(true);
+                String userName = SecurityUtil.getUserFromPrincipal(authzid);
+                LOG.info("Effective user: " + userName);
+                ac.setAuthorizedID(userName);
+              }
+            }
+          }
+        };
+      } else {
+        return callbackHandlerFactory.getImplementorInstance(
+                conf.get(MAPR_CALLBACK_HANDLER_CONF_KEY, MAPR_CALLBACK_HANDLER_CONF_KEY_DEFAULT),
+                new Object[] {realUser.getSubject(), realUser.getUserName()},
+                new Class[] {Subject.class, String.class});
+      }
+    }
   }
 
   ExecutorService createExecutor(BlockingQueue<Runnable> callQueue,
