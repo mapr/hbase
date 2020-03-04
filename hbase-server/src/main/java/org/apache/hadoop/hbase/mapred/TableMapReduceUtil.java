@@ -52,6 +52,8 @@ import org.apache.hadoop.mapred.TextOutputFormat;
 import org.apache.hadoop.security.token.Token;
 import org.apache.zookeeper.KeeperException;
 
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
+
 /**
  * Utility for {@link TableMap} and {@link TableReduce}
  */
@@ -311,17 +313,14 @@ public class TableMapReduceUtil {
       }
     }
 
-    if (userProvider.isHBaseSecurityEnabled()) {
-      Connection conn = ConnectionFactory.createConnection(job);
-      try {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job)) {
+      try (Connection conn = ConnectionFactory.createConnection(job)) {
         // login the server principal (if using secure Hadoop)
         User user = userProvider.getCurrent();
         TokenUtil.addTokenForJob(conn, job, user);
       } catch (InterruptedException ie) {
         ie.printStackTrace();
         Thread.currentThread().interrupt();
-      } finally {
-        conn.close();
       }
     }
   }

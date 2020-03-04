@@ -252,7 +252,7 @@ public class ConnectionFactory {
 
       String defaultDb = conf.get(DEFAULT_DB, org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory.UNSETDB);
 
-      if (defaultDb.equalsIgnoreCase(MAPR_ENGINE) || defaultDb.equalsIgnoreCase(MAPR_ENGINE2)) {
+      if (isMapRDBOnlyCluster(conf)) {
         tableMappingRule.setClusterType(ClusterType.MAPR_ONLY);
       } else if (defaultDb.equalsIgnoreCase(HBASE_ENGINE)) {
         tableMappingRule.setClusterType(ClusterType.HBASE_ONLY);
@@ -305,5 +305,15 @@ public class ConnectionFactory {
     } catch (Exception e) {
       throw new IOException(e);
     }
+  }
+
+  /**
+   * True if MaprDB cluster, false otherwise (HBase cluster)
+   * @param conf configuration to check cluster type from
+   */
+  public static boolean isMapRDBOnlyCluster(Configuration conf) {
+    String defaultDb = conf.get(DEFAULT_DB);
+    return MAPR_ENGINE.equalsIgnoreCase(defaultDb) ||
+        MAPR_ENGINE2.equalsIgnoreCase(defaultDb);
   }
 }

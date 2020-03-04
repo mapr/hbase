@@ -59,6 +59,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.StringUtils;
 import org.apache.hadoop.hbase.util.RegionSplitter;
 
+import static org.apache.hadoop.hbase.client.ConnectionFactory.isMapRDBOnlyCluster;
+
 /**
  * Utility for {@link TableMapper} and {@link TableReducer}
  */
@@ -520,7 +522,7 @@ public class TableMapReduceUtil {
       }
     }
 
-    if (userProvider.isHBaseSecurityEnabled()) {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job.getConfiguration())) {
       try {
         // init credentials for remote cluster
         String quorumAddress = job.getConfiguration().get(TableOutputFormat.QUORUM_ADDRESS);
@@ -528,19 +530,13 @@ public class TableMapReduceUtil {
         if (quorumAddress != null) {
           Configuration peerConf = HBaseConfiguration.createClusterConf(job.getConfiguration(),
               quorumAddress, TableOutputFormat.OUTPUT_CONF_PREFIX);
-          Connection peerConn = ConnectionFactory.createConnection(peerConf);
-          try {
+          try (Connection peerConn = ConnectionFactory.createConnection(peerConf)) {
             TokenUtil.addTokenForJob(peerConn, user, job);
-          } finally {
-            peerConn.close();
           }
         }
 
-        Connection conn = ConnectionFactory.createConnection(job.getConfiguration());
-        try {
+        try (Connection conn = ConnectionFactory.createConnection(job.getConfiguration())) {
           TokenUtil.addTokenForJob(conn, user, job);
-        } finally {
-          conn.close();
         }
       } catch (InterruptedException ie) {
         LOG.info("Interrupted obtaining user authentication token");
@@ -581,13 +577,10 @@ public class TableMapReduceUtil {
   public static void initCredentialsForCluster(Job job, Configuration conf)
       throws IOException {
     UserProvider userProvider = UserProvider.instantiate(job.getConfiguration());
-    if (userProvider.isHBaseSecurityEnabled()) {
+    if (userProvider.isHBaseSecurityEnabled() && !isMapRDBOnlyCluster(job.getConfiguration())) {
       try {
-        Connection peerConn = ConnectionFactory.createConnection(conf);
-        try {
+        try (Connection peerConn = ConnectionFactory.createConnection(conf)) {
           TokenUtil.addTokenForJob(peerConn, userProvider.getCurrent(), job);
-        } finally {
-          peerConn.close();
         }
       } catch (InterruptedException e) {
         LOG.info("Interrupted obtaining user authentication token");
