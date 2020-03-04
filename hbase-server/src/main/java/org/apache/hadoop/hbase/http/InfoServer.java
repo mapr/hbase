@@ -91,6 +91,9 @@ public class InfoServer {
         .setSecurityEnabled(true);
     }
     this.httpServer = builder.build();
+
+    FiltersUtil.addCustomHeadersFilterIfPresent(this.httpServer.getWebAppContext(), c);
+
     if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
       this.httpServer.addFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
     }

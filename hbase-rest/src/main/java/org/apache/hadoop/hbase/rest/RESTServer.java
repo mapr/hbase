@@ -35,6 +35,7 @@ import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseInterfaceAudience;
+import org.apache.hadoop.hbase.http.FiltersUtil;
 import org.apache.hadoop.hbase.http.HttpServer;
 import org.apache.hadoop.hbase.http.InfoServer;
 import org.apache.hadoop.hbase.jetty.SslSelectChannelConnectorSecure;
@@ -282,6 +283,8 @@ public class RESTServer implements Constants {
     if (authFilter != null) {
       context.addFilter(authFilter, "/*", 1);
     }
+
+    FiltersUtil.addCustomHeadersFilterIfPresent(context, conf);
 
     // Load filters from configuration.
     String[] filterClasses = servlet.getConfiguration().getStrings(FILTER_CLASSES,

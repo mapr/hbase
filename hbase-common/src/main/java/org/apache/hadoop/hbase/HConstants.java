@@ -1355,6 +1355,9 @@ public final class HConstants {
       "hbase.master.executor.logreplayops.threads";
   public static final int MASTER_LOG_REPLAY_OPS_THREADS_DEFAULT = 10;
 
+  /** Custom headers file location parameter. */
+  public static final String CUSTOM_HEADERS_FILE = "hbase.custom.headers.file";
+
   private HConstants() {
     // Can't be instantiated with this ctor.
   }

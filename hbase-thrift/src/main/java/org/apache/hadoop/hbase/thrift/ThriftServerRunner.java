@@ -18,6 +18,7 @@
 
 package org.apache.hadoop.hbase.thrift;
 
+import static org.apache.hadoop.hbase.HConstants.CUSTOM_HEADERS_FILE;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
@@ -89,6 +90,8 @@ import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.ParseFilter;
 import org.apache.hadoop.hbase.filter.PrefixFilter;
 import org.apache.hadoop.hbase.filter.WhileMatchFilter;
+import org.apache.hadoop.hbase.http.CustomHeadersFilter;
+import org.apache.hadoop.hbase.http.FiltersUtil;
 import org.apache.hadoop.hbase.jetty.SslSelectChannelConnectorSecure;
 import org.apache.hadoop.hbase.security.SaslUtil;
 import org.apache.hadoop.hbase.security.SaslUtil.QualityOfProtection;
@@ -454,6 +457,8 @@ public class ThriftServerRunner implements Runnable {
     HttpServerUtil.constrainHttpMethods(context,
         conf.getBoolean(THRIFT_HTTP_ALLOW_OPTIONS_METHOD, THRIFT_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT));
 
+    FiltersUtil.addCustomHeadersFilterIfPresent(context, conf);
+
     // set up Jetty and run the embedded server
     Connector connector = new SelectChannelConnector();
     if(conf.getBoolean(THRIFT_SSL_ENABLED, false)) {
@@ -502,6 +507,12 @@ public class ThriftServerRunner implements Runnable {
     authFilter.setInitParameter("hadoop.http.authentication.signature.secret",
             "com.mapr.security.maprauth.MaprSignatureSecretFactory");
     return authFilter;
+  }
+
+  public FilterHolder makeCustomHeadersFilter() {
+    FilterHolder customHeadersFilter = new FilterHolder(CustomHeadersFilter.class);
+    customHeadersFilter.setInitParameter(CUSTOM_HEADERS_FILE, conf.get(CUSTOM_HEADERS_FILE));
+    return customHeadersFilter;
   }
 
   /**
