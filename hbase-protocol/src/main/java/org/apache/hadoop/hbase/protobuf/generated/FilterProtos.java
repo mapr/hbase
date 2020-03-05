@@ -6,69 +6,83 @@ package org.apache.hadoop.hbase.protobuf.generated;
 public final class FilterProtos {
   private FilterProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface FilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // required string name = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface FilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.Filter)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>required string name = 1;</code>
+     * @return Whether the name field is set.
      */
     boolean hasName();
     /**
      * <code>required string name = 1;</code>
+     * @return The name.
      */
     java.lang.String getName();
     /**
      * <code>required string name = 1;</code>
+     * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
-    // optional bytes serialized_filter = 2;
     /**
      * <code>optional bytes serialized_filter = 2;</code>
+     * @return Whether the serializedFilter field is set.
      */
     boolean hasSerializedFilter();
     /**
      * <code>optional bytes serialized_filter = 2;</code>
+     * @return The serializedFilter.
      */
     com.google.protobuf.ByteString getSerializedFilter();
   }
   /**
    * Protobuf type {@code hbase.pb.Filter}
    */
-  public static final class Filter extends
-      com.google.protobuf.GeneratedMessage
-      implements FilterOrBuilder {
+  public  static final class Filter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.Filter)
+      FilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Filter.newBuilder() to construct.
-    private Filter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Filter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Filter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Filter defaultInstance;
-    public static Filter getDefaultInstance() {
-      return defaultInstance;
+    private Filter() {
+      name_ = "";
+      serializedFilter_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public Filter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Filter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Filter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -80,21 +94,22 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              name_ = input.readBytes();
+              name_ = bs;
               break;
             }
             case 18: {
               bitField0_ |= 0x00000002;
               serializedFilter_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -103,7 +118,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -114,40 +129,27 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_Filter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_Filter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Filter> PARSER =
-        new com.google.protobuf.AbstractParser<Filter>() {
-      public Filter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Filter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Filter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string name = 1;
     public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    private volatile java.lang.Object name_;
     /**
      * <code>required string name = 1;</code>
+     * @return Whether the name field is set.
      */
     public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string name = 1;</code>
+     * @return The name.
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -165,6 +167,7 @@ public final class FilterProtos {
     }
     /**
      * <code>required string name = 1;</code>
+     * @return The bytes for name.
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -180,30 +183,29 @@ public final class FilterProtos {
       }
     }
 
-    // optional bytes serialized_filter = 2;
     public static final int SERIALIZED_FILTER_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString serializedFilter_;
     /**
      * <code>optional bytes serialized_filter = 2;</code>
+     * @return Whether the serializedFilter field is set.
      */
     public boolean hasSerializedFilter() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes serialized_filter = 2;</code>
+     * @return The serializedFilter.
      */
     public com.google.protobuf.ByteString getSerializedFilter() {
       return serializedFilter_;
     }
 
-    private void initFields() {
-      name_ = "";
-      serializedFilter_ = com.google.protobuf.ByteString.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasName()) {
         memoizedIsInitialized = 0;
@@ -213,42 +215,34 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(2, serializedFilter_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, serializedFilter_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -261,30 +255,27 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter) obj;
 
-      boolean result = true;
-      result = result && (hasName() == other.hasName());
+      if (hasName() != other.hasName()) return false;
       if (hasName()) {
-        result = result && getName()
-            .equals(other.getName());
+        if (!getName()
+            .equals(other.getName())) return false;
       }
-      result = result && (hasSerializedFilter() == other.hasSerializedFilter());
+      if (hasSerializedFilter() != other.hasSerializedFilter()) return false;
       if (hasSerializedFilter()) {
-        result = result && getSerializedFilter()
-            .equals(other.getSerializedFilter());
+        if (!getSerializedFilter()
+            .equals(other.getSerializedFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasName()) {
         hash = (37 * hash) + NAME_FIELD_NUMBER;
         hash = (53 * hash) + getName().hashCode();
@@ -293,11 +284,22 @@ public final class FilterProtos {
         hash = (37 * hash) + SERIALIZED_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getSerializedFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -321,46 +323,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -368,14 +383,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.Filter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.Filter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_Filter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_Filter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -388,18 +405,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         name_ = "";
@@ -409,19 +424,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_Filter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter result = buildPartial();
         if (!result.isInitialized()) {
@@ -430,15 +444,16 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.serializedFilter_ = serializedFilter_;
@@ -447,6 +462,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter)other);
@@ -466,18 +514,20 @@ public final class FilterProtos {
         if (other.hasSerializedFilter()) {
           setSerializedFilter(other.getSerializedFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -487,7 +537,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -497,23 +547,27 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required string name = 1;
       private java.lang.Object name_ = "";
       /**
        * <code>required string name = 1;</code>
+       * @return Whether the name field is set.
        */
       public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string name = 1;</code>
+       * @return The name.
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          name_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -521,6 +575,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required string name = 1;</code>
+       * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -537,6 +592,8 @@ public final class FilterProtos {
       }
       /**
        * <code>required string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
           java.lang.String value) {
@@ -550,6 +607,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -559,6 +617,8 @@ public final class FilterProtos {
       }
       /**
        * <code>required string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
@@ -571,22 +631,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes serialized_filter = 2;
       private com.google.protobuf.ByteString serializedFilter_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes serialized_filter = 2;</code>
+       * @return Whether the serializedFilter field is set.
        */
       public boolean hasSerializedFilter() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes serialized_filter = 2;</code>
+       * @return The serializedFilter.
        */
       public com.google.protobuf.ByteString getSerializedFilter() {
         return serializedFilter_;
       }
       /**
        * <code>optional bytes serialized_filter = 2;</code>
+       * @param value The serializedFilter to set.
+       * @return This builder for chaining.
        */
       public Builder setSerializedFilter(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -599,6 +662,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes serialized_filter = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSerializedFilter() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -606,64 +670,109 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.Filter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.Filter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Filter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.Filter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Filter>
+        PARSER = new com.google.protobuf.AbstractParser<Filter>() {
+      @java.lang.Override
+      public Filter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Filter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Filter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Filter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ColumnCountGetFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ColumnCountGetFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ColumnCountGetFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required int32 limit = 1;
     /**
      * <code>required int32 limit = 1;</code>
+     * @return Whether the limit field is set.
      */
     boolean hasLimit();
     /**
      * <code>required int32 limit = 1;</code>
+     * @return The limit.
      */
     int getLimit();
   }
   /**
    * Protobuf type {@code hbase.pb.ColumnCountGetFilter}
    */
-  public static final class ColumnCountGetFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements ColumnCountGetFilterOrBuilder {
+  public  static final class ColumnCountGetFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ColumnCountGetFilter)
+      ColumnCountGetFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ColumnCountGetFilter.newBuilder() to construct.
-    private ColumnCountGetFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ColumnCountGetFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ColumnCountGetFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ColumnCountGetFilter defaultInstance;
-    public static ColumnCountGetFilter getDefaultInstance() {
-      return defaultInstance;
+    private ColumnCountGetFilter() {
     }
 
-    public ColumnCountGetFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ColumnCountGetFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ColumnCountGetFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -675,16 +784,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               limit_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -693,7 +802,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -704,52 +813,38 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnCountGetFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnCountGetFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ColumnCountGetFilter> PARSER =
-        new com.google.protobuf.AbstractParser<ColumnCountGetFilter>() {
-      public ColumnCountGetFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ColumnCountGetFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ColumnCountGetFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required int32 limit = 1;
     public static final int LIMIT_FIELD_NUMBER = 1;
     private int limit_;
     /**
      * <code>required int32 limit = 1;</code>
+     * @return Whether the limit field is set.
      */
     public boolean hasLimit() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required int32 limit = 1;</code>
+     * @return The limit.
      */
     public int getLimit() {
       return limit_;
     }
 
-    private void initFields() {
-      limit_ = 0;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasLimit()) {
         memoizedIsInitialized = 0;
@@ -759,35 +854,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt32(1, limit_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, limit_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -800,34 +888,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter) obj;
 
-      boolean result = true;
-      result = result && (hasLimit() == other.hasLimit());
+      if (hasLimit() != other.hasLimit()) return false;
       if (hasLimit()) {
-        result = result && (getLimit()
-            == other.getLimit());
+        if (getLimit()
+            != other.getLimit()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasLimit()) {
         hash = (37 * hash) + LIMIT_FIELD_NUMBER;
         hash = (53 * hash) + getLimit();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -851,46 +947,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -898,14 +1007,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.ColumnCountGetFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ColumnCountGetFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnCountGetFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnCountGetFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -918,18 +1029,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         limit_ = 0;
@@ -937,19 +1046,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnCountGetFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -958,19 +1066,53 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.limit_ = limit_;
           to_bitField0_ |= 0x00000001;
         }
-        result.limit_ = limit_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter)other);
@@ -985,18 +1127,20 @@ public final class FilterProtos {
         if (other.hasLimit()) {
           setLimit(other.getLimit());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasLimit()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1006,7 +1150,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1016,22 +1160,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required int32 limit = 1;
       private int limit_ ;
       /**
        * <code>required int32 limit = 1;</code>
+       * @return Whether the limit field is set.
        */
       public boolean hasLimit() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @return The limit.
        */
       public int getLimit() {
         return limit_;
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
        */
       public Builder setLimit(int value) {
         bitField0_ |= 0x00000001;
@@ -1041,6 +1188,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLimit() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1048,84 +1196,132 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ColumnCountGetFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnCountGetFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ColumnCountGetFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnCountGetFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ColumnCountGetFilter>
+        PARSER = new com.google.protobuf.AbstractParser<ColumnCountGetFilter>() {
+      @java.lang.Override
+      public ColumnCountGetFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ColumnCountGetFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ColumnCountGetFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ColumnCountGetFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnCountGetFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ColumnPaginationFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ColumnPaginationFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ColumnPaginationFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required int32 limit = 1;
     /**
      * <code>required int32 limit = 1;</code>
+     * @return Whether the limit field is set.
      */
     boolean hasLimit();
     /**
      * <code>required int32 limit = 1;</code>
+     * @return The limit.
      */
     int getLimit();
 
-    // optional int32 offset = 2;
     /**
      * <code>optional int32 offset = 2;</code>
+     * @return Whether the offset field is set.
      */
     boolean hasOffset();
     /**
      * <code>optional int32 offset = 2;</code>
+     * @return The offset.
      */
     int getOffset();
 
-    // optional bytes column_offset = 3;
     /**
      * <code>optional bytes column_offset = 3;</code>
+     * @return Whether the columnOffset field is set.
      */
     boolean hasColumnOffset();
     /**
      * <code>optional bytes column_offset = 3;</code>
+     * @return The columnOffset.
      */
     com.google.protobuf.ByteString getColumnOffset();
   }
   /**
    * Protobuf type {@code hbase.pb.ColumnPaginationFilter}
    */
-  public static final class ColumnPaginationFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements ColumnPaginationFilterOrBuilder {
+  public  static final class ColumnPaginationFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ColumnPaginationFilter)
+      ColumnPaginationFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ColumnPaginationFilter.newBuilder() to construct.
-    private ColumnPaginationFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ColumnPaginationFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ColumnPaginationFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ColumnPaginationFilter defaultInstance;
-    public static ColumnPaginationFilter getDefaultInstance() {
-      return defaultInstance;
+    private ColumnPaginationFilter() {
+      columnOffset_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public ColumnPaginationFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ColumnPaginationFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ColumnPaginationFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1137,13 +1333,6 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               limit_ = input.readInt32();
@@ -1159,13 +1348,20 @@ public final class FilterProtos {
               columnOffset_ = input.readBytes();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1176,86 +1372,72 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPaginationFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPaginationFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ColumnPaginationFilter> PARSER =
-        new com.google.protobuf.AbstractParser<ColumnPaginationFilter>() {
-      public ColumnPaginationFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ColumnPaginationFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ColumnPaginationFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required int32 limit = 1;
     public static final int LIMIT_FIELD_NUMBER = 1;
     private int limit_;
     /**
      * <code>required int32 limit = 1;</code>
+     * @return Whether the limit field is set.
      */
     public boolean hasLimit() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required int32 limit = 1;</code>
+     * @return The limit.
      */
     public int getLimit() {
       return limit_;
     }
 
-    // optional int32 offset = 2;
     public static final int OFFSET_FIELD_NUMBER = 2;
     private int offset_;
     /**
      * <code>optional int32 offset = 2;</code>
+     * @return Whether the offset field is set.
      */
     public boolean hasOffset() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional int32 offset = 2;</code>
+     * @return The offset.
      */
     public int getOffset() {
       return offset_;
     }
 
-    // optional bytes column_offset = 3;
     public static final int COLUMN_OFFSET_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString columnOffset_;
     /**
      * <code>optional bytes column_offset = 3;</code>
+     * @return Whether the columnOffset field is set.
      */
     public boolean hasColumnOffset() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional bytes column_offset = 3;</code>
+     * @return The columnOffset.
      */
     public com.google.protobuf.ByteString getColumnOffset() {
       return columnOffset_;
     }
 
-    private void initFields() {
-      limit_ = 0;
-      offset_ = 0;
-      columnOffset_ = com.google.protobuf.ByteString.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasLimit()) {
         memoizedIsInitialized = 0;
@@ -1265,49 +1447,42 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt32(1, limit_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt32(2, offset_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBytes(3, columnOffset_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, limit_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, offset_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, columnOffset_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1320,35 +1495,32 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter) obj;
 
-      boolean result = true;
-      result = result && (hasLimit() == other.hasLimit());
+      if (hasLimit() != other.hasLimit()) return false;
       if (hasLimit()) {
-        result = result && (getLimit()
-            == other.getLimit());
+        if (getLimit()
+            != other.getLimit()) return false;
       }
-      result = result && (hasOffset() == other.hasOffset());
+      if (hasOffset() != other.hasOffset()) return false;
       if (hasOffset()) {
-        result = result && (getOffset()
-            == other.getOffset());
+        if (getOffset()
+            != other.getOffset()) return false;
       }
-      result = result && (hasColumnOffset() == other.hasColumnOffset());
+      if (hasColumnOffset() != other.hasColumnOffset()) return false;
       if (hasColumnOffset()) {
-        result = result && getColumnOffset()
-            .equals(other.getColumnOffset());
+        if (!getColumnOffset()
+            .equals(other.getColumnOffset())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasLimit()) {
         hash = (37 * hash) + LIMIT_FIELD_NUMBER;
         hash = (53 * hash) + getLimit();
@@ -1361,11 +1533,22 @@ public final class FilterProtos {
         hash = (37 * hash) + COLUMN_OFFSET_FIELD_NUMBER;
         hash = (53 * hash) + getColumnOffset().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1389,46 +1572,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1436,14 +1632,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.ColumnPaginationFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ColumnPaginationFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPaginationFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPaginationFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1456,18 +1654,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         limit_ = 0;
@@ -1479,19 +1675,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPaginationFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -1500,19 +1695,20 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.limit_ = limit_;
           to_bitField0_ |= 0x00000001;
         }
-        result.limit_ = limit_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.offset_ = offset_;
           to_bitField0_ |= 0x00000002;
         }
-        result.offset_ = offset_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.columnOffset_ = columnOffset_;
@@ -1521,6 +1717,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter)other);
@@ -1541,18 +1770,20 @@ public final class FilterProtos {
         if (other.hasColumnOffset()) {
           setColumnOffset(other.getColumnOffset());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasLimit()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1562,7 +1793,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1572,22 +1803,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required int32 limit = 1;
       private int limit_ ;
       /**
        * <code>required int32 limit = 1;</code>
+       * @return Whether the limit field is set.
        */
       public boolean hasLimit() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @return The limit.
        */
       public int getLimit() {
         return limit_;
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
        */
       public Builder setLimit(int value) {
         bitField0_ |= 0x00000001;
@@ -1597,6 +1831,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required int32 limit = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLimit() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1605,22 +1840,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional int32 offset = 2;
       private int offset_ ;
       /**
        * <code>optional int32 offset = 2;</code>
+       * @return Whether the offset field is set.
        */
       public boolean hasOffset() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional int32 offset = 2;</code>
+       * @return The offset.
        */
       public int getOffset() {
         return offset_;
       }
       /**
        * <code>optional int32 offset = 2;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
        */
       public Builder setOffset(int value) {
         bitField0_ |= 0x00000002;
@@ -1630,6 +1868,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional int32 offset = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOffset() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1638,22 +1877,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes column_offset = 3;
       private com.google.protobuf.ByteString columnOffset_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes column_offset = 3;</code>
+       * @return Whether the columnOffset field is set.
        */
       public boolean hasColumnOffset() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes column_offset = 3;</code>
+       * @return The columnOffset.
        */
       public com.google.protobuf.ByteString getColumnOffset() {
         return columnOffset_;
       }
       /**
        * <code>optional bytes column_offset = 3;</code>
+       * @param value The columnOffset to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnOffset(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1666,6 +1908,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes column_offset = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnOffset() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1673,64 +1916,110 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ColumnPaginationFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnPaginationFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ColumnPaginationFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnPaginationFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ColumnPaginationFilter>
+        PARSER = new com.google.protobuf.AbstractParser<ColumnPaginationFilter>() {
+      @java.lang.Override
+      public ColumnPaginationFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ColumnPaginationFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ColumnPaginationFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ColumnPaginationFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPaginationFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ColumnPrefixFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ColumnPrefixFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ColumnPrefixFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required bytes prefix = 1;
     /**
      * <code>required bytes prefix = 1;</code>
+     * @return Whether the prefix field is set.
      */
     boolean hasPrefix();
     /**
      * <code>required bytes prefix = 1;</code>
+     * @return The prefix.
      */
     com.google.protobuf.ByteString getPrefix();
   }
   /**
    * Protobuf type {@code hbase.pb.ColumnPrefixFilter}
    */
-  public static final class ColumnPrefixFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements ColumnPrefixFilterOrBuilder {
+  public  static final class ColumnPrefixFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ColumnPrefixFilter)
+      ColumnPrefixFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ColumnPrefixFilter.newBuilder() to construct.
-    private ColumnPrefixFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ColumnPrefixFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ColumnPrefixFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ColumnPrefixFilter defaultInstance;
-    public static ColumnPrefixFilter getDefaultInstance() {
-      return defaultInstance;
+    private ColumnPrefixFilter() {
+      prefix_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public ColumnPrefixFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ColumnPrefixFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ColumnPrefixFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1742,16 +2031,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               prefix_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -1760,7 +2049,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1771,52 +2060,38 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPrefixFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPrefixFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ColumnPrefixFilter> PARSER =
-        new com.google.protobuf.AbstractParser<ColumnPrefixFilter>() {
-      public ColumnPrefixFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ColumnPrefixFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ColumnPrefixFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required bytes prefix = 1;
     public static final int PREFIX_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString prefix_;
     /**
      * <code>required bytes prefix = 1;</code>
+     * @return Whether the prefix field is set.
      */
     public boolean hasPrefix() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required bytes prefix = 1;</code>
+     * @return The prefix.
      */
     public com.google.protobuf.ByteString getPrefix() {
       return prefix_;
     }
 
-    private void initFields() {
-      prefix_ = com.google.protobuf.ByteString.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasPrefix()) {
         memoizedIsInitialized = 0;
@@ -1826,35 +2101,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, prefix_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, prefix_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1867,34 +2135,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter) obj;
 
-      boolean result = true;
-      result = result && (hasPrefix() == other.hasPrefix());
+      if (hasPrefix() != other.hasPrefix()) return false;
       if (hasPrefix()) {
-        result = result && getPrefix()
-            .equals(other.getPrefix());
+        if (!getPrefix()
+            .equals(other.getPrefix())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasPrefix()) {
         hash = (37 * hash) + PREFIX_FIELD_NUMBER;
         hash = (53 * hash) + getPrefix().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1918,46 +2194,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1965,14 +2254,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.ColumnPrefixFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ColumnPrefixFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPrefixFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPrefixFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1985,18 +2276,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         prefix_ = com.google.protobuf.ByteString.EMPTY;
@@ -2004,19 +2293,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnPrefixFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -2025,11 +2313,12 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.prefix_ = prefix_;
@@ -2038,6 +2327,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter)other);
@@ -2052,18 +2374,20 @@ public final class FilterProtos {
         if (other.hasPrefix()) {
           setPrefix(other.getPrefix());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasPrefix()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2073,7 +2397,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2083,22 +2407,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required bytes prefix = 1;
       private com.google.protobuf.ByteString prefix_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes prefix = 1;</code>
+       * @return Whether the prefix field is set.
        */
       public boolean hasPrefix() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required bytes prefix = 1;</code>
+       * @return The prefix.
        */
       public com.google.protobuf.ByteString getPrefix() {
         return prefix_;
       }
       /**
        * <code>required bytes prefix = 1;</code>
+       * @param value The prefix to set.
+       * @return This builder for chaining.
        */
       public Builder setPrefix(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2111,6 +2438,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required bytes prefix = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPrefix() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -2118,94 +2446,144 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ColumnPrefixFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnPrefixFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ColumnPrefixFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnPrefixFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ColumnPrefixFilter>
+        PARSER = new com.google.protobuf.AbstractParser<ColumnPrefixFilter>() {
+      @java.lang.Override
+      public ColumnPrefixFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ColumnPrefixFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ColumnPrefixFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ColumnPrefixFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnPrefixFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ColumnRangeFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ColumnRangeFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ColumnRangeFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes min_column = 1;
     /**
      * <code>optional bytes min_column = 1;</code>
+     * @return Whether the minColumn field is set.
      */
     boolean hasMinColumn();
     /**
      * <code>optional bytes min_column = 1;</code>
+     * @return The minColumn.
      */
     com.google.protobuf.ByteString getMinColumn();
 
-    // optional bool min_column_inclusive = 2;
     /**
      * <code>optional bool min_column_inclusive = 2;</code>
+     * @return Whether the minColumnInclusive field is set.
      */
     boolean hasMinColumnInclusive();
     /**
      * <code>optional bool min_column_inclusive = 2;</code>
+     * @return The minColumnInclusive.
      */
     boolean getMinColumnInclusive();
 
-    // optional bytes max_column = 3;
     /**
      * <code>optional bytes max_column = 3;</code>
+     * @return Whether the maxColumn field is set.
      */
     boolean hasMaxColumn();
     /**
      * <code>optional bytes max_column = 3;</code>
+     * @return The maxColumn.
      */
     com.google.protobuf.ByteString getMaxColumn();
 
-    // optional bool max_column_inclusive = 4;
     /**
      * <code>optional bool max_column_inclusive = 4;</code>
+     * @return Whether the maxColumnInclusive field is set.
      */
     boolean hasMaxColumnInclusive();
     /**
      * <code>optional bool max_column_inclusive = 4;</code>
+     * @return The maxColumnInclusive.
      */
     boolean getMaxColumnInclusive();
   }
   /**
    * Protobuf type {@code hbase.pb.ColumnRangeFilter}
    */
-  public static final class ColumnRangeFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements ColumnRangeFilterOrBuilder {
+  public  static final class ColumnRangeFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ColumnRangeFilter)
+      ColumnRangeFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ColumnRangeFilter.newBuilder() to construct.
-    private ColumnRangeFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ColumnRangeFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ColumnRangeFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ColumnRangeFilter defaultInstance;
-    public static ColumnRangeFilter getDefaultInstance() {
-      return defaultInstance;
+    private ColumnRangeFilter() {
+      minColumn_ = com.google.protobuf.ByteString.EMPTY;
+      maxColumn_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public ColumnRangeFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ColumnRangeFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ColumnRangeFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -2217,13 +2595,6 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               minColumn_ = input.readBytes();
@@ -2244,13 +2615,20 @@ public final class FilterProtos {
               maxColumnInclusive_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2261,158 +2639,137 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnRangeFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnRangeFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ColumnRangeFilter> PARSER =
-        new com.google.protobuf.AbstractParser<ColumnRangeFilter>() {
-      public ColumnRangeFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ColumnRangeFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ColumnRangeFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes min_column = 1;
     public static final int MIN_COLUMN_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString minColumn_;
     /**
      * <code>optional bytes min_column = 1;</code>
+     * @return Whether the minColumn field is set.
      */
     public boolean hasMinColumn() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes min_column = 1;</code>
+     * @return The minColumn.
      */
     public com.google.protobuf.ByteString getMinColumn() {
       return minColumn_;
     }
 
-    // optional bool min_column_inclusive = 2;
     public static final int MIN_COLUMN_INCLUSIVE_FIELD_NUMBER = 2;
     private boolean minColumnInclusive_;
     /**
      * <code>optional bool min_column_inclusive = 2;</code>
+     * @return Whether the minColumnInclusive field is set.
      */
     public boolean hasMinColumnInclusive() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bool min_column_inclusive = 2;</code>
+     * @return The minColumnInclusive.
      */
     public boolean getMinColumnInclusive() {
       return minColumnInclusive_;
     }
 
-    // optional bytes max_column = 3;
     public static final int MAX_COLUMN_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString maxColumn_;
     /**
      * <code>optional bytes max_column = 3;</code>
+     * @return Whether the maxColumn field is set.
      */
     public boolean hasMaxColumn() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional bytes max_column = 3;</code>
+     * @return The maxColumn.
      */
     public com.google.protobuf.ByteString getMaxColumn() {
       return maxColumn_;
     }
 
-    // optional bool max_column_inclusive = 4;
     public static final int MAX_COLUMN_INCLUSIVE_FIELD_NUMBER = 4;
     private boolean maxColumnInclusive_;
     /**
      * <code>optional bool max_column_inclusive = 4;</code>
+     * @return Whether the maxColumnInclusive field is set.
      */
     public boolean hasMaxColumnInclusive() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bool max_column_inclusive = 4;</code>
+     * @return The maxColumnInclusive.
      */
     public boolean getMaxColumnInclusive() {
       return maxColumnInclusive_;
     }
 
-    private void initFields() {
-      minColumn_ = com.google.protobuf.ByteString.EMPTY;
-      minColumnInclusive_ = false;
-      maxColumn_ = com.google.protobuf.ByteString.EMPTY;
-      maxColumnInclusive_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, minColumn_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBool(2, minColumnInclusive_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBytes(3, maxColumn_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBool(4, maxColumnInclusive_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, minColumn_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, minColumnInclusive_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, maxColumn_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, maxColumnInclusive_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -2425,47 +2782,45 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter) obj;
 
-      boolean result = true;
-      result = result && (hasMinColumn() == other.hasMinColumn());
+      if (hasMinColumn() != other.hasMinColumn()) return false;
       if (hasMinColumn()) {
-        result = result && getMinColumn()
-            .equals(other.getMinColumn());
+        if (!getMinColumn()
+            .equals(other.getMinColumn())) return false;
       }
-      result = result && (hasMinColumnInclusive() == other.hasMinColumnInclusive());
+      if (hasMinColumnInclusive() != other.hasMinColumnInclusive()) return false;
       if (hasMinColumnInclusive()) {
-        result = result && (getMinColumnInclusive()
-            == other.getMinColumnInclusive());
+        if (getMinColumnInclusive()
+            != other.getMinColumnInclusive()) return false;
       }
-      result = result && (hasMaxColumn() == other.hasMaxColumn());
+      if (hasMaxColumn() != other.hasMaxColumn()) return false;
       if (hasMaxColumn()) {
-        result = result && getMaxColumn()
-            .equals(other.getMaxColumn());
+        if (!getMaxColumn()
+            .equals(other.getMaxColumn())) return false;
       }
-      result = result && (hasMaxColumnInclusive() == other.hasMaxColumnInclusive());
+      if (hasMaxColumnInclusive() != other.hasMaxColumnInclusive()) return false;
       if (hasMaxColumnInclusive()) {
-        result = result && (getMaxColumnInclusive()
-            == other.getMaxColumnInclusive());
+        if (getMaxColumnInclusive()
+            != other.getMaxColumnInclusive()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasMinColumn()) {
         hash = (37 * hash) + MIN_COLUMN_FIELD_NUMBER;
         hash = (53 * hash) + getMinColumn().hashCode();
       }
       if (hasMinColumnInclusive()) {
         hash = (37 * hash) + MIN_COLUMN_INCLUSIVE_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getMinColumnInclusive());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getMinColumnInclusive());
       }
       if (hasMaxColumn()) {
         hash = (37 * hash) + MAX_COLUMN_FIELD_NUMBER;
@@ -2473,13 +2828,25 @@ public final class FilterProtos {
       }
       if (hasMaxColumnInclusive()) {
         hash = (37 * hash) + MAX_COLUMN_INCLUSIVE_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getMaxColumnInclusive());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getMaxColumnInclusive());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2503,46 +2870,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2550,14 +2930,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.ColumnRangeFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ColumnRangeFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnRangeFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnRangeFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -2570,18 +2952,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         minColumn_ = com.google.protobuf.ByteString.EMPTY;
@@ -2595,19 +2975,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ColumnRangeFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -2616,31 +2995,65 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.minColumn_ = minColumn_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.minColumnInclusive_ = minColumnInclusive_;
           to_bitField0_ |= 0x00000002;
         }
-        result.minColumnInclusive_ = minColumnInclusive_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.maxColumn_ = maxColumn_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.maxColumnInclusive_ = maxColumnInclusive_;
           to_bitField0_ |= 0x00000008;
         }
-        result.maxColumnInclusive_ = maxColumnInclusive_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter)other);
@@ -2664,14 +3077,17 @@ public final class FilterProtos {
         if (other.hasMaxColumnInclusive()) {
           setMaxColumnInclusive(other.getMaxColumnInclusive());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2681,7 +3097,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2691,22 +3107,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // optional bytes min_column = 1;
       private com.google.protobuf.ByteString minColumn_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes min_column = 1;</code>
+       * @return Whether the minColumn field is set.
        */
       public boolean hasMinColumn() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes min_column = 1;</code>
+       * @return The minColumn.
        */
       public com.google.protobuf.ByteString getMinColumn() {
         return minColumn_;
       }
       /**
        * <code>optional bytes min_column = 1;</code>
+       * @param value The minColumn to set.
+       * @return This builder for chaining.
        */
       public Builder setMinColumn(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2719,6 +3138,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes min_column = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinColumn() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -2727,22 +3147,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool min_column_inclusive = 2;
       private boolean minColumnInclusive_ ;
       /**
        * <code>optional bool min_column_inclusive = 2;</code>
+       * @return Whether the minColumnInclusive field is set.
        */
       public boolean hasMinColumnInclusive() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bool min_column_inclusive = 2;</code>
+       * @return The minColumnInclusive.
        */
       public boolean getMinColumnInclusive() {
         return minColumnInclusive_;
       }
       /**
        * <code>optional bool min_column_inclusive = 2;</code>
+       * @param value The minColumnInclusive to set.
+       * @return This builder for chaining.
        */
       public Builder setMinColumnInclusive(boolean value) {
         bitField0_ |= 0x00000002;
@@ -2752,6 +3175,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool min_column_inclusive = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinColumnInclusive() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -2760,22 +3184,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes max_column = 3;
       private com.google.protobuf.ByteString maxColumn_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes max_column = 3;</code>
+       * @return Whether the maxColumn field is set.
        */
       public boolean hasMaxColumn() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes max_column = 3;</code>
+       * @return The maxColumn.
        */
       public com.google.protobuf.ByteString getMaxColumn() {
         return maxColumn_;
       }
       /**
        * <code>optional bytes max_column = 3;</code>
+       * @param value The maxColumn to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxColumn(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -2788,6 +3215,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes max_column = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxColumn() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -2796,22 +3224,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool max_column_inclusive = 4;
       private boolean maxColumnInclusive_ ;
       /**
        * <code>optional bool max_column_inclusive = 4;</code>
+       * @return Whether the maxColumnInclusive field is set.
        */
       public boolean hasMaxColumnInclusive() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bool max_column_inclusive = 4;</code>
+       * @return The maxColumnInclusive.
        */
       public boolean getMaxColumnInclusive() {
         return maxColumnInclusive_;
       }
       /**
        * <code>optional bool max_column_inclusive = 4;</code>
+       * @param value The maxColumnInclusive to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxColumnInclusive(boolean value) {
         bitField0_ |= 0x00000008;
@@ -2821,6 +3252,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool max_column_inclusive = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxColumnInclusive() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -2828,38 +3260,82 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ColumnRangeFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnRangeFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ColumnRangeFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ColumnRangeFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ColumnRangeFilter>
+        PARSER = new com.google.protobuf.AbstractParser<ColumnRangeFilter>() {
+      @java.lang.Override
+      public ColumnRangeFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ColumnRangeFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ColumnRangeFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ColumnRangeFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ColumnRangeFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface CompareFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface CompareFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.CompareFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareType compare_op = 1;
     /**
      * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+     * @return Whether the compareOp field is set.
      */
     boolean hasCompareOp();
     /**
      * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+     * @return The compareOp.
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp();
 
-    // optional .hbase.pb.Comparator comparator = 2;
     /**
      * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+     * @return Whether the comparator field is set.
      */
     boolean hasComparator();
     /**
      * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+     * @return The comparator.
      */
     org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator();
     /**
@@ -2870,36 +3346,39 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.CompareFilter}
    */
-  public static final class CompareFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements CompareFilterOrBuilder {
+  public  static final class CompareFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.CompareFilter)
+      CompareFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use CompareFilter.newBuilder() to construct.
-    private CompareFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private CompareFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private CompareFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final CompareFilter defaultInstance;
-    public static CompareFilter getDefaultInstance() {
-      return defaultInstance;
+    private CompareFilter() {
+      compareOp_ = 0;
     }
 
-    public CompareFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CompareFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private CompareFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -2911,27 +3390,21 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType value = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(1, rawValue);
               } else {
                 bitField0_ |= 0x00000001;
-                compareOp_ = value;
+                compareOp_ = rawValue;
               }
               break;
             }
             case 18: {
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              if (((bitField0_ & 0x00000002) != 0)) {
                 subBuilder = comparator_.toBuilder();
               }
               comparator_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.PARSER, extensionRegistry);
@@ -2942,13 +3415,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000002;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2959,75 +3439,63 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_CompareFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_CompareFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<CompareFilter> PARSER =
-        new com.google.protobuf.AbstractParser<CompareFilter>() {
-      public CompareFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CompareFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CompareFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareType compare_op = 1;
     public static final int COMPARE_OP_FIELD_NUMBER = 1;
-    private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType compareOp_;
+    private int compareOp_;
     /**
      * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+     * @return Whether the compareOp field is set.
      */
     public boolean hasCompareOp() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+     * @return The compareOp.
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp() {
-      return compareOp_;
+      @SuppressWarnings("deprecation")
+      org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType result = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(compareOp_);
+      return result == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS : result;
     }
 
-    // optional .hbase.pb.Comparator comparator = 2;
     public static final int COMPARATOR_FIELD_NUMBER = 2;
     private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_;
     /**
      * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+     * @return Whether the comparator field is set.
      */
     public boolean hasComparator() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+     * @return The comparator.
      */
     public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator() {
-      return comparator_;
+      return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
     }
     /**
      * <code>optional .hbase.pb.Comparator comparator = 2;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder getComparatorOrBuilder() {
-      return comparator_;
+      return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
     }
 
-    private void initFields() {
-      compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
-      comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareOp()) {
         memoizedIsInitialized = 0;
@@ -3043,42 +3511,35 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, compareOp_.getNumber());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeEnum(1, compareOp_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, comparator_);
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(2, getComparator());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, compareOp_.getNumber());
+          .computeEnumSize(1, compareOp_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, comparator_);
+          .computeMessageSize(2, getComparator());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -3091,43 +3552,50 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareOp() == other.hasCompareOp());
+      if (hasCompareOp() != other.hasCompareOp()) return false;
       if (hasCompareOp()) {
-        result = result &&
-            (getCompareOp() == other.getCompareOp());
+        if (compareOp_ != other.compareOp_) return false;
       }
-      result = result && (hasComparator() == other.hasComparator());
+      if (hasComparator() != other.hasComparator()) return false;
       if (hasComparator()) {
-        result = result && getComparator()
-            .equals(other.getComparator());
+        if (!getComparator()
+            .equals(other.getComparator())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareOp()) {
         hash = (37 * hash) + COMPARE_OP_FIELD_NUMBER;
-        hash = (53 * hash) + hashEnum(getCompareOp());
+        hash = (53 * hash) + compareOp_;
       }
       if (hasComparator()) {
         hash = (37 * hash) + COMPARATOR_FIELD_NUMBER;
         hash = (53 * hash) + getComparator().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3151,46 +3619,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3198,14 +3679,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.CompareFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.CompareFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_CompareFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_CompareFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3218,25 +3701,23 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getComparatorFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
-        compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+        compareOp_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (comparatorBuilder_ == null) {
-          comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
+          comparator_ = null;
         } else {
           comparatorBuilder_.clear();
         }
@@ -3244,19 +3725,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_CompareFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -3265,27 +3745,61 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.compareOp_ = compareOp_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          if (comparatorBuilder_ == null) {
+            result.comparator_ = comparator_;
+          } else {
+            result.comparator_ = comparatorBuilder_.build();
+          }
           to_bitField0_ |= 0x00000002;
-        }
-        if (comparatorBuilder_ == null) {
-          result.comparator_ = comparator_;
-        } else {
-          result.comparator_ = comparatorBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter)other);
@@ -3303,24 +3817,25 @@ public final class FilterProtos {
         if (other.hasComparator()) {
           mergeComparator(other.getComparator());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareOp()) {
-          
           return false;
         }
         if (hasComparator()) {
           if (!getComparator().isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3330,7 +3845,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -3340,58 +3855,65 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareType compare_op = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+      private int compareOp_ = 0;
       /**
        * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+       * @return Whether the compareOp field is set.
        */
       public boolean hasCompareOp() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+       * @return The compareOp.
        */
       public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp() {
-        return compareOp_;
+        @SuppressWarnings("deprecation")
+        org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType result = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(compareOp_);
+        return result == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS : result;
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+       * @param value The compareOp to set.
+       * @return This builder for chaining.
        */
       public Builder setCompareOp(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000001;
-        compareOp_ = value;
+        compareOp_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCompareOp() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+        compareOp_ = 0;
         onChanged();
         return this;
       }
 
-      // optional .hbase.pb.Comparator comparator = 2;
-      private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder> comparatorBuilder_;
       /**
        * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+       * @return Whether the comparator field is set.
        */
       public boolean hasComparator() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional .hbase.pb.Comparator comparator = 2;</code>
+       * @return The comparator.
        */
       public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator() {
         if (comparatorBuilder_ == null) {
-          return comparator_;
+          return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
         } else {
           return comparatorBuilder_.getMessage();
         }
@@ -3431,7 +3953,8 @@ public final class FilterProtos {
        */
       public Builder mergeComparator(org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator value) {
         if (comparatorBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+          if (((bitField0_ & 0x00000002) != 0) &&
+              comparator_ != null &&
               comparator_ != org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance()) {
             comparator_ =
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.newBuilder(comparator_).mergeFrom(value).buildPartial();
@@ -3450,7 +3973,7 @@ public final class FilterProtos {
        */
       public Builder clearComparator() {
         if (comparatorBuilder_ == null) {
-          comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
+          comparator_ = null;
           onChanged();
         } else {
           comparatorBuilder_.clear();
@@ -3473,47 +3996,91 @@ public final class FilterProtos {
         if (comparatorBuilder_ != null) {
           return comparatorBuilder_.getMessageOrBuilder();
         } else {
-          return comparator_;
+          return comparator_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
         }
       }
       /**
        * <code>optional .hbase.pb.Comparator comparator = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder> 
           getComparatorFieldBuilder() {
         if (comparatorBuilder_ == null) {
-          comparatorBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          comparatorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder>(
-                  comparator_,
+                  getComparator(),
                   getParentForChildren(),
                   isClean());
           comparator_ = null;
         }
         return comparatorBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.CompareFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.CompareFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new CompareFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.CompareFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CompareFilter>
+        PARSER = new com.google.protobuf.AbstractParser<CompareFilter>() {
+      @java.lang.Override
+      public CompareFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CompareFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CompareFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CompareFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface DependentColumnFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface DependentColumnFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.DependentColumnFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     boolean hasCompareFilter();
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter();
     /**
@@ -3521,69 +4088,76 @@ public final class FilterProtos {
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder();
 
-    // optional bytes column_family = 2;
     /**
      * <code>optional bytes column_family = 2;</code>
+     * @return Whether the columnFamily field is set.
      */
     boolean hasColumnFamily();
     /**
      * <code>optional bytes column_family = 2;</code>
+     * @return The columnFamily.
      */
     com.google.protobuf.ByteString getColumnFamily();
 
-    // optional bytes column_qualifier = 3;
     /**
      * <code>optional bytes column_qualifier = 3;</code>
+     * @return Whether the columnQualifier field is set.
      */
     boolean hasColumnQualifier();
     /**
      * <code>optional bytes column_qualifier = 3;</code>
+     * @return The columnQualifier.
      */
     com.google.protobuf.ByteString getColumnQualifier();
 
-    // optional bool drop_dependent_column = 4;
     /**
      * <code>optional bool drop_dependent_column = 4;</code>
+     * @return Whether the dropDependentColumn field is set.
      */
     boolean hasDropDependentColumn();
     /**
      * <code>optional bool drop_dependent_column = 4;</code>
+     * @return The dropDependentColumn.
      */
     boolean getDropDependentColumn();
   }
   /**
    * Protobuf type {@code hbase.pb.DependentColumnFilter}
    */
-  public static final class DependentColumnFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements DependentColumnFilterOrBuilder {
+  public  static final class DependentColumnFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.DependentColumnFilter)
+      DependentColumnFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DependentColumnFilter.newBuilder() to construct.
-    private DependentColumnFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private DependentColumnFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private DependentColumnFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final DependentColumnFilter defaultInstance;
-    public static DependentColumnFilter getDefaultInstance() {
-      return defaultInstance;
+    private DependentColumnFilter() {
+      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+      columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public DependentColumnFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DependentColumnFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private DependentColumnFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -3595,16 +4169,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = compareFilter_.toBuilder();
               }
               compareFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.PARSER, extensionRegistry);
@@ -3630,13 +4197,20 @@ public final class FilterProtos {
               dropDependentColumn_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -3647,109 +4221,95 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_DependentColumnFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_DependentColumnFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<DependentColumnFilter> PARSER =
-        new com.google.protobuf.AbstractParser<DependentColumnFilter>() {
-      public DependentColumnFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DependentColumnFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<DependentColumnFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     public static final int COMPARE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     public boolean hasCompareFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
 
-    // optional bytes column_family = 2;
     public static final int COLUMN_FAMILY_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString columnFamily_;
     /**
      * <code>optional bytes column_family = 2;</code>
+     * @return Whether the columnFamily field is set.
      */
     public boolean hasColumnFamily() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes column_family = 2;</code>
+     * @return The columnFamily.
      */
     public com.google.protobuf.ByteString getColumnFamily() {
       return columnFamily_;
     }
 
-    // optional bytes column_qualifier = 3;
     public static final int COLUMN_QUALIFIER_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString columnQualifier_;
     /**
      * <code>optional bytes column_qualifier = 3;</code>
+     * @return Whether the columnQualifier field is set.
      */
     public boolean hasColumnQualifier() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional bytes column_qualifier = 3;</code>
+     * @return The columnQualifier.
      */
     public com.google.protobuf.ByteString getColumnQualifier() {
       return columnQualifier_;
     }
 
-    // optional bool drop_dependent_column = 4;
     public static final int DROP_DEPENDENT_COLUMN_FIELD_NUMBER = 4;
     private boolean dropDependentColumn_;
     /**
      * <code>optional bool drop_dependent_column = 4;</code>
+     * @return Whether the dropDependentColumn field is set.
      */
     public boolean hasDropDependentColumn() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bool drop_dependent_column = 4;</code>
+     * @return The dropDependentColumn.
      */
     public boolean getDropDependentColumn() {
       return dropDependentColumn_;
     }
 
-    private void initFields() {
-      compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      dropDependentColumn_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareFilter()) {
         memoizedIsInitialized = 0;
@@ -3763,56 +4323,49 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, compareFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getCompareFilter());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(2, columnFamily_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBytes(3, columnQualifier_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBool(4, dropDependentColumn_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, compareFilter_);
+          .computeMessageSize(1, getCompareFilter());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, columnFamily_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, columnQualifier_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, dropDependentColumn_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -3825,40 +4378,37 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareFilter() == other.hasCompareFilter());
+      if (hasCompareFilter() != other.hasCompareFilter()) return false;
       if (hasCompareFilter()) {
-        result = result && getCompareFilter()
-            .equals(other.getCompareFilter());
+        if (!getCompareFilter()
+            .equals(other.getCompareFilter())) return false;
       }
-      result = result && (hasColumnFamily() == other.hasColumnFamily());
+      if (hasColumnFamily() != other.hasColumnFamily()) return false;
       if (hasColumnFamily()) {
-        result = result && getColumnFamily()
-            .equals(other.getColumnFamily());
+        if (!getColumnFamily()
+            .equals(other.getColumnFamily())) return false;
       }
-      result = result && (hasColumnQualifier() == other.hasColumnQualifier());
+      if (hasColumnQualifier() != other.hasColumnQualifier()) return false;
       if (hasColumnQualifier()) {
-        result = result && getColumnQualifier()
-            .equals(other.getColumnQualifier());
+        if (!getColumnQualifier()
+            .equals(other.getColumnQualifier())) return false;
       }
-      result = result && (hasDropDependentColumn() == other.hasDropDependentColumn());
+      if (hasDropDependentColumn() != other.hasDropDependentColumn()) return false;
       if (hasDropDependentColumn()) {
-        result = result && (getDropDependentColumn()
-            == other.getDropDependentColumn());
+        if (getDropDependentColumn()
+            != other.getDropDependentColumn()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareFilter()) {
         hash = (37 * hash) + COMPARE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getCompareFilter().hashCode();
@@ -3873,13 +4423,25 @@ public final class FilterProtos {
       }
       if (hasDropDependentColumn()) {
         hash = (37 * hash) + DROP_DEPENDENT_COLUMN_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getDropDependentColumn());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getDropDependentColumn());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3903,46 +4465,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3950,14 +4525,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.DependentColumnFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.DependentColumnFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_DependentColumnFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_DependentColumnFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3970,23 +4547,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCompareFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
         } else {
           compareFilterBuilder_.clear();
         }
@@ -4000,19 +4575,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_DependentColumnFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -4021,35 +4595,69 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (compareFilterBuilder_ == null) {
+            result.compareFilter_ = compareFilter_;
+          } else {
+            result.compareFilter_ = compareFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
         }
-        if (compareFilterBuilder_ == null) {
-          result.compareFilter_ = compareFilter_;
-        } else {
-          result.compareFilter_ = compareFilterBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.columnFamily_ = columnFamily_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.columnQualifier_ = columnQualifier_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.dropDependentColumn_ = dropDependentColumn_;
           to_bitField0_ |= 0x00000008;
         }
-        result.dropDependentColumn_ = dropDependentColumn_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter)other);
@@ -4073,22 +4681,23 @@ public final class FilterProtos {
         if (other.hasDropDependentColumn()) {
           setDropDependentColumn(other.getDropDependentColumn());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareFilter()) {
-          
           return false;
         }
         if (!getCompareFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4098,7 +4707,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4108,22 +4717,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareFilter compare_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> compareFilterBuilder_;
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return Whether the compareFilter field is set.
        */
       public boolean hasCompareFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return The compareFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          return compareFilter_;
+          return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         } else {
           return compareFilterBuilder_.getMessage();
         }
@@ -4163,7 +4773,8 @@ public final class FilterProtos {
        */
       public Builder mergeCompareFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter value) {
         if (compareFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              compareFilter_ != null &&
               compareFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance()) {
             compareFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.newBuilder(compareFilter_).mergeFrom(value).buildPartial();
@@ -4182,7 +4793,7 @@ public final class FilterProtos {
        */
       public Builder clearCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
           onChanged();
         } else {
           compareFilterBuilder_.clear();
@@ -4205,19 +4816,20 @@ public final class FilterProtos {
         if (compareFilterBuilder_ != null) {
           return compareFilterBuilder_.getMessageOrBuilder();
         } else {
-          return compareFilter_;
+          return compareFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> 
           getCompareFilterFieldBuilder() {
         if (compareFilterBuilder_ == null) {
-          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder>(
-                  compareFilter_,
+                  getCompareFilter(),
                   getParentForChildren(),
                   isClean());
           compareFilter_ = null;
@@ -4225,22 +4837,25 @@ public final class FilterProtos {
         return compareFilterBuilder_;
       }
 
-      // optional bytes column_family = 2;
       private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes column_family = 2;</code>
+       * @return Whether the columnFamily field is set.
        */
       public boolean hasColumnFamily() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes column_family = 2;</code>
+       * @return The columnFamily.
        */
       public com.google.protobuf.ByteString getColumnFamily() {
         return columnFamily_;
       }
       /**
        * <code>optional bytes column_family = 2;</code>
+       * @param value The columnFamily to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnFamily(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -4253,6 +4868,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes column_family = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnFamily() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -4261,22 +4877,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes column_qualifier = 3;
       private com.google.protobuf.ByteString columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes column_qualifier = 3;</code>
+       * @return Whether the columnQualifier field is set.
        */
       public boolean hasColumnQualifier() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes column_qualifier = 3;</code>
+       * @return The columnQualifier.
        */
       public com.google.protobuf.ByteString getColumnQualifier() {
         return columnQualifier_;
       }
       /**
        * <code>optional bytes column_qualifier = 3;</code>
+       * @param value The columnQualifier to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnQualifier(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -4289,6 +4908,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes column_qualifier = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnQualifier() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -4297,22 +4917,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool drop_dependent_column = 4;
       private boolean dropDependentColumn_ ;
       /**
        * <code>optional bool drop_dependent_column = 4;</code>
+       * @return Whether the dropDependentColumn field is set.
        */
       public boolean hasDropDependentColumn() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bool drop_dependent_column = 4;</code>
+       * @return The dropDependentColumn.
        */
       public boolean getDropDependentColumn() {
         return dropDependentColumn_;
       }
       /**
        * <code>optional bool drop_dependent_column = 4;</code>
+       * @param value The dropDependentColumn to set.
+       * @return This builder for chaining.
        */
       public Builder setDropDependentColumn(boolean value) {
         bitField0_ |= 0x00000008;
@@ -4322,6 +4945,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool drop_dependent_column = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDropDependentColumn() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -4329,28 +4953,71 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.DependentColumnFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.DependentColumnFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new DependentColumnFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.DependentColumnFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<DependentColumnFilter>
+        PARSER = new com.google.protobuf.AbstractParser<DependentColumnFilter>() {
+      @java.lang.Override
+      public DependentColumnFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DependentColumnFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DependentColumnFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DependentColumnFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.DependentColumnFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FamilyFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FamilyFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FamilyFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     boolean hasCompareFilter();
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter();
     /**
@@ -4361,36 +5028,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.FamilyFilter}
    */
-  public static final class FamilyFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements FamilyFilterOrBuilder {
+  public  static final class FamilyFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FamilyFilter)
+      FamilyFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FamilyFilter.newBuilder() to construct.
-    private FamilyFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FamilyFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FamilyFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FamilyFilter defaultInstance;
-    public static FamilyFilter getDefaultInstance() {
-      return defaultInstance;
+    private FamilyFilter() {
     }
 
-    public FamilyFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FamilyFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FamilyFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -4402,16 +5071,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = compareFilter_.toBuilder();
               }
               compareFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.PARSER, extensionRegistry);
@@ -4422,13 +5084,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -4439,58 +5108,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FamilyFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FamilyFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FamilyFilter> PARSER =
-        new com.google.protobuf.AbstractParser<FamilyFilter>() {
-      public FamilyFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FamilyFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FamilyFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     public static final int COMPARE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     public boolean hasCompareFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
 
-    private void initFields() {
-      compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareFilter()) {
         memoizedIsInitialized = 0;
@@ -4504,35 +5159,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, compareFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getCompareFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, compareFilter_);
+          .computeMessageSize(1, getCompareFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -4545,34 +5193,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareFilter() == other.hasCompareFilter());
+      if (hasCompareFilter() != other.hasCompareFilter()) return false;
       if (hasCompareFilter()) {
-        result = result && getCompareFilter()
-            .equals(other.getCompareFilter());
+        if (!getCompareFilter()
+            .equals(other.getCompareFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareFilter()) {
         hash = (37 * hash) + COMPARE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getCompareFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4596,46 +5252,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -4643,14 +5312,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FamilyFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FamilyFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FamilyFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FamilyFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -4663,23 +5334,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCompareFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
         } else {
           compareFilterBuilder_.clear();
         }
@@ -4687,19 +5356,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FamilyFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -4708,23 +5376,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (compareFilterBuilder_ == null) {
+            result.compareFilter_ = compareFilter_;
+          } else {
+            result.compareFilter_ = compareFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (compareFilterBuilder_ == null) {
-          result.compareFilter_ = compareFilter_;
-        } else {
-          result.compareFilter_ = compareFilterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter)other);
@@ -4739,22 +5441,23 @@ public final class FilterProtos {
         if (other.hasCompareFilter()) {
           mergeCompareFilter(other.getCompareFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareFilter()) {
-          
           return false;
         }
         if (!getCompareFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4764,7 +5467,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4774,22 +5477,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareFilter compare_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> compareFilterBuilder_;
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return Whether the compareFilter field is set.
        */
       public boolean hasCompareFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return The compareFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          return compareFilter_;
+          return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         } else {
           return compareFilterBuilder_.getMessage();
         }
@@ -4829,7 +5533,8 @@ public final class FilterProtos {
        */
       public Builder mergeCompareFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter value) {
         if (compareFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              compareFilter_ != null &&
               compareFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance()) {
             compareFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.newBuilder(compareFilter_).mergeFrom(value).buildPartial();
@@ -4848,7 +5553,7 @@ public final class FilterProtos {
        */
       public Builder clearCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
           onChanged();
         } else {
           compareFilterBuilder_.clear();
@@ -4871,51 +5576,94 @@ public final class FilterProtos {
         if (compareFilterBuilder_ != null) {
           return compareFilterBuilder_.getMessageOrBuilder();
         } else {
-          return compareFilter_;
+          return compareFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> 
           getCompareFilterFieldBuilder() {
         if (compareFilterBuilder_ == null) {
-          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder>(
-                  compareFilter_,
+                  getCompareFilter(),
                   getParentForChildren(),
                   isClean());
           compareFilter_ = null;
         }
         return compareFilterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FamilyFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FamilyFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FamilyFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FamilyFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FamilyFilter>
+        PARSER = new com.google.protobuf.AbstractParser<FamilyFilter>() {
+      @java.lang.Override
+      public FamilyFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FamilyFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FamilyFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FamilyFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FamilyFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FilterListOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FilterListOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FilterList)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.FilterList.Operator operator = 1;
     /**
      * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+     * @return Whether the operator field is set.
      */
     boolean hasOperator();
     /**
      * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+     * @return The operator.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator getOperator();
 
-    // repeated .hbase.pb.Filter filters = 2;
     /**
      * <code>repeated .hbase.pb.Filter filters = 2;</code>
      */
@@ -4943,36 +5691,40 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.FilterList}
    */
-  public static final class FilterList extends
-      com.google.protobuf.GeneratedMessage
-      implements FilterListOrBuilder {
+  public  static final class FilterList extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FilterList)
+      FilterListOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FilterList.newBuilder() to construct.
-    private FilterList(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FilterList(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FilterList(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FilterList defaultInstance;
-    public static FilterList getDefaultInstance() {
-      return defaultInstance;
+    private FilterList() {
+      operator_ = 1;
+      filters_ = java.util.Collections.emptyList();
     }
 
-    public FilterList getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FilterList();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FilterList(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -4984,30 +5736,32 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator value = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(1, rawValue);
               } else {
                 bitField0_ |= 0x00000001;
-                operator_ = value;
+                operator_ = rawValue;
               }
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 filters_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              filters_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.PARSER, extensionRegistry));
+              filters_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -5016,9 +5770,9 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           filters_ = java.util.Collections.unmodifiableList(filters_);
         }
         this.unknownFields = unknownFields.build();
@@ -5030,26 +5784,12 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterList_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterList_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<FilterList> PARSER =
-        new com.google.protobuf.AbstractParser<FilterList>() {
-      public FilterList parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FilterList(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilterList> getParserForType() {
-      return PARSER;
     }
 
     /**
@@ -5060,11 +5800,11 @@ public final class FilterProtos {
       /**
        * <code>MUST_PASS_ALL = 1;</code>
        */
-      MUST_PASS_ALL(0, 1),
+      MUST_PASS_ALL(1),
       /**
        * <code>MUST_PASS_ONE = 2;</code>
        */
-      MUST_PASS_ONE(1, 2),
+      MUST_PASS_ONE(2),
       ;
 
       /**
@@ -5077,9 +5817,25 @@ public final class FilterProtos {
       public static final int MUST_PASS_ONE_VALUE = 2;
 
 
-      public final int getNumber() { return value; }
+      public final int getNumber() {
+        return value;
+      }
 
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
       public static Operator valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Operator forNumber(int value) {
         switch (value) {
           case 1: return MUST_PASS_ALL;
           case 2: return MUST_PASS_ONE;
@@ -5091,17 +5847,17 @@ public final class FilterProtos {
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<Operator>
-          internalValueMap =
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Operator> internalValueMap =
             new com.google.protobuf.Internal.EnumLiteMap<Operator>() {
               public Operator findValueByNumber(int number) {
-                return Operator.valueOf(number);
+                return Operator.forNumber(number);
               }
             };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
+        return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptorForType() {
@@ -5123,11 +5879,9 @@ public final class FilterProtos {
         return VALUES[desc.getIndex()];
       }
 
-      private final int index;
       private final int value;
 
-      private Operator(int index, int value) {
-        this.index = index;
+      private Operator(int value) {
         this.value = value;
       }
 
@@ -5135,23 +5889,25 @@ public final class FilterProtos {
     }
 
     private int bitField0_;
-    // required .hbase.pb.FilterList.Operator operator = 1;
     public static final int OPERATOR_FIELD_NUMBER = 1;
-    private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator operator_;
+    private int operator_;
     /**
      * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+     * @return Whether the operator field is set.
      */
     public boolean hasOperator() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+     * @return The operator.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator getOperator() {
-      return operator_;
+      @SuppressWarnings("deprecation")
+      org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator result = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.valueOf(operator_);
+      return result == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL : result;
     }
 
-    // repeated .hbase.pb.Filter filters = 2;
     public static final int FILTERS_FIELD_NUMBER = 2;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter> filters_;
     /**
@@ -5187,14 +5943,12 @@ public final class FilterProtos {
       return filters_.get(index);
     }
 
-    private void initFields() {
-      operator_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL;
-      filters_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasOperator()) {
         memoizedIsInitialized = 0;
@@ -5210,42 +5964,35 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, operator_.getNumber());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeEnum(1, operator_);
       }
       for (int i = 0; i < filters_.size(); i++) {
         output.writeMessage(2, filters_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, operator_.getNumber());
+          .computeEnumSize(1, operator_);
       }
       for (int i = 0; i < filters_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, filters_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -5258,40 +6005,47 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList) obj;
 
-      boolean result = true;
-      result = result && (hasOperator() == other.hasOperator());
+      if (hasOperator() != other.hasOperator()) return false;
       if (hasOperator()) {
-        result = result &&
-            (getOperator() == other.getOperator());
+        if (operator_ != other.operator_) return false;
       }
-      result = result && getFiltersList()
-          .equals(other.getFiltersList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getFiltersList()
+          .equals(other.getFiltersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasOperator()) {
         hash = (37 * hash) + OPERATOR_FIELD_NUMBER;
-        hash = (53 * hash) + hashEnum(getOperator());
+        hash = (53 * hash) + operator_;
       }
       if (getFiltersCount() > 0) {
         hash = (37 * hash) + FILTERS_FIELD_NUMBER;
         hash = (53 * hash) + getFiltersList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5315,46 +6069,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5362,14 +6129,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FilterList}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterListOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FilterList)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterListOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterList_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterList_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -5382,22 +6151,20 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getFiltersFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
-        operator_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL;
+        operator_ = 1;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (filtersBuilder_ == null) {
           filters_ = java.util.Collections.emptyList();
@@ -5408,19 +6175,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterList_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList result = buildPartial();
         if (!result.isInitialized()) {
@@ -5429,16 +6195,17 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.operator_ = operator_;
         if (filtersBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             filters_ = java.util.Collections.unmodifiableList(filters_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
@@ -5451,6 +6218,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList)other);
@@ -5484,31 +6284,32 @@ public final class FilterProtos {
               filters_ = other.filters_;
               bitField0_ = (bitField0_ & ~0x00000002);
               filtersBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getFiltersFieldBuilder() : null;
             } else {
               filtersBuilder_.addAllMessages(other.filters_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasOperator()) {
-          
           return false;
         }
         for (int i = 0; i < getFiltersCount(); i++) {
           if (!getFilters(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5518,7 +6319,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -5528,53 +6329,58 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.FilterList.Operator operator = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator operator_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL;
+      private int operator_ = 1;
       /**
        * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+       * @return Whether the operator field is set.
        */
       public boolean hasOperator() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+       * @return The operator.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator getOperator() {
-        return operator_;
+        @SuppressWarnings("deprecation")
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator result = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.valueOf(operator_);
+        return result == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL : result;
       }
       /**
        * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+       * @param value The operator to set.
+       * @return This builder for chaining.
        */
       public Builder setOperator(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000001;
-        operator_ = value;
+        operator_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
        * <code>required .hbase.pb.FilterList.Operator operator = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearOperator() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        operator_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList.Operator.MUST_PASS_ALL;
+        operator_ = 1;
         onChanged();
         return this;
       }
 
-      // repeated .hbase.pb.Filter filters = 2;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter> filters_ =
         java.util.Collections.emptyList();
       private void ensureFiltersIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           filters_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter>(filters_);
           bitField0_ |= 0x00000002;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> filtersBuilder_;
 
       /**
@@ -5706,7 +6512,8 @@ public final class FilterProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter> values) {
         if (filtersBuilder_ == null) {
           ensureFiltersIsMutable();
-          super.addAll(values, filters_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, filters_);
           onChanged();
         } else {
           filtersBuilder_.addAllMessages(values);
@@ -5789,42 +6596,85 @@ public final class FilterProtos {
            getFiltersBuilderList() {
         return getFiltersFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> 
           getFiltersFieldBuilder() {
         if (filtersBuilder_ == null) {
-          filtersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          filtersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder>(
                   filters_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           filters_ = null;
         }
         return filtersBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FilterList)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FilterList)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FilterList(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FilterList)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FilterList>
+        PARSER = new com.google.protobuf.AbstractParser<FilterList>() {
+      @java.lang.Override
+      public FilterList parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FilterList(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FilterList> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FilterList> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterList getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FilterWrapperOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FilterWrapperOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FilterWrapper)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.Filter filter = 1;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     boolean hasFilter();
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter();
     /**
@@ -5835,36 +6685,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.FilterWrapper}
    */
-  public static final class FilterWrapper extends
-      com.google.protobuf.GeneratedMessage
-      implements FilterWrapperOrBuilder {
+  public  static final class FilterWrapper extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FilterWrapper)
+      FilterWrapperOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FilterWrapper.newBuilder() to construct.
-    private FilterWrapper(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FilterWrapper(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FilterWrapper(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FilterWrapper defaultInstance;
-    public static FilterWrapper getDefaultInstance() {
-      return defaultInstance;
+    private FilterWrapper() {
     }
 
-    public FilterWrapper getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FilterWrapper();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FilterWrapper(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -5876,16 +6728,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = filter_.toBuilder();
               }
               filter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.PARSER, extensionRegistry);
@@ -5896,13 +6741,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -5913,58 +6765,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterWrapper_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterWrapper_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FilterWrapper> PARSER =
-        new com.google.protobuf.AbstractParser<FilterWrapper>() {
-      public FilterWrapper parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FilterWrapper(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilterWrapper> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.Filter filter = 1;
     public static final int FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     public boolean hasFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder getFilterOrBuilder() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
 
-    private void initFields() {
-      filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasFilter()) {
         memoizedIsInitialized = 0;
@@ -5978,35 +6816,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, filter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, filter_);
+          .computeMessageSize(1, getFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6019,34 +6850,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper) obj;
 
-      boolean result = true;
-      result = result && (hasFilter() == other.hasFilter());
+      if (hasFilter() != other.hasFilter()) return false;
       if (hasFilter()) {
-        result = result && getFilter()
-            .equals(other.getFilter());
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasFilter()) {
         hash = (37 * hash) + FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6070,46 +6909,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6117,14 +6969,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FilterWrapper}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapperOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FilterWrapper)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapperOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterWrapper_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterWrapper_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6137,23 +6991,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
         } else {
           filterBuilder_.clear();
         }
@@ -6161,19 +7013,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterWrapper_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper result = buildPartial();
         if (!result.isInitialized()) {
@@ -6182,23 +7033,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (filterBuilder_ == null) {
+            result.filter_ = filter_;
+          } else {
+            result.filter_ = filterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (filterBuilder_ == null) {
-          result.filter_ = filter_;
-        } else {
-          result.filter_ = filterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper)other);
@@ -6213,22 +7098,23 @@ public final class FilterProtos {
         if (other.hasFilter()) {
           mergeFilter(other.getFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasFilter()) {
-          
           return false;
         }
         if (!getFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6238,7 +7124,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6248,22 +7134,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.Filter filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> filterBuilder_;
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return Whether the filter field is set.
        */
       public boolean hasFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return The filter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
         if (filterBuilder_ == null) {
-          return filter_;
+          return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         } else {
           return filterBuilder_.getMessage();
         }
@@ -6303,7 +7190,8 @@ public final class FilterProtos {
        */
       public Builder mergeFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter value) {
         if (filterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              filter_ != null &&
               filter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance()) {
             filter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.newBuilder(filter_).mergeFrom(value).buildPartial();
@@ -6322,7 +7210,7 @@ public final class FilterProtos {
        */
       public Builder clearFilter() {
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
           onChanged();
         } else {
           filterBuilder_.clear();
@@ -6345,73 +7233,118 @@ public final class FilterProtos {
         if (filterBuilder_ != null) {
           return filterBuilder_.getMessageOrBuilder();
         } else {
-          return filter_;
+          return filter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         }
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> 
           getFilterFieldBuilder() {
         if (filterBuilder_ == null) {
-          filterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          filterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder>(
-                  filter_,
+                  getFilter(),
                   getParentForChildren(),
                   isClean());
           filter_ = null;
         }
         return filterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FilterWrapper)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FilterWrapper)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FilterWrapper(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FilterWrapper)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FilterWrapper>
+        PARSER = new com.google.protobuf.AbstractParser<FilterWrapper>() {
+      @java.lang.Override
+      public FilterWrapper parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FilterWrapper(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FilterWrapper> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FilterWrapper> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterWrapper getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FirstKeyOnlyFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FirstKeyOnlyFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FirstKeyOnlyFilter)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.FirstKeyOnlyFilter}
    */
-  public static final class FirstKeyOnlyFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements FirstKeyOnlyFilterOrBuilder {
+  public  static final class FirstKeyOnlyFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FirstKeyOnlyFilter)
+      FirstKeyOnlyFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FirstKeyOnlyFilter.newBuilder() to construct.
-    private FirstKeyOnlyFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FirstKeyOnlyFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FirstKeyOnlyFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FirstKeyOnlyFilter defaultInstance;
-    public static FirstKeyOnlyFilter getDefaultInstance() {
-      return defaultInstance;
+    private FirstKeyOnlyFilter() {
     }
 
-    public FirstKeyOnlyFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FirstKeyOnlyFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FirstKeyOnlyFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6423,8 +7356,8 @@ public final class FilterProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -6435,7 +7368,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -6446,61 +7379,40 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyOnlyFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FirstKeyOnlyFilter> PARSER =
-        new com.google.protobuf.AbstractParser<FirstKeyOnlyFilter>() {
-      public FirstKeyOnlyFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FirstKeyOnlyFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FirstKeyOnlyFilter> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6513,25 +7425,33 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6555,46 +7475,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6602,14 +7535,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FirstKeyOnlyFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FirstKeyOnlyFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyOnlyFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6622,36 +7557,33 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -6660,12 +7592,46 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter)other);
@@ -6677,14 +7643,17 @@ public final class FilterProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6694,7 +7663,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6702,68 +7671,116 @@ public final class FilterProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FirstKeyOnlyFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FirstKeyOnlyFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FirstKeyOnlyFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FirstKeyOnlyFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FirstKeyOnlyFilter>
+        PARSER = new com.google.protobuf.AbstractParser<FirstKeyOnlyFilter>() {
+      @java.lang.Override
+      public FirstKeyOnlyFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FirstKeyOnlyFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FirstKeyOnlyFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FirstKeyOnlyFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyOnlyFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FirstKeyValueMatchingQualifiersFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FirstKeyValueMatchingQualifiersFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated bytes qualifiers = 1;
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @return A list containing the qualifiers.
      */
     java.util.List<com.google.protobuf.ByteString> getQualifiersList();
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @return The count of qualifiers.
      */
     int getQualifiersCount();
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @param index The index of the element to return.
+     * @return The qualifiers at the given index.
      */
     com.google.protobuf.ByteString getQualifiers(int index);
   }
   /**
    * Protobuf type {@code hbase.pb.FirstKeyValueMatchingQualifiersFilter}
    */
-  public static final class FirstKeyValueMatchingQualifiersFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements FirstKeyValueMatchingQualifiersFilterOrBuilder {
+  public  static final class FirstKeyValueMatchingQualifiersFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
+      FirstKeyValueMatchingQualifiersFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FirstKeyValueMatchingQualifiersFilter.newBuilder() to construct.
-    private FirstKeyValueMatchingQualifiersFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FirstKeyValueMatchingQualifiersFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FirstKeyValueMatchingQualifiersFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FirstKeyValueMatchingQualifiersFilter defaultInstance;
-    public static FirstKeyValueMatchingQualifiersFilter getDefaultInstance() {
-      return defaultInstance;
+    private FirstKeyValueMatchingQualifiersFilter() {
+      qualifiers_ = java.util.Collections.emptyList();
     }
 
-    public FirstKeyValueMatchingQualifiersFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FirstKeyValueMatchingQualifiersFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FirstKeyValueMatchingQualifiersFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -6775,19 +7792,19 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 qualifiers_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
                 mutable_bitField0_ |= 0x00000001;
               }
               qualifiers_.add(input.readBytes());
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -6796,10 +7813,10 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          qualifiers_ = java.util.Collections.unmodifiableList(qualifiers_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          qualifiers_ = java.util.Collections.unmodifiableList(qualifiers_); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -6810,33 +7827,19 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FirstKeyValueMatchingQualifiersFilter> PARSER =
-        new com.google.protobuf.AbstractParser<FirstKeyValueMatchingQualifiersFilter>() {
-      public FirstKeyValueMatchingQualifiersFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FirstKeyValueMatchingQualifiersFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FirstKeyValueMatchingQualifiersFilter> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated bytes qualifiers = 1;
     public static final int QUALIFIERS_FIELD_NUMBER = 1;
     private java.util.List<com.google.protobuf.ByteString> qualifiers_;
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @return A list containing the qualifiers.
      */
     public java.util.List<com.google.protobuf.ByteString>
         getQualifiersList() {
@@ -6844,41 +7847,43 @@ public final class FilterProtos {
     }
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @return The count of qualifiers.
      */
     public int getQualifiersCount() {
       return qualifiers_.size();
     }
     /**
      * <code>repeated bytes qualifiers = 1;</code>
+     * @param index The index of the element to return.
+     * @return The qualifiers at the given index.
      */
     public com.google.protobuf.ByteString getQualifiers(int index) {
       return qualifiers_.get(index);
     }
 
-    private void initFields() {
-      qualifiers_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < qualifiers_.size(); i++) {
         output.writeBytes(1, qualifiers_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -6891,16 +7896,9 @@ public final class FilterProtos {
         size += dataSize;
         size += 1 * getQualifiersList().size();
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6913,31 +7911,39 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter) obj;
 
-      boolean result = true;
-      result = result && getQualifiersList()
-          .equals(other.getQualifiersList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getQualifiersList()
+          .equals(other.getQualifiersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getQualifiersCount() > 0) {
         hash = (37 * hash) + QUALIFIERS_FIELD_NUMBER;
         hash = (53 * hash) + getQualifiersList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6961,46 +7967,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7008,14 +8027,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FirstKeyValueMatchingQualifiersFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7028,18 +8049,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         qualifiers_ = java.util.Collections.emptyList();
@@ -7047,19 +8066,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -7068,10 +8086,11 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           qualifiers_ = java.util.Collections.unmodifiableList(qualifiers_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -7080,6 +8099,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter)other);
@@ -7101,14 +8153,17 @@ public final class FilterProtos {
           }
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7118,7 +8173,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -7128,35 +8183,42 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // repeated bytes qualifiers = 1;
       private java.util.List<com.google.protobuf.ByteString> qualifiers_ = java.util.Collections.emptyList();
       private void ensureQualifiersIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           qualifiers_ = new java.util.ArrayList<com.google.protobuf.ByteString>(qualifiers_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @return A list containing the qualifiers.
        */
       public java.util.List<com.google.protobuf.ByteString>
           getQualifiersList() {
-        return java.util.Collections.unmodifiableList(qualifiers_);
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(qualifiers_) : qualifiers_;
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @return The count of qualifiers.
        */
       public int getQualifiersCount() {
         return qualifiers_.size();
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @param index The index of the element to return.
+       * @return The qualifiers at the given index.
        */
       public com.google.protobuf.ByteString getQualifiers(int index) {
         return qualifiers_.get(index);
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The qualifiers to set.
+       * @return This builder for chaining.
        */
       public Builder setQualifiers(
           int index, com.google.protobuf.ByteString value) {
@@ -7170,6 +8232,8 @@ public final class FilterProtos {
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @param value The qualifiers to add.
+       * @return This builder for chaining.
        */
       public Builder addQualifiers(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -7182,16 +8246,20 @@ public final class FilterProtos {
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @param values The qualifiers to add.
+       * @return This builder for chaining.
        */
       public Builder addAllQualifiers(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensureQualifiersIsMutable();
-        super.addAll(values, qualifiers_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, qualifiers_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated bytes qualifiers = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearQualifiers() {
         qualifiers_ = java.util.Collections.emptyList();
@@ -7199,22 +8267,63 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FirstKeyValueMatchingQualifiersFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FirstKeyValueMatchingQualifiersFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FirstKeyValueMatchingQualifiersFilter>
+        PARSER = new com.google.protobuf.AbstractParser<FirstKeyValueMatchingQualifiersFilter>() {
+      @java.lang.Override
+      public FirstKeyValueMatchingQualifiersFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FirstKeyValueMatchingQualifiersFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FirstKeyValueMatchingQualifiersFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FirstKeyValueMatchingQualifiersFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FirstKeyValueMatchingQualifiersFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FuzzyRowFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FuzzyRowFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FuzzyRowFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.BytesBytesPair fuzzy_keys_data = 1;
     /**
      * <code>repeated .hbase.pb.BytesBytesPair fuzzy_keys_data = 1;</code>
      */
@@ -7242,36 +8351,39 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.FuzzyRowFilter}
    */
-  public static final class FuzzyRowFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements FuzzyRowFilterOrBuilder {
+  public  static final class FuzzyRowFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FuzzyRowFilter)
+      FuzzyRowFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FuzzyRowFilter.newBuilder() to construct.
-    private FuzzyRowFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FuzzyRowFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FuzzyRowFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FuzzyRowFilter defaultInstance;
-    public static FuzzyRowFilter getDefaultInstance() {
-      return defaultInstance;
+    private FuzzyRowFilter() {
+      fuzzyKeysData_ = java.util.Collections.emptyList();
     }
 
-    public FuzzyRowFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FuzzyRowFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FuzzyRowFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -7283,19 +8395,20 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 fuzzyKeysData_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              fuzzyKeysData_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair.PARSER, extensionRegistry));
+              fuzzyKeysData_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -7304,9 +8417,9 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           fuzzyKeysData_ = java.util.Collections.unmodifiableList(fuzzyKeysData_);
         }
         this.unknownFields = unknownFields.build();
@@ -7318,29 +8431,14 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FuzzyRowFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FuzzyRowFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FuzzyRowFilter> PARSER =
-        new com.google.protobuf.AbstractParser<FuzzyRowFilter>() {
-      public FuzzyRowFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FuzzyRowFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FuzzyRowFilter> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.BytesBytesPair fuzzy_keys_data = 1;
     public static final int FUZZY_KEYS_DATA_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair> fuzzyKeysData_;
     /**
@@ -7376,13 +8474,12 @@ public final class FilterProtos {
       return fuzzyKeysData_.get(index);
     }
 
-    private void initFields() {
-      fuzzyKeysData_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       for (int i = 0; i < getFuzzyKeysDataCount(); i++) {
         if (!getFuzzyKeysData(i).isInitialized()) {
@@ -7394,18 +8491,18 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < fuzzyKeysData_.size(); i++) {
         output.writeMessage(1, fuzzyKeysData_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -7413,16 +8510,9 @@ public final class FilterProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, fuzzyKeysData_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -7435,31 +8525,39 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter) obj;
 
-      boolean result = true;
-      result = result && getFuzzyKeysDataList()
-          .equals(other.getFuzzyKeysDataList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getFuzzyKeysDataList()
+          .equals(other.getFuzzyKeysDataList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getFuzzyKeysDataCount() > 0) {
         hash = (37 * hash) + FUZZY_KEYS_DATA_FIELD_NUMBER;
         hash = (53 * hash) + getFuzzyKeysDataList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7483,46 +8581,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7530,14 +8641,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FuzzyRowFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FuzzyRowFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FuzzyRowFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FuzzyRowFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7550,19 +8663,17 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getFuzzyKeysDataFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (fuzzyKeysDataBuilder_ == null) {
@@ -7574,19 +8685,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FuzzyRowFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -7595,11 +8705,12 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter(this);
         int from_bitField0_ = bitField0_;
         if (fuzzyKeysDataBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             fuzzyKeysData_ = java.util.Collections.unmodifiableList(fuzzyKeysData_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -7611,6 +8722,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter)other);
@@ -7641,27 +8785,29 @@ public final class FilterProtos {
               fuzzyKeysData_ = other.fuzzyKeysData_;
               bitField0_ = (bitField0_ & ~0x00000001);
               fuzzyKeysDataBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getFuzzyKeysDataFieldBuilder() : null;
             } else {
               fuzzyKeysDataBuilder_.addAllMessages(other.fuzzyKeysData_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         for (int i = 0; i < getFuzzyKeysDataCount(); i++) {
           if (!getFuzzyKeysData(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7671,7 +8817,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -7681,17 +8827,16 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.BytesBytesPair fuzzy_keys_data = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair> fuzzyKeysData_ =
         java.util.Collections.emptyList();
       private void ensureFuzzyKeysDataIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           fuzzyKeysData_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair>(fuzzyKeysData_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPairOrBuilder> fuzzyKeysDataBuilder_;
 
       /**
@@ -7823,7 +8968,8 @@ public final class FilterProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair> values) {
         if (fuzzyKeysDataBuilder_ == null) {
           ensureFuzzyKeysDataIsMutable();
-          super.addAll(values, fuzzyKeysData_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, fuzzyKeysData_);
           onChanged();
         } else {
           fuzzyKeysDataBuilder_.addAllMessages(values);
@@ -7906,78 +9052,124 @@ public final class FilterProtos {
            getFuzzyKeysDataBuilderList() {
         return getFuzzyKeysDataFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPairOrBuilder> 
           getFuzzyKeysDataFieldBuilder() {
         if (fuzzyKeysDataBuilder_ == null) {
-          fuzzyKeysDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          fuzzyKeysDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.BytesBytesPairOrBuilder>(
                   fuzzyKeysData_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           fuzzyKeysData_ = null;
         }
         return fuzzyKeysDataBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FuzzyRowFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FuzzyRowFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FuzzyRowFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FuzzyRowFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FuzzyRowFilter>
+        PARSER = new com.google.protobuf.AbstractParser<FuzzyRowFilter>() {
+      @java.lang.Override
+      public FuzzyRowFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FuzzyRowFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FuzzyRowFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FuzzyRowFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FuzzyRowFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface InclusiveStopFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface InclusiveStopFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.InclusiveStopFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes stop_row_key = 1;
     /**
      * <code>optional bytes stop_row_key = 1;</code>
+     * @return Whether the stopRowKey field is set.
      */
     boolean hasStopRowKey();
     /**
      * <code>optional bytes stop_row_key = 1;</code>
+     * @return The stopRowKey.
      */
     com.google.protobuf.ByteString getStopRowKey();
   }
   /**
    * Protobuf type {@code hbase.pb.InclusiveStopFilter}
    */
-  public static final class InclusiveStopFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements InclusiveStopFilterOrBuilder {
+  public  static final class InclusiveStopFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.InclusiveStopFilter)
+      InclusiveStopFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use InclusiveStopFilter.newBuilder() to construct.
-    private InclusiveStopFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private InclusiveStopFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private InclusiveStopFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final InclusiveStopFilter defaultInstance;
-    public static InclusiveStopFilter getDefaultInstance() {
-      return defaultInstance;
+    private InclusiveStopFilter() {
+      stopRowKey_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public InclusiveStopFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new InclusiveStopFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private InclusiveStopFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -7989,16 +9181,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               stopRowKey_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8007,7 +9199,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8018,86 +9210,65 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_InclusiveStopFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_InclusiveStopFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<InclusiveStopFilter> PARSER =
-        new com.google.protobuf.AbstractParser<InclusiveStopFilter>() {
-      public InclusiveStopFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new InclusiveStopFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<InclusiveStopFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes stop_row_key = 1;
     public static final int STOP_ROW_KEY_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString stopRowKey_;
     /**
      * <code>optional bytes stop_row_key = 1;</code>
+     * @return Whether the stopRowKey field is set.
      */
     public boolean hasStopRowKey() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes stop_row_key = 1;</code>
+     * @return The stopRowKey.
      */
     public com.google.protobuf.ByteString getStopRowKey() {
       return stopRowKey_;
     }
 
-    private void initFields() {
-      stopRowKey_ = com.google.protobuf.ByteString.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, stopRowKey_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, stopRowKey_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -8110,34 +9281,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter) obj;
 
-      boolean result = true;
-      result = result && (hasStopRowKey() == other.hasStopRowKey());
+      if (hasStopRowKey() != other.hasStopRowKey()) return false;
       if (hasStopRowKey()) {
-        result = result && getStopRowKey()
-            .equals(other.getStopRowKey());
+        if (!getStopRowKey()
+            .equals(other.getStopRowKey())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasStopRowKey()) {
         hash = (37 * hash) + STOP_ROW_KEY_FIELD_NUMBER;
         hash = (53 * hash) + getStopRowKey().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8161,46 +9340,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8208,14 +9400,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.InclusiveStopFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.InclusiveStopFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_InclusiveStopFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_InclusiveStopFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -8228,18 +9422,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         stopRowKey_ = com.google.protobuf.ByteString.EMPTY;
@@ -8247,19 +9439,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_InclusiveStopFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -8268,11 +9459,12 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.stopRowKey_ = stopRowKey_;
@@ -8281,6 +9473,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter)other);
@@ -8295,14 +9520,17 @@ public final class FilterProtos {
         if (other.hasStopRowKey()) {
           setStopRowKey(other.getStopRowKey());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8312,7 +9540,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8322,22 +9550,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // optional bytes stop_row_key = 1;
       private com.google.protobuf.ByteString stopRowKey_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes stop_row_key = 1;</code>
+       * @return Whether the stopRowKey field is set.
        */
       public boolean hasStopRowKey() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes stop_row_key = 1;</code>
+       * @return The stopRowKey.
        */
       public com.google.protobuf.ByteString getStopRowKey() {
         return stopRowKey_;
       }
       /**
        * <code>optional bytes stop_row_key = 1;</code>
+       * @param value The stopRowKey to set.
+       * @return This builder for chaining.
        */
       public Builder setStopRowKey(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -8350,6 +9581,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes stop_row_key = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStopRowKey() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -8357,64 +9589,109 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.InclusiveStopFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.InclusiveStopFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new InclusiveStopFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.InclusiveStopFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<InclusiveStopFilter>
+        PARSER = new com.google.protobuf.AbstractParser<InclusiveStopFilter>() {
+      @java.lang.Override
+      public InclusiveStopFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InclusiveStopFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InclusiveStopFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InclusiveStopFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.InclusiveStopFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface KeyOnlyFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface KeyOnlyFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.KeyOnlyFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required bool len_as_val = 1;
     /**
      * <code>required bool len_as_val = 1;</code>
+     * @return Whether the lenAsVal field is set.
      */
     boolean hasLenAsVal();
     /**
      * <code>required bool len_as_val = 1;</code>
+     * @return The lenAsVal.
      */
     boolean getLenAsVal();
   }
   /**
    * Protobuf type {@code hbase.pb.KeyOnlyFilter}
    */
-  public static final class KeyOnlyFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements KeyOnlyFilterOrBuilder {
+  public  static final class KeyOnlyFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.KeyOnlyFilter)
+      KeyOnlyFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use KeyOnlyFilter.newBuilder() to construct.
-    private KeyOnlyFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private KeyOnlyFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private KeyOnlyFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final KeyOnlyFilter defaultInstance;
-    public static KeyOnlyFilter getDefaultInstance() {
-      return defaultInstance;
+    private KeyOnlyFilter() {
     }
 
-    public KeyOnlyFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new KeyOnlyFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private KeyOnlyFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -8426,16 +9703,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               lenAsVal_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8444,7 +9721,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8455,52 +9732,38 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_KeyOnlyFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_KeyOnlyFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<KeyOnlyFilter> PARSER =
-        new com.google.protobuf.AbstractParser<KeyOnlyFilter>() {
-      public KeyOnlyFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new KeyOnlyFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<KeyOnlyFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required bool len_as_val = 1;
     public static final int LEN_AS_VAL_FIELD_NUMBER = 1;
     private boolean lenAsVal_;
     /**
      * <code>required bool len_as_val = 1;</code>
+     * @return Whether the lenAsVal field is set.
      */
     public boolean hasLenAsVal() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required bool len_as_val = 1;</code>
+     * @return The lenAsVal.
      */
     public boolean getLenAsVal() {
       return lenAsVal_;
     }
 
-    private void initFields() {
-      lenAsVal_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasLenAsVal()) {
         memoizedIsInitialized = 0;
@@ -8510,35 +9773,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(1, lenAsVal_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, lenAsVal_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -8551,34 +9807,43 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter) obj;
 
-      boolean result = true;
-      result = result && (hasLenAsVal() == other.hasLenAsVal());
+      if (hasLenAsVal() != other.hasLenAsVal()) return false;
       if (hasLenAsVal()) {
-        result = result && (getLenAsVal()
-            == other.getLenAsVal());
+        if (getLenAsVal()
+            != other.getLenAsVal()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasLenAsVal()) {
         hash = (37 * hash) + LEN_AS_VAL_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getLenAsVal());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getLenAsVal());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8602,46 +9867,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8649,14 +9927,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.KeyOnlyFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.KeyOnlyFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_KeyOnlyFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_KeyOnlyFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -8669,18 +9949,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         lenAsVal_ = false;
@@ -8688,19 +9966,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_KeyOnlyFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -8709,19 +9986,53 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.lenAsVal_ = lenAsVal_;
           to_bitField0_ |= 0x00000001;
         }
-        result.lenAsVal_ = lenAsVal_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter)other);
@@ -8736,18 +10047,20 @@ public final class FilterProtos {
         if (other.hasLenAsVal()) {
           setLenAsVal(other.getLenAsVal());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasLenAsVal()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8757,7 +10070,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8767,22 +10080,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required bool len_as_val = 1;
       private boolean lenAsVal_ ;
       /**
        * <code>required bool len_as_val = 1;</code>
+       * @return Whether the lenAsVal field is set.
        */
       public boolean hasLenAsVal() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required bool len_as_val = 1;</code>
+       * @return The lenAsVal.
        */
       public boolean getLenAsVal() {
         return lenAsVal_;
       }
       /**
        * <code>required bool len_as_val = 1;</code>
+       * @param value The lenAsVal to set.
+       * @return This builder for chaining.
        */
       public Builder setLenAsVal(boolean value) {
         bitField0_ |= 0x00000001;
@@ -8792,6 +10108,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required bool len_as_val = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLenAsVal() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -8799,68 +10116,116 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.KeyOnlyFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.KeyOnlyFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new KeyOnlyFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.KeyOnlyFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<KeyOnlyFilter>
+        PARSER = new com.google.protobuf.AbstractParser<KeyOnlyFilter>() {
+      @java.lang.Override
+      public KeyOnlyFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KeyOnlyFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KeyOnlyFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KeyOnlyFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.KeyOnlyFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MultipleColumnPrefixFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MultipleColumnPrefixFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MultipleColumnPrefixFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated bytes sorted_prefixes = 1;
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @return A list containing the sortedPrefixes.
      */
     java.util.List<com.google.protobuf.ByteString> getSortedPrefixesList();
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @return The count of sortedPrefixes.
      */
     int getSortedPrefixesCount();
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @param index The index of the element to return.
+     * @return The sortedPrefixes at the given index.
      */
     com.google.protobuf.ByteString getSortedPrefixes(int index);
   }
   /**
    * Protobuf type {@code hbase.pb.MultipleColumnPrefixFilter}
    */
-  public static final class MultipleColumnPrefixFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements MultipleColumnPrefixFilterOrBuilder {
+  public  static final class MultipleColumnPrefixFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MultipleColumnPrefixFilter)
+      MultipleColumnPrefixFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MultipleColumnPrefixFilter.newBuilder() to construct.
-    private MultipleColumnPrefixFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MultipleColumnPrefixFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MultipleColumnPrefixFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MultipleColumnPrefixFilter defaultInstance;
-    public static MultipleColumnPrefixFilter getDefaultInstance() {
-      return defaultInstance;
+    private MultipleColumnPrefixFilter() {
+      sortedPrefixes_ = java.util.Collections.emptyList();
     }
 
-    public MultipleColumnPrefixFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MultipleColumnPrefixFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MultipleColumnPrefixFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -8872,19 +10237,19 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 sortedPrefixes_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
                 mutable_bitField0_ |= 0x00000001;
               }
               sortedPrefixes_.add(input.readBytes());
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8893,10 +10258,10 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          sortedPrefixes_ = java.util.Collections.unmodifiableList(sortedPrefixes_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          sortedPrefixes_ = java.util.Collections.unmodifiableList(sortedPrefixes_); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8907,33 +10272,19 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultipleColumnPrefixFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MultipleColumnPrefixFilter> PARSER =
-        new com.google.protobuf.AbstractParser<MultipleColumnPrefixFilter>() {
-      public MultipleColumnPrefixFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MultipleColumnPrefixFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MultipleColumnPrefixFilter> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated bytes sorted_prefixes = 1;
     public static final int SORTED_PREFIXES_FIELD_NUMBER = 1;
     private java.util.List<com.google.protobuf.ByteString> sortedPrefixes_;
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @return A list containing the sortedPrefixes.
      */
     public java.util.List<com.google.protobuf.ByteString>
         getSortedPrefixesList() {
@@ -8941,41 +10292,43 @@ public final class FilterProtos {
     }
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @return The count of sortedPrefixes.
      */
     public int getSortedPrefixesCount() {
       return sortedPrefixes_.size();
     }
     /**
      * <code>repeated bytes sorted_prefixes = 1;</code>
+     * @param index The index of the element to return.
+     * @return The sortedPrefixes at the given index.
      */
     public com.google.protobuf.ByteString getSortedPrefixes(int index) {
       return sortedPrefixes_.get(index);
     }
 
-    private void initFields() {
-      sortedPrefixes_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < sortedPrefixes_.size(); i++) {
         output.writeBytes(1, sortedPrefixes_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -8988,16 +10341,9 @@ public final class FilterProtos {
         size += dataSize;
         size += 1 * getSortedPrefixesList().size();
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -9010,31 +10356,39 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter) obj;
 
-      boolean result = true;
-      result = result && getSortedPrefixesList()
-          .equals(other.getSortedPrefixesList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getSortedPrefixesList()
+          .equals(other.getSortedPrefixesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getSortedPrefixesCount() > 0) {
         hash = (37 * hash) + SORTED_PREFIXES_FIELD_NUMBER;
         hash = (53 * hash) + getSortedPrefixesList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9058,46 +10412,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9105,14 +10472,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.MultipleColumnPrefixFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MultipleColumnPrefixFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultipleColumnPrefixFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9125,18 +10494,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         sortedPrefixes_ = java.util.Collections.emptyList();
@@ -9144,19 +10511,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -9165,10 +10531,11 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           sortedPrefixes_ = java.util.Collections.unmodifiableList(sortedPrefixes_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -9177,6 +10544,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter)other);
@@ -9198,14 +10598,17 @@ public final class FilterProtos {
           }
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9215,7 +10618,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -9225,35 +10628,42 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // repeated bytes sorted_prefixes = 1;
       private java.util.List<com.google.protobuf.ByteString> sortedPrefixes_ = java.util.Collections.emptyList();
       private void ensureSortedPrefixesIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           sortedPrefixes_ = new java.util.ArrayList<com.google.protobuf.ByteString>(sortedPrefixes_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @return A list containing the sortedPrefixes.
        */
       public java.util.List<com.google.protobuf.ByteString>
           getSortedPrefixesList() {
-        return java.util.Collections.unmodifiableList(sortedPrefixes_);
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(sortedPrefixes_) : sortedPrefixes_;
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @return The count of sortedPrefixes.
        */
       public int getSortedPrefixesCount() {
         return sortedPrefixes_.size();
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @param index The index of the element to return.
+       * @return The sortedPrefixes at the given index.
        */
       public com.google.protobuf.ByteString getSortedPrefixes(int index) {
         return sortedPrefixes_.get(index);
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The sortedPrefixes to set.
+       * @return This builder for chaining.
        */
       public Builder setSortedPrefixes(
           int index, com.google.protobuf.ByteString value) {
@@ -9267,6 +10677,8 @@ public final class FilterProtos {
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @param value The sortedPrefixes to add.
+       * @return This builder for chaining.
        */
       public Builder addSortedPrefixes(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -9279,16 +10691,20 @@ public final class FilterProtos {
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @param values The sortedPrefixes to add.
+       * @return This builder for chaining.
        */
       public Builder addAllSortedPrefixes(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensureSortedPrefixesIsMutable();
-        super.addAll(values, sortedPrefixes_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, sortedPrefixes_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated bytes sorted_prefixes = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSortedPrefixes() {
         sortedPrefixes_ = java.util.Collections.emptyList();
@@ -9296,64 +10712,109 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MultipleColumnPrefixFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MultipleColumnPrefixFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MultipleColumnPrefixFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MultipleColumnPrefixFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MultipleColumnPrefixFilter>
+        PARSER = new com.google.protobuf.AbstractParser<MultipleColumnPrefixFilter>() {
+      @java.lang.Override
+      public MultipleColumnPrefixFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MultipleColumnPrefixFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MultipleColumnPrefixFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MultipleColumnPrefixFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultipleColumnPrefixFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface PageFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface PageFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.PageFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required int64 page_size = 1;
     /**
      * <code>required int64 page_size = 1;</code>
+     * @return Whether the pageSize field is set.
      */
     boolean hasPageSize();
     /**
      * <code>required int64 page_size = 1;</code>
+     * @return The pageSize.
      */
     long getPageSize();
   }
   /**
    * Protobuf type {@code hbase.pb.PageFilter}
    */
-  public static final class PageFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements PageFilterOrBuilder {
+  public  static final class PageFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.PageFilter)
+      PageFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use PageFilter.newBuilder() to construct.
-    private PageFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private PageFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private PageFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final PageFilter defaultInstance;
-    public static PageFilter getDefaultInstance() {
-      return defaultInstance;
+    private PageFilter() {
     }
 
-    public PageFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PageFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private PageFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -9365,16 +10826,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               pageSize_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -9383,7 +10844,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -9394,52 +10855,38 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PageFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PageFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<PageFilter> PARSER =
-        new com.google.protobuf.AbstractParser<PageFilter>() {
-      public PageFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PageFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PageFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required int64 page_size = 1;
     public static final int PAGE_SIZE_FIELD_NUMBER = 1;
     private long pageSize_;
     /**
      * <code>required int64 page_size = 1;</code>
+     * @return Whether the pageSize field is set.
      */
     public boolean hasPageSize() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required int64 page_size = 1;</code>
+     * @return The pageSize.
      */
     public long getPageSize() {
       return pageSize_;
     }
 
-    private void initFields() {
-      pageSize_ = 0L;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasPageSize()) {
         memoizedIsInitialized = 0;
@@ -9449,35 +10896,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt64(1, pageSize_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, pageSize_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -9490,34 +10930,43 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter) obj;
 
-      boolean result = true;
-      result = result && (hasPageSize() == other.hasPageSize());
+      if (hasPageSize() != other.hasPageSize()) return false;
       if (hasPageSize()) {
-        result = result && (getPageSize()
-            == other.getPageSize());
+        if (getPageSize()
+            != other.getPageSize()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasPageSize()) {
         hash = (37 * hash) + PAGE_SIZE_FIELD_NUMBER;
-        hash = (53 * hash) + hashLong(getPageSize());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getPageSize());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9541,46 +10990,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9588,14 +11050,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.PageFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.PageFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PageFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PageFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9608,18 +11072,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         pageSize_ = 0L;
@@ -9627,19 +11089,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PageFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -9648,19 +11109,53 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.pageSize_ = pageSize_;
           to_bitField0_ |= 0x00000001;
         }
-        result.pageSize_ = pageSize_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter)other);
@@ -9675,18 +11170,20 @@ public final class FilterProtos {
         if (other.hasPageSize()) {
           setPageSize(other.getPageSize());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasPageSize()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9696,7 +11193,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -9706,22 +11203,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required int64 page_size = 1;
       private long pageSize_ ;
       /**
        * <code>required int64 page_size = 1;</code>
+       * @return Whether the pageSize field is set.
        */
       public boolean hasPageSize() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required int64 page_size = 1;</code>
+       * @return The pageSize.
        */
       public long getPageSize() {
         return pageSize_;
       }
       /**
        * <code>required int64 page_size = 1;</code>
+       * @param value The pageSize to set.
+       * @return This builder for chaining.
        */
       public Builder setPageSize(long value) {
         bitField0_ |= 0x00000001;
@@ -9731,6 +11231,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required int64 page_size = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPageSize() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -9738,64 +11239,110 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.PageFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.PageFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new PageFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.PageFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PageFilter>
+        PARSER = new com.google.protobuf.AbstractParser<PageFilter>() {
+      @java.lang.Override
+      public PageFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PageFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PageFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PageFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PageFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface PrefixFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface PrefixFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.PrefixFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes prefix = 1;
     /**
      * <code>optional bytes prefix = 1;</code>
+     * @return Whether the prefix field is set.
      */
     boolean hasPrefix();
     /**
      * <code>optional bytes prefix = 1;</code>
+     * @return The prefix.
      */
     com.google.protobuf.ByteString getPrefix();
   }
   /**
    * Protobuf type {@code hbase.pb.PrefixFilter}
    */
-  public static final class PrefixFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements PrefixFilterOrBuilder {
+  public  static final class PrefixFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.PrefixFilter)
+      PrefixFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use PrefixFilter.newBuilder() to construct.
-    private PrefixFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private PrefixFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private PrefixFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final PrefixFilter defaultInstance;
-    public static PrefixFilter getDefaultInstance() {
-      return defaultInstance;
+    private PrefixFilter() {
+      prefix_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public PrefixFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PrefixFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private PrefixFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -9807,16 +11354,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               prefix_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -9825,7 +11372,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -9836,86 +11383,65 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PrefixFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PrefixFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<PrefixFilter> PARSER =
-        new com.google.protobuf.AbstractParser<PrefixFilter>() {
-      public PrefixFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PrefixFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PrefixFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes prefix = 1;
     public static final int PREFIX_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString prefix_;
     /**
      * <code>optional bytes prefix = 1;</code>
+     * @return Whether the prefix field is set.
      */
     public boolean hasPrefix() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes prefix = 1;</code>
+     * @return The prefix.
      */
     public com.google.protobuf.ByteString getPrefix() {
       return prefix_;
     }
 
-    private void initFields() {
-      prefix_ = com.google.protobuf.ByteString.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, prefix_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, prefix_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -9928,34 +11454,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter) obj;
 
-      boolean result = true;
-      result = result && (hasPrefix() == other.hasPrefix());
+      if (hasPrefix() != other.hasPrefix()) return false;
       if (hasPrefix()) {
-        result = result && getPrefix()
-            .equals(other.getPrefix());
+        if (!getPrefix()
+            .equals(other.getPrefix())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasPrefix()) {
         hash = (37 * hash) + PREFIX_FIELD_NUMBER;
         hash = (53 * hash) + getPrefix().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9979,46 +11513,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -10026,14 +11573,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.PrefixFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.PrefixFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PrefixFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PrefixFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -10046,18 +11595,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         prefix_ = com.google.protobuf.ByteString.EMPTY;
@@ -10065,19 +11612,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_PrefixFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -10086,11 +11632,12 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.prefix_ = prefix_;
@@ -10099,6 +11646,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter)other);
@@ -10113,14 +11693,17 @@ public final class FilterProtos {
         if (other.hasPrefix()) {
           setPrefix(other.getPrefix());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10130,7 +11713,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -10140,22 +11723,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // optional bytes prefix = 1;
       private com.google.protobuf.ByteString prefix_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes prefix = 1;</code>
+       * @return Whether the prefix field is set.
        */
       public boolean hasPrefix() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes prefix = 1;</code>
+       * @return The prefix.
        */
       public com.google.protobuf.ByteString getPrefix() {
         return prefix_;
       }
       /**
        * <code>optional bytes prefix = 1;</code>
+       * @param value The prefix to set.
+       * @return This builder for chaining.
        */
       public Builder setPrefix(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -10168,6 +11754,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes prefix = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPrefix() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -10175,28 +11762,71 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.PrefixFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.PrefixFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new PrefixFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.PrefixFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PrefixFilter>
+        PARSER = new com.google.protobuf.AbstractParser<PrefixFilter>() {
+      @java.lang.Override
+      public PrefixFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PrefixFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrefixFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrefixFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.PrefixFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface QualifierFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface QualifierFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.QualifierFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     boolean hasCompareFilter();
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter();
     /**
@@ -10207,36 +11837,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.QualifierFilter}
    */
-  public static final class QualifierFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements QualifierFilterOrBuilder {
+  public  static final class QualifierFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.QualifierFilter)
+      QualifierFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use QualifierFilter.newBuilder() to construct.
-    private QualifierFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private QualifierFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private QualifierFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final QualifierFilter defaultInstance;
-    public static QualifierFilter getDefaultInstance() {
-      return defaultInstance;
+    private QualifierFilter() {
     }
 
-    public QualifierFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QualifierFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private QualifierFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -10248,16 +11880,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = compareFilter_.toBuilder();
               }
               compareFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.PARSER, extensionRegistry);
@@ -10268,13 +11893,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -10285,58 +11917,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_QualifierFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_QualifierFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<QualifierFilter> PARSER =
-        new com.google.protobuf.AbstractParser<QualifierFilter>() {
-      public QualifierFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QualifierFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QualifierFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     public static final int COMPARE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     public boolean hasCompareFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
 
-    private void initFields() {
-      compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareFilter()) {
         memoizedIsInitialized = 0;
@@ -10350,35 +11968,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, compareFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getCompareFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, compareFilter_);
+          .computeMessageSize(1, getCompareFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -10391,34 +12002,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareFilter() == other.hasCompareFilter());
+      if (hasCompareFilter() != other.hasCompareFilter()) return false;
       if (hasCompareFilter()) {
-        result = result && getCompareFilter()
-            .equals(other.getCompareFilter());
+        if (!getCompareFilter()
+            .equals(other.getCompareFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareFilter()) {
         hash = (37 * hash) + COMPARE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getCompareFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -10442,46 +12061,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -10489,14 +12121,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.QualifierFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.QualifierFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_QualifierFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_QualifierFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -10509,23 +12143,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCompareFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
         } else {
           compareFilterBuilder_.clear();
         }
@@ -10533,19 +12165,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_QualifierFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -10554,23 +12185,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (compareFilterBuilder_ == null) {
+            result.compareFilter_ = compareFilter_;
+          } else {
+            result.compareFilter_ = compareFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (compareFilterBuilder_ == null) {
-          result.compareFilter_ = compareFilter_;
-        } else {
-          result.compareFilter_ = compareFilterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter)other);
@@ -10585,22 +12250,23 @@ public final class FilterProtos {
         if (other.hasCompareFilter()) {
           mergeCompareFilter(other.getCompareFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareFilter()) {
-          
           return false;
         }
         if (!getCompareFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10610,7 +12276,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -10620,22 +12286,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareFilter compare_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> compareFilterBuilder_;
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return Whether the compareFilter field is set.
        */
       public boolean hasCompareFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return The compareFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          return compareFilter_;
+          return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         } else {
           return compareFilterBuilder_.getMessage();
         }
@@ -10675,7 +12342,8 @@ public final class FilterProtos {
        */
       public Builder mergeCompareFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter value) {
         if (compareFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              compareFilter_ != null &&
               compareFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance()) {
             compareFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.newBuilder(compareFilter_).mergeFrom(value).buildPartial();
@@ -10694,7 +12362,7 @@ public final class FilterProtos {
        */
       public Builder clearCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
           onChanged();
         } else {
           compareFilterBuilder_.clear();
@@ -10717,83 +12385,129 @@ public final class FilterProtos {
         if (compareFilterBuilder_ != null) {
           return compareFilterBuilder_.getMessageOrBuilder();
         } else {
-          return compareFilter_;
+          return compareFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> 
           getCompareFilterFieldBuilder() {
         if (compareFilterBuilder_ == null) {
-          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder>(
-                  compareFilter_,
+                  getCompareFilter(),
                   getParentForChildren(),
                   isClean());
           compareFilter_ = null;
         }
         return compareFilterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.QualifierFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.QualifierFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new QualifierFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.QualifierFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<QualifierFilter>
+        PARSER = new com.google.protobuf.AbstractParser<QualifierFilter>() {
+      @java.lang.Override
+      public QualifierFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QualifierFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QualifierFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QualifierFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.QualifierFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RandomRowFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RandomRowFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RandomRowFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required float chance = 1;
     /**
      * <code>required float chance = 1;</code>
+     * @return Whether the chance field is set.
      */
     boolean hasChance();
     /**
      * <code>required float chance = 1;</code>
+     * @return The chance.
      */
     float getChance();
   }
   /**
    * Protobuf type {@code hbase.pb.RandomRowFilter}
    */
-  public static final class RandomRowFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements RandomRowFilterOrBuilder {
+  public  static final class RandomRowFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RandomRowFilter)
+      RandomRowFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RandomRowFilter.newBuilder() to construct.
-    private RandomRowFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RandomRowFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RandomRowFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RandomRowFilter defaultInstance;
-    public static RandomRowFilter getDefaultInstance() {
-      return defaultInstance;
+    private RandomRowFilter() {
     }
 
-    public RandomRowFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RandomRowFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RandomRowFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -10805,16 +12519,16 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 13: {
               bitField0_ |= 0x00000001;
               chance_ = input.readFloat();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -10823,7 +12537,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -10834,52 +12548,38 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RandomRowFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RandomRowFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RandomRowFilter> PARSER =
-        new com.google.protobuf.AbstractParser<RandomRowFilter>() {
-      public RandomRowFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RandomRowFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RandomRowFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required float chance = 1;
     public static final int CHANCE_FIELD_NUMBER = 1;
     private float chance_;
     /**
      * <code>required float chance = 1;</code>
+     * @return Whether the chance field is set.
      */
     public boolean hasChance() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required float chance = 1;</code>
+     * @return The chance.
      */
     public float getChance() {
       return chance_;
     }
 
-    private void initFields() {
-      chance_ = 0F;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasChance()) {
         memoizedIsInitialized = 0;
@@ -10889,35 +12589,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeFloat(1, chance_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(1, chance_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -10930,34 +12623,44 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter) obj;
 
-      boolean result = true;
-      result = result && (hasChance() == other.hasChance());
+      if (hasChance() != other.hasChance()) return false;
       if (hasChance()) {
-        result = result && (Float.floatToIntBits(getChance())    == Float.floatToIntBits(other.getChance()));
+        if (java.lang.Float.floatToIntBits(getChance())
+            != java.lang.Float.floatToIntBits(
+                other.getChance())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasChance()) {
         hash = (37 * hash) + CHANCE_FIELD_NUMBER;
-        hash = (53 * hash) + Float.floatToIntBits(
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getChance());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -10981,46 +12684,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -11028,14 +12744,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.RandomRowFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RandomRowFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RandomRowFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RandomRowFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -11048,18 +12766,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         chance_ = 0F;
@@ -11067,19 +12783,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RandomRowFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -11088,19 +12803,53 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.chance_ = chance_;
           to_bitField0_ |= 0x00000001;
         }
-        result.chance_ = chance_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter)other);
@@ -11115,18 +12864,20 @@ public final class FilterProtos {
         if (other.hasChance()) {
           setChance(other.getChance());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasChance()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11136,7 +12887,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -11146,22 +12897,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required float chance = 1;
       private float chance_ ;
       /**
        * <code>required float chance = 1;</code>
+       * @return Whether the chance field is set.
        */
       public boolean hasChance() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required float chance = 1;</code>
+       * @return The chance.
        */
       public float getChance() {
         return chance_;
       }
       /**
        * <code>required float chance = 1;</code>
+       * @param value The chance to set.
+       * @return This builder for chaining.
        */
       public Builder setChance(float value) {
         bitField0_ |= 0x00000001;
@@ -11171,6 +12925,7 @@ public final class FilterProtos {
       }
       /**
        * <code>required float chance = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearChance() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -11178,28 +12933,71 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RandomRowFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RandomRowFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RandomRowFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RandomRowFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RandomRowFilter>
+        PARSER = new com.google.protobuf.AbstractParser<RandomRowFilter>() {
+      @java.lang.Override
+      public RandomRowFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RandomRowFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RandomRowFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RandomRowFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RandomRowFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RowFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RowFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RowFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     boolean hasCompareFilter();
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter();
     /**
@@ -11210,36 +13008,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.RowFilter}
    */
-  public static final class RowFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements RowFilterOrBuilder {
+  public  static final class RowFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RowFilter)
+      RowFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RowFilter.newBuilder() to construct.
-    private RowFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RowFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RowFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RowFilter defaultInstance;
-    public static RowFilter getDefaultInstance() {
-      return defaultInstance;
+    private RowFilter() {
     }
 
-    public RowFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RowFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RowFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -11251,16 +13051,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = compareFilter_.toBuilder();
               }
               compareFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.PARSER, extensionRegistry);
@@ -11271,13 +13064,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -11288,58 +13088,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RowFilter> PARSER =
-        new com.google.protobuf.AbstractParser<RowFilter>() {
-      public RowFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RowFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RowFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     public static final int COMPARE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     public boolean hasCompareFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
 
-    private void initFields() {
-      compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareFilter()) {
         memoizedIsInitialized = 0;
@@ -11353,35 +13139,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, compareFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getCompareFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, compareFilter_);
+          .computeMessageSize(1, getCompareFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -11394,34 +13173,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareFilter() == other.hasCompareFilter());
+      if (hasCompareFilter() != other.hasCompareFilter()) return false;
       if (hasCompareFilter()) {
-        result = result && getCompareFilter()
-            .equals(other.getCompareFilter());
+        if (!getCompareFilter()
+            .equals(other.getCompareFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareFilter()) {
         hash = (37 * hash) + COMPARE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getCompareFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -11445,46 +13232,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -11492,14 +13292,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.RowFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RowFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -11512,23 +13314,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCompareFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
         } else {
           compareFilterBuilder_.clear();
         }
@@ -11536,19 +13336,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -11557,23 +13356,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (compareFilterBuilder_ == null) {
+            result.compareFilter_ = compareFilter_;
+          } else {
+            result.compareFilter_ = compareFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (compareFilterBuilder_ == null) {
-          result.compareFilter_ = compareFilter_;
-        } else {
-          result.compareFilter_ = compareFilterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter)other);
@@ -11588,22 +13421,23 @@ public final class FilterProtos {
         if (other.hasCompareFilter()) {
           mergeCompareFilter(other.getCompareFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareFilter()) {
-          
           return false;
         }
         if (!getCompareFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11613,7 +13447,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -11623,22 +13457,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareFilter compare_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> compareFilterBuilder_;
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return Whether the compareFilter field is set.
        */
       public boolean hasCompareFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return The compareFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          return compareFilter_;
+          return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         } else {
           return compareFilterBuilder_.getMessage();
         }
@@ -11678,7 +13513,8 @@ public final class FilterProtos {
        */
       public Builder mergeCompareFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter value) {
         if (compareFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              compareFilter_ != null &&
               compareFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance()) {
             compareFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.newBuilder(compareFilter_).mergeFrom(value).buildPartial();
@@ -11697,7 +13533,7 @@ public final class FilterProtos {
        */
       public Builder clearCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
           onChanged();
         } else {
           compareFilterBuilder_.clear();
@@ -11720,47 +13556,91 @@ public final class FilterProtos {
         if (compareFilterBuilder_ != null) {
           return compareFilterBuilder_.getMessageOrBuilder();
         } else {
-          return compareFilter_;
+          return compareFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> 
           getCompareFilterFieldBuilder() {
         if (compareFilterBuilder_ == null) {
-          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder>(
-                  compareFilter_,
+                  getCompareFilter(),
                   getParentForChildren(),
                   isClean());
           compareFilter_ = null;
         }
         return compareFilterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RowFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RowFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RowFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RowFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RowFilter>
+        PARSER = new com.google.protobuf.AbstractParser<RowFilter>() {
+      @java.lang.Override
+      public RowFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RowFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RowFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RowFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface SingleColumnValueExcludeFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface SingleColumnValueExcludeFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.SingleColumnValueExcludeFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;
     /**
      * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+     * @return Whether the singleColumnValueFilter field is set.
      */
     boolean hasSingleColumnValueFilter();
     /**
      * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+     * @return The singleColumnValueFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getSingleColumnValueFilter();
     /**
@@ -11771,36 +13651,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.SingleColumnValueExcludeFilter}
    */
-  public static final class SingleColumnValueExcludeFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements SingleColumnValueExcludeFilterOrBuilder {
+  public  static final class SingleColumnValueExcludeFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.SingleColumnValueExcludeFilter)
+      SingleColumnValueExcludeFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use SingleColumnValueExcludeFilter.newBuilder() to construct.
-    private SingleColumnValueExcludeFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SingleColumnValueExcludeFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SingleColumnValueExcludeFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final SingleColumnValueExcludeFilter defaultInstance;
-    public static SingleColumnValueExcludeFilter getDefaultInstance() {
-      return defaultInstance;
+    private SingleColumnValueExcludeFilter() {
     }
 
-    public SingleColumnValueExcludeFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SingleColumnValueExcludeFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private SingleColumnValueExcludeFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -11812,16 +13694,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = singleColumnValueFilter_.toBuilder();
               }
               singleColumnValueFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.PARSER, extensionRegistry);
@@ -11832,13 +13707,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -11849,58 +13731,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueExcludeFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SingleColumnValueExcludeFilter> PARSER =
-        new com.google.protobuf.AbstractParser<SingleColumnValueExcludeFilter>() {
-      public SingleColumnValueExcludeFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SingleColumnValueExcludeFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SingleColumnValueExcludeFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;
     public static final int SINGLE_COLUMN_VALUE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter singleColumnValueFilter_;
     /**
      * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+     * @return Whether the singleColumnValueFilter field is set.
      */
     public boolean hasSingleColumnValueFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+     * @return The singleColumnValueFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getSingleColumnValueFilter() {
-      return singleColumnValueFilter_;
+      return singleColumnValueFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance() : singleColumnValueFilter_;
     }
     /**
      * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder getSingleColumnValueFilterOrBuilder() {
-      return singleColumnValueFilter_;
+      return singleColumnValueFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance() : singleColumnValueFilter_;
     }
 
-    private void initFields() {
-      singleColumnValueFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasSingleColumnValueFilter()) {
         memoizedIsInitialized = 0;
@@ -11914,35 +13782,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, singleColumnValueFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getSingleColumnValueFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, singleColumnValueFilter_);
+          .computeMessageSize(1, getSingleColumnValueFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -11955,34 +13816,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter) obj;
 
-      boolean result = true;
-      result = result && (hasSingleColumnValueFilter() == other.hasSingleColumnValueFilter());
+      if (hasSingleColumnValueFilter() != other.hasSingleColumnValueFilter()) return false;
       if (hasSingleColumnValueFilter()) {
-        result = result && getSingleColumnValueFilter()
-            .equals(other.getSingleColumnValueFilter());
+        if (!getSingleColumnValueFilter()
+            .equals(other.getSingleColumnValueFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasSingleColumnValueFilter()) {
         hash = (37 * hash) + SINGLE_COLUMN_VALUE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getSingleColumnValueFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12006,46 +13875,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -12053,14 +13935,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.SingleColumnValueExcludeFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.SingleColumnValueExcludeFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueExcludeFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -12073,23 +13957,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getSingleColumnValueFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (singleColumnValueFilterBuilder_ == null) {
-          singleColumnValueFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance();
+          singleColumnValueFilter_ = null;
         } else {
           singleColumnValueFilterBuilder_.clear();
         }
@@ -12097,19 +13979,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -12118,23 +13999,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (singleColumnValueFilterBuilder_ == null) {
+            result.singleColumnValueFilter_ = singleColumnValueFilter_;
+          } else {
+            result.singleColumnValueFilter_ = singleColumnValueFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (singleColumnValueFilterBuilder_ == null) {
-          result.singleColumnValueFilter_ = singleColumnValueFilter_;
-        } else {
-          result.singleColumnValueFilter_ = singleColumnValueFilterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter)other);
@@ -12149,22 +14064,23 @@ public final class FilterProtos {
         if (other.hasSingleColumnValueFilter()) {
           mergeSingleColumnValueFilter(other.getSingleColumnValueFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasSingleColumnValueFilter()) {
-          
           return false;
         }
         if (!getSingleColumnValueFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -12174,7 +14090,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -12184,22 +14100,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter singleColumnValueFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter singleColumnValueFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder> singleColumnValueFilterBuilder_;
       /**
        * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+       * @return Whether the singleColumnValueFilter field is set.
        */
       public boolean hasSingleColumnValueFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
+       * @return The singleColumnValueFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getSingleColumnValueFilter() {
         if (singleColumnValueFilterBuilder_ == null) {
-          return singleColumnValueFilter_;
+          return singleColumnValueFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance() : singleColumnValueFilter_;
         } else {
           return singleColumnValueFilterBuilder_.getMessage();
         }
@@ -12239,7 +14156,8 @@ public final class FilterProtos {
        */
       public Builder mergeSingleColumnValueFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter value) {
         if (singleColumnValueFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              singleColumnValueFilter_ != null &&
               singleColumnValueFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance()) {
             singleColumnValueFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.newBuilder(singleColumnValueFilter_).mergeFrom(value).buildPartial();
@@ -12258,7 +14176,7 @@ public final class FilterProtos {
        */
       public Builder clearSingleColumnValueFilter() {
         if (singleColumnValueFilterBuilder_ == null) {
-          singleColumnValueFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance();
+          singleColumnValueFilter_ = null;
           onChanged();
         } else {
           singleColumnValueFilterBuilder_.clear();
@@ -12281,77 +14199,124 @@ public final class FilterProtos {
         if (singleColumnValueFilterBuilder_ != null) {
           return singleColumnValueFilterBuilder_.getMessageOrBuilder();
         } else {
-          return singleColumnValueFilter_;
+          return singleColumnValueFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance() : singleColumnValueFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.SingleColumnValueFilter single_column_value_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder> 
           getSingleColumnValueFilterFieldBuilder() {
         if (singleColumnValueFilterBuilder_ == null) {
-          singleColumnValueFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          singleColumnValueFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder>(
-                  singleColumnValueFilter_,
+                  getSingleColumnValueFilter(),
                   getParentForChildren(),
                   isClean());
           singleColumnValueFilter_ = null;
         }
         return singleColumnValueFilterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.SingleColumnValueExcludeFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.SingleColumnValueExcludeFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SingleColumnValueExcludeFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.SingleColumnValueExcludeFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SingleColumnValueExcludeFilter>
+        PARSER = new com.google.protobuf.AbstractParser<SingleColumnValueExcludeFilter>() {
+      @java.lang.Override
+      public SingleColumnValueExcludeFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SingleColumnValueExcludeFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SingleColumnValueExcludeFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SingleColumnValueExcludeFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueExcludeFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface SingleColumnValueFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface SingleColumnValueFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.SingleColumnValueFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes column_family = 1;
     /**
      * <code>optional bytes column_family = 1;</code>
+     * @return Whether the columnFamily field is set.
      */
     boolean hasColumnFamily();
     /**
      * <code>optional bytes column_family = 1;</code>
+     * @return The columnFamily.
      */
     com.google.protobuf.ByteString getColumnFamily();
 
-    // optional bytes column_qualifier = 2;
     /**
      * <code>optional bytes column_qualifier = 2;</code>
+     * @return Whether the columnQualifier field is set.
      */
     boolean hasColumnQualifier();
     /**
      * <code>optional bytes column_qualifier = 2;</code>
+     * @return The columnQualifier.
      */
     com.google.protobuf.ByteString getColumnQualifier();
 
-    // required .hbase.pb.CompareType compare_op = 3;
     /**
      * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+     * @return Whether the compareOp field is set.
      */
     boolean hasCompareOp();
     /**
      * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+     * @return The compareOp.
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp();
 
-    // required .hbase.pb.Comparator comparator = 4;
     /**
      * <code>required .hbase.pb.Comparator comparator = 4;</code>
+     * @return Whether the comparator field is set.
      */
     boolean hasComparator();
     /**
      * <code>required .hbase.pb.Comparator comparator = 4;</code>
+     * @return The comparator.
      */
     org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator();
     /**
@@ -12359,59 +14324,66 @@ public final class FilterProtos {
      */
     org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder getComparatorOrBuilder();
 
-    // optional bool filter_if_missing = 5;
     /**
      * <code>optional bool filter_if_missing = 5;</code>
+     * @return Whether the filterIfMissing field is set.
      */
     boolean hasFilterIfMissing();
     /**
      * <code>optional bool filter_if_missing = 5;</code>
+     * @return The filterIfMissing.
      */
     boolean getFilterIfMissing();
 
-    // optional bool latest_version_only = 6;
     /**
      * <code>optional bool latest_version_only = 6;</code>
+     * @return Whether the latestVersionOnly field is set.
      */
     boolean hasLatestVersionOnly();
     /**
      * <code>optional bool latest_version_only = 6;</code>
+     * @return The latestVersionOnly.
      */
     boolean getLatestVersionOnly();
   }
   /**
    * Protobuf type {@code hbase.pb.SingleColumnValueFilter}
    */
-  public static final class SingleColumnValueFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements SingleColumnValueFilterOrBuilder {
+  public  static final class SingleColumnValueFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.SingleColumnValueFilter)
+      SingleColumnValueFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use SingleColumnValueFilter.newBuilder() to construct.
-    private SingleColumnValueFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SingleColumnValueFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SingleColumnValueFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final SingleColumnValueFilter defaultInstance;
-    public static SingleColumnValueFilter getDefaultInstance() {
-      return defaultInstance;
+    private SingleColumnValueFilter() {
+      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+      columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+      compareOp_ = 0;
     }
 
-    public SingleColumnValueFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SingleColumnValueFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private SingleColumnValueFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -12423,13 +14395,6 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               columnFamily_ = input.readBytes();
@@ -12442,18 +14407,19 @@ public final class FilterProtos {
             }
             case 24: {
               int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType value = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(3, rawValue);
               } else {
                 bitField0_ |= 0x00000004;
-                compareOp_ = value;
+                compareOp_ = rawValue;
               }
               break;
             }
             case 34: {
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+              if (((bitField0_ & 0x00000008) != 0)) {
                 subBuilder = comparator_.toBuilder();
               }
               comparator_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.PARSER, extensionRegistry);
@@ -12474,13 +14440,20 @@ public final class FilterProtos {
               latestVersionOnly_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -12491,143 +14464,131 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SingleColumnValueFilter> PARSER =
-        new com.google.protobuf.AbstractParser<SingleColumnValueFilter>() {
-      public SingleColumnValueFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SingleColumnValueFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SingleColumnValueFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes column_family = 1;
     public static final int COLUMN_FAMILY_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString columnFamily_;
     /**
      * <code>optional bytes column_family = 1;</code>
+     * @return Whether the columnFamily field is set.
      */
     public boolean hasColumnFamily() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes column_family = 1;</code>
+     * @return The columnFamily.
      */
     public com.google.protobuf.ByteString getColumnFamily() {
       return columnFamily_;
     }
 
-    // optional bytes column_qualifier = 2;
     public static final int COLUMN_QUALIFIER_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString columnQualifier_;
     /**
      * <code>optional bytes column_qualifier = 2;</code>
+     * @return Whether the columnQualifier field is set.
      */
     public boolean hasColumnQualifier() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes column_qualifier = 2;</code>
+     * @return The columnQualifier.
      */
     public com.google.protobuf.ByteString getColumnQualifier() {
       return columnQualifier_;
     }
 
-    // required .hbase.pb.CompareType compare_op = 3;
     public static final int COMPARE_OP_FIELD_NUMBER = 3;
-    private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType compareOp_;
+    private int compareOp_;
     /**
      * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+     * @return Whether the compareOp field is set.
      */
     public boolean hasCompareOp() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+     * @return The compareOp.
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp() {
-      return compareOp_;
+      @SuppressWarnings("deprecation")
+      org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType result = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(compareOp_);
+      return result == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS : result;
     }
 
-    // required .hbase.pb.Comparator comparator = 4;
     public static final int COMPARATOR_FIELD_NUMBER = 4;
     private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_;
     /**
      * <code>required .hbase.pb.Comparator comparator = 4;</code>
+     * @return Whether the comparator field is set.
      */
     public boolean hasComparator() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required .hbase.pb.Comparator comparator = 4;</code>
+     * @return The comparator.
      */
     public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator() {
-      return comparator_;
+      return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
     }
     /**
      * <code>required .hbase.pb.Comparator comparator = 4;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder getComparatorOrBuilder() {
-      return comparator_;
+      return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
     }
 
-    // optional bool filter_if_missing = 5;
     public static final int FILTER_IF_MISSING_FIELD_NUMBER = 5;
     private boolean filterIfMissing_;
     /**
      * <code>optional bool filter_if_missing = 5;</code>
+     * @return Whether the filterIfMissing field is set.
      */
     public boolean hasFilterIfMissing() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>optional bool filter_if_missing = 5;</code>
+     * @return The filterIfMissing.
      */
     public boolean getFilterIfMissing() {
       return filterIfMissing_;
     }
 
-    // optional bool latest_version_only = 6;
     public static final int LATEST_VERSION_ONLY_FIELD_NUMBER = 6;
     private boolean latestVersionOnly_;
     /**
      * <code>optional bool latest_version_only = 6;</code>
+     * @return Whether the latestVersionOnly field is set.
      */
     public boolean hasLatestVersionOnly() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>optional bool latest_version_only = 6;</code>
+     * @return The latestVersionOnly.
      */
     public boolean getLatestVersionOnly() {
       return latestVersionOnly_;
     }
 
-    private void initFields() {
-      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
-      comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
-      filterIfMissing_ = false;
-      latestVersionOnly_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareOp()) {
         memoizedIsInitialized = 0;
@@ -12645,70 +14606,63 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, columnFamily_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(2, columnQualifier_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, compareOp_.getNumber());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeEnum(3, compareOp_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, comparator_);
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeMessage(4, getComparator());
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeBool(5, filterIfMissing_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeBool(6, latestVersionOnly_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, columnFamily_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, columnQualifier_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, compareOp_.getNumber());
+          .computeEnumSize(3, compareOp_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, comparator_);
+          .computeMessageSize(4, getComparator());
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(5, filterIfMissing_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(6, latestVersionOnly_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -12721,50 +14675,46 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter) obj;
 
-      boolean result = true;
-      result = result && (hasColumnFamily() == other.hasColumnFamily());
+      if (hasColumnFamily() != other.hasColumnFamily()) return false;
       if (hasColumnFamily()) {
-        result = result && getColumnFamily()
-            .equals(other.getColumnFamily());
+        if (!getColumnFamily()
+            .equals(other.getColumnFamily())) return false;
       }
-      result = result && (hasColumnQualifier() == other.hasColumnQualifier());
+      if (hasColumnQualifier() != other.hasColumnQualifier()) return false;
       if (hasColumnQualifier()) {
-        result = result && getColumnQualifier()
-            .equals(other.getColumnQualifier());
+        if (!getColumnQualifier()
+            .equals(other.getColumnQualifier())) return false;
       }
-      result = result && (hasCompareOp() == other.hasCompareOp());
+      if (hasCompareOp() != other.hasCompareOp()) return false;
       if (hasCompareOp()) {
-        result = result &&
-            (getCompareOp() == other.getCompareOp());
+        if (compareOp_ != other.compareOp_) return false;
       }
-      result = result && (hasComparator() == other.hasComparator());
+      if (hasComparator() != other.hasComparator()) return false;
       if (hasComparator()) {
-        result = result && getComparator()
-            .equals(other.getComparator());
+        if (!getComparator()
+            .equals(other.getComparator())) return false;
       }
-      result = result && (hasFilterIfMissing() == other.hasFilterIfMissing());
+      if (hasFilterIfMissing() != other.hasFilterIfMissing()) return false;
       if (hasFilterIfMissing()) {
-        result = result && (getFilterIfMissing()
-            == other.getFilterIfMissing());
+        if (getFilterIfMissing()
+            != other.getFilterIfMissing()) return false;
       }
-      result = result && (hasLatestVersionOnly() == other.hasLatestVersionOnly());
+      if (hasLatestVersionOnly() != other.hasLatestVersionOnly()) return false;
       if (hasLatestVersionOnly()) {
-        result = result && (getLatestVersionOnly()
-            == other.getLatestVersionOnly());
+        if (getLatestVersionOnly()
+            != other.getLatestVersionOnly()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasColumnFamily()) {
         hash = (37 * hash) + COLUMN_FAMILY_FIELD_NUMBER;
         hash = (53 * hash) + getColumnFamily().hashCode();
@@ -12775,7 +14725,7 @@ public final class FilterProtos {
       }
       if (hasCompareOp()) {
         hash = (37 * hash) + COMPARE_OP_FIELD_NUMBER;
-        hash = (53 * hash) + hashEnum(getCompareOp());
+        hash = (53 * hash) + compareOp_;
       }
       if (hasComparator()) {
         hash = (37 * hash) + COMPARATOR_FIELD_NUMBER;
@@ -12783,17 +14733,30 @@ public final class FilterProtos {
       }
       if (hasFilterIfMissing()) {
         hash = (37 * hash) + FILTER_IF_MISSING_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getFilterIfMissing());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getFilterIfMissing());
       }
       if (hasLatestVersionOnly()) {
         hash = (37 * hash) + LATEST_VERSION_ONLY_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getLatestVersionOnly());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getLatestVersionOnly());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12817,46 +14780,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -12864,14 +14840,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.SingleColumnValueFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.SingleColumnValueFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -12884,29 +14862,27 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getComparatorFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         columnFamily_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
         columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
-        compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+        compareOp_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         if (comparatorBuilder_ == null) {
-          comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
+          comparator_ = null;
         } else {
           comparatorBuilder_.clear();
         }
@@ -12918,19 +14894,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SingleColumnValueFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -12939,43 +14914,77 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.columnFamily_ = columnFamily_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.columnQualifier_ = columnQualifier_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.compareOp_ = compareOp_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          if (comparatorBuilder_ == null) {
+            result.comparator_ = comparator_;
+          } else {
+            result.comparator_ = comparatorBuilder_.build();
+          }
           to_bitField0_ |= 0x00000008;
         }
-        if (comparatorBuilder_ == null) {
-          result.comparator_ = comparator_;
-        } else {
-          result.comparator_ = comparatorBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.filterIfMissing_ = filterIfMissing_;
           to_bitField0_ |= 0x00000010;
         }
-        result.filterIfMissing_ = filterIfMissing_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.latestVersionOnly_ = latestVersionOnly_;
           to_bitField0_ |= 0x00000020;
         }
-        result.latestVersionOnly_ = latestVersionOnly_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter)other);
@@ -13005,26 +15014,26 @@ public final class FilterProtos {
         if (other.hasLatestVersionOnly()) {
           setLatestVersionOnly(other.getLatestVersionOnly());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareOp()) {
-          
           return false;
         }
         if (!hasComparator()) {
-          
           return false;
         }
         if (!getComparator().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -13034,7 +15043,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -13044,22 +15053,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // optional bytes column_family = 1;
       private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes column_family = 1;</code>
+       * @return Whether the columnFamily field is set.
        */
       public boolean hasColumnFamily() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes column_family = 1;</code>
+       * @return The columnFamily.
        */
       public com.google.protobuf.ByteString getColumnFamily() {
         return columnFamily_;
       }
       /**
        * <code>optional bytes column_family = 1;</code>
+       * @param value The columnFamily to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnFamily(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -13072,6 +15084,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes column_family = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnFamily() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -13080,22 +15093,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes column_qualifier = 2;
       private com.google.protobuf.ByteString columnQualifier_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes column_qualifier = 2;</code>
+       * @return Whether the columnQualifier field is set.
        */
       public boolean hasColumnQualifier() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes column_qualifier = 2;</code>
+       * @return The columnQualifier.
        */
       public com.google.protobuf.ByteString getColumnQualifier() {
         return columnQualifier_;
       }
       /**
        * <code>optional bytes column_qualifier = 2;</code>
+       * @param value The columnQualifier to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnQualifier(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -13108,6 +15124,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes column_qualifier = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnQualifier() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -13116,58 +15133,65 @@ public final class FilterProtos {
         return this;
       }
 
-      // required .hbase.pb.CompareType compare_op = 3;
-      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+      private int compareOp_ = 0;
       /**
        * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+       * @return Whether the compareOp field is set.
        */
       public boolean hasCompareOp() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+       * @return The compareOp.
        */
       public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType getCompareOp() {
-        return compareOp_;
+        @SuppressWarnings("deprecation")
+        org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType result = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.valueOf(compareOp_);
+        return result == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS : result;
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+       * @param value The compareOp to set.
+       * @return This builder for chaining.
        */
       public Builder setCompareOp(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000004;
-        compareOp_ = value;
+        compareOp_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
        * <code>required .hbase.pb.CompareType compare_op = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCompareOp() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        compareOp_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.CompareType.LESS;
+        compareOp_ = 0;
         onChanged();
         return this;
       }
 
-      // required .hbase.pb.Comparator comparator = 4;
-      private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator comparator_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder> comparatorBuilder_;
       /**
        * <code>required .hbase.pb.Comparator comparator = 4;</code>
+       * @return Whether the comparator field is set.
        */
       public boolean hasComparator() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required .hbase.pb.Comparator comparator = 4;</code>
+       * @return The comparator.
        */
       public org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator getComparator() {
         if (comparatorBuilder_ == null) {
-          return comparator_;
+          return comparator_ == null ? org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
         } else {
           return comparatorBuilder_.getMessage();
         }
@@ -13207,7 +15231,8 @@ public final class FilterProtos {
        */
       public Builder mergeComparator(org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator value) {
         if (comparatorBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+          if (((bitField0_ & 0x00000008) != 0) &&
+              comparator_ != null &&
               comparator_ != org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance()) {
             comparator_ =
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.newBuilder(comparator_).mergeFrom(value).buildPartial();
@@ -13226,7 +15251,7 @@ public final class FilterProtos {
        */
       public Builder clearComparator() {
         if (comparatorBuilder_ == null) {
-          comparator_ = org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance();
+          comparator_ = null;
           onChanged();
         } else {
           comparatorBuilder_.clear();
@@ -13249,19 +15274,20 @@ public final class FilterProtos {
         if (comparatorBuilder_ != null) {
           return comparatorBuilder_.getMessageOrBuilder();
         } else {
-          return comparator_;
+          return comparator_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.getDefaultInstance() : comparator_;
         }
       }
       /**
        * <code>required .hbase.pb.Comparator comparator = 4;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder> 
           getComparatorFieldBuilder() {
         if (comparatorBuilder_ == null) {
-          comparatorBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          comparatorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.Comparator.Builder, org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.ComparatorOrBuilder>(
-                  comparator_,
+                  getComparator(),
                   getParentForChildren(),
                   isClean());
           comparator_ = null;
@@ -13269,22 +15295,25 @@ public final class FilterProtos {
         return comparatorBuilder_;
       }
 
-      // optional bool filter_if_missing = 5;
       private boolean filterIfMissing_ ;
       /**
        * <code>optional bool filter_if_missing = 5;</code>
+       * @return Whether the filterIfMissing field is set.
        */
       public boolean hasFilterIfMissing() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>optional bool filter_if_missing = 5;</code>
+       * @return The filterIfMissing.
        */
       public boolean getFilterIfMissing() {
         return filterIfMissing_;
       }
       /**
        * <code>optional bool filter_if_missing = 5;</code>
+       * @param value The filterIfMissing to set.
+       * @return This builder for chaining.
        */
       public Builder setFilterIfMissing(boolean value) {
         bitField0_ |= 0x00000010;
@@ -13294,6 +15323,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool filter_if_missing = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilterIfMissing() {
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -13302,22 +15332,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool latest_version_only = 6;
       private boolean latestVersionOnly_ ;
       /**
        * <code>optional bool latest_version_only = 6;</code>
+       * @return Whether the latestVersionOnly field is set.
        */
       public boolean hasLatestVersionOnly() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>optional bool latest_version_only = 6;</code>
+       * @return The latestVersionOnly.
        */
       public boolean getLatestVersionOnly() {
         return latestVersionOnly_;
       }
       /**
        * <code>optional bool latest_version_only = 6;</code>
+       * @param value The latestVersionOnly to set.
+       * @return This builder for chaining.
        */
       public Builder setLatestVersionOnly(boolean value) {
         bitField0_ |= 0x00000020;
@@ -13327,6 +15360,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool latest_version_only = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLatestVersionOnly() {
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -13334,28 +15368,71 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.SingleColumnValueFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.SingleColumnValueFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SingleColumnValueFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.SingleColumnValueFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SingleColumnValueFilter>
+        PARSER = new com.google.protobuf.AbstractParser<SingleColumnValueFilter>() {
+      @java.lang.Override
+      public SingleColumnValueFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SingleColumnValueFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SingleColumnValueFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SingleColumnValueFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SingleColumnValueFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface SkipFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface SkipFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.SkipFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.Filter filter = 1;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     boolean hasFilter();
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter();
     /**
@@ -13366,36 +15443,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.SkipFilter}
    */
-  public static final class SkipFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements SkipFilterOrBuilder {
+  public  static final class SkipFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.SkipFilter)
+      SkipFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use SkipFilter.newBuilder() to construct.
-    private SkipFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SkipFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SkipFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final SkipFilter defaultInstance;
-    public static SkipFilter getDefaultInstance() {
-      return defaultInstance;
+    private SkipFilter() {
     }
 
-    public SkipFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SkipFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private SkipFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -13407,16 +15486,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = filter_.toBuilder();
               }
               filter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.PARSER, extensionRegistry);
@@ -13427,13 +15499,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -13444,58 +15523,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SkipFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SkipFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SkipFilter> PARSER =
-        new com.google.protobuf.AbstractParser<SkipFilter>() {
-      public SkipFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SkipFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SkipFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.Filter filter = 1;
     public static final int FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     public boolean hasFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder getFilterOrBuilder() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
 
-    private void initFields() {
-      filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasFilter()) {
         memoizedIsInitialized = 0;
@@ -13509,35 +15574,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, filter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, filter_);
+          .computeMessageSize(1, getFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -13550,34 +15608,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter) obj;
 
-      boolean result = true;
-      result = result && (hasFilter() == other.hasFilter());
+      if (hasFilter() != other.hasFilter()) return false;
       if (hasFilter()) {
-        result = result && getFilter()
-            .equals(other.getFilter());
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasFilter()) {
         hash = (37 * hash) + FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13601,46 +15667,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -13648,14 +15727,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.SkipFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.SkipFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SkipFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SkipFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -13668,23 +15749,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
         } else {
           filterBuilder_.clear();
         }
@@ -13692,19 +15771,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_SkipFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -13713,23 +15791,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (filterBuilder_ == null) {
+            result.filter_ = filter_;
+          } else {
+            result.filter_ = filterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (filterBuilder_ == null) {
-          result.filter_ = filter_;
-        } else {
-          result.filter_ = filterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter)other);
@@ -13744,22 +15856,23 @@ public final class FilterProtos {
         if (other.hasFilter()) {
           mergeFilter(other.getFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasFilter()) {
-          
           return false;
         }
         if (!getFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -13769,7 +15882,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -13779,22 +15892,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.Filter filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> filterBuilder_;
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return Whether the filter field is set.
        */
       public boolean hasFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return The filter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
         if (filterBuilder_ == null) {
-          return filter_;
+          return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         } else {
           return filterBuilder_.getMessage();
         }
@@ -13834,7 +15948,8 @@ public final class FilterProtos {
        */
       public Builder mergeFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter value) {
         if (filterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              filter_ != null &&
               filter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance()) {
             filter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.newBuilder(filter_).mergeFrom(value).buildPartial();
@@ -13853,7 +15968,7 @@ public final class FilterProtos {
        */
       public Builder clearFilter() {
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
           onChanged();
         } else {
           filterBuilder_.clear();
@@ -13876,97 +15991,147 @@ public final class FilterProtos {
         if (filterBuilder_ != null) {
           return filterBuilder_.getMessageOrBuilder();
         } else {
-          return filter_;
+          return filter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         }
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> 
           getFilterFieldBuilder() {
         if (filterBuilder_ == null) {
-          filterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          filterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder>(
-                  filter_,
+                  getFilter(),
                   getParentForChildren(),
                   isClean());
           filter_ = null;
         }
         return filterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.SkipFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.SkipFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SkipFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.SkipFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SkipFilter>
+        PARSER = new com.google.protobuf.AbstractParser<SkipFilter>() {
+      @java.lang.Override
+      public SkipFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SkipFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SkipFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SkipFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.SkipFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface TimestampsFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface TimestampsFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.TimestampsFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated int64 timestamps = 1 [packed = true];
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @return A list containing the timestamps.
      */
     java.util.List<java.lang.Long> getTimestampsList();
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @return The count of timestamps.
      */
     int getTimestampsCount();
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @param index The index of the element to return.
+     * @return The timestamps at the given index.
      */
     long getTimestamps(int index);
 
-    // optional bool can_hint = 2;
     /**
      * <code>optional bool can_hint = 2;</code>
+     * @return Whether the canHint field is set.
      */
     boolean hasCanHint();
     /**
      * <code>optional bool can_hint = 2;</code>
+     * @return The canHint.
      */
     boolean getCanHint();
   }
   /**
    * Protobuf type {@code hbase.pb.TimestampsFilter}
    */
-  public static final class TimestampsFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements TimestampsFilterOrBuilder {
+  public  static final class TimestampsFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.TimestampsFilter)
+      TimestampsFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use TimestampsFilter.newBuilder() to construct.
-    private TimestampsFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private TimestampsFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private TimestampsFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final TimestampsFilter defaultInstance;
-    public static TimestampsFilter getDefaultInstance() {
-      return defaultInstance;
+    private TimestampsFilter() {
+      timestamps_ = emptyLongList();
     }
 
-    public TimestampsFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TimestampsFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private TimestampsFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -13978,30 +16143,23 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                timestamps_ = new java.util.ArrayList<java.lang.Long>();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                timestamps_ = newLongList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              timestamps_.add(input.readInt64());
+              timestamps_.addLong(input.readInt64());
               break;
             }
             case 10: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
-                timestamps_ = new java.util.ArrayList<java.lang.Long>();
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                timestamps_ = newLongList();
                 mutable_bitField0_ |= 0x00000001;
               }
               while (input.getBytesUntilLimit() > 0) {
-                timestamps_.add(input.readInt64());
+                timestamps_.addLong(input.readInt64());
               }
               input.popLimit(limit);
               break;
@@ -14011,16 +16169,23 @@ public final class FilterProtos {
               canHint_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          timestamps_ = java.util.Collections.unmodifiableList(timestamps_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          timestamps_.makeImmutable(); // C
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -14031,34 +16196,20 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_TimestampsFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_TimestampsFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<TimestampsFilter> PARSER =
-        new com.google.protobuf.AbstractParser<TimestampsFilter>() {
-      public TimestampsFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new TimestampsFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<TimestampsFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // repeated int64 timestamps = 1 [packed = true];
     public static final int TIMESTAMPS_FIELD_NUMBER = 1;
-    private java.util.List<java.lang.Long> timestamps_;
+    private com.google.protobuf.Internal.LongList timestamps_;
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @return A list containing the timestamps.
      */
     public java.util.List<java.lang.Long>
         getTimestampsList() {
@@ -14066,66 +16217,69 @@ public final class FilterProtos {
     }
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @return The count of timestamps.
      */
     public int getTimestampsCount() {
       return timestamps_.size();
     }
     /**
      * <code>repeated int64 timestamps = 1 [packed = true];</code>
+     * @param index The index of the element to return.
+     * @return The timestamps at the given index.
      */
     public long getTimestamps(int index) {
-      return timestamps_.get(index);
+      return timestamps_.getLong(index);
     }
     private int timestampsMemoizedSerializedSize = -1;
 
-    // optional bool can_hint = 2;
     public static final int CAN_HINT_FIELD_NUMBER = 2;
     private boolean canHint_;
     /**
      * <code>optional bool can_hint = 2;</code>
+     * @return Whether the canHint field is set.
      */
     public boolean hasCanHint() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bool can_hint = 2;</code>
+     * @return The canHint.
      */
     public boolean getCanHint() {
       return canHint_;
     }
 
-    private void initFields() {
-      timestamps_ = java.util.Collections.emptyList();
-      canHint_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
       if (getTimestampsList().size() > 0) {
-        output.writeRawVarint32(10);
-        output.writeRawVarint32(timestampsMemoizedSerializedSize);
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(timestampsMemoizedSerializedSize);
       }
       for (int i = 0; i < timestamps_.size(); i++) {
-        output.writeInt64NoTag(timestamps_.get(i));
+        output.writeInt64NoTag(timestamps_.getLong(i));
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(2, canHint_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -14133,7 +16287,7 @@ public final class FilterProtos {
         int dataSize = 0;
         for (int i = 0; i < timestamps_.size(); i++) {
           dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt64SizeNoTag(timestamps_.get(i));
+            .computeInt64SizeNoTag(timestamps_.getLong(i));
         }
         size += dataSize;
         if (!getTimestampsList().isEmpty()) {
@@ -14143,20 +16297,13 @@ public final class FilterProtos {
         }
         timestampsMemoizedSerializedSize = dataSize;
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, canHint_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -14169,40 +16316,49 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter) obj;
 
-      boolean result = true;
-      result = result && getTimestampsList()
-          .equals(other.getTimestampsList());
-      result = result && (hasCanHint() == other.hasCanHint());
+      if (!getTimestampsList()
+          .equals(other.getTimestampsList())) return false;
+      if (hasCanHint() != other.hasCanHint()) return false;
       if (hasCanHint()) {
-        result = result && (getCanHint()
-            == other.getCanHint());
+        if (getCanHint()
+            != other.getCanHint()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getTimestampsCount() > 0) {
         hash = (37 * hash) + TIMESTAMPS_FIELD_NUMBER;
         hash = (53 * hash) + getTimestampsList().hashCode();
       }
       if (hasCanHint()) {
         hash = (37 * hash) + CAN_HINT_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getCanHint());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getCanHint());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -14226,46 +16382,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -14273,14 +16442,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.TimestampsFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.TimestampsFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_TimestampsFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_TimestampsFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -14293,40 +16464,37 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
-        timestamps_ = java.util.Collections.emptyList();
+        timestamps_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
         canHint_ = false;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_TimestampsFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -14335,24 +16503,58 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          timestamps_ = java.util.Collections.unmodifiableList(timestamps_);
+        if (((bitField0_ & 0x00000001) != 0)) {
+          timestamps_.makeImmutable();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.timestamps_ = timestamps_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.canHint_ = canHint_;
           to_bitField0_ |= 0x00000001;
         }
-        result.canHint_ = canHint_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter)other);
@@ -14377,14 +16579,17 @@ public final class FilterProtos {
         if (other.hasCanHint()) {
           setCanHint(other.getCanHint());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -14394,7 +16599,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -14404,88 +16609,104 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // repeated int64 timestamps = 1 [packed = true];
-      private java.util.List<java.lang.Long> timestamps_ = java.util.Collections.emptyList();
+      private com.google.protobuf.Internal.LongList timestamps_ = emptyLongList();
       private void ensureTimestampsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          timestamps_ = new java.util.ArrayList<java.lang.Long>(timestamps_);
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          timestamps_ = mutableCopy(timestamps_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @return A list containing the timestamps.
        */
       public java.util.List<java.lang.Long>
           getTimestampsList() {
-        return java.util.Collections.unmodifiableList(timestamps_);
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(timestamps_) : timestamps_;
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @return The count of timestamps.
        */
       public int getTimestampsCount() {
         return timestamps_.size();
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @param index The index of the element to return.
+       * @return The timestamps at the given index.
        */
       public long getTimestamps(int index) {
-        return timestamps_.get(index);
+        return timestamps_.getLong(index);
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @param index The index to set the value at.
+       * @param value The timestamps to set.
+       * @return This builder for chaining.
        */
       public Builder setTimestamps(
           int index, long value) {
         ensureTimestampsIsMutable();
-        timestamps_.set(index, value);
+        timestamps_.setLong(index, value);
         onChanged();
         return this;
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @param value The timestamps to add.
+       * @return This builder for chaining.
        */
       public Builder addTimestamps(long value) {
         ensureTimestampsIsMutable();
-        timestamps_.add(value);
+        timestamps_.addLong(value);
         onChanged();
         return this;
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @param values The timestamps to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTimestamps(
           java.lang.Iterable<? extends java.lang.Long> values) {
         ensureTimestampsIsMutable();
-        super.addAll(values, timestamps_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, timestamps_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated int64 timestamps = 1 [packed = true];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTimestamps() {
-        timestamps_ = java.util.Collections.emptyList();
+        timestamps_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
 
-      // optional bool can_hint = 2;
       private boolean canHint_ ;
       /**
        * <code>optional bool can_hint = 2;</code>
+       * @return Whether the canHint field is set.
        */
       public boolean hasCanHint() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bool can_hint = 2;</code>
+       * @return The canHint.
        */
       public boolean getCanHint() {
         return canHint_;
       }
       /**
        * <code>optional bool can_hint = 2;</code>
+       * @param value The canHint to set.
+       * @return This builder for chaining.
        */
       public Builder setCanHint(boolean value) {
         bitField0_ |= 0x00000002;
@@ -14495,6 +16716,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool can_hint = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCanHint() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -14502,28 +16724,71 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.TimestampsFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.TimestampsFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new TimestampsFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.TimestampsFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<TimestampsFilter>
+        PARSER = new com.google.protobuf.AbstractParser<TimestampsFilter>() {
+      @java.lang.Override
+      public TimestampsFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TimestampsFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TimestampsFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TimestampsFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.TimestampsFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ValueFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ValueFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ValueFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     boolean hasCompareFilter();
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter();
     /**
@@ -14534,36 +16799,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.ValueFilter}
    */
-  public static final class ValueFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements ValueFilterOrBuilder {
+  public  static final class ValueFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ValueFilter)
+      ValueFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ValueFilter.newBuilder() to construct.
-    private ValueFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ValueFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ValueFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ValueFilter defaultInstance;
-    public static ValueFilter getDefaultInstance() {
-      return defaultInstance;
+    private ValueFilter() {
     }
 
-    public ValueFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ValueFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ValueFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -14575,16 +16842,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = compareFilter_.toBuilder();
               }
               compareFilter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.PARSER, extensionRegistry);
@@ -14595,13 +16855,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -14612,58 +16879,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ValueFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ValueFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ValueFilter> PARSER =
-        new com.google.protobuf.AbstractParser<ValueFilter>() {
-      public ValueFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ValueFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ValueFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.CompareFilter compare_filter = 1;
     public static final int COMPARE_FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return Whether the compareFilter field is set.
      */
     public boolean hasCompareFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+     * @return The compareFilter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
     /**
      * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder getCompareFilterOrBuilder() {
-      return compareFilter_;
+      return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
     }
 
-    private void initFields() {
-      compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasCompareFilter()) {
         memoizedIsInitialized = 0;
@@ -14677,35 +16930,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, compareFilter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getCompareFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, compareFilter_);
+          .computeMessageSize(1, getCompareFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -14718,34 +16964,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter) obj;
 
-      boolean result = true;
-      result = result && (hasCompareFilter() == other.hasCompareFilter());
+      if (hasCompareFilter() != other.hasCompareFilter()) return false;
       if (hasCompareFilter()) {
-        result = result && getCompareFilter()
-            .equals(other.getCompareFilter());
+        if (!getCompareFilter()
+            .equals(other.getCompareFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasCompareFilter()) {
         hash = (37 * hash) + COMPARE_FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getCompareFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -14769,46 +17023,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -14816,14 +17083,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.ValueFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ValueFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ValueFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ValueFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -14836,23 +17105,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCompareFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
         } else {
           compareFilterBuilder_.clear();
         }
@@ -14860,19 +17127,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_ValueFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -14881,23 +17147,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (compareFilterBuilder_ == null) {
+            result.compareFilter_ = compareFilter_;
+          } else {
+            result.compareFilter_ = compareFilterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (compareFilterBuilder_ == null) {
-          result.compareFilter_ = compareFilter_;
-        } else {
-          result.compareFilter_ = compareFilterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter)other);
@@ -14912,22 +17212,23 @@ public final class FilterProtos {
         if (other.hasCompareFilter()) {
           mergeCompareFilter(other.getCompareFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasCompareFilter()) {
-          
           return false;
         }
         if (!getCompareFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -14937,7 +17238,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -14947,22 +17248,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.CompareFilter compare_filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter compareFilter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> compareFilterBuilder_;
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return Whether the compareFilter field is set.
        */
       public boolean hasCompareFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
+       * @return The compareFilter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter getCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          return compareFilter_;
+          return compareFilter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         } else {
           return compareFilterBuilder_.getMessage();
         }
@@ -15002,7 +17304,8 @@ public final class FilterProtos {
        */
       public Builder mergeCompareFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter value) {
         if (compareFilterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              compareFilter_ != null &&
               compareFilter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance()) {
             compareFilter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.newBuilder(compareFilter_).mergeFrom(value).buildPartial();
@@ -15021,7 +17324,7 @@ public final class FilterProtos {
        */
       public Builder clearCompareFilter() {
         if (compareFilterBuilder_ == null) {
-          compareFilter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance();
+          compareFilter_ = null;
           onChanged();
         } else {
           compareFilterBuilder_.clear();
@@ -15044,47 +17347,91 @@ public final class FilterProtos {
         if (compareFilterBuilder_ != null) {
           return compareFilterBuilder_.getMessageOrBuilder();
         } else {
-          return compareFilter_;
+          return compareFilter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.getDefaultInstance() : compareFilter_;
         }
       }
       /**
        * <code>required .hbase.pb.CompareFilter compare_filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder> 
           getCompareFilterFieldBuilder() {
         if (compareFilterBuilder_ == null) {
-          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          compareFilterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.CompareFilterOrBuilder>(
-                  compareFilter_,
+                  getCompareFilter(),
                   getParentForChildren(),
                   isClean());
           compareFilter_ = null;
         }
         return compareFilterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ValueFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ValueFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ValueFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ValueFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ValueFilter>
+        PARSER = new com.google.protobuf.AbstractParser<ValueFilter>() {
+      @java.lang.Override
+      public ValueFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ValueFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ValueFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ValueFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.ValueFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface WhileMatchFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface WhileMatchFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.WhileMatchFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.Filter filter = 1;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     boolean hasFilter();
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter();
     /**
@@ -15095,36 +17442,38 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.WhileMatchFilter}
    */
-  public static final class WhileMatchFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements WhileMatchFilterOrBuilder {
+  public  static final class WhileMatchFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.WhileMatchFilter)
+      WhileMatchFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use WhileMatchFilter.newBuilder() to construct.
-    private WhileMatchFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private WhileMatchFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private WhileMatchFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final WhileMatchFilter defaultInstance;
-    public static WhileMatchFilter getDefaultInstance() {
-      return defaultInstance;
+    private WhileMatchFilter() {
     }
 
-    public WhileMatchFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new WhileMatchFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private WhileMatchFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -15136,16 +17485,9 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = filter_.toBuilder();
               }
               filter_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.PARSER, extensionRegistry);
@@ -15156,13 +17498,20 @@ public final class FilterProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -15173,58 +17522,44 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_WhileMatchFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_WhileMatchFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<WhileMatchFilter> PARSER =
-        new com.google.protobuf.AbstractParser<WhileMatchFilter>() {
-      public WhileMatchFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new WhileMatchFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<WhileMatchFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.Filter filter = 1;
     public static final int FILTER_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return Whether the filter field is set.
      */
     public boolean hasFilter() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
+     * @return The filter.
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
     /**
      * <code>required .hbase.pb.Filter filter = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder getFilterOrBuilder() {
-      return filter_;
+      return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
     }
 
-    private void initFields() {
-      filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasFilter()) {
         memoizedIsInitialized = 0;
@@ -15238,35 +17573,28 @@ public final class FilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, filter_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getFilter());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, filter_);
+          .computeMessageSize(1, getFilter());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -15279,34 +17607,42 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter) obj;
 
-      boolean result = true;
-      result = result && (hasFilter() == other.hasFilter());
+      if (hasFilter() != other.hasFilter()) return false;
       if (hasFilter()) {
-        result = result && getFilter()
-            .equals(other.getFilter());
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasFilter()) {
         hash = (37 * hash) + FILTER_FIELD_NUMBER;
         hash = (53 * hash) + getFilter().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -15330,46 +17666,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -15377,14 +17726,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.WhileMatchFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.WhileMatchFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_WhileMatchFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_WhileMatchFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -15397,23 +17748,21 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getFilterFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
         } else {
           filterBuilder_.clear();
         }
@@ -15421,19 +17770,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_WhileMatchFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -15442,23 +17790,57 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (filterBuilder_ == null) {
+            result.filter_ = filter_;
+          } else {
+            result.filter_ = filterBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (filterBuilder_ == null) {
-          result.filter_ = filter_;
-        } else {
-          result.filter_ = filterBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter)other);
@@ -15473,22 +17855,23 @@ public final class FilterProtos {
         if (other.hasFilter()) {
           mergeFilter(other.getFilter());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasFilter()) {
-          
           return false;
         }
         if (!getFilter().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -15498,7 +17881,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -15508,22 +17891,23 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.Filter filter = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter filter_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> filterBuilder_;
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return Whether the filter field is set.
        */
       public boolean hasFilter() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
+       * @return The filter.
        */
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter getFilter() {
         if (filterBuilder_ == null) {
-          return filter_;
+          return filter_ == null ? org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         } else {
           return filterBuilder_.getMessage();
         }
@@ -15563,7 +17947,8 @@ public final class FilterProtos {
        */
       public Builder mergeFilter(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter value) {
         if (filterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              filter_ != null &&
               filter_ != org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance()) {
             filter_ =
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.newBuilder(filter_).mergeFrom(value).buildPartial();
@@ -15582,7 +17967,7 @@ public final class FilterProtos {
        */
       public Builder clearFilter() {
         if (filterBuilder_ == null) {
-          filter_ = org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance();
+          filter_ = null;
           onChanged();
         } else {
           filterBuilder_.clear();
@@ -15605,73 +17990,118 @@ public final class FilterProtos {
         if (filterBuilder_ != null) {
           return filterBuilder_.getMessageOrBuilder();
         } else {
-          return filter_;
+          return filter_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.getDefaultInstance() : filter_;
         }
       }
       /**
        * <code>required .hbase.pb.Filter filter = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder> 
           getFilterFieldBuilder() {
         if (filterBuilder_ == null) {
-          filterBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          filterBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.Filter.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterOrBuilder>(
-                  filter_,
+                  getFilter(),
                   getParentForChildren(),
                   isClean());
           filter_ = null;
         }
         return filterBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.WhileMatchFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.WhileMatchFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new WhileMatchFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.WhileMatchFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<WhileMatchFilter>
+        PARSER = new com.google.protobuf.AbstractParser<WhileMatchFilter>() {
+      @java.lang.Override
+      public WhileMatchFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new WhileMatchFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WhileMatchFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WhileMatchFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.WhileMatchFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface FilterAllFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface FilterAllFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.FilterAllFilter)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.FilterAllFilter}
    */
-  public static final class FilterAllFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements FilterAllFilterOrBuilder {
+  public  static final class FilterAllFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.FilterAllFilter)
+      FilterAllFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use FilterAllFilter.newBuilder() to construct.
-    private FilterAllFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private FilterAllFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private FilterAllFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FilterAllFilter defaultInstance;
-    public static FilterAllFilter getDefaultInstance() {
-      return defaultInstance;
+    private FilterAllFilter() {
     }
 
-    public FilterAllFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FilterAllFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private FilterAllFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -15683,8 +18113,8 @@ public final class FilterProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -15695,7 +18125,7 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -15706,61 +18136,40 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterAllFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterAllFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<FilterAllFilter> PARSER =
-        new com.google.protobuf.AbstractParser<FilterAllFilter>() {
-      public FilterAllFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FilterAllFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilterAllFilter> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -15773,25 +18182,33 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -15815,46 +18232,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -15862,14 +18292,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.FilterAllFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.FilterAllFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterAllFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterAllFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -15882,36 +18314,33 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_FilterAllFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -15920,12 +18349,46 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter)other);
@@ -15937,14 +18400,17 @@ public final class FilterProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -15954,7 +18420,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -15962,94 +18428,144 @@ public final class FilterProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.FilterAllFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.FilterAllFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new FilterAllFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.FilterAllFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<FilterAllFilter>
+        PARSER = new com.google.protobuf.AbstractParser<FilterAllFilter>() {
+      @java.lang.Override
+      public FilterAllFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FilterAllFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FilterAllFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FilterAllFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.FilterAllFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RowRangeOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RowRangeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RowRange)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes start_row = 1;
     /**
      * <code>optional bytes start_row = 1;</code>
+     * @return Whether the startRow field is set.
      */
     boolean hasStartRow();
     /**
      * <code>optional bytes start_row = 1;</code>
+     * @return The startRow.
      */
     com.google.protobuf.ByteString getStartRow();
 
-    // optional bool start_row_inclusive = 2;
     /**
      * <code>optional bool start_row_inclusive = 2;</code>
+     * @return Whether the startRowInclusive field is set.
      */
     boolean hasStartRowInclusive();
     /**
      * <code>optional bool start_row_inclusive = 2;</code>
+     * @return The startRowInclusive.
      */
     boolean getStartRowInclusive();
 
-    // optional bytes stop_row = 3;
     /**
      * <code>optional bytes stop_row = 3;</code>
+     * @return Whether the stopRow field is set.
      */
     boolean hasStopRow();
     /**
      * <code>optional bytes stop_row = 3;</code>
+     * @return The stopRow.
      */
     com.google.protobuf.ByteString getStopRow();
 
-    // optional bool stop_row_inclusive = 4;
     /**
      * <code>optional bool stop_row_inclusive = 4;</code>
+     * @return Whether the stopRowInclusive field is set.
      */
     boolean hasStopRowInclusive();
     /**
      * <code>optional bool stop_row_inclusive = 4;</code>
+     * @return The stopRowInclusive.
      */
     boolean getStopRowInclusive();
   }
   /**
    * Protobuf type {@code hbase.pb.RowRange}
    */
-  public static final class RowRange extends
-      com.google.protobuf.GeneratedMessage
-      implements RowRangeOrBuilder {
+  public  static final class RowRange extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RowRange)
+      RowRangeOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RowRange.newBuilder() to construct.
-    private RowRange(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RowRange(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RowRange(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RowRange defaultInstance;
-    public static RowRange getDefaultInstance() {
-      return defaultInstance;
+    private RowRange() {
+      startRow_ = com.google.protobuf.ByteString.EMPTY;
+      stopRow_ = com.google.protobuf.ByteString.EMPTY;
     }
 
-    public RowRange getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RowRange();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RowRange(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -16061,13 +18577,6 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               startRow_ = input.readBytes();
@@ -16088,13 +18597,20 @@ public final class FilterProtos {
               stopRowInclusive_ = input.readBool();
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -16105,158 +18621,137 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowRange_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowRange_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RowRange> PARSER =
-        new com.google.protobuf.AbstractParser<RowRange>() {
-      public RowRange parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RowRange(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RowRange> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes start_row = 1;
     public static final int START_ROW_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString startRow_;
     /**
      * <code>optional bytes start_row = 1;</code>
+     * @return Whether the startRow field is set.
      */
     public boolean hasStartRow() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes start_row = 1;</code>
+     * @return The startRow.
      */
     public com.google.protobuf.ByteString getStartRow() {
       return startRow_;
     }
 
-    // optional bool start_row_inclusive = 2;
     public static final int START_ROW_INCLUSIVE_FIELD_NUMBER = 2;
     private boolean startRowInclusive_;
     /**
      * <code>optional bool start_row_inclusive = 2;</code>
+     * @return Whether the startRowInclusive field is set.
      */
     public boolean hasStartRowInclusive() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bool start_row_inclusive = 2;</code>
+     * @return The startRowInclusive.
      */
     public boolean getStartRowInclusive() {
       return startRowInclusive_;
     }
 
-    // optional bytes stop_row = 3;
     public static final int STOP_ROW_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString stopRow_;
     /**
      * <code>optional bytes stop_row = 3;</code>
+     * @return Whether the stopRow field is set.
      */
     public boolean hasStopRow() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional bytes stop_row = 3;</code>
+     * @return The stopRow.
      */
     public com.google.protobuf.ByteString getStopRow() {
       return stopRow_;
     }
 
-    // optional bool stop_row_inclusive = 4;
     public static final int STOP_ROW_INCLUSIVE_FIELD_NUMBER = 4;
     private boolean stopRowInclusive_;
     /**
      * <code>optional bool stop_row_inclusive = 4;</code>
+     * @return Whether the stopRowInclusive field is set.
      */
     public boolean hasStopRowInclusive() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bool stop_row_inclusive = 4;</code>
+     * @return The stopRowInclusive.
      */
     public boolean getStopRowInclusive() {
       return stopRowInclusive_;
     }
 
-    private void initFields() {
-      startRow_ = com.google.protobuf.ByteString.EMPTY;
-      startRowInclusive_ = false;
-      stopRow_ = com.google.protobuf.ByteString.EMPTY;
-      stopRowInclusive_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, startRow_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBool(2, startRowInclusive_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBytes(3, stopRow_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBool(4, stopRowInclusive_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, startRow_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, startRowInclusive_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, stopRow_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(4, stopRowInclusive_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -16269,47 +18764,45 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange) obj;
 
-      boolean result = true;
-      result = result && (hasStartRow() == other.hasStartRow());
+      if (hasStartRow() != other.hasStartRow()) return false;
       if (hasStartRow()) {
-        result = result && getStartRow()
-            .equals(other.getStartRow());
+        if (!getStartRow()
+            .equals(other.getStartRow())) return false;
       }
-      result = result && (hasStartRowInclusive() == other.hasStartRowInclusive());
+      if (hasStartRowInclusive() != other.hasStartRowInclusive()) return false;
       if (hasStartRowInclusive()) {
-        result = result && (getStartRowInclusive()
-            == other.getStartRowInclusive());
+        if (getStartRowInclusive()
+            != other.getStartRowInclusive()) return false;
       }
-      result = result && (hasStopRow() == other.hasStopRow());
+      if (hasStopRow() != other.hasStopRow()) return false;
       if (hasStopRow()) {
-        result = result && getStopRow()
-            .equals(other.getStopRow());
+        if (!getStopRow()
+            .equals(other.getStopRow())) return false;
       }
-      result = result && (hasStopRowInclusive() == other.hasStopRowInclusive());
+      if (hasStopRowInclusive() != other.hasStopRowInclusive()) return false;
       if (hasStopRowInclusive()) {
-        result = result && (getStopRowInclusive()
-            == other.getStopRowInclusive());
+        if (getStopRowInclusive()
+            != other.getStopRowInclusive()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasStartRow()) {
         hash = (37 * hash) + START_ROW_FIELD_NUMBER;
         hash = (53 * hash) + getStartRow().hashCode();
       }
       if (hasStartRowInclusive()) {
         hash = (37 * hash) + START_ROW_INCLUSIVE_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getStartRowInclusive());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getStartRowInclusive());
       }
       if (hasStopRow()) {
         hash = (37 * hash) + STOP_ROW_FIELD_NUMBER;
@@ -16317,13 +18810,25 @@ public final class FilterProtos {
       }
       if (hasStopRowInclusive()) {
         hash = (37 * hash) + STOP_ROW_INCLUSIVE_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getStopRowInclusive());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getStopRowInclusive());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -16347,46 +18852,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -16394,14 +18912,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.RowRange}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRangeOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RowRange)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRangeOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowRange_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowRange_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -16414,18 +18934,16 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         startRow_ = com.google.protobuf.ByteString.EMPTY;
@@ -16439,19 +18957,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_RowRange_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange result = buildPartial();
         if (!result.isInitialized()) {
@@ -16460,31 +18977,65 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.startRow_ = startRow_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.startRowInclusive_ = startRowInclusive_;
           to_bitField0_ |= 0x00000002;
         }
-        result.startRowInclusive_ = startRowInclusive_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.stopRow_ = stopRow_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.stopRowInclusive_ = stopRowInclusive_;
           to_bitField0_ |= 0x00000008;
         }
-        result.stopRowInclusive_ = stopRowInclusive_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange)other);
@@ -16508,14 +19059,17 @@ public final class FilterProtos {
         if (other.hasStopRowInclusive()) {
           setStopRowInclusive(other.getStopRowInclusive());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -16525,7 +19079,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -16535,22 +19089,25 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // optional bytes start_row = 1;
       private com.google.protobuf.ByteString startRow_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes start_row = 1;</code>
+       * @return Whether the startRow field is set.
        */
       public boolean hasStartRow() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes start_row = 1;</code>
+       * @return The startRow.
        */
       public com.google.protobuf.ByteString getStartRow() {
         return startRow_;
       }
       /**
        * <code>optional bytes start_row = 1;</code>
+       * @param value The startRow to set.
+       * @return This builder for chaining.
        */
       public Builder setStartRow(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -16563,6 +19120,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes start_row = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartRow() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -16571,22 +19129,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool start_row_inclusive = 2;
       private boolean startRowInclusive_ ;
       /**
        * <code>optional bool start_row_inclusive = 2;</code>
+       * @return Whether the startRowInclusive field is set.
        */
       public boolean hasStartRowInclusive() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bool start_row_inclusive = 2;</code>
+       * @return The startRowInclusive.
        */
       public boolean getStartRowInclusive() {
         return startRowInclusive_;
       }
       /**
        * <code>optional bool start_row_inclusive = 2;</code>
+       * @param value The startRowInclusive to set.
+       * @return This builder for chaining.
        */
       public Builder setStartRowInclusive(boolean value) {
         bitField0_ |= 0x00000002;
@@ -16596,6 +19157,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool start_row_inclusive = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartRowInclusive() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -16604,22 +19166,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bytes stop_row = 3;
       private com.google.protobuf.ByteString stopRow_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes stop_row = 3;</code>
+       * @return Whether the stopRow field is set.
        */
       public boolean hasStopRow() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes stop_row = 3;</code>
+       * @return The stopRow.
        */
       public com.google.protobuf.ByteString getStopRow() {
         return stopRow_;
       }
       /**
        * <code>optional bytes stop_row = 3;</code>
+       * @param value The stopRow to set.
+       * @return This builder for chaining.
        */
       public Builder setStopRow(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -16632,6 +19197,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bytes stop_row = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStopRow() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -16640,22 +19206,25 @@ public final class FilterProtos {
         return this;
       }
 
-      // optional bool stop_row_inclusive = 4;
       private boolean stopRowInclusive_ ;
       /**
        * <code>optional bool stop_row_inclusive = 4;</code>
+       * @return Whether the stopRowInclusive field is set.
        */
       public boolean hasStopRowInclusive() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bool stop_row_inclusive = 4;</code>
+       * @return The stopRowInclusive.
        */
       public boolean getStopRowInclusive() {
         return stopRowInclusive_;
       }
       /**
        * <code>optional bool stop_row_inclusive = 4;</code>
+       * @param value The stopRowInclusive to set.
+       * @return This builder for chaining.
        */
       public Builder setStopRowInclusive(boolean value) {
         bitField0_ |= 0x00000008;
@@ -16665,6 +19234,7 @@ public final class FilterProtos {
       }
       /**
        * <code>optional bool stop_row_inclusive = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStopRowInclusive() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -16672,22 +19242,63 @@ public final class FilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RowRange)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RowRange)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RowRange(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RowRange)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RowRange>
+        PARSER = new com.google.protobuf.AbstractParser<RowRange>() {
+      @java.lang.Override
+      public RowRange parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RowRange(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RowRange> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RowRange> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MultiRowRangeFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MultiRowRangeFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MultiRowRangeFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.RowRange row_range_list = 1;
     /**
      * <code>repeated .hbase.pb.RowRange row_range_list = 1;</code>
      */
@@ -16715,36 +19326,39 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code hbase.pb.MultiRowRangeFilter}
    */
-  public static final class MultiRowRangeFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements MultiRowRangeFilterOrBuilder {
+  public  static final class MultiRowRangeFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MultiRowRangeFilter)
+      MultiRowRangeFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MultiRowRangeFilter.newBuilder() to construct.
-    private MultiRowRangeFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MultiRowRangeFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MultiRowRangeFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MultiRowRangeFilter defaultInstance;
-    public static MultiRowRangeFilter getDefaultInstance() {
-      return defaultInstance;
+    private MultiRowRangeFilter() {
+      rowRangeList_ = java.util.Collections.emptyList();
     }
 
-    public MultiRowRangeFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MultiRowRangeFilter();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MultiRowRangeFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -16756,19 +19370,20 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 rowRangeList_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              rowRangeList_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.PARSER, extensionRegistry));
+              rowRangeList_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -16777,9 +19392,9 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rowRangeList_ = java.util.Collections.unmodifiableList(rowRangeList_);
         }
         this.unknownFields = unknownFields.build();
@@ -16791,29 +19406,14 @@ public final class FilterProtos {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultiRowRangeFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultiRowRangeFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter.class, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MultiRowRangeFilter> PARSER =
-        new com.google.protobuf.AbstractParser<MultiRowRangeFilter>() {
-      public MultiRowRangeFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MultiRowRangeFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MultiRowRangeFilter> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.RowRange row_range_list = 1;
     public static final int ROW_RANGE_LIST_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange> rowRangeList_;
     /**
@@ -16849,30 +19449,29 @@ public final class FilterProtos {
       return rowRangeList_.get(index);
     }
 
-    private void initFields() {
-      rowRangeList_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < rowRangeList_.size(); i++) {
         output.writeMessage(1, rowRangeList_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -16880,16 +19479,9 @@ public final class FilterProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, rowRangeList_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -16902,31 +19494,39 @@ public final class FilterProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter other = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter) obj;
 
-      boolean result = true;
-      result = result && getRowRangeListList()
-          .equals(other.getRowRangeListList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getRowRangeListList()
+          .equals(other.getRowRangeListList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getRowRangeListCount() > 0) {
         hash = (37 * hash) + ROW_RANGE_LIST_FIELD_NUMBER;
         hash = (53 * hash) + getRowRangeListList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -16950,46 +19550,59 @@ public final class FilterProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -16997,14 +19610,16 @@ public final class FilterProtos {
      * Protobuf type {@code hbase.pb.MultiRowRangeFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MultiRowRangeFilter)
+        org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultiRowRangeFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultiRowRangeFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -17017,19 +19632,17 @@ public final class FilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getRowRangeListFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (rowRangeListBuilder_ == null) {
@@ -17041,19 +19654,18 @@ public final class FilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.internal_static_hbase_pb_MultiRowRangeFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter build() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -17062,11 +19674,12 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter result = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter(this);
         int from_bitField0_ = bitField0_;
         if (rowRangeListBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             rowRangeList_ = java.util.Collections.unmodifiableList(rowRangeList_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -17078,6 +19691,39 @@ public final class FilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter)other);
@@ -17108,21 +19754,24 @@ public final class FilterProtos {
               rowRangeList_ = other.rowRangeList_;
               bitField0_ = (bitField0_ & ~0x00000001);
               rowRangeListBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getRowRangeListFieldBuilder() : null;
             } else {
               rowRangeListBuilder_.addAllMessages(other.rowRangeList_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -17132,7 +19781,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -17142,17 +19791,16 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.RowRange row_range_list = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange> rowRangeList_ =
         java.util.Collections.emptyList();
       private void ensureRowRangeListIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           rowRangeList_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange>(rowRangeList_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRangeOrBuilder> rowRangeListBuilder_;
 
       /**
@@ -17284,7 +19932,8 @@ public final class FilterProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange> values) {
         if (rowRangeListBuilder_ == null) {
           ensureRowRangeListIsMutable();
-          super.addAll(values, rowRangeList_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rowRangeList_);
           onChanged();
         } else {
           rowRangeListBuilder_.addAllMessages(values);
@@ -17367,188 +20016,229 @@ public final class FilterProtos {
            getRowRangeListBuilderList() {
         return getRowRangeListFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRangeOrBuilder> 
           getRowRangeListFieldBuilder() {
         if (rowRangeListBuilder_ == null) {
-          rowRangeListBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          rowRangeListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRange.Builder, org.apache.hadoop.hbase.protobuf.generated.FilterProtos.RowRangeOrBuilder>(
                   rowRangeList_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           rowRangeList_ = null;
         }
         return rowRangeListBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MultiRowRangeFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MultiRowRangeFilter)
+    private static final org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MultiRowRangeFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MultiRowRangeFilter)
+    public static org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MultiRowRangeFilter>
+        PARSER = new com.google.protobuf.AbstractParser<MultiRowRangeFilter>() {
+      @java.lang.Override
+      public MultiRowRangeFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MultiRowRangeFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MultiRowRangeFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MultiRowRangeFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.FilterProtos.MultiRowRangeFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_Filter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_Filter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ColumnCountGetFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ColumnCountGetFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ColumnPaginationFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ColumnPaginationFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ColumnPrefixFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ColumnPrefixFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ColumnRangeFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ColumnRangeFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_CompareFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_CompareFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_DependentColumnFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_DependentColumnFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FamilyFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FamilyFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FilterList_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FilterList_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FilterWrapper_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FilterWrapper_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FirstKeyOnlyFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FuzzyRowFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FuzzyRowFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_InclusiveStopFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_InclusiveStopFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_KeyOnlyFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_KeyOnlyFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MultipleColumnPrefixFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_PageFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_PageFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_PrefixFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_PrefixFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_QualifierFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_QualifierFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RandomRowFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RandomRowFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RowFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RowFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_SingleColumnValueExcludeFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_SingleColumnValueFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_SingleColumnValueFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_SkipFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_SkipFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_TimestampsFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_TimestampsFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ValueFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ValueFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_WhileMatchFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_WhileMatchFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_FilterAllFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_FilterAllFilter_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RowRange_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RowRange_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MultiRowRangeFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MultiRowRangeFilter_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -17561,7 +20251,7 @@ public final class FilterProtos {
       "xFilter\022\016\n\006prefix\030\001 \002(\014\"w\n\021ColumnRangeFi" +
       "lter\022\022\n\nmin_column\030\001 \001(\014\022\034\n\024min_column_i" +
       "nclusive\030\002 \001(\010\022\022\n\nmax_column\030\003 \001(\014\022\034\n\024ma" +
-      "x_column_inclusive\030\004 \001(\010\"d\n\rCompareFilte",
+      "x_column_inclusive\030\004 \001(\010\"d\n\rCompareFilte" +
       "r\022)\n\ncompare_op\030\001 \002(\0162\025.hbase.pb.Compare" +
       "Type\022(\n\ncomparator\030\002 \001(\0132\024.hbase.pb.Comp" +
       "arator\"\230\001\n\025DependentColumnFilter\022/\n\016comp" +
@@ -17571,7 +20261,7 @@ public final class FilterProtos {
       "\010\"?\n\014FamilyFilter\022/\n\016compare_filter\030\001 \002(" +
       "\0132\027.hbase.pb.CompareFilter\"\222\001\n\nFilterLis" +
       "t\022/\n\010operator\030\001 \002(\0162\035.hbase.pb.FilterLis" +
-      "t.Operator\022!\n\007filters\030\002 \003(\0132\020.hbase.pb.F",
+      "t.Operator\022!\n\007filters\030\002 \003(\0132\020.hbase.pb.F" +
       "ilter\"0\n\010Operator\022\021\n\rMUST_PASS_ALL\020\001\022\021\n\r" +
       "MUST_PASS_ONE\020\002\"1\n\rFilterWrapper\022 \n\006filt" +
       "er\030\001 \002(\0132\020.hbase.pb.Filter\"\024\n\022FirstKeyOn" +
@@ -17581,7 +20271,7 @@ public final class FilterProtos {
       ".pb.BytesBytesPair\"+\n\023InclusiveStopFilte" +
       "r\022\024\n\014stop_row_key\030\001 \001(\014\"#\n\rKeyOnlyFilter" +
       "\022\022\n\nlen_as_val\030\001 \002(\010\"5\n\032MultipleColumnPr" +
-      "efixFilter\022\027\n\017sorted_prefixes\030\001 \003(\014\"\037\n\nP",
+      "efixFilter\022\027\n\017sorted_prefixes\030\001 \003(\014\"\037\n\nP" +
       "ageFilter\022\021\n\tpage_size\030\001 \002(\003\"\036\n\014PrefixFi" +
       "lter\022\016\n\006prefix\030\001 \001(\014\"B\n\017QualifierFilter\022" +
       "/\n\016compare_filter\030\001 \002(\0132\027.hbase.pb.Compa" +
@@ -17591,7 +20281,7 @@ public final class FilterProtos {
       "nValueExcludeFilter\022E\n\032single_column_val" +
       "ue_filter\030\001 \002(\0132!.hbase.pb.SingleColumnV" +
       "alueFilter\"\327\001\n\027SingleColumnValueFilter\022\025" +
-      "\n\rcolumn_family\030\001 \001(\014\022\030\n\020column_qualifie",
+      "\n\rcolumn_family\030\001 \001(\014\022\030\n\020column_qualifie" +
       "r\030\002 \001(\014\022)\n\ncompare_op\030\003 \002(\0162\025.hbase.pb.C" +
       "ompareType\022(\n\ncomparator\030\004 \002(\0132\024.hbase.p" +
       "b.Comparator\022\031\n\021filter_if_missing\030\005 \001(\010\022" +
@@ -17601,7 +20291,7 @@ public final class FilterProtos {
       "\022\020\n\010can_hint\030\002 \001(\010\">\n\013ValueFilter\022/\n\016com" +
       "pare_filter\030\001 \002(\0132\027.hbase.pb.CompareFilt" +
       "er\"4\n\020WhileMatchFilter\022 \n\006filter\030\001 \002(\0132\020" +
-      ".hbase.pb.Filter\"\021\n\017FilterAllFilter\"h\n\010R",
+      ".hbase.pb.Filter\"\021\n\017FilterAllFilter\"h\n\010R" +
       "owRange\022\021\n\tstart_row\030\001 \001(\014\022\033\n\023start_row_" +
       "inclusive\030\002 \001(\010\022\020\n\010stop_row\030\003 \001(\014\022\032\n\022sto" +
       "p_row_inclusive\030\004 \001(\010\"A\n\023MultiRowRangeFi" +
@@ -17609,200 +20299,194 @@ public final class FilterProtos {
       "RowRangeBB\n*org.apache.hadoop.hbase.prot" +
       "obuf.generatedB\014FilterProtosH\001\210\001\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_Filter_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_Filter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_Filter_descriptor,
-              new java.lang.String[] { "Name", "SerializedFilter", });
-          internal_static_hbase_pb_ColumnCountGetFilter_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_hbase_pb_ColumnCountGetFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ColumnCountGetFilter_descriptor,
-              new java.lang.String[] { "Limit", });
-          internal_static_hbase_pb_ColumnPaginationFilter_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_hbase_pb_ColumnPaginationFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ColumnPaginationFilter_descriptor,
-              new java.lang.String[] { "Limit", "Offset", "ColumnOffset", });
-          internal_static_hbase_pb_ColumnPrefixFilter_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_hbase_pb_ColumnPrefixFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ColumnPrefixFilter_descriptor,
-              new java.lang.String[] { "Prefix", });
-          internal_static_hbase_pb_ColumnRangeFilter_descriptor =
-            getDescriptor().getMessageTypes().get(4);
-          internal_static_hbase_pb_ColumnRangeFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ColumnRangeFilter_descriptor,
-              new java.lang.String[] { "MinColumn", "MinColumnInclusive", "MaxColumn", "MaxColumnInclusive", });
-          internal_static_hbase_pb_CompareFilter_descriptor =
-            getDescriptor().getMessageTypes().get(5);
-          internal_static_hbase_pb_CompareFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_CompareFilter_descriptor,
-              new java.lang.String[] { "CompareOp", "Comparator", });
-          internal_static_hbase_pb_DependentColumnFilter_descriptor =
-            getDescriptor().getMessageTypes().get(6);
-          internal_static_hbase_pb_DependentColumnFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_DependentColumnFilter_descriptor,
-              new java.lang.String[] { "CompareFilter", "ColumnFamily", "ColumnQualifier", "DropDependentColumn", });
-          internal_static_hbase_pb_FamilyFilter_descriptor =
-            getDescriptor().getMessageTypes().get(7);
-          internal_static_hbase_pb_FamilyFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FamilyFilter_descriptor,
-              new java.lang.String[] { "CompareFilter", });
-          internal_static_hbase_pb_FilterList_descriptor =
-            getDescriptor().getMessageTypes().get(8);
-          internal_static_hbase_pb_FilterList_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FilterList_descriptor,
-              new java.lang.String[] { "Operator", "Filters", });
-          internal_static_hbase_pb_FilterWrapper_descriptor =
-            getDescriptor().getMessageTypes().get(9);
-          internal_static_hbase_pb_FilterWrapper_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FilterWrapper_descriptor,
-              new java.lang.String[] { "Filter", });
-          internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor =
-            getDescriptor().getMessageTypes().get(10);
-          internal_static_hbase_pb_FirstKeyOnlyFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor =
-            getDescriptor().getMessageTypes().get(11);
-          internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor,
-              new java.lang.String[] { "Qualifiers", });
-          internal_static_hbase_pb_FuzzyRowFilter_descriptor =
-            getDescriptor().getMessageTypes().get(12);
-          internal_static_hbase_pb_FuzzyRowFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FuzzyRowFilter_descriptor,
-              new java.lang.String[] { "FuzzyKeysData", });
-          internal_static_hbase_pb_InclusiveStopFilter_descriptor =
-            getDescriptor().getMessageTypes().get(13);
-          internal_static_hbase_pb_InclusiveStopFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_InclusiveStopFilter_descriptor,
-              new java.lang.String[] { "StopRowKey", });
-          internal_static_hbase_pb_KeyOnlyFilter_descriptor =
-            getDescriptor().getMessageTypes().get(14);
-          internal_static_hbase_pb_KeyOnlyFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_KeyOnlyFilter_descriptor,
-              new java.lang.String[] { "LenAsVal", });
-          internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor =
-            getDescriptor().getMessageTypes().get(15);
-          internal_static_hbase_pb_MultipleColumnPrefixFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor,
-              new java.lang.String[] { "SortedPrefixes", });
-          internal_static_hbase_pb_PageFilter_descriptor =
-            getDescriptor().getMessageTypes().get(16);
-          internal_static_hbase_pb_PageFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_PageFilter_descriptor,
-              new java.lang.String[] { "PageSize", });
-          internal_static_hbase_pb_PrefixFilter_descriptor =
-            getDescriptor().getMessageTypes().get(17);
-          internal_static_hbase_pb_PrefixFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_PrefixFilter_descriptor,
-              new java.lang.String[] { "Prefix", });
-          internal_static_hbase_pb_QualifierFilter_descriptor =
-            getDescriptor().getMessageTypes().get(18);
-          internal_static_hbase_pb_QualifierFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_QualifierFilter_descriptor,
-              new java.lang.String[] { "CompareFilter", });
-          internal_static_hbase_pb_RandomRowFilter_descriptor =
-            getDescriptor().getMessageTypes().get(19);
-          internal_static_hbase_pb_RandomRowFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RandomRowFilter_descriptor,
-              new java.lang.String[] { "Chance", });
-          internal_static_hbase_pb_RowFilter_descriptor =
-            getDescriptor().getMessageTypes().get(20);
-          internal_static_hbase_pb_RowFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RowFilter_descriptor,
-              new java.lang.String[] { "CompareFilter", });
-          internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor =
-            getDescriptor().getMessageTypes().get(21);
-          internal_static_hbase_pb_SingleColumnValueExcludeFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor,
-              new java.lang.String[] { "SingleColumnValueFilter", });
-          internal_static_hbase_pb_SingleColumnValueFilter_descriptor =
-            getDescriptor().getMessageTypes().get(22);
-          internal_static_hbase_pb_SingleColumnValueFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_SingleColumnValueFilter_descriptor,
-              new java.lang.String[] { "ColumnFamily", "ColumnQualifier", "CompareOp", "Comparator", "FilterIfMissing", "LatestVersionOnly", });
-          internal_static_hbase_pb_SkipFilter_descriptor =
-            getDescriptor().getMessageTypes().get(23);
-          internal_static_hbase_pb_SkipFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_SkipFilter_descriptor,
-              new java.lang.String[] { "Filter", });
-          internal_static_hbase_pb_TimestampsFilter_descriptor =
-            getDescriptor().getMessageTypes().get(24);
-          internal_static_hbase_pb_TimestampsFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_TimestampsFilter_descriptor,
-              new java.lang.String[] { "Timestamps", "CanHint", });
-          internal_static_hbase_pb_ValueFilter_descriptor =
-            getDescriptor().getMessageTypes().get(25);
-          internal_static_hbase_pb_ValueFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ValueFilter_descriptor,
-              new java.lang.String[] { "CompareFilter", });
-          internal_static_hbase_pb_WhileMatchFilter_descriptor =
-            getDescriptor().getMessageTypes().get(26);
-          internal_static_hbase_pb_WhileMatchFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_WhileMatchFilter_descriptor,
-              new java.lang.String[] { "Filter", });
-          internal_static_hbase_pb_FilterAllFilter_descriptor =
-            getDescriptor().getMessageTypes().get(27);
-          internal_static_hbase_pb_FilterAllFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_FilterAllFilter_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_RowRange_descriptor =
-            getDescriptor().getMessageTypes().get(28);
-          internal_static_hbase_pb_RowRange_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RowRange_descriptor,
-              new java.lang.String[] { "StartRow", "StartRowInclusive", "StopRow", "StopRowInclusive", });
-          internal_static_hbase_pb_MultiRowRangeFilter_descriptor =
-            getDescriptor().getMessageTypes().get(29);
-          internal_static_hbase_pb_MultiRowRangeFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MultiRowRangeFilter_descriptor,
-              new java.lang.String[] { "RowRangeList", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor(),
           org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.getDescriptor(),
-        }, assigner);
+        });
+    internal_static_hbase_pb_Filter_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_Filter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_Filter_descriptor,
+        new java.lang.String[] { "Name", "SerializedFilter", });
+    internal_static_hbase_pb_ColumnCountGetFilter_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_hbase_pb_ColumnCountGetFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ColumnCountGetFilter_descriptor,
+        new java.lang.String[] { "Limit", });
+    internal_static_hbase_pb_ColumnPaginationFilter_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_hbase_pb_ColumnPaginationFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ColumnPaginationFilter_descriptor,
+        new java.lang.String[] { "Limit", "Offset", "ColumnOffset", });
+    internal_static_hbase_pb_ColumnPrefixFilter_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_hbase_pb_ColumnPrefixFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ColumnPrefixFilter_descriptor,
+        new java.lang.String[] { "Prefix", });
+    internal_static_hbase_pb_ColumnRangeFilter_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_hbase_pb_ColumnRangeFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ColumnRangeFilter_descriptor,
+        new java.lang.String[] { "MinColumn", "MinColumnInclusive", "MaxColumn", "MaxColumnInclusive", });
+    internal_static_hbase_pb_CompareFilter_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_hbase_pb_CompareFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_CompareFilter_descriptor,
+        new java.lang.String[] { "CompareOp", "Comparator", });
+    internal_static_hbase_pb_DependentColumnFilter_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_hbase_pb_DependentColumnFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_DependentColumnFilter_descriptor,
+        new java.lang.String[] { "CompareFilter", "ColumnFamily", "ColumnQualifier", "DropDependentColumn", });
+    internal_static_hbase_pb_FamilyFilter_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_hbase_pb_FamilyFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FamilyFilter_descriptor,
+        new java.lang.String[] { "CompareFilter", });
+    internal_static_hbase_pb_FilterList_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_hbase_pb_FilterList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FilterList_descriptor,
+        new java.lang.String[] { "Operator", "Filters", });
+    internal_static_hbase_pb_FilterWrapper_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_hbase_pb_FilterWrapper_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FilterWrapper_descriptor,
+        new java.lang.String[] { "Filter", });
+    internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_hbase_pb_FirstKeyOnlyFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FirstKeyOnlyFilter_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FirstKeyValueMatchingQualifiersFilter_descriptor,
+        new java.lang.String[] { "Qualifiers", });
+    internal_static_hbase_pb_FuzzyRowFilter_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_hbase_pb_FuzzyRowFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FuzzyRowFilter_descriptor,
+        new java.lang.String[] { "FuzzyKeysData", });
+    internal_static_hbase_pb_InclusiveStopFilter_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_hbase_pb_InclusiveStopFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_InclusiveStopFilter_descriptor,
+        new java.lang.String[] { "StopRowKey", });
+    internal_static_hbase_pb_KeyOnlyFilter_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_hbase_pb_KeyOnlyFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_KeyOnlyFilter_descriptor,
+        new java.lang.String[] { "LenAsVal", });
+    internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_hbase_pb_MultipleColumnPrefixFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MultipleColumnPrefixFilter_descriptor,
+        new java.lang.String[] { "SortedPrefixes", });
+    internal_static_hbase_pb_PageFilter_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_hbase_pb_PageFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_PageFilter_descriptor,
+        new java.lang.String[] { "PageSize", });
+    internal_static_hbase_pb_PrefixFilter_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_hbase_pb_PrefixFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_PrefixFilter_descriptor,
+        new java.lang.String[] { "Prefix", });
+    internal_static_hbase_pb_QualifierFilter_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_hbase_pb_QualifierFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_QualifierFilter_descriptor,
+        new java.lang.String[] { "CompareFilter", });
+    internal_static_hbase_pb_RandomRowFilter_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_hbase_pb_RandomRowFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RandomRowFilter_descriptor,
+        new java.lang.String[] { "Chance", });
+    internal_static_hbase_pb_RowFilter_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_hbase_pb_RowFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RowFilter_descriptor,
+        new java.lang.String[] { "CompareFilter", });
+    internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_hbase_pb_SingleColumnValueExcludeFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_SingleColumnValueExcludeFilter_descriptor,
+        new java.lang.String[] { "SingleColumnValueFilter", });
+    internal_static_hbase_pb_SingleColumnValueFilter_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_hbase_pb_SingleColumnValueFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_SingleColumnValueFilter_descriptor,
+        new java.lang.String[] { "ColumnFamily", "ColumnQualifier", "CompareOp", "Comparator", "FilterIfMissing", "LatestVersionOnly", });
+    internal_static_hbase_pb_SkipFilter_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_hbase_pb_SkipFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_SkipFilter_descriptor,
+        new java.lang.String[] { "Filter", });
+    internal_static_hbase_pb_TimestampsFilter_descriptor =
+      getDescriptor().getMessageTypes().get(24);
+    internal_static_hbase_pb_TimestampsFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_TimestampsFilter_descriptor,
+        new java.lang.String[] { "Timestamps", "CanHint", });
+    internal_static_hbase_pb_ValueFilter_descriptor =
+      getDescriptor().getMessageTypes().get(25);
+    internal_static_hbase_pb_ValueFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ValueFilter_descriptor,
+        new java.lang.String[] { "CompareFilter", });
+    internal_static_hbase_pb_WhileMatchFilter_descriptor =
+      getDescriptor().getMessageTypes().get(26);
+    internal_static_hbase_pb_WhileMatchFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_WhileMatchFilter_descriptor,
+        new java.lang.String[] { "Filter", });
+    internal_static_hbase_pb_FilterAllFilter_descriptor =
+      getDescriptor().getMessageTypes().get(27);
+    internal_static_hbase_pb_FilterAllFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_FilterAllFilter_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_RowRange_descriptor =
+      getDescriptor().getMessageTypes().get(28);
+    internal_static_hbase_pb_RowRange_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RowRange_descriptor,
+        new java.lang.String[] { "StartRow", "StartRowInclusive", "StopRow", "StopRowInclusive", });
+    internal_static_hbase_pb_MultiRowRangeFilter_descriptor =
+      getDescriptor().getMessageTypes().get(29);
+    internal_static_hbase_pb_MultiRowRangeFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MultiRowRangeFilter_descriptor,
+        new java.lang.String[] { "RowRangeList", });
+    org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor();
+    org.apache.hadoop.hbase.protobuf.generated.ComparatorProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -6,22 +6,31 @@ package org.apache.hadoop.hbase.ipc.protobuf.generated;
 public final class TestProcedureProtos {
   private TestProcedureProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface TestTableDDLStateDataOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // required string table_name = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface TestTableDDLStateDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:TestTableDDLStateData)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>required string table_name = 1;</code>
+     * @return Whether the tableName field is set.
      */
     boolean hasTableName();
     /**
      * <code>required string table_name = 1;</code>
+     * @return The tableName.
      */
     java.lang.String getTableName();
     /**
      * <code>required string table_name = 1;</code>
+     * @return The bytes for tableName.
      */
     com.google.protobuf.ByteString
         getTableNameBytes();
@@ -29,36 +38,39 @@ public final class TestProcedureProtos {
   /**
    * Protobuf type {@code TestTableDDLStateData}
    */
-  public static final class TestTableDDLStateData extends
-      com.google.protobuf.GeneratedMessage
-      implements TestTableDDLStateDataOrBuilder {
+  public  static final class TestTableDDLStateData extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:TestTableDDLStateData)
+      TestTableDDLStateDataOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use TestTableDDLStateData.newBuilder() to construct.
-    private TestTableDDLStateData(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private TestTableDDLStateData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private TestTableDDLStateData(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final TestTableDDLStateData defaultInstance;
-    public static TestTableDDLStateData getDefaultInstance() {
-      return defaultInstance;
+    private TestTableDDLStateData() {
+      tableName_ = "";
     }
 
-    public TestTableDDLStateData getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TestTableDDLStateData();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private TestTableDDLStateData(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -70,16 +82,17 @@ public final class TestProcedureProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              tableName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              tableName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -88,7 +101,7 @@ public final class TestProcedureProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -99,40 +112,27 @@ public final class TestProcedureProtos {
       return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.internal_static_TestTableDDLStateData_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.internal_static_TestTableDDLStateData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData.class, org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<TestTableDDLStateData> PARSER =
-        new com.google.protobuf.AbstractParser<TestTableDDLStateData>() {
-      public TestTableDDLStateData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new TestTableDDLStateData(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<TestTableDDLStateData> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string table_name = 1;
     public static final int TABLE_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object tableName_;
+    private volatile java.lang.Object tableName_;
     /**
      * <code>required string table_name = 1;</code>
+     * @return Whether the tableName field is set.
      */
     public boolean hasTableName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string table_name = 1;</code>
+     * @return The tableName.
      */
     public java.lang.String getTableName() {
       java.lang.Object ref = tableName_;
@@ -150,6 +150,7 @@ public final class TestProcedureProtos {
     }
     /**
      * <code>required string table_name = 1;</code>
+     * @return The bytes for tableName.
      */
     public com.google.protobuf.ByteString
         getTableNameBytes() {
@@ -165,13 +166,12 @@ public final class TestProcedureProtos {
       }
     }
 
-    private void initFields() {
-      tableName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasTableName()) {
         memoizedIsInitialized = 0;
@@ -181,37 +181,75 @@ public final class TestProcedureProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getTableNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, tableName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getTableNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, tableName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData)) {
+        return super.equals(obj);
+      }
+      org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData other = (org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData) obj;
+
+      if (hasTableName() != other.hasTableName()) return false;
+      if (hasTableName()) {
+        if (!getTableName()
+            .equals(other.getTableName())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasTableName()) {
+        hash = (37 * hash) + TABLE_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getTableName().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -235,46 +273,59 @@ public final class TestProcedureProtos {
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -282,14 +333,16 @@ public final class TestProcedureProtos {
      * Protobuf type {@code TestTableDDLStateData}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateDataOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:TestTableDDLStateData)
+        org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.internal_static_TestTableDDLStateData_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.internal_static_TestTableDDLStateData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -302,18 +355,16 @@ public final class TestProcedureProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         tableName_ = "";
@@ -321,19 +372,18 @@ public final class TestProcedureProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.internal_static_TestTableDDLStateData_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData build() {
         org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData result = buildPartial();
         if (!result.isInitialized()) {
@@ -342,11 +392,12 @@ public final class TestProcedureProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData buildPartial() {
         org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData result = new org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.tableName_ = tableName_;
@@ -355,6 +406,39 @@ public final class TestProcedureProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData) {
           return mergeFrom((org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData)other);
@@ -371,18 +455,20 @@ public final class TestProcedureProtos {
           tableName_ = other.tableName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasTableName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -392,7 +478,7 @@ public final class TestProcedureProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -402,23 +488,27 @@ public final class TestProcedureProtos {
       }
       private int bitField0_;
 
-      // required string table_name = 1;
       private java.lang.Object tableName_ = "";
       /**
        * <code>required string table_name = 1;</code>
+       * @return Whether the tableName field is set.
        */
       public boolean hasTableName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string table_name = 1;</code>
+       * @return The tableName.
        */
       public java.lang.String getTableName() {
         java.lang.Object ref = tableName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          tableName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            tableName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -426,6 +516,7 @@ public final class TestProcedureProtos {
       }
       /**
        * <code>required string table_name = 1;</code>
+       * @return The bytes for tableName.
        */
       public com.google.protobuf.ByteString
           getTableNameBytes() {
@@ -442,6 +533,8 @@ public final class TestProcedureProtos {
       }
       /**
        * <code>required string table_name = 1;</code>
+       * @param value The tableName to set.
+       * @return This builder for chaining.
        */
       public Builder setTableName(
           java.lang.String value) {
@@ -455,6 +548,7 @@ public final class TestProcedureProtos {
       }
       /**
        * <code>required string table_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTableName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -464,6 +558,8 @@ public final class TestProcedureProtos {
       }
       /**
        * <code>required string table_name = 1;</code>
+       * @param value The bytes for tableName to set.
+       * @return This builder for chaining.
        */
       public Builder setTableNameBytes(
           com.google.protobuf.ByteString value) {
@@ -475,29 +571,70 @@ public final class TestProcedureProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:TestTableDDLStateData)
     }
 
+    // @@protoc_insertion_point(class_scope:TestTableDDLStateData)
+    private static final org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData DEFAULT_INSTANCE;
     static {
-      defaultInstance = new TestTableDDLStateData(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData();
     }
 
-    // @@protoc_insertion_point(class_scope:TestTableDDLStateData)
+    public static org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<TestTableDDLStateData>
+        PARSER = new com.google.protobuf.AbstractParser<TestTableDDLStateData>() {
+      @java.lang.Override
+      public TestTableDDLStateData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TestTableDDLStateData(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TestTableDDLStateData> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TestTableDDLStateData> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.ipc.protobuf.generated.TestProcedureProtos.TestTableDDLStateData getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_TestTableDDLStateData_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_TestTableDDLStateData_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -506,24 +643,16 @@ public final class TestProcedureProtos {
       ".hadoop.hbase.ipc.protobuf.generatedB\023Te" +
       "stProcedureProtos\210\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_TestTableDDLStateData_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_TestTableDDLStateData_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_TestTableDDLStateData_descriptor,
-              new java.lang.String[] { "TableName", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_TestTableDDLStateData_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_TestTableDDLStateData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TestTableDDLStateData_descriptor,
+        new java.lang.String[] { "TableName", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -6,12 +6,18 @@ package org.apache.hadoop.hbase.protobuf.generated;
 public final class MapReduceProtos {
   private MapReduceProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface ScanMetricsOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.NameInt64Pair metrics = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface ScanMetricsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ScanMetrics)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>repeated .hbase.pb.NameInt64Pair metrics = 1;</code>
      */
@@ -39,36 +45,39 @@ public final class MapReduceProtos {
   /**
    * Protobuf type {@code hbase.pb.ScanMetrics}
    */
-  public static final class ScanMetrics extends
-      com.google.protobuf.GeneratedMessage
-      implements ScanMetricsOrBuilder {
+  public  static final class ScanMetrics extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ScanMetrics)
+      ScanMetricsOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ScanMetrics.newBuilder() to construct.
-    private ScanMetrics(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ScanMetrics(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ScanMetrics(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ScanMetrics defaultInstance;
-    public static ScanMetrics getDefaultInstance() {
-      return defaultInstance;
+    private ScanMetrics() {
+      metrics_ = java.util.Collections.emptyList();
     }
 
-    public ScanMetrics getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ScanMetrics();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ScanMetrics(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -80,19 +89,20 @@ public final class MapReduceProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 metrics_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              metrics_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair.PARSER, extensionRegistry));
+              metrics_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -101,9 +111,9 @@ public final class MapReduceProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           metrics_ = java.util.Collections.unmodifiableList(metrics_);
         }
         this.unknownFields = unknownFields.build();
@@ -115,29 +125,14 @@ public final class MapReduceProtos {
       return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_ScanMetrics_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics.class, org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ScanMetrics> PARSER =
-        new com.google.protobuf.AbstractParser<ScanMetrics>() {
-      public ScanMetrics parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ScanMetrics(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ScanMetrics> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.NameInt64Pair metrics = 1;
     public static final int METRICS_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair> metrics_;
     /**
@@ -173,30 +168,29 @@ public final class MapReduceProtos {
       return metrics_.get(index);
     }
 
-    private void initFields() {
-      metrics_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < metrics_.size(); i++) {
         output.writeMessage(1, metrics_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -204,16 +198,9 @@ public final class MapReduceProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, metrics_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -226,31 +213,39 @@ public final class MapReduceProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics other = (org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics) obj;
 
-      boolean result = true;
-      result = result && getMetricsList()
-          .equals(other.getMetricsList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getMetricsList()
+          .equals(other.getMetricsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getMetricsCount() > 0) {
         hash = (37 * hash) + METRICS_FIELD_NUMBER;
         hash = (53 * hash) + getMetricsList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -274,46 +269,59 @@ public final class MapReduceProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -321,14 +329,16 @@ public final class MapReduceProtos {
      * Protobuf type {@code hbase.pb.ScanMetrics}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetricsOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ScanMetrics)
+        org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetricsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_ScanMetrics_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_ScanMetrics_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -341,19 +351,17 @@ public final class MapReduceProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getMetricsFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (metricsBuilder_ == null) {
@@ -365,19 +373,18 @@ public final class MapReduceProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_ScanMetrics_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics build() {
         org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics result = buildPartial();
         if (!result.isInitialized()) {
@@ -386,11 +393,12 @@ public final class MapReduceProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics result = new org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics(this);
         int from_bitField0_ = bitField0_;
         if (metricsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             metrics_ = java.util.Collections.unmodifiableList(metrics_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -402,6 +410,39 @@ public final class MapReduceProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics)other);
@@ -432,21 +473,24 @@ public final class MapReduceProtos {
               metrics_ = other.metrics_;
               bitField0_ = (bitField0_ & ~0x00000001);
               metricsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getMetricsFieldBuilder() : null;
             } else {
               metricsBuilder_.addAllMessages(other.metrics_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -456,7 +500,7 @@ public final class MapReduceProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -466,17 +510,16 @@ public final class MapReduceProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.NameInt64Pair metrics = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair> metrics_ =
         java.util.Collections.emptyList();
       private void ensureMetricsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           metrics_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair>(metrics_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64PairOrBuilder> metricsBuilder_;
 
       /**
@@ -608,7 +651,8 @@ public final class MapReduceProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair> values) {
         if (metricsBuilder_ == null) {
           ensureMetricsIsMutable();
-          super.addAll(values, metrics_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, metrics_);
           onChanged();
         } else {
           metricsBuilder_.addAllMessages(values);
@@ -691,62 +735,110 @@ public final class MapReduceProtos {
            getMetricsBuilderList() {
         return getMetricsFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64PairOrBuilder> 
           getMetricsFieldBuilder() {
         if (metricsBuilder_ == null) {
-          metricsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          metricsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64Pair.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.NameInt64PairOrBuilder>(
                   metrics_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           metrics_ = null;
         }
         return metricsBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ScanMetrics)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ScanMetrics)
+    private static final org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ScanMetrics(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ScanMetrics)
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ScanMetrics>
+        PARSER = new com.google.protobuf.AbstractParser<ScanMetrics>() {
+      @java.lang.Override
+      public ScanMetrics parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ScanMetrics(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ScanMetrics> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ScanMetrics> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.ScanMetrics getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface TableSnapshotRegionSplitOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface TableSnapshotRegionSplitOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.TableSnapshotRegionSplit)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated string locations = 2;
     /**
      * <code>repeated string locations = 2;</code>
+     * @return A list containing the locations.
      */
     java.util.List<java.lang.String>
-    getLocationsList();
+        getLocationsList();
     /**
      * <code>repeated string locations = 2;</code>
+     * @return The count of locations.
      */
     int getLocationsCount();
     /**
      * <code>repeated string locations = 2;</code>
+     * @param index The index of the element to return.
+     * @return The locations at the given index.
      */
     java.lang.String getLocations(int index);
     /**
      * <code>repeated string locations = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the locations at the given index.
      */
     com.google.protobuf.ByteString
         getLocationsBytes(int index);
 
-    // optional .hbase.pb.TableSchema table = 3;
     /**
      * <code>optional .hbase.pb.TableSchema table = 3;</code>
+     * @return Whether the table field is set.
      */
     boolean hasTable();
     /**
      * <code>optional .hbase.pb.TableSchema table = 3;</code>
+     * @return The table.
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema getTable();
     /**
@@ -754,13 +846,14 @@ public final class MapReduceProtos {
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchemaOrBuilder getTableOrBuilder();
 
-    // optional .hbase.pb.RegionInfo region = 4;
     /**
      * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+     * @return Whether the region field is set.
      */
     boolean hasRegion();
     /**
      * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+     * @return The region.
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo getRegion();
     /**
@@ -771,36 +864,39 @@ public final class MapReduceProtos {
   /**
    * Protobuf type {@code hbase.pb.TableSnapshotRegionSplit}
    */
-  public static final class TableSnapshotRegionSplit extends
-      com.google.protobuf.GeneratedMessage
-      implements TableSnapshotRegionSplitOrBuilder {
+  public  static final class TableSnapshotRegionSplit extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.TableSnapshotRegionSplit)
+      TableSnapshotRegionSplitOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use TableSnapshotRegionSplit.newBuilder() to construct.
-    private TableSnapshotRegionSplit(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private TableSnapshotRegionSplit(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private TableSnapshotRegionSplit(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final TableSnapshotRegionSplit defaultInstance;
-    public static TableSnapshotRegionSplit getDefaultInstance() {
-      return defaultInstance;
+    private TableSnapshotRegionSplit() {
+      locations_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
-    public TableSnapshotRegionSplit getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TableSnapshotRegionSplit();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private TableSnapshotRegionSplit(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -812,24 +908,18 @@ public final class MapReduceProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 locations_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              locations_.add(input.readBytes());
+              locations_.add(bs);
               break;
             }
             case 26: {
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = table_.toBuilder();
               }
               table_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.PARSER, extensionRegistry);
@@ -842,7 +932,7 @@ public final class MapReduceProtos {
             }
             case 34: {
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              if (((bitField0_ & 0x00000002) != 0)) {
                 subBuilder = region_.toBuilder();
               }
               region_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.PARSER, extensionRegistry);
@@ -853,16 +943,23 @@ public final class MapReduceProtos {
               bitField0_ |= 0x00000002;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          locations_ = new com.google.protobuf.UnmodifiableLazyStringList(locations_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          locations_ = locations_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -873,112 +970,102 @@ public final class MapReduceProtos {
       return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit.class, org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<TableSnapshotRegionSplit> PARSER =
-        new com.google.protobuf.AbstractParser<TableSnapshotRegionSplit>() {
-      public TableSnapshotRegionSplit parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new TableSnapshotRegionSplit(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<TableSnapshotRegionSplit> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // repeated string locations = 2;
     public static final int LOCATIONS_FIELD_NUMBER = 2;
     private com.google.protobuf.LazyStringList locations_;
     /**
      * <code>repeated string locations = 2;</code>
+     * @return A list containing the locations.
      */
-    public java.util.List<java.lang.String>
+    public com.google.protobuf.ProtocolStringList
         getLocationsList() {
       return locations_;
     }
     /**
      * <code>repeated string locations = 2;</code>
+     * @return The count of locations.
      */
     public int getLocationsCount() {
       return locations_.size();
     }
     /**
      * <code>repeated string locations = 2;</code>
+     * @param index The index of the element to return.
+     * @return The locations at the given index.
      */
     public java.lang.String getLocations(int index) {
       return locations_.get(index);
     }
     /**
      * <code>repeated string locations = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the locations at the given index.
      */
     public com.google.protobuf.ByteString
         getLocationsBytes(int index) {
       return locations_.getByteString(index);
     }
 
-    // optional .hbase.pb.TableSchema table = 3;
     public static final int TABLE_FIELD_NUMBER = 3;
     private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema table_;
     /**
      * <code>optional .hbase.pb.TableSchema table = 3;</code>
+     * @return Whether the table field is set.
      */
     public boolean hasTable() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional .hbase.pb.TableSchema table = 3;</code>
+     * @return The table.
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema getTable() {
-      return table_;
+      return table_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance() : table_;
     }
     /**
      * <code>optional .hbase.pb.TableSchema table = 3;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchemaOrBuilder getTableOrBuilder() {
-      return table_;
+      return table_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance() : table_;
     }
 
-    // optional .hbase.pb.RegionInfo region = 4;
     public static final int REGION_FIELD_NUMBER = 4;
     private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo region_;
     /**
      * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+     * @return Whether the region field is set.
      */
     public boolean hasRegion() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+     * @return The region.
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo getRegion() {
-      return region_;
+      return region_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance() : region_;
     }
     /**
      * <code>optional .hbase.pb.RegionInfo region = 4;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfoOrBuilder getRegionOrBuilder() {
-      return region_;
+      return region_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance() : region_;
     }
 
-    private void initFields() {
-      locations_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      table_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance();
-      region_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (hasTable()) {
         if (!getTable().isInitialized()) {
@@ -996,54 +1083,46 @@ public final class MapReduceProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < locations_.size(); i++) {
-        output.writeBytes(2, locations_.getByteString(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, locations_.getRaw(i));
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(3, table_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(3, getTable());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(4, region_);
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(4, getRegion());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       {
         int dataSize = 0;
         for (int i = 0; i < locations_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(locations_.getByteString(i));
+          dataSize += computeStringSizeNoTag(locations_.getRaw(i));
         }
         size += dataSize;
         size += 1 * getLocationsList().size();
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, table_);
+          .computeMessageSize(3, getTable());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, region_);
+          .computeMessageSize(4, getRegion());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1056,32 +1135,29 @@ public final class MapReduceProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit other = (org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit) obj;
 
-      boolean result = true;
-      result = result && getLocationsList()
-          .equals(other.getLocationsList());
-      result = result && (hasTable() == other.hasTable());
+      if (!getLocationsList()
+          .equals(other.getLocationsList())) return false;
+      if (hasTable() != other.hasTable()) return false;
       if (hasTable()) {
-        result = result && getTable()
-            .equals(other.getTable());
+        if (!getTable()
+            .equals(other.getTable())) return false;
       }
-      result = result && (hasRegion() == other.hasRegion());
+      if (hasRegion() != other.hasRegion()) return false;
       if (hasRegion()) {
-        result = result && getRegion()
-            .equals(other.getRegion());
+        if (!getRegion()
+            .equals(other.getRegion())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getLocationsCount() > 0) {
         hash = (37 * hash) + LOCATIONS_FIELD_NUMBER;
         hash = (53 * hash) + getLocationsList().hashCode();
@@ -1094,11 +1170,22 @@ public final class MapReduceProtos {
         hash = (37 * hash) + REGION_FIELD_NUMBER;
         hash = (53 * hash) + getRegion().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1122,46 +1209,59 @@ public final class MapReduceProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1169,14 +1269,16 @@ public final class MapReduceProtos {
      * Protobuf type {@code hbase.pb.TableSnapshotRegionSplit}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplitOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.TableSnapshotRegionSplit)
+        org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplitOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1189,32 +1291,30 @@ public final class MapReduceProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getTableFieldBuilder();
           getRegionFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         locations_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (tableBuilder_ == null) {
-          table_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance();
+          table_ = null;
         } else {
           tableBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         if (regionBuilder_ == null) {
-          region_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance();
+          region_ = null;
         } else {
           regionBuilder_.clear();
         }
@@ -1222,19 +1322,18 @@ public final class MapReduceProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit build() {
         org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit result = buildPartial();
         if (!result.isInitialized()) {
@@ -1243,37 +1342,70 @@ public final class MapReduceProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit result = new org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          locations_ = new com.google.protobuf.UnmodifiableLazyStringList(
-              locations_);
+        if (((bitField0_ & 0x00000001) != 0)) {
+          locations_ = locations_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.locations_ = locations_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          if (tableBuilder_ == null) {
+            result.table_ = table_;
+          } else {
+            result.table_ = tableBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
         }
-        if (tableBuilder_ == null) {
-          result.table_ = table_;
-        } else {
-          result.table_ = tableBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          if (regionBuilder_ == null) {
+            result.region_ = region_;
+          } else {
+            result.region_ = regionBuilder_.build();
+          }
           to_bitField0_ |= 0x00000002;
-        }
-        if (regionBuilder_ == null) {
-          result.region_ = region_;
-        } else {
-          result.region_ = regionBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit)other);
@@ -1301,26 +1433,27 @@ public final class MapReduceProtos {
         if (other.hasRegion()) {
           mergeRegion(other.getRegion());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (hasTable()) {
           if (!getTable().isInitialized()) {
-            
             return false;
           }
         }
         if (hasRegion()) {
           if (!getRegion().isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1330,7 +1463,7 @@ public final class MapReduceProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1340,35 +1473,40 @@ public final class MapReduceProtos {
       }
       private int bitField0_;
 
-      // repeated string locations = 2;
       private com.google.protobuf.LazyStringList locations_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureLocationsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           locations_ = new com.google.protobuf.LazyStringArrayList(locations_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @return A list containing the locations.
        */
-      public java.util.List<java.lang.String>
+      public com.google.protobuf.ProtocolStringList
           getLocationsList() {
-        return java.util.Collections.unmodifiableList(locations_);
+        return locations_.getUnmodifiableView();
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @return The count of locations.
        */
       public int getLocationsCount() {
         return locations_.size();
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param index The index of the element to return.
+       * @return The locations at the given index.
        */
       public java.lang.String getLocations(int index) {
         return locations_.get(index);
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the locations at the given index.
        */
       public com.google.protobuf.ByteString
           getLocationsBytes(int index) {
@@ -1376,6 +1514,9 @@ public final class MapReduceProtos {
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The locations to set.
+       * @return This builder for chaining.
        */
       public Builder setLocations(
           int index, java.lang.String value) {
@@ -1389,6 +1530,8 @@ public final class MapReduceProtos {
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param value The locations to add.
+       * @return This builder for chaining.
        */
       public Builder addLocations(
           java.lang.String value) {
@@ -1402,16 +1545,20 @@ public final class MapReduceProtos {
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param values The locations to add.
+       * @return This builder for chaining.
        */
       public Builder addAllLocations(
           java.lang.Iterable<java.lang.String> values) {
         ensureLocationsIsMutable();
-        super.addAll(values, locations_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, locations_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLocations() {
         locations_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -1421,6 +1568,8 @@ public final class MapReduceProtos {
       }
       /**
        * <code>repeated string locations = 2;</code>
+       * @param value The bytes of the locations to add.
+       * @return This builder for chaining.
        */
       public Builder addLocationsBytes(
           com.google.protobuf.ByteString value) {
@@ -1433,22 +1582,23 @@ public final class MapReduceProtos {
         return this;
       }
 
-      // optional .hbase.pb.TableSchema table = 3;
-      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema table_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema table_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchemaOrBuilder> tableBuilder_;
       /**
        * <code>optional .hbase.pb.TableSchema table = 3;</code>
+       * @return Whether the table field is set.
        */
       public boolean hasTable() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional .hbase.pb.TableSchema table = 3;</code>
+       * @return The table.
        */
       public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema getTable() {
         if (tableBuilder_ == null) {
-          return table_;
+          return table_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance() : table_;
         } else {
           return tableBuilder_.getMessage();
         }
@@ -1488,7 +1638,8 @@ public final class MapReduceProtos {
        */
       public Builder mergeTable(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema value) {
         if (tableBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+          if (((bitField0_ & 0x00000002) != 0) &&
+              table_ != null &&
               table_ != org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance()) {
             table_ =
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.newBuilder(table_).mergeFrom(value).buildPartial();
@@ -1507,7 +1658,7 @@ public final class MapReduceProtos {
        */
       public Builder clearTable() {
         if (tableBuilder_ == null) {
-          table_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance();
+          table_ = null;
           onChanged();
         } else {
           tableBuilder_.clear();
@@ -1530,19 +1681,20 @@ public final class MapReduceProtos {
         if (tableBuilder_ != null) {
           return tableBuilder_.getMessageOrBuilder();
         } else {
-          return table_;
+          return table_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.getDefaultInstance() : table_;
         }
       }
       /**
        * <code>optional .hbase.pb.TableSchema table = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchemaOrBuilder> 
           getTableFieldBuilder() {
         if (tableBuilder_ == null) {
-          tableBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          tableBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchema.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.TableSchemaOrBuilder>(
-                  table_,
+                  getTable(),
                   getParentForChildren(),
                   isClean());
           table_ = null;
@@ -1550,22 +1702,23 @@ public final class MapReduceProtos {
         return tableBuilder_;
       }
 
-      // optional .hbase.pb.RegionInfo region = 4;
-      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo region_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo region_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfoOrBuilder> regionBuilder_;
       /**
        * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+       * @return Whether the region field is set.
        */
       public boolean hasRegion() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional .hbase.pb.RegionInfo region = 4;</code>
+       * @return The region.
        */
       public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo getRegion() {
         if (regionBuilder_ == null) {
-          return region_;
+          return region_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance() : region_;
         } else {
           return regionBuilder_.getMessage();
         }
@@ -1605,7 +1758,8 @@ public final class MapReduceProtos {
        */
       public Builder mergeRegion(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo value) {
         if (regionBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+          if (((bitField0_ & 0x00000004) != 0) &&
+              region_ != null &&
               region_ != org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance()) {
             region_ =
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.newBuilder(region_).mergeFrom(value).buildPartial();
@@ -1624,7 +1778,7 @@ public final class MapReduceProtos {
        */
       public Builder clearRegion() {
         if (regionBuilder_ == null) {
-          region_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance();
+          region_ = null;
           onChanged();
         } else {
           regionBuilder_.clear();
@@ -1647,53 +1801,95 @@ public final class MapReduceProtos {
         if (regionBuilder_ != null) {
           return regionBuilder_.getMessageOrBuilder();
         } else {
-          return region_;
+          return region_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.getDefaultInstance() : region_;
         }
       }
       /**
        * <code>optional .hbase.pb.RegionInfo region = 4;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfoOrBuilder> 
           getRegionFieldBuilder() {
         if (regionBuilder_ == null) {
-          regionBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          regionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.RegionInfoOrBuilder>(
-                  region_,
+                  getRegion(),
                   getParentForChildren(),
                   isClean());
           region_ = null;
         }
         return regionBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.TableSnapshotRegionSplit)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.TableSnapshotRegionSplit)
+    private static final org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit DEFAULT_INSTANCE;
     static {
-      defaultInstance = new TableSnapshotRegionSplit(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.TableSnapshotRegionSplit)
+    public static org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<TableSnapshotRegionSplit>
+        PARSER = new com.google.protobuf.AbstractParser<TableSnapshotRegionSplit>() {
+      @java.lang.Override
+      public TableSnapshotRegionSplit parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TableSnapshotRegionSplit(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TableSnapshotRegionSplit> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TableSnapshotRegionSplit> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.MapReduceProtos.TableSnapshotRegionSplit getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ScanMetrics_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ScanMetrics_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -1706,31 +1902,24 @@ public final class MapReduceProtos {
       "p.hbase.protobuf.generatedB\017MapReducePro" +
       "tosH\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_ScanMetrics_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_ScanMetrics_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ScanMetrics_descriptor,
-              new java.lang.String[] { "Metrics", });
-          internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor,
-              new java.lang.String[] { "Locations", "Table", "Region", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor(),
-        }, assigner);
+        });
+    internal_static_hbase_pb_ScanMetrics_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_ScanMetrics_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ScanMetrics_descriptor,
+        new java.lang.String[] { "Metrics", });
+    internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_hbase_pb_TableSnapshotRegionSplit_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_TableSnapshotRegionSplit_descriptor,
+        new java.lang.String[] { "Locations", "Table", "Region", });
+    org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

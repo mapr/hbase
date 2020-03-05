@@ -6,77 +6,89 @@ package org.apache.hadoop.hbase.protobuf.generated;
 public final class ClusterIdProtos {
   private ClusterIdProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface ClusterIdOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // required string cluster_id = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface ClusterIdOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ClusterId)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return Whether the clusterId field is set.
      */
     boolean hasClusterId();
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return The clusterId.
      */
     java.lang.String getClusterId();
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return The bytes for clusterId.
      */
     com.google.protobuf.ByteString
         getClusterIdBytes();
   }
   /**
-   * Protobuf type {@code hbase.pb.ClusterId}
-   *
    * <pre>
    **
    * Content of the '/hbase/hbaseid', cluster id, znode.
    * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.
    * </pre>
+   *
+   * Protobuf type {@code hbase.pb.ClusterId}
    */
-  public static final class ClusterId extends
-      com.google.protobuf.GeneratedMessage
-      implements ClusterIdOrBuilder {
+  public  static final class ClusterId extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ClusterId)
+      ClusterIdOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ClusterId.newBuilder() to construct.
-    private ClusterId(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ClusterId(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ClusterId(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ClusterId defaultInstance;
-    public static ClusterId getDefaultInstance() {
-      return defaultInstance;
+    private ClusterId() {
+      clusterId_ = "";
     }
 
-    public ClusterId getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ClusterId();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ClusterId(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -88,16 +100,17 @@ public final class ClusterIdProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              clusterId_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              clusterId_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -106,7 +119,7 @@ public final class ClusterIdProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -117,48 +130,35 @@ public final class ClusterIdProtos {
       return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.internal_static_hbase_pb_ClusterId_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.internal_static_hbase_pb_ClusterId_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId.class, org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ClusterId> PARSER =
-        new com.google.protobuf.AbstractParser<ClusterId>() {
-      public ClusterId parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ClusterId(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ClusterId> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string cluster_id = 1;
     public static final int CLUSTER_ID_FIELD_NUMBER = 1;
-    private java.lang.Object clusterId_;
+    private volatile java.lang.Object clusterId_;
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return Whether the clusterId field is set.
      */
     public boolean hasClusterId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return The clusterId.
      */
     public java.lang.String getClusterId() {
       java.lang.Object ref = clusterId_;
@@ -175,11 +175,12 @@ public final class ClusterIdProtos {
       }
     }
     /**
-     * <code>required string cluster_id = 1;</code>
-     *
      * <pre>
      * This is the cluster id, a uuid as a String
      * </pre>
+     *
+     * <code>required string cluster_id = 1;</code>
+     * @return The bytes for clusterId.
      */
     public com.google.protobuf.ByteString
         getClusterIdBytes() {
@@ -195,13 +196,12 @@ public final class ClusterIdProtos {
       }
     }
 
-    private void initFields() {
-      clusterId_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasClusterId()) {
         memoizedIsInitialized = 0;
@@ -211,35 +211,27 @@ public final class ClusterIdProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getClusterIdBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clusterId_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getClusterIdBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clusterId_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -252,34 +244,42 @@ public final class ClusterIdProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId other = (org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId) obj;
 
-      boolean result = true;
-      result = result && (hasClusterId() == other.hasClusterId());
+      if (hasClusterId() != other.hasClusterId()) return false;
       if (hasClusterId()) {
-        result = result && getClusterId()
-            .equals(other.getClusterId());
+        if (!getClusterId()
+            .equals(other.getClusterId())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasClusterId()) {
         hash = (37 * hash) + CLUSTER_ID_FIELD_NUMBER;
         hash = (53 * hash) + getClusterId().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -303,67 +303,82 @@ public final class ClusterIdProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
     /**
-     * Protobuf type {@code hbase.pb.ClusterId}
-     *
      * <pre>
      **
      * Content of the '/hbase/hbaseid', cluster id, znode.
      * Also cluster of the ${HBASE_ROOTDIR}/hbase.id file.
      * </pre>
+     *
+     * Protobuf type {@code hbase.pb.ClusterId}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterIdOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ClusterId)
+        org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterIdOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.internal_static_hbase_pb_ClusterId_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.internal_static_hbase_pb_ClusterId_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -376,18 +391,16 @@ public final class ClusterIdProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         clusterId_ = "";
@@ -395,19 +408,18 @@ public final class ClusterIdProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.internal_static_hbase_pb_ClusterId_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId build() {
         org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId result = buildPartial();
         if (!result.isInitialized()) {
@@ -416,11 +428,12 @@ public final class ClusterIdProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId result = new org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.clusterId_ = clusterId_;
@@ -429,6 +442,39 @@ public final class ClusterIdProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId)other);
@@ -445,18 +491,20 @@ public final class ClusterIdProtos {
           clusterId_ = other.clusterId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasClusterId()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -466,7 +514,7 @@ public final class ClusterIdProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -476,42 +524,47 @@ public final class ClusterIdProtos {
       }
       private int bitField0_;
 
-      // required string cluster_id = 1;
       private java.lang.Object clusterId_ = "";
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @return Whether the clusterId field is set.
        */
       public boolean hasClusterId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @return The clusterId.
        */
       public java.lang.String getClusterId() {
         java.lang.Object ref = clusterId_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          clusterId_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            clusterId_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @return The bytes for clusterId.
        */
       public com.google.protobuf.ByteString
           getClusterIdBytes() {
@@ -527,11 +580,13 @@ public final class ClusterIdProtos {
         }
       }
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @param value The clusterId to set.
+       * @return This builder for chaining.
        */
       public Builder setClusterId(
           java.lang.String value) {
@@ -544,11 +599,12 @@ public final class ClusterIdProtos {
         return this;
       }
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClusterId() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -557,11 +613,13 @@ public final class ClusterIdProtos {
         return this;
       }
       /**
-       * <code>required string cluster_id = 1;</code>
-       *
        * <pre>
        * This is the cluster id, a uuid as a String
        * </pre>
+       *
+       * <code>required string cluster_id = 1;</code>
+       * @param value The bytes for clusterId to set.
+       * @return This builder for chaining.
        */
       public Builder setClusterIdBytes(
           com.google.protobuf.ByteString value) {
@@ -573,29 +631,70 @@ public final class ClusterIdProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ClusterId)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ClusterId)
+    private static final org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ClusterId(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ClusterId)
+    public static org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ClusterId>
+        PARSER = new com.google.protobuf.AbstractParser<ClusterId>() {
+      @java.lang.Override
+      public ClusterId parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ClusterId(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ClusterId> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ClusterId> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.ClusterIdProtos.ClusterId getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ClusterId_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ClusterId_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -604,24 +703,16 @@ public final class ClusterIdProtos {
       "p.hbase.protobuf.generatedB\017ClusterIdPro" +
       "tosH\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_ClusterId_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_ClusterId_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ClusterId_descriptor,
-              new java.lang.String[] { "ClusterId", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_hbase_pb_ClusterId_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_ClusterId_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ClusterId_descriptor,
+        new java.lang.String[] { "ClusterId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

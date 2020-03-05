@@ -6,27 +6,39 @@ package org.apache.hadoop.hbase.rest.protobuf.generated;
 public final class NamespacesMessage {
   private NamespacesMessage() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface NamespacesOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // repeated string namespace = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface NamespacesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>repeated string namespace = 1;</code>
+     * @return A list containing the namespace.
      */
     java.util.List<java.lang.String>
-    getNamespaceList();
+        getNamespaceList();
     /**
      * <code>repeated string namespace = 1;</code>
+     * @return The count of namespace.
      */
     int getNamespaceCount();
     /**
      * <code>repeated string namespace = 1;</code>
+     * @param index The index of the element to return.
+     * @return The namespace at the given index.
      */
     java.lang.String getNamespace(int index);
     /**
      * <code>repeated string namespace = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the namespace at the given index.
      */
     com.google.protobuf.ByteString
         getNamespaceBytes(int index);
@@ -34,36 +46,39 @@ public final class NamespacesMessage {
   /**
    * Protobuf type {@code org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces}
    */
-  public static final class Namespaces extends
-      com.google.protobuf.GeneratedMessage
-      implements NamespacesOrBuilder {
+  public  static final class Namespaces extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
+      NamespacesOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Namespaces.newBuilder() to construct.
-    private Namespaces(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Namespaces(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Namespaces(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Namespaces defaultInstance;
-    public static Namespaces getDefaultInstance() {
-      return defaultInstance;
+    private Namespaces() {
+      namespace_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
-    public Namespaces getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Namespaces();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Namespaces(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -75,19 +90,20 @@ public final class NamespacesMessage {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 namespace_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              namespace_.add(input.readBytes());
+              namespace_.add(bs);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -96,10 +112,10 @@ public final class NamespacesMessage {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          namespace_ = new com.google.protobuf.UnmodifiableLazyStringList(namespace_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          namespace_ = namespace_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -110,106 +126,131 @@ public final class NamespacesMessage {
       return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces.class, org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Namespaces> PARSER =
-        new com.google.protobuf.AbstractParser<Namespaces>() {
-      public Namespaces parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Namespaces(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Namespaces> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated string namespace = 1;
     public static final int NAMESPACE_FIELD_NUMBER = 1;
     private com.google.protobuf.LazyStringList namespace_;
     /**
      * <code>repeated string namespace = 1;</code>
+     * @return A list containing the namespace.
      */
-    public java.util.List<java.lang.String>
+    public com.google.protobuf.ProtocolStringList
         getNamespaceList() {
       return namespace_;
     }
     /**
      * <code>repeated string namespace = 1;</code>
+     * @return The count of namespace.
      */
     public int getNamespaceCount() {
       return namespace_.size();
     }
     /**
      * <code>repeated string namespace = 1;</code>
+     * @param index The index of the element to return.
+     * @return The namespace at the given index.
      */
     public java.lang.String getNamespace(int index) {
       return namespace_.get(index);
     }
     /**
      * <code>repeated string namespace = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the namespace at the given index.
      */
     public com.google.protobuf.ByteString
         getNamespaceBytes(int index) {
       return namespace_.getByteString(index);
     }
 
-    private void initFields() {
-      namespace_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < namespace_.size(); i++) {
-        output.writeBytes(1, namespace_.getByteString(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, namespace_.getRaw(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       {
         int dataSize = 0;
         for (int i = 0; i < namespace_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(namespace_.getByteString(i));
+          dataSize += computeStringSizeNoTag(namespace_.getRaw(i));
         }
         size += dataSize;
         size += 1 * getNamespaceList().size();
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces)) {
+        return super.equals(obj);
+      }
+      org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces other = (org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces) obj;
+
+      if (!getNamespaceList()
+          .equals(other.getNamespaceList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getNamespaceCount() > 0) {
+        hash = (37 * hash) + NAMESPACE_FIELD_NUMBER;
+        hash = (53 * hash) + getNamespaceList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -233,46 +274,59 @@ public final class NamespacesMessage {
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -280,14 +334,16 @@ public final class NamespacesMessage {
      * Protobuf type {@code org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.NamespacesOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
+        org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.NamespacesOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -300,18 +356,16 @@ public final class NamespacesMessage {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         namespace_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -319,19 +373,18 @@ public final class NamespacesMessage {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces build() {
         org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces result = buildPartial();
         if (!result.isInitialized()) {
@@ -340,12 +393,12 @@ public final class NamespacesMessage {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces buildPartial() {
         org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces result = new org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          namespace_ = new com.google.protobuf.UnmodifiableLazyStringList(
-              namespace_);
+        if (((bitField0_ & 0x00000001) != 0)) {
+          namespace_ = namespace_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.namespace_ = namespace_;
@@ -353,6 +406,39 @@ public final class NamespacesMessage {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces) {
           return mergeFrom((org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces)other);
@@ -374,14 +460,17 @@ public final class NamespacesMessage {
           }
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -391,7 +480,7 @@ public final class NamespacesMessage {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -401,35 +490,40 @@ public final class NamespacesMessage {
       }
       private int bitField0_;
 
-      // repeated string namespace = 1;
       private com.google.protobuf.LazyStringList namespace_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureNamespaceIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           namespace_ = new com.google.protobuf.LazyStringArrayList(namespace_);
           bitField0_ |= 0x00000001;
          }
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @return A list containing the namespace.
        */
-      public java.util.List<java.lang.String>
+      public com.google.protobuf.ProtocolStringList
           getNamespaceList() {
-        return java.util.Collections.unmodifiableList(namespace_);
+        return namespace_.getUnmodifiableView();
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @return The count of namespace.
        */
       public int getNamespaceCount() {
         return namespace_.size();
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param index The index of the element to return.
+       * @return The namespace at the given index.
        */
       public java.lang.String getNamespace(int index) {
         return namespace_.get(index);
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the namespace at the given index.
        */
       public com.google.protobuf.ByteString
           getNamespaceBytes(int index) {
@@ -437,6 +531,9 @@ public final class NamespacesMessage {
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The namespace to set.
+       * @return This builder for chaining.
        */
       public Builder setNamespace(
           int index, java.lang.String value) {
@@ -450,6 +547,8 @@ public final class NamespacesMessage {
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param value The namespace to add.
+       * @return This builder for chaining.
        */
       public Builder addNamespace(
           java.lang.String value) {
@@ -463,16 +562,20 @@ public final class NamespacesMessage {
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param values The namespace to add.
+       * @return This builder for chaining.
        */
       public Builder addAllNamespace(
           java.lang.Iterable<java.lang.String> values) {
         ensureNamespaceIsMutable();
-        super.addAll(values, namespace_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, namespace_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNamespace() {
         namespace_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -482,6 +585,8 @@ public final class NamespacesMessage {
       }
       /**
        * <code>repeated string namespace = 1;</code>
+       * @param value The bytes of the namespace to add.
+       * @return This builder for chaining.
        */
       public Builder addNamespaceBytes(
           com.google.protobuf.ByteString value) {
@@ -493,29 +598,70 @@ public final class NamespacesMessage {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
     }
 
+    // @@protoc_insertion_point(class_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
+    private static final org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Namespaces(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces();
     }
 
-    // @@protoc_insertion_point(class_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Namespaces)
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Namespaces>
+        PARSER = new com.google.protobuf.AbstractParser<Namespaces>() {
+      @java.lang.Override
+      public Namespaces parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Namespaces(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Namespaces> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Namespaces> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.rest.protobuf.generated.NamespacesMessage.Namespaces getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -523,24 +669,16 @@ public final class NamespacesMessage {
       "doop.hbase.rest.protobuf.generated\"\037\n\nNa" +
       "mespaces\022\021\n\tnamespace\030\001 \003(\t"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor,
-              new java.lang.String[] { "Namespace", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Namespaces_descriptor,
+        new java.lang.String[] { "Namespace", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

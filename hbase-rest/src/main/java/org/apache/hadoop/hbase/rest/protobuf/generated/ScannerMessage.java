@@ -6,189 +6,221 @@ package org.apache.hadoop.hbase.rest.protobuf.generated;
 public final class ScannerMessage {
   private ScannerMessage() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface ScannerOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes startRow = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface ScannerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>optional bytes startRow = 1;</code>
+     * @return Whether the startRow field is set.
      */
     boolean hasStartRow();
     /**
      * <code>optional bytes startRow = 1;</code>
+     * @return The startRow.
      */
     com.google.protobuf.ByteString getStartRow();
 
-    // optional bytes endRow = 2;
     /**
      * <code>optional bytes endRow = 2;</code>
+     * @return Whether the endRow field is set.
      */
     boolean hasEndRow();
     /**
      * <code>optional bytes endRow = 2;</code>
+     * @return The endRow.
      */
     com.google.protobuf.ByteString getEndRow();
 
-    // repeated bytes columns = 3;
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @return A list containing the columns.
      */
     java.util.List<com.google.protobuf.ByteString> getColumnsList();
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @return The count of columns.
      */
     int getColumnsCount();
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @param index The index of the element to return.
+     * @return The columns at the given index.
      */
     com.google.protobuf.ByteString getColumns(int index);
 
-    // optional int32 batch = 4;
     /**
      * <code>optional int32 batch = 4;</code>
+     * @return Whether the batch field is set.
      */
     boolean hasBatch();
     /**
      * <code>optional int32 batch = 4;</code>
+     * @return The batch.
      */
     int getBatch();
 
-    // optional int64 startTime = 5;
     /**
      * <code>optional int64 startTime = 5;</code>
+     * @return Whether the startTime field is set.
      */
     boolean hasStartTime();
     /**
      * <code>optional int64 startTime = 5;</code>
+     * @return The startTime.
      */
     long getStartTime();
 
-    // optional int64 endTime = 6;
     /**
      * <code>optional int64 endTime = 6;</code>
+     * @return Whether the endTime field is set.
      */
     boolean hasEndTime();
     /**
      * <code>optional int64 endTime = 6;</code>
+     * @return The endTime.
      */
     long getEndTime();
 
-    // optional int32 maxVersions = 7;
     /**
      * <code>optional int32 maxVersions = 7;</code>
+     * @return Whether the maxVersions field is set.
      */
     boolean hasMaxVersions();
     /**
      * <code>optional int32 maxVersions = 7;</code>
+     * @return The maxVersions.
      */
     int getMaxVersions();
 
-    // optional string filter = 8;
     /**
      * <code>optional string filter = 8;</code>
+     * @return Whether the filter field is set.
      */
     boolean hasFilter();
     /**
      * <code>optional string filter = 8;</code>
+     * @return The filter.
      */
     java.lang.String getFilter();
     /**
      * <code>optional string filter = 8;</code>
+     * @return The bytes for filter.
      */
     com.google.protobuf.ByteString
         getFilterBytes();
 
-    // optional int32 caching = 9;
     /**
-     * <code>optional int32 caching = 9;</code>
-     *
      * <pre>
      * specifies REST scanner caching
      * </pre>
+     *
+     * <code>optional int32 caching = 9;</code>
+     * @return Whether the caching field is set.
      */
     boolean hasCaching();
     /**
-     * <code>optional int32 caching = 9;</code>
-     *
      * <pre>
      * specifies REST scanner caching
      * </pre>
+     *
+     * <code>optional int32 caching = 9;</code>
+     * @return The caching.
      */
     int getCaching();
 
-    // repeated string labels = 10;
     /**
      * <code>repeated string labels = 10;</code>
+     * @return A list containing the labels.
      */
     java.util.List<java.lang.String>
-    getLabelsList();
+        getLabelsList();
     /**
      * <code>repeated string labels = 10;</code>
+     * @return The count of labels.
      */
     int getLabelsCount();
     /**
      * <code>repeated string labels = 10;</code>
+     * @param index The index of the element to return.
+     * @return The labels at the given index.
      */
     java.lang.String getLabels(int index);
     /**
      * <code>repeated string labels = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the labels at the given index.
      */
     com.google.protobuf.ByteString
         getLabelsBytes(int index);
 
-    // optional bool cacheBlocks = 11;
     /**
-     * <code>optional bool cacheBlocks = 11;</code>
-     *
      * <pre>
      * server side block caching hint
      * </pre>
+     *
+     * <code>optional bool cacheBlocks = 11;</code>
+     * @return Whether the cacheBlocks field is set.
      */
     boolean hasCacheBlocks();
     /**
-     * <code>optional bool cacheBlocks = 11;</code>
-     *
      * <pre>
      * server side block caching hint
      * </pre>
+     *
+     * <code>optional bool cacheBlocks = 11;</code>
+     * @return The cacheBlocks.
      */
     boolean getCacheBlocks();
   }
   /**
    * Protobuf type {@code org.apache.hadoop.hbase.rest.protobuf.generated.Scanner}
    */
-  public static final class Scanner extends
-      com.google.protobuf.GeneratedMessage
-      implements ScannerOrBuilder {
+  public  static final class Scanner extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
+      ScannerOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Scanner.newBuilder() to construct.
-    private Scanner(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Scanner(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Scanner(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Scanner defaultInstance;
-    public static Scanner getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public Scanner getDefaultInstanceForType() {
-      return defaultInstance;
+    private Scanner() {
+      startRow_ = com.google.protobuf.ByteString.EMPTY;
+      endRow_ = com.google.protobuf.ByteString.EMPTY;
+      columns_ = java.util.Collections.emptyList();
+      filter_ = "";
+      labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Scanner();
+    }
+
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Scanner(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -200,13 +232,6 @@ public final class ScannerMessage {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               startRow_ = input.readBytes();
@@ -218,7 +243,7 @@ public final class ScannerMessage {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
                 columns_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
                 mutable_bitField0_ |= 0x00000004;
               }
@@ -246,8 +271,9 @@ public final class ScannerMessage {
               break;
             }
             case 66: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000040;
-              filter_ = input.readBytes();
+              filter_ = bs;
               break;
             }
             case 72: {
@@ -256,16 +282,24 @@ public final class ScannerMessage {
               break;
             }
             case 82: {
-              if (!((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000200) != 0)) {
                 labels_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000200;
               }
-              labels_.add(input.readBytes());
+              labels_.add(bs);
               break;
             }
             case 88: {
               bitField0_ |= 0x00000100;
               cacheBlocks_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -274,13 +308,13 @@ public final class ScannerMessage {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-          columns_ = java.util.Collections.unmodifiableList(columns_);
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          columns_ = java.util.Collections.unmodifiableList(columns_); // C
         }
-        if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
-          labels_ = new com.google.protobuf.UnmodifiableLazyStringList(labels_);
+        if (((mutable_bitField0_ & 0x00000200) != 0)) {
+          labels_ = labels_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -291,66 +325,54 @@ public final class ScannerMessage {
       return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner.class, org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Scanner> PARSER =
-        new com.google.protobuf.AbstractParser<Scanner>() {
-      public Scanner parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Scanner(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Scanner> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bytes startRow = 1;
     public static final int STARTROW_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString startRow_;
     /**
      * <code>optional bytes startRow = 1;</code>
+     * @return Whether the startRow field is set.
      */
     public boolean hasStartRow() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes startRow = 1;</code>
+     * @return The startRow.
      */
     public com.google.protobuf.ByteString getStartRow() {
       return startRow_;
     }
 
-    // optional bytes endRow = 2;
     public static final int ENDROW_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString endRow_;
     /**
      * <code>optional bytes endRow = 2;</code>
+     * @return Whether the endRow field is set.
      */
     public boolean hasEndRow() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes endRow = 2;</code>
+     * @return The endRow.
      */
     public com.google.protobuf.ByteString getEndRow() {
       return endRow_;
     }
 
-    // repeated bytes columns = 3;
     public static final int COLUMNS_FIELD_NUMBER = 3;
     private java.util.List<com.google.protobuf.ByteString> columns_;
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @return A list containing the columns.
      */
     public java.util.List<com.google.protobuf.ByteString>
         getColumnsList() {
@@ -358,92 +380,100 @@ public final class ScannerMessage {
     }
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @return The count of columns.
      */
     public int getColumnsCount() {
       return columns_.size();
     }
     /**
      * <code>repeated bytes columns = 3;</code>
+     * @param index The index of the element to return.
+     * @return The columns at the given index.
      */
     public com.google.protobuf.ByteString getColumns(int index) {
       return columns_.get(index);
     }
 
-    // optional int32 batch = 4;
     public static final int BATCH_FIELD_NUMBER = 4;
     private int batch_;
     /**
      * <code>optional int32 batch = 4;</code>
+     * @return Whether the batch field is set.
      */
     public boolean hasBatch() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional int32 batch = 4;</code>
+     * @return The batch.
      */
     public int getBatch() {
       return batch_;
     }
 
-    // optional int64 startTime = 5;
     public static final int STARTTIME_FIELD_NUMBER = 5;
     private long startTime_;
     /**
      * <code>optional int64 startTime = 5;</code>
+     * @return Whether the startTime field is set.
      */
     public boolean hasStartTime() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional int64 startTime = 5;</code>
+     * @return The startTime.
      */
     public long getStartTime() {
       return startTime_;
     }
 
-    // optional int64 endTime = 6;
     public static final int ENDTIME_FIELD_NUMBER = 6;
     private long endTime_;
     /**
      * <code>optional int64 endTime = 6;</code>
+     * @return Whether the endTime field is set.
      */
     public boolean hasEndTime() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>optional int64 endTime = 6;</code>
+     * @return The endTime.
      */
     public long getEndTime() {
       return endTime_;
     }
 
-    // optional int32 maxVersions = 7;
     public static final int MAXVERSIONS_FIELD_NUMBER = 7;
     private int maxVersions_;
     /**
      * <code>optional int32 maxVersions = 7;</code>
+     * @return Whether the maxVersions field is set.
      */
     public boolean hasMaxVersions() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>optional int32 maxVersions = 7;</code>
+     * @return The maxVersions.
      */
     public int getMaxVersions() {
       return maxVersions_;
     }
 
-    // optional string filter = 8;
     public static final int FILTER_FIELD_NUMBER = 8;
-    private java.lang.Object filter_;
+    private volatile java.lang.Object filter_;
     /**
      * <code>optional string filter = 8;</code>
+     * @return Whether the filter field is set.
      */
     public boolean hasFilter() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
      * <code>optional string filter = 8;</code>
+     * @return The filter.
      */
     public java.lang.String getFilter() {
       java.lang.Object ref = filter_;
@@ -461,6 +491,7 @@ public final class ScannerMessage {
     }
     /**
      * <code>optional string filter = 8;</code>
+     * @return The bytes for filter.
      */
     public com.google.protobuf.ByteString
         getFilterBytes() {
@@ -476,156 +507,152 @@ public final class ScannerMessage {
       }
     }
 
-    // optional int32 caching = 9;
     public static final int CACHING_FIELD_NUMBER = 9;
     private int caching_;
     /**
-     * <code>optional int32 caching = 9;</code>
-     *
      * <pre>
      * specifies REST scanner caching
      * </pre>
+     *
+     * <code>optional int32 caching = 9;</code>
+     * @return Whether the caching field is set.
      */
     public boolean hasCaching() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
-     * <code>optional int32 caching = 9;</code>
-     *
      * <pre>
      * specifies REST scanner caching
      * </pre>
+     *
+     * <code>optional int32 caching = 9;</code>
+     * @return The caching.
      */
     public int getCaching() {
       return caching_;
     }
 
-    // repeated string labels = 10;
     public static final int LABELS_FIELD_NUMBER = 10;
     private com.google.protobuf.LazyStringList labels_;
     /**
      * <code>repeated string labels = 10;</code>
+     * @return A list containing the labels.
      */
-    public java.util.List<java.lang.String>
+    public com.google.protobuf.ProtocolStringList
         getLabelsList() {
       return labels_;
     }
     /**
      * <code>repeated string labels = 10;</code>
+     * @return The count of labels.
      */
     public int getLabelsCount() {
       return labels_.size();
     }
     /**
      * <code>repeated string labels = 10;</code>
+     * @param index The index of the element to return.
+     * @return The labels at the given index.
      */
     public java.lang.String getLabels(int index) {
       return labels_.get(index);
     }
     /**
      * <code>repeated string labels = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the labels at the given index.
      */
     public com.google.protobuf.ByteString
         getLabelsBytes(int index) {
       return labels_.getByteString(index);
     }
 
-    // optional bool cacheBlocks = 11;
     public static final int CACHEBLOCKS_FIELD_NUMBER = 11;
     private boolean cacheBlocks_;
     /**
-     * <code>optional bool cacheBlocks = 11;</code>
-     *
      * <pre>
      * server side block caching hint
      * </pre>
+     *
+     * <code>optional bool cacheBlocks = 11;</code>
+     * @return Whether the cacheBlocks field is set.
      */
     public boolean hasCacheBlocks() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000100) != 0);
     }
     /**
-     * <code>optional bool cacheBlocks = 11;</code>
-     *
      * <pre>
      * server side block caching hint
      * </pre>
+     *
+     * <code>optional bool cacheBlocks = 11;</code>
+     * @return The cacheBlocks.
      */
     public boolean getCacheBlocks() {
       return cacheBlocks_;
     }
 
-    private void initFields() {
-      startRow_ = com.google.protobuf.ByteString.EMPTY;
-      endRow_ = com.google.protobuf.ByteString.EMPTY;
-      columns_ = java.util.Collections.emptyList();
-      batch_ = 0;
-      startTime_ = 0L;
-      endTime_ = 0L;
-      maxVersions_ = 0;
-      filter_ = "";
-      caching_ = 0;
-      labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      cacheBlocks_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, startRow_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(2, endRow_);
       }
       for (int i = 0; i < columns_.size(); i++) {
         output.writeBytes(3, columns_.get(i));
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt32(4, batch_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeInt64(5, startTime_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeInt64(6, endTime_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeInt32(7, maxVersions_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeBytes(8, getFilterBytes());
+      if (((bitField0_ & 0x00000040) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, filter_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         output.writeInt32(9, caching_);
       }
       for (int i = 0; i < labels_.size(); i++) {
-        output.writeBytes(10, labels_.getByteString(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, labels_.getRaw(i));
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         output.writeBool(11, cacheBlocks_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, startRow_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, endRow_);
       }
@@ -638,55 +665,179 @@ public final class ScannerMessage {
         size += dataSize;
         size += 1 * getColumnsList().size();
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, batch_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(5, startTime_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(6, endTime_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, maxVersions_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(8, getFilterBytes());
+      if (((bitField0_ & 0x00000040) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, filter_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(9, caching_);
       }
       {
         int dataSize = 0;
         for (int i = 0; i < labels_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(labels_.getByteString(i));
+          dataSize += computeStringSizeNoTag(labels_.getRaw(i));
         }
         size += dataSize;
         size += 1 * getLabelsList().size();
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(11, cacheBlocks_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner)) {
+        return super.equals(obj);
+      }
+      org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner other = (org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner) obj;
+
+      if (hasStartRow() != other.hasStartRow()) return false;
+      if (hasStartRow()) {
+        if (!getStartRow()
+            .equals(other.getStartRow())) return false;
+      }
+      if (hasEndRow() != other.hasEndRow()) return false;
+      if (hasEndRow()) {
+        if (!getEndRow()
+            .equals(other.getEndRow())) return false;
+      }
+      if (!getColumnsList()
+          .equals(other.getColumnsList())) return false;
+      if (hasBatch() != other.hasBatch()) return false;
+      if (hasBatch()) {
+        if (getBatch()
+            != other.getBatch()) return false;
+      }
+      if (hasStartTime() != other.hasStartTime()) return false;
+      if (hasStartTime()) {
+        if (getStartTime()
+            != other.getStartTime()) return false;
+      }
+      if (hasEndTime() != other.hasEndTime()) return false;
+      if (hasEndTime()) {
+        if (getEndTime()
+            != other.getEndTime()) return false;
+      }
+      if (hasMaxVersions() != other.hasMaxVersions()) return false;
+      if (hasMaxVersions()) {
+        if (getMaxVersions()
+            != other.getMaxVersions()) return false;
+      }
+      if (hasFilter() != other.hasFilter()) return false;
+      if (hasFilter()) {
+        if (!getFilter()
+            .equals(other.getFilter())) return false;
+      }
+      if (hasCaching() != other.hasCaching()) return false;
+      if (hasCaching()) {
+        if (getCaching()
+            != other.getCaching()) return false;
+      }
+      if (!getLabelsList()
+          .equals(other.getLabelsList())) return false;
+      if (hasCacheBlocks() != other.hasCacheBlocks()) return false;
+      if (hasCacheBlocks()) {
+        if (getCacheBlocks()
+            != other.getCacheBlocks()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasStartRow()) {
+        hash = (37 * hash) + STARTROW_FIELD_NUMBER;
+        hash = (53 * hash) + getStartRow().hashCode();
+      }
+      if (hasEndRow()) {
+        hash = (37 * hash) + ENDROW_FIELD_NUMBER;
+        hash = (53 * hash) + getEndRow().hashCode();
+      }
+      if (getColumnsCount() > 0) {
+        hash = (37 * hash) + COLUMNS_FIELD_NUMBER;
+        hash = (53 * hash) + getColumnsList().hashCode();
+      }
+      if (hasBatch()) {
+        hash = (37 * hash) + BATCH_FIELD_NUMBER;
+        hash = (53 * hash) + getBatch();
+      }
+      if (hasStartTime()) {
+        hash = (37 * hash) + STARTTIME_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getStartTime());
+      }
+      if (hasEndTime()) {
+        hash = (37 * hash) + ENDTIME_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getEndTime());
+      }
+      if (hasMaxVersions()) {
+        hash = (37 * hash) + MAXVERSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getMaxVersions();
+      }
+      if (hasFilter()) {
+        hash = (37 * hash) + FILTER_FIELD_NUMBER;
+        hash = (53 * hash) + getFilter().hashCode();
+      }
+      if (hasCaching()) {
+        hash = (37 * hash) + CACHING_FIELD_NUMBER;
+        hash = (53 * hash) + getCaching();
+      }
+      if (getLabelsCount() > 0) {
+        hash = (37 * hash) + LABELS_FIELD_NUMBER;
+        hash = (53 * hash) + getLabelsList().hashCode();
+      }
+      if (hasCacheBlocks()) {
+        hash = (37 * hash) + CACHEBLOCKS_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getCacheBlocks());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -710,46 +861,59 @@ public final class ScannerMessage {
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -757,14 +921,16 @@ public final class ScannerMessage {
      * Protobuf type {@code org.apache.hadoop.hbase.rest.protobuf.generated.Scanner}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.ScannerOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
+        org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.ScannerOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -777,18 +943,16 @@ public final class ScannerMessage {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         startRow_ = com.google.protobuf.ByteString.EMPTY;
@@ -816,19 +980,18 @@ public final class ScannerMessage {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner build() {
         org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner result = buildPartial();
         if (!result.isInitialized()) {
@@ -837,62 +1000,95 @@ public final class ScannerMessage {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner buildPartial() {
         org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner result = new org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.startRow_ = startRow_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.endRow_ = endRow_;
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((bitField0_ & 0x00000004) != 0)) {
           columns_ = java.util.Collections.unmodifiableList(columns_);
           bitField0_ = (bitField0_ & ~0x00000004);
         }
         result.columns_ = columns_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.batch_ = batch_;
           to_bitField0_ |= 0x00000004;
         }
-        result.batch_ = batch_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.startTime_ = startTime_;
           to_bitField0_ |= 0x00000008;
         }
-        result.startTime_ = startTime_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.endTime_ = endTime_;
           to_bitField0_ |= 0x00000010;
         }
-        result.endTime_ = endTime_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.maxVersions_ = maxVersions_;
           to_bitField0_ |= 0x00000020;
         }
-        result.maxVersions_ = maxVersions_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           to_bitField0_ |= 0x00000040;
         }
         result.filter_ = filter_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.caching_ = caching_;
           to_bitField0_ |= 0x00000080;
         }
-        result.caching_ = caching_;
-        if (((bitField0_ & 0x00000200) == 0x00000200)) {
-          labels_ = new com.google.protobuf.UnmodifiableLazyStringList(
-              labels_);
+        if (((bitField0_ & 0x00000200) != 0)) {
+          labels_ = labels_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000200);
         }
         result.labels_ = labels_;
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.cacheBlocks_ = cacheBlocks_;
           to_bitField0_ |= 0x00000100;
         }
-        result.cacheBlocks_ = cacheBlocks_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner) {
           return mergeFrom((org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner)other);
@@ -953,14 +1149,17 @@ public final class ScannerMessage {
         if (other.hasCacheBlocks()) {
           setCacheBlocks(other.getCacheBlocks());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -970,7 +1169,7 @@ public final class ScannerMessage {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -980,22 +1179,25 @@ public final class ScannerMessage {
       }
       private int bitField0_;
 
-      // optional bytes startRow = 1;
       private com.google.protobuf.ByteString startRow_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes startRow = 1;</code>
+       * @return Whether the startRow field is set.
        */
       public boolean hasStartRow() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bytes startRow = 1;</code>
+       * @return The startRow.
        */
       public com.google.protobuf.ByteString getStartRow() {
         return startRow_;
       }
       /**
        * <code>optional bytes startRow = 1;</code>
+       * @param value The startRow to set.
+       * @return This builder for chaining.
        */
       public Builder setStartRow(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1008,6 +1210,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional bytes startRow = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartRow() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1016,22 +1219,25 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional bytes endRow = 2;
       private com.google.protobuf.ByteString endRow_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes endRow = 2;</code>
+       * @return Whether the endRow field is set.
        */
       public boolean hasEndRow() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes endRow = 2;</code>
+       * @return The endRow.
        */
       public com.google.protobuf.ByteString getEndRow() {
         return endRow_;
       }
       /**
        * <code>optional bytes endRow = 2;</code>
+       * @param value The endRow to set.
+       * @return This builder for chaining.
        */
       public Builder setEndRow(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1044,6 +1250,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional bytes endRow = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndRow() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1052,35 +1259,42 @@ public final class ScannerMessage {
         return this;
       }
 
-      // repeated bytes columns = 3;
       private java.util.List<com.google.protobuf.ByteString> columns_ = java.util.Collections.emptyList();
       private void ensureColumnsIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           columns_ = new java.util.ArrayList<com.google.protobuf.ByteString>(columns_);
           bitField0_ |= 0x00000004;
          }
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @return A list containing the columns.
        */
       public java.util.List<com.google.protobuf.ByteString>
           getColumnsList() {
-        return java.util.Collections.unmodifiableList(columns_);
+        return ((bitField0_ & 0x00000004) != 0) ?
+                 java.util.Collections.unmodifiableList(columns_) : columns_;
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @return The count of columns.
        */
       public int getColumnsCount() {
         return columns_.size();
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @param index The index of the element to return.
+       * @return The columns at the given index.
        */
       public com.google.protobuf.ByteString getColumns(int index) {
         return columns_.get(index);
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @param index The index to set the value at.
+       * @param value The columns to set.
+       * @return This builder for chaining.
        */
       public Builder setColumns(
           int index, com.google.protobuf.ByteString value) {
@@ -1094,6 +1308,8 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @param value The columns to add.
+       * @return This builder for chaining.
        */
       public Builder addColumns(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1106,16 +1322,20 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @param values The columns to add.
+       * @return This builder for chaining.
        */
       public Builder addAllColumns(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensureColumnsIsMutable();
-        super.addAll(values, columns_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, columns_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated bytes columns = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumns() {
         columns_ = java.util.Collections.emptyList();
@@ -1124,22 +1344,25 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional int32 batch = 4;
       private int batch_ ;
       /**
        * <code>optional int32 batch = 4;</code>
+       * @return Whether the batch field is set.
        */
       public boolean hasBatch() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional int32 batch = 4;</code>
+       * @return The batch.
        */
       public int getBatch() {
         return batch_;
       }
       /**
        * <code>optional int32 batch = 4;</code>
+       * @param value The batch to set.
+       * @return This builder for chaining.
        */
       public Builder setBatch(int value) {
         bitField0_ |= 0x00000008;
@@ -1149,6 +1372,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional int32 batch = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBatch() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1157,22 +1381,25 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional int64 startTime = 5;
       private long startTime_ ;
       /**
        * <code>optional int64 startTime = 5;</code>
+       * @return Whether the startTime field is set.
        */
       public boolean hasStartTime() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>optional int64 startTime = 5;</code>
+       * @return The startTime.
        */
       public long getStartTime() {
         return startTime_;
       }
       /**
        * <code>optional int64 startTime = 5;</code>
+       * @param value The startTime to set.
+       * @return This builder for chaining.
        */
       public Builder setStartTime(long value) {
         bitField0_ |= 0x00000010;
@@ -1182,6 +1409,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional int64 startTime = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearStartTime() {
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -1190,22 +1418,25 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional int64 endTime = 6;
       private long endTime_ ;
       /**
        * <code>optional int64 endTime = 6;</code>
+       * @return Whether the endTime field is set.
        */
       public boolean hasEndTime() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>optional int64 endTime = 6;</code>
+       * @return The endTime.
        */
       public long getEndTime() {
         return endTime_;
       }
       /**
        * <code>optional int64 endTime = 6;</code>
+       * @param value The endTime to set.
+       * @return This builder for chaining.
        */
       public Builder setEndTime(long value) {
         bitField0_ |= 0x00000020;
@@ -1215,6 +1446,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional int64 endTime = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndTime() {
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -1223,22 +1455,25 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional int32 maxVersions = 7;
       private int maxVersions_ ;
       /**
        * <code>optional int32 maxVersions = 7;</code>
+       * @return Whether the maxVersions field is set.
        */
       public boolean hasMaxVersions() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <code>optional int32 maxVersions = 7;</code>
+       * @return The maxVersions.
        */
       public int getMaxVersions() {
         return maxVersions_;
       }
       /**
        * <code>optional int32 maxVersions = 7;</code>
+       * @param value The maxVersions to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxVersions(int value) {
         bitField0_ |= 0x00000040;
@@ -1248,6 +1483,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional int32 maxVersions = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxVersions() {
         bitField0_ = (bitField0_ & ~0x00000040);
@@ -1256,23 +1492,27 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional string filter = 8;
       private java.lang.Object filter_ = "";
       /**
        * <code>optional string filter = 8;</code>
+       * @return Whether the filter field is set.
        */
       public boolean hasFilter() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <code>optional string filter = 8;</code>
+       * @return The filter.
        */
       public java.lang.String getFilter() {
         java.lang.Object ref = filter_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          filter_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            filter_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1280,6 +1520,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional string filter = 8;</code>
+       * @return The bytes for filter.
        */
       public com.google.protobuf.ByteString
           getFilterBytes() {
@@ -1296,6 +1537,8 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional string filter = 8;</code>
+       * @param value The filter to set.
+       * @return This builder for chaining.
        */
       public Builder setFilter(
           java.lang.String value) {
@@ -1309,6 +1552,7 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional string filter = 8;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFilter() {
         bitField0_ = (bitField0_ & ~0x00000080);
@@ -1318,6 +1562,8 @@ public final class ScannerMessage {
       }
       /**
        * <code>optional string filter = 8;</code>
+       * @param value The bytes for filter to set.
+       * @return This builder for chaining.
        */
       public Builder setFilterBytes(
           com.google.protobuf.ByteString value) {
@@ -1330,34 +1576,37 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional int32 caching = 9;
       private int caching_ ;
       /**
-       * <code>optional int32 caching = 9;</code>
-       *
        * <pre>
        * specifies REST scanner caching
        * </pre>
+       *
+       * <code>optional int32 caching = 9;</code>
+       * @return Whether the caching field is set.
        */
       public boolean hasCaching() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000100) != 0);
       }
       /**
-       * <code>optional int32 caching = 9;</code>
-       *
        * <pre>
        * specifies REST scanner caching
        * </pre>
+       *
+       * <code>optional int32 caching = 9;</code>
+       * @return The caching.
        */
       public int getCaching() {
         return caching_;
       }
       /**
-       * <code>optional int32 caching = 9;</code>
-       *
        * <pre>
        * specifies REST scanner caching
        * </pre>
+       *
+       * <code>optional int32 caching = 9;</code>
+       * @param value The caching to set.
+       * @return This builder for chaining.
        */
       public Builder setCaching(int value) {
         bitField0_ |= 0x00000100;
@@ -1366,11 +1615,12 @@ public final class ScannerMessage {
         return this;
       }
       /**
-       * <code>optional int32 caching = 9;</code>
-       *
        * <pre>
        * specifies REST scanner caching
        * </pre>
+       *
+       * <code>optional int32 caching = 9;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCaching() {
         bitField0_ = (bitField0_ & ~0x00000100);
@@ -1379,35 +1629,40 @@ public final class ScannerMessage {
         return this;
       }
 
-      // repeated string labels = 10;
       private com.google.protobuf.LazyStringList labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureLabelsIsMutable() {
-        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (!((bitField0_ & 0x00000200) != 0)) {
           labels_ = new com.google.protobuf.LazyStringArrayList(labels_);
           bitField0_ |= 0x00000200;
          }
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @return A list containing the labels.
        */
-      public java.util.List<java.lang.String>
+      public com.google.protobuf.ProtocolStringList
           getLabelsList() {
-        return java.util.Collections.unmodifiableList(labels_);
+        return labels_.getUnmodifiableView();
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @return The count of labels.
        */
       public int getLabelsCount() {
         return labels_.size();
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param index The index of the element to return.
+       * @return The labels at the given index.
        */
       public java.lang.String getLabels(int index) {
         return labels_.get(index);
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the labels at the given index.
        */
       public com.google.protobuf.ByteString
           getLabelsBytes(int index) {
@@ -1415,6 +1670,9 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param index The index to set the value at.
+       * @param value The labels to set.
+       * @return This builder for chaining.
        */
       public Builder setLabels(
           int index, java.lang.String value) {
@@ -1428,6 +1686,8 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param value The labels to add.
+       * @return This builder for chaining.
        */
       public Builder addLabels(
           java.lang.String value) {
@@ -1441,16 +1701,20 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param values The labels to add.
+       * @return This builder for chaining.
        */
       public Builder addAllLabels(
           java.lang.Iterable<java.lang.String> values) {
         ensureLabelsIsMutable();
-        super.addAll(values, labels_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, labels_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLabels() {
         labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -1460,6 +1724,8 @@ public final class ScannerMessage {
       }
       /**
        * <code>repeated string labels = 10;</code>
+       * @param value The bytes of the labels to add.
+       * @return This builder for chaining.
        */
       public Builder addLabelsBytes(
           com.google.protobuf.ByteString value) {
@@ -1472,34 +1738,37 @@ public final class ScannerMessage {
         return this;
       }
 
-      // optional bool cacheBlocks = 11;
       private boolean cacheBlocks_ ;
       /**
-       * <code>optional bool cacheBlocks = 11;</code>
-       *
        * <pre>
        * server side block caching hint
        * </pre>
+       *
+       * <code>optional bool cacheBlocks = 11;</code>
+       * @return Whether the cacheBlocks field is set.
        */
       public boolean hasCacheBlocks() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000400) != 0);
       }
       /**
-       * <code>optional bool cacheBlocks = 11;</code>
-       *
        * <pre>
        * server side block caching hint
        * </pre>
+       *
+       * <code>optional bool cacheBlocks = 11;</code>
+       * @return The cacheBlocks.
        */
       public boolean getCacheBlocks() {
         return cacheBlocks_;
       }
       /**
-       * <code>optional bool cacheBlocks = 11;</code>
-       *
        * <pre>
        * server side block caching hint
        * </pre>
+       *
+       * <code>optional bool cacheBlocks = 11;</code>
+       * @param value The cacheBlocks to set.
+       * @return This builder for chaining.
        */
       public Builder setCacheBlocks(boolean value) {
         bitField0_ |= 0x00000400;
@@ -1508,11 +1777,12 @@ public final class ScannerMessage {
         return this;
       }
       /**
-       * <code>optional bool cacheBlocks = 11;</code>
-       *
        * <pre>
        * server side block caching hint
        * </pre>
+       *
+       * <code>optional bool cacheBlocks = 11;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCacheBlocks() {
         bitField0_ = (bitField0_ & ~0x00000400);
@@ -1520,29 +1790,70 @@ public final class ScannerMessage {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
     }
 
+    // @@protoc_insertion_point(class_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
+    private static final org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Scanner(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner();
     }
 
-    // @@protoc_insertion_point(class_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
+    public static org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Scanner>
+        PARSER = new com.google.protobuf.AbstractParser<Scanner>() {
+      @java.lang.Override
+      public Scanner parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Scanner(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Scanner> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Scanner> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.rest.protobuf.generated.ScannerMessage.Scanner getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -1554,24 +1865,16 @@ public final class ScannerMessage {
       "\030\007 \001(\005\022\016\n\006filter\030\010 \001(\t\022\017\n\007caching\030\t \001(\005\022" +
       "\016\n\006labels\030\n \003(\t\022\023\n\013cacheBlocks\030\013 \001(\010"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor,
-              new java.lang.String[] { "StartRow", "EndRow", "Columns", "Batch", "StartTime", "EndTime", "MaxVersions", "Filter", "Caching", "Labels", "CacheBlocks", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_org_apache_hadoop_hbase_rest_protobuf_generated_Scanner_descriptor,
+        new java.lang.String[] { "StartRow", "EndRow", "Columns", "Batch", "StartTime", "EndTime", "MaxVersions", "Filter", "Caching", "Labels", "CacheBlocks", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

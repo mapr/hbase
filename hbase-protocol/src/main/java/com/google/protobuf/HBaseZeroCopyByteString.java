@@ -17,6 +17,11 @@
  */
 package com.google.protobuf;  // This is a lie.
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Helper class to extract byte arrays from {@link ByteString} without copy.
  * <p>
@@ -27,11 +32,10 @@ package com.google.protobuf;  // This is a lie.
  *
  * @since 0.96.1
  */
-public final class HBaseZeroCopyByteString extends LiteralByteString {
+public final class HBaseZeroCopyByteString {
   // Gotten from AsyncHBase code base with permission.
   /** Private constructor so this class cannot be instantiated. */
   private HBaseZeroCopyByteString() {
-    super(null);
     throw new UnsupportedOperationException("Should never be here.");
   }
 
@@ -41,7 +45,7 @@ public final class HBaseZeroCopyByteString extends LiteralByteString {
    * @return wrapped array
    */
   public static ByteString wrap(final byte[] array) {
-    return new LiteralByteString(array);
+    return ByteString.wrap(array);
   }
 
   /**
@@ -52,7 +56,7 @@ public final class HBaseZeroCopyByteString extends LiteralByteString {
    * @return wrapped array
    */
   public static ByteString wrap(final byte[] array, int offset, int length) {
-    return new BoundedByteString(array, offset, length);
+    return ByteString.wrap(array, offset, length);
   }
 
   // TODO:
@@ -65,10 +69,38 @@ public final class HBaseZeroCopyByteString extends LiteralByteString {
    * @return byte[] representation
    */
   public static byte[] zeroCopyGetBytes(final ByteString buf) {
-    if (buf instanceof LiteralByteString) {
-      return ((LiteralByteString) buf).bytes;
+    try {
+      if (Class.forName("com.google.protobuf.ByteString$LiteralByteString").isAssignableFrom(buf.getClass())) {
+        java.lang.reflect.Field bytes = getDeclaredFieldWithInherited("bytes", buf.getClass());
+        bytes.setAccessible(true);
+        return (byte[])bytes.get(buf);
+      }
+    } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+      return buf.toByteArray();
     }
-    // In case it's BoundedByteString
+    // In case it's not LiteralByteString
     return buf.toByteArray();
+  }
+
+  private static java.lang.reflect.Field getDeclaredFieldWithInherited(String fieldName, Class clazz)
+          throws NoSuchFieldException {
+    List<Field> allFields = getAllFields(new ArrayList<>(), clazz);
+
+    for (java.lang.reflect.Field field: allFields) {
+      if (field.getName().equals(fieldName)) {
+        return field;
+      }
+    }
+    throw new NoSuchFieldException();
+  }
+
+  private static List<java.lang.reflect.Field> getAllFields(List<java.lang.reflect.Field> fields, Class clazz) {
+    fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+    if (clazz.getSuperclass() != null) {
+      getAllFields(fields, clazz.getSuperclass());
+    }
+
+    return fields;
   }
 }

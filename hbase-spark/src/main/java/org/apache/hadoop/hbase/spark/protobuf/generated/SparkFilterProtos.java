@@ -6,42 +6,53 @@ package org.apache.hadoop.hbase.spark.protobuf.generated;
 public final class SparkFilterProtos {
   private SparkFilterProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface SQLPredicatePushDownCellToColumnMappingOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // required bytes column_family = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface SQLPredicatePushDownCellToColumnMappingOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>required bytes column_family = 1;</code>
+     * @return Whether the columnFamily field is set.
      */
     boolean hasColumnFamily();
     /**
      * <code>required bytes column_family = 1;</code>
+     * @return The columnFamily.
      */
     com.google.protobuf.ByteString getColumnFamily();
 
-    // required bytes qualifier = 2;
     /**
      * <code>required bytes qualifier = 2;</code>
+     * @return Whether the qualifier field is set.
      */
     boolean hasQualifier();
     /**
      * <code>required bytes qualifier = 2;</code>
+     * @return The qualifier.
      */
     com.google.protobuf.ByteString getQualifier();
 
-    // required string column_name = 3;
     /**
      * <code>required string column_name = 3;</code>
+     * @return Whether the columnName field is set.
      */
     boolean hasColumnName();
     /**
      * <code>required string column_name = 3;</code>
+     * @return The columnName.
      */
     java.lang.String getColumnName();
     /**
      * <code>required string column_name = 3;</code>
+     * @return The bytes for columnName.
      */
     com.google.protobuf.ByteString
         getColumnNameBytes();
@@ -49,36 +60,41 @@ public final class SparkFilterProtos {
   /**
    * Protobuf type {@code hbase.pb.SQLPredicatePushDownCellToColumnMapping}
    */
-  public static final class SQLPredicatePushDownCellToColumnMapping extends
-      com.google.protobuf.GeneratedMessage
-      implements SQLPredicatePushDownCellToColumnMappingOrBuilder {
+  public  static final class SQLPredicatePushDownCellToColumnMapping extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
+      SQLPredicatePushDownCellToColumnMappingOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use SQLPredicatePushDownCellToColumnMapping.newBuilder() to construct.
-    private SQLPredicatePushDownCellToColumnMapping(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SQLPredicatePushDownCellToColumnMapping(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SQLPredicatePushDownCellToColumnMapping(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final SQLPredicatePushDownCellToColumnMapping defaultInstance;
-    public static SQLPredicatePushDownCellToColumnMapping getDefaultInstance() {
-      return defaultInstance;
+    private SQLPredicatePushDownCellToColumnMapping() {
+      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+      qualifier_ = com.google.protobuf.ByteString.EMPTY;
+      columnName_ = "";
     }
 
-    public SQLPredicatePushDownCellToColumnMapping getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SQLPredicatePushDownCellToColumnMapping();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private SQLPredicatePushDownCellToColumnMapping(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -90,13 +106,6 @@ public final class SparkFilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               columnFamily_ = input.readBytes();
@@ -108,8 +117,16 @@ public final class SparkFilterProtos {
               break;
             }
             case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              columnName_ = input.readBytes();
+              columnName_ = bs;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -118,7 +135,7 @@ public final class SparkFilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -129,72 +146,61 @@ public final class SparkFilterProtos {
       return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.class, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SQLPredicatePushDownCellToColumnMapping> PARSER =
-        new com.google.protobuf.AbstractParser<SQLPredicatePushDownCellToColumnMapping>() {
-      public SQLPredicatePushDownCellToColumnMapping parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SQLPredicatePushDownCellToColumnMapping(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SQLPredicatePushDownCellToColumnMapping> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required bytes column_family = 1;
     public static final int COLUMN_FAMILY_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString columnFamily_;
     /**
      * <code>required bytes column_family = 1;</code>
+     * @return Whether the columnFamily field is set.
      */
     public boolean hasColumnFamily() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required bytes column_family = 1;</code>
+     * @return The columnFamily.
      */
     public com.google.protobuf.ByteString getColumnFamily() {
       return columnFamily_;
     }
 
-    // required bytes qualifier = 2;
     public static final int QUALIFIER_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString qualifier_;
     /**
      * <code>required bytes qualifier = 2;</code>
+     * @return Whether the qualifier field is set.
      */
     public boolean hasQualifier() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required bytes qualifier = 2;</code>
+     * @return The qualifier.
      */
     public com.google.protobuf.ByteString getQualifier() {
       return qualifier_;
     }
 
-    // required string column_name = 3;
     public static final int COLUMN_NAME_FIELD_NUMBER = 3;
-    private java.lang.Object columnName_;
+    private volatile java.lang.Object columnName_;
     /**
      * <code>required string column_name = 3;</code>
+     * @return Whether the columnName field is set.
      */
     public boolean hasColumnName() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required string column_name = 3;</code>
+     * @return The columnName.
      */
     public java.lang.String getColumnName() {
       java.lang.Object ref = columnName_;
@@ -212,6 +218,7 @@ public final class SparkFilterProtos {
     }
     /**
      * <code>required string column_name = 3;</code>
+     * @return The bytes for columnName.
      */
     public com.google.protobuf.ByteString
         getColumnNameBytes() {
@@ -227,15 +234,12 @@ public final class SparkFilterProtos {
       }
     }
 
-    private void initFields() {
-      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      qualifier_ = com.google.protobuf.ByteString.EMPTY;
-      columnName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasColumnFamily()) {
         memoizedIsInitialized = 0;
@@ -253,49 +257,41 @@ public final class SparkFilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(1, columnFamily_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(2, qualifier_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getColumnNameBytes());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, columnName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, columnFamily_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, qualifier_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getColumnNameBytes());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, columnName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -308,35 +304,32 @@ public final class SparkFilterProtos {
       }
       org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping other = (org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping) obj;
 
-      boolean result = true;
-      result = result && (hasColumnFamily() == other.hasColumnFamily());
+      if (hasColumnFamily() != other.hasColumnFamily()) return false;
       if (hasColumnFamily()) {
-        result = result && getColumnFamily()
-            .equals(other.getColumnFamily());
+        if (!getColumnFamily()
+            .equals(other.getColumnFamily())) return false;
       }
-      result = result && (hasQualifier() == other.hasQualifier());
+      if (hasQualifier() != other.hasQualifier()) return false;
       if (hasQualifier()) {
-        result = result && getQualifier()
-            .equals(other.getQualifier());
+        if (!getQualifier()
+            .equals(other.getQualifier())) return false;
       }
-      result = result && (hasColumnName() == other.hasColumnName());
+      if (hasColumnName() != other.hasColumnName()) return false;
       if (hasColumnName()) {
-        result = result && getColumnName()
-            .equals(other.getColumnName());
+        if (!getColumnName()
+            .equals(other.getColumnName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasColumnFamily()) {
         hash = (37 * hash) + COLUMN_FAMILY_FIELD_NUMBER;
         hash = (53 * hash) + getColumnFamily().hashCode();
@@ -349,11 +342,22 @@ public final class SparkFilterProtos {
         hash = (37 * hash) + COLUMN_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getColumnName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -377,46 +381,59 @@ public final class SparkFilterProtos {
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -424,14 +441,16 @@ public final class SparkFilterProtos {
      * Protobuf type {@code hbase.pb.SQLPredicatePushDownCellToColumnMapping}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
+        org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -444,18 +463,16 @@ public final class SparkFilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         columnFamily_ = com.google.protobuf.ByteString.EMPTY;
@@ -467,19 +484,18 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping build() {
         org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping result = buildPartial();
         if (!result.isInitialized()) {
@@ -488,19 +504,20 @@ public final class SparkFilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping buildPartial() {
         org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping result = new org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.columnFamily_ = columnFamily_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.qualifier_ = qualifier_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           to_bitField0_ |= 0x00000004;
         }
         result.columnName_ = columnName_;
@@ -509,6 +526,39 @@ public final class SparkFilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping) {
           return mergeFrom((org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping)other);
@@ -531,26 +581,26 @@ public final class SparkFilterProtos {
           columnName_ = other.columnName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasColumnFamily()) {
-          
           return false;
         }
         if (!hasQualifier()) {
-          
           return false;
         }
         if (!hasColumnName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -560,7 +610,7 @@ public final class SparkFilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -570,22 +620,25 @@ public final class SparkFilterProtos {
       }
       private int bitField0_;
 
-      // required bytes column_family = 1;
       private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes column_family = 1;</code>
+       * @return Whether the columnFamily field is set.
        */
       public boolean hasColumnFamily() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required bytes column_family = 1;</code>
+       * @return The columnFamily.
        */
       public com.google.protobuf.ByteString getColumnFamily() {
         return columnFamily_;
       }
       /**
        * <code>required bytes column_family = 1;</code>
+       * @param value The columnFamily to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnFamily(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -598,6 +651,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required bytes column_family = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnFamily() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -606,22 +660,25 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      // required bytes qualifier = 2;
       private com.google.protobuf.ByteString qualifier_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes qualifier = 2;</code>
+       * @return Whether the qualifier field is set.
        */
       public boolean hasQualifier() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required bytes qualifier = 2;</code>
+       * @return The qualifier.
        */
       public com.google.protobuf.ByteString getQualifier() {
         return qualifier_;
       }
       /**
        * <code>required bytes qualifier = 2;</code>
+       * @param value The qualifier to set.
+       * @return This builder for chaining.
        */
       public Builder setQualifier(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -634,6 +691,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required bytes qualifier = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearQualifier() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -642,23 +700,27 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      // required string column_name = 3;
       private java.lang.Object columnName_ = "";
       /**
        * <code>required string column_name = 3;</code>
+       * @return Whether the columnName field is set.
        */
       public boolean hasColumnName() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required string column_name = 3;</code>
+       * @return The columnName.
        */
       public java.lang.String getColumnName() {
         java.lang.Object ref = columnName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          columnName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            columnName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -666,6 +728,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string column_name = 3;</code>
+       * @return The bytes for columnName.
        */
       public com.google.protobuf.ByteString
           getColumnNameBytes() {
@@ -682,6 +745,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string column_name = 3;</code>
+       * @param value The columnName to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnName(
           java.lang.String value) {
@@ -695,6 +760,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string column_name = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearColumnName() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -704,6 +770,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string column_name = 3;</code>
+       * @param value The bytes for columnName to set.
+       * @return This builder for chaining.
        */
       public Builder setColumnNameBytes(
           com.google.protobuf.ByteString value) {
@@ -715,51 +783,97 @@ public final class SparkFilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
+    private static final org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SQLPredicatePushDownCellToColumnMapping(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.SQLPredicatePushDownCellToColumnMapping)
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SQLPredicatePushDownCellToColumnMapping>
+        PARSER = new com.google.protobuf.AbstractParser<SQLPredicatePushDownCellToColumnMapping>() {
+      @java.lang.Override
+      public SQLPredicatePushDownCellToColumnMapping parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SQLPredicatePushDownCellToColumnMapping(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SQLPredicatePushDownCellToColumnMapping> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SQLPredicatePushDownCellToColumnMapping> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface SQLPredicatePushDownFilterOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface SQLPredicatePushDownFilterOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.SQLPredicatePushDownFilter)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string dynamic_logic_expression = 1;
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return Whether the dynamicLogicExpression field is set.
      */
     boolean hasDynamicLogicExpression();
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return The dynamicLogicExpression.
      */
     java.lang.String getDynamicLogicExpression();
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return The bytes for dynamicLogicExpression.
      */
     com.google.protobuf.ByteString
         getDynamicLogicExpressionBytes();
 
-    // repeated bytes value_from_query_array = 2;
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @return A list containing the valueFromQueryArray.
      */
     java.util.List<com.google.protobuf.ByteString> getValueFromQueryArrayList();
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @return The count of valueFromQueryArray.
      */
     int getValueFromQueryArrayCount();
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @param index The index of the element to return.
+     * @return The valueFromQueryArray at the given index.
      */
     com.google.protobuf.ByteString getValueFromQueryArray(int index);
 
-    // repeated .hbase.pb.SQLPredicatePushDownCellToColumnMapping cell_to_column_mapping = 3;
     /**
      * <code>repeated .hbase.pb.SQLPredicatePushDownCellToColumnMapping cell_to_column_mapping = 3;</code>
      */
@@ -784,17 +898,19 @@ public final class SparkFilterProtos {
     org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder getCellToColumnMappingOrBuilder(
         int index);
 
-    // optional string encoderClassName = 4;
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return Whether the encoderClassName field is set.
      */
     boolean hasEncoderClassName();
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return The encoderClassName.
      */
     java.lang.String getEncoderClassName();
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return The bytes for encoderClassName.
      */
     com.google.protobuf.ByteString
         getEncoderClassNameBytes();
@@ -802,36 +918,42 @@ public final class SparkFilterProtos {
   /**
    * Protobuf type {@code hbase.pb.SQLPredicatePushDownFilter}
    */
-  public static final class SQLPredicatePushDownFilter extends
-      com.google.protobuf.GeneratedMessage
-      implements SQLPredicatePushDownFilterOrBuilder {
+  public  static final class SQLPredicatePushDownFilter extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.SQLPredicatePushDownFilter)
+      SQLPredicatePushDownFilterOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use SQLPredicatePushDownFilter.newBuilder() to construct.
-    private SQLPredicatePushDownFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private SQLPredicatePushDownFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private SQLPredicatePushDownFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final SQLPredicatePushDownFilter defaultInstance;
-    public static SQLPredicatePushDownFilter getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public SQLPredicatePushDownFilter getDefaultInstanceForType() {
-      return defaultInstance;
+    private SQLPredicatePushDownFilter() {
+      dynamicLogicExpression_ = "";
+      valueFromQueryArray_ = java.util.Collections.emptyList();
+      cellToColumnMapping_ = java.util.Collections.emptyList();
+      encoderClassName_ = "";
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SQLPredicatePushDownFilter();
+    }
+
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private SQLPredicatePushDownFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -843,20 +965,14 @@ public final class SparkFilterProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              dynamicLogicExpression_ = input.readBytes();
+              dynamicLogicExpression_ = bs;
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 valueFromQueryArray_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
                 mutable_bitField0_ |= 0x00000002;
               }
@@ -864,16 +980,25 @@ public final class SparkFilterProtos {
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
                 cellToColumnMapping_ = new java.util.ArrayList<org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping>();
                 mutable_bitField0_ |= 0x00000004;
               }
-              cellToColumnMapping_.add(input.readMessage(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.PARSER, extensionRegistry));
+              cellToColumnMapping_.add(
+                  input.readMessage(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.PARSER, extensionRegistry));
               break;
             }
             case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              encoderClassName_ = input.readBytes();
+              encoderClassName_ = bs;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -882,12 +1007,12 @@ public final class SparkFilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-          valueFromQueryArray_ = java.util.Collections.unmodifiableList(valueFromQueryArray_);
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          valueFromQueryArray_ = java.util.Collections.unmodifiableList(valueFromQueryArray_); // C
         }
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
           cellToColumnMapping_ = java.util.Collections.unmodifiableList(cellToColumnMapping_);
         }
         this.unknownFields = unknownFields.build();
@@ -899,40 +1024,27 @@ public final class SparkFilterProtos {
       return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownFilter_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter.class, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<SQLPredicatePushDownFilter> PARSER =
-        new com.google.protobuf.AbstractParser<SQLPredicatePushDownFilter>() {
-      public SQLPredicatePushDownFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SQLPredicatePushDownFilter(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SQLPredicatePushDownFilter> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string dynamic_logic_expression = 1;
     public static final int DYNAMIC_LOGIC_EXPRESSION_FIELD_NUMBER = 1;
-    private java.lang.Object dynamicLogicExpression_;
+    private volatile java.lang.Object dynamicLogicExpression_;
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return Whether the dynamicLogicExpression field is set.
      */
     public boolean hasDynamicLogicExpression() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return The dynamicLogicExpression.
      */
     public java.lang.String getDynamicLogicExpression() {
       java.lang.Object ref = dynamicLogicExpression_;
@@ -950,6 +1062,7 @@ public final class SparkFilterProtos {
     }
     /**
      * <code>required string dynamic_logic_expression = 1;</code>
+     * @return The bytes for dynamicLogicExpression.
      */
     public com.google.protobuf.ByteString
         getDynamicLogicExpressionBytes() {
@@ -965,11 +1078,11 @@ public final class SparkFilterProtos {
       }
     }
 
-    // repeated bytes value_from_query_array = 2;
     public static final int VALUE_FROM_QUERY_ARRAY_FIELD_NUMBER = 2;
     private java.util.List<com.google.protobuf.ByteString> valueFromQueryArray_;
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @return A list containing the valueFromQueryArray.
      */
     public java.util.List<com.google.protobuf.ByteString>
         getValueFromQueryArrayList() {
@@ -977,18 +1090,20 @@ public final class SparkFilterProtos {
     }
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @return The count of valueFromQueryArray.
      */
     public int getValueFromQueryArrayCount() {
       return valueFromQueryArray_.size();
     }
     /**
      * <code>repeated bytes value_from_query_array = 2;</code>
+     * @param index The index of the element to return.
+     * @return The valueFromQueryArray at the given index.
      */
     public com.google.protobuf.ByteString getValueFromQueryArray(int index) {
       return valueFromQueryArray_.get(index);
     }
 
-    // repeated .hbase.pb.SQLPredicatePushDownCellToColumnMapping cell_to_column_mapping = 3;
     public static final int CELL_TO_COLUMN_MAPPING_FIELD_NUMBER = 3;
     private java.util.List<org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping> cellToColumnMapping_;
     /**
@@ -1024,17 +1139,18 @@ public final class SparkFilterProtos {
       return cellToColumnMapping_.get(index);
     }
 
-    // optional string encoderClassName = 4;
     public static final int ENCODERCLASSNAME_FIELD_NUMBER = 4;
-    private java.lang.Object encoderClassName_;
+    private volatile java.lang.Object encoderClassName_;
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return Whether the encoderClassName field is set.
      */
     public boolean hasEncoderClassName() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return The encoderClassName.
      */
     public java.lang.String getEncoderClassName() {
       java.lang.Object ref = encoderClassName_;
@@ -1052,6 +1168,7 @@ public final class SparkFilterProtos {
     }
     /**
      * <code>optional string encoderClassName = 4;</code>
+     * @return The bytes for encoderClassName.
      */
     public com.google.protobuf.ByteString
         getEncoderClassNameBytes() {
@@ -1067,16 +1184,12 @@ public final class SparkFilterProtos {
       }
     }
 
-    private void initFields() {
-      dynamicLogicExpression_ = "";
-      valueFromQueryArray_ = java.util.Collections.emptyList();
-      cellToColumnMapping_ = java.util.Collections.emptyList();
-      encoderClassName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasDynamicLogicExpression()) {
         memoizedIsInitialized = 0;
@@ -1092,11 +1205,11 @@ public final class SparkFilterProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getDynamicLogicExpressionBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, dynamicLogicExpression_);
       }
       for (int i = 0; i < valueFromQueryArray_.size(); i++) {
         output.writeBytes(2, valueFromQueryArray_.get(i));
@@ -1104,21 +1217,20 @@ public final class SparkFilterProtos {
       for (int i = 0; i < cellToColumnMapping_.size(); i++) {
         output.writeMessage(3, cellToColumnMapping_.get(i));
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(4, getEncoderClassNameBytes());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, encoderClassName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getDynamicLogicExpressionBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, dynamicLogicExpression_);
       }
       {
         int dataSize = 0;
@@ -1133,20 +1245,12 @@ public final class SparkFilterProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, cellToColumnMapping_.get(i));
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getEncoderClassNameBytes());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, encoderClassName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1159,34 +1263,31 @@ public final class SparkFilterProtos {
       }
       org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter other = (org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter) obj;
 
-      boolean result = true;
-      result = result && (hasDynamicLogicExpression() == other.hasDynamicLogicExpression());
+      if (hasDynamicLogicExpression() != other.hasDynamicLogicExpression()) return false;
       if (hasDynamicLogicExpression()) {
-        result = result && getDynamicLogicExpression()
-            .equals(other.getDynamicLogicExpression());
+        if (!getDynamicLogicExpression()
+            .equals(other.getDynamicLogicExpression())) return false;
       }
-      result = result && getValueFromQueryArrayList()
-          .equals(other.getValueFromQueryArrayList());
-      result = result && getCellToColumnMappingList()
-          .equals(other.getCellToColumnMappingList());
-      result = result && (hasEncoderClassName() == other.hasEncoderClassName());
+      if (!getValueFromQueryArrayList()
+          .equals(other.getValueFromQueryArrayList())) return false;
+      if (!getCellToColumnMappingList()
+          .equals(other.getCellToColumnMappingList())) return false;
+      if (hasEncoderClassName() != other.hasEncoderClassName()) return false;
       if (hasEncoderClassName()) {
-        result = result && getEncoderClassName()
-            .equals(other.getEncoderClassName());
+        if (!getEncoderClassName()
+            .equals(other.getEncoderClassName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasDynamicLogicExpression()) {
         hash = (37 * hash) + DYNAMIC_LOGIC_EXPRESSION_FIELD_NUMBER;
         hash = (53 * hash) + getDynamicLogicExpression().hashCode();
@@ -1203,11 +1304,22 @@ public final class SparkFilterProtos {
         hash = (37 * hash) + ENCODERCLASSNAME_FIELD_NUMBER;
         hash = (53 * hash) + getEncoderClassName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1231,46 +1343,59 @@ public final class SparkFilterProtos {
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1278,14 +1403,16 @@ public final class SparkFilterProtos {
      * Protobuf type {@code hbase.pb.SQLPredicatePushDownFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilterOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.SQLPredicatePushDownFilter)
+        org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownFilter_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1298,19 +1425,17 @@ public final class SparkFilterProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getCellToColumnMappingFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         dynamicLogicExpression_ = "";
@@ -1328,19 +1453,18 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter build() {
         org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -1349,21 +1473,22 @@ public final class SparkFilterProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter buildPartial() {
         org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter result = new org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.dynamicLogicExpression_ = dynamicLogicExpression_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           valueFromQueryArray_ = java.util.Collections.unmodifiableList(valueFromQueryArray_);
           bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.valueFromQueryArray_ = valueFromQueryArray_;
         if (cellToColumnMappingBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000004) != 0)) {
             cellToColumnMapping_ = java.util.Collections.unmodifiableList(cellToColumnMapping_);
             bitField0_ = (bitField0_ & ~0x00000004);
           }
@@ -1371,7 +1496,7 @@ public final class SparkFilterProtos {
         } else {
           result.cellToColumnMapping_ = cellToColumnMappingBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           to_bitField0_ |= 0x00000002;
         }
         result.encoderClassName_ = encoderClassName_;
@@ -1380,6 +1505,39 @@ public final class SparkFilterProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter) {
           return mergeFrom((org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter)other);
@@ -1425,7 +1583,7 @@ public final class SparkFilterProtos {
               cellToColumnMapping_ = other.cellToColumnMapping_;
               bitField0_ = (bitField0_ & ~0x00000004);
               cellToColumnMappingBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getCellToColumnMappingFieldBuilder() : null;
             } else {
               cellToColumnMappingBuilder_.addAllMessages(other.cellToColumnMapping_);
@@ -1437,24 +1595,25 @@ public final class SparkFilterProtos {
           encoderClassName_ = other.encoderClassName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasDynamicLogicExpression()) {
-          
           return false;
         }
         for (int i = 0; i < getCellToColumnMappingCount(); i++) {
           if (!getCellToColumnMapping(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1464,7 +1623,7 @@ public final class SparkFilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1474,23 +1633,27 @@ public final class SparkFilterProtos {
       }
       private int bitField0_;
 
-      // required string dynamic_logic_expression = 1;
       private java.lang.Object dynamicLogicExpression_ = "";
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @return Whether the dynamicLogicExpression field is set.
        */
       public boolean hasDynamicLogicExpression() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @return The dynamicLogicExpression.
        */
       public java.lang.String getDynamicLogicExpression() {
         java.lang.Object ref = dynamicLogicExpression_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          dynamicLogicExpression_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            dynamicLogicExpression_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1498,6 +1661,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @return The bytes for dynamicLogicExpression.
        */
       public com.google.protobuf.ByteString
           getDynamicLogicExpressionBytes() {
@@ -1514,6 +1678,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @param value The dynamicLogicExpression to set.
+       * @return This builder for chaining.
        */
       public Builder setDynamicLogicExpression(
           java.lang.String value) {
@@ -1527,6 +1693,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDynamicLogicExpression() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1536,6 +1703,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>required string dynamic_logic_expression = 1;</code>
+       * @param value The bytes for dynamicLogicExpression to set.
+       * @return This builder for chaining.
        */
       public Builder setDynamicLogicExpressionBytes(
           com.google.protobuf.ByteString value) {
@@ -1548,35 +1717,42 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      // repeated bytes value_from_query_array = 2;
       private java.util.List<com.google.protobuf.ByteString> valueFromQueryArray_ = java.util.Collections.emptyList();
       private void ensureValueFromQueryArrayIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           valueFromQueryArray_ = new java.util.ArrayList<com.google.protobuf.ByteString>(valueFromQueryArray_);
           bitField0_ |= 0x00000002;
          }
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @return A list containing the valueFromQueryArray.
        */
       public java.util.List<com.google.protobuf.ByteString>
           getValueFromQueryArrayList() {
-        return java.util.Collections.unmodifiableList(valueFromQueryArray_);
+        return ((bitField0_ & 0x00000002) != 0) ?
+                 java.util.Collections.unmodifiableList(valueFromQueryArray_) : valueFromQueryArray_;
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @return The count of valueFromQueryArray.
        */
       public int getValueFromQueryArrayCount() {
         return valueFromQueryArray_.size();
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @param index The index of the element to return.
+       * @return The valueFromQueryArray at the given index.
        */
       public com.google.protobuf.ByteString getValueFromQueryArray(int index) {
         return valueFromQueryArray_.get(index);
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The valueFromQueryArray to set.
+       * @return This builder for chaining.
        */
       public Builder setValueFromQueryArray(
           int index, com.google.protobuf.ByteString value) {
@@ -1590,6 +1766,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @param value The valueFromQueryArray to add.
+       * @return This builder for chaining.
        */
       public Builder addValueFromQueryArray(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1602,16 +1780,20 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @param values The valueFromQueryArray to add.
+       * @return This builder for chaining.
        */
       public Builder addAllValueFromQueryArray(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensureValueFromQueryArrayIsMutable();
-        super.addAll(values, valueFromQueryArray_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, valueFromQueryArray_);
         onChanged();
         return this;
       }
       /**
        * <code>repeated bytes value_from_query_array = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearValueFromQueryArray() {
         valueFromQueryArray_ = java.util.Collections.emptyList();
@@ -1620,17 +1802,16 @@ public final class SparkFilterProtos {
         return this;
       }
 
-      // repeated .hbase.pb.SQLPredicatePushDownCellToColumnMapping cell_to_column_mapping = 3;
       private java.util.List<org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping> cellToColumnMapping_ =
         java.util.Collections.emptyList();
       private void ensureCellToColumnMappingIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           cellToColumnMapping_ = new java.util.ArrayList<org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping>(cellToColumnMapping_);
           bitField0_ |= 0x00000004;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.Builder, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder> cellToColumnMappingBuilder_;
 
       /**
@@ -1762,7 +1943,8 @@ public final class SparkFilterProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping> values) {
         if (cellToColumnMappingBuilder_ == null) {
           ensureCellToColumnMappingIsMutable();
-          super.addAll(values, cellToColumnMapping_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, cellToColumnMapping_);
           onChanged();
         } else {
           cellToColumnMappingBuilder_.addAllMessages(values);
@@ -1845,14 +2027,14 @@ public final class SparkFilterProtos {
            getCellToColumnMappingBuilderList() {
         return getCellToColumnMappingFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.Builder, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder> 
           getCellToColumnMappingFieldBuilder() {
         if (cellToColumnMappingBuilder_ == null) {
-          cellToColumnMappingBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          cellToColumnMappingBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMapping.Builder, org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownCellToColumnMappingOrBuilder>(
                   cellToColumnMapping_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
                   isClean());
           cellToColumnMapping_ = null;
@@ -1860,23 +2042,27 @@ public final class SparkFilterProtos {
         return cellToColumnMappingBuilder_;
       }
 
-      // optional string encoderClassName = 4;
       private java.lang.Object encoderClassName_ = "";
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @return Whether the encoderClassName field is set.
        */
       public boolean hasEncoderClassName() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @return The encoderClassName.
        */
       public java.lang.String getEncoderClassName() {
         java.lang.Object ref = encoderClassName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          encoderClassName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            encoderClassName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1884,6 +2070,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @return The bytes for encoderClassName.
        */
       public com.google.protobuf.ByteString
           getEncoderClassNameBytes() {
@@ -1900,6 +2087,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @param value The encoderClassName to set.
+       * @return This builder for chaining.
        */
       public Builder setEncoderClassName(
           java.lang.String value) {
@@ -1913,6 +2102,7 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncoderClassName() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1922,6 +2112,8 @@ public final class SparkFilterProtos {
       }
       /**
        * <code>optional string encoderClassName = 4;</code>
+       * @param value The bytes for encoderClassName to set.
+       * @return This builder for chaining.
        */
       public Builder setEncoderClassNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1933,34 +2125,75 @@ public final class SparkFilterProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.SQLPredicatePushDownFilter)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.SQLPredicatePushDownFilter)
+    private static final org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SQLPredicatePushDownFilter(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.SQLPredicatePushDownFilter)
+    public static org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<SQLPredicatePushDownFilter>
+        PARSER = new com.google.protobuf.AbstractParser<SQLPredicatePushDownFilter>() {
+      @java.lang.Override
+      public SQLPredicatePushDownFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SQLPredicatePushDownFilter(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SQLPredicatePushDownFilter> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SQLPredicatePushDownFilter> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos.SQLPredicatePushDownFilter getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_SQLPredicatePushDownFilter_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -1973,33 +2206,25 @@ public final class SparkFilterProtos {
       "_to_column_mapping\030\003 \003(\01321.hbase.pb.SQLP" +
       "redicatePushDownCellToColumnMapping\022\030\n\020e" +
       "ncoderClassName\030\004 \001(\tBM\n0org.apache.hado" +
-      "op.hbase.spark.protobuf.generatedB\021Spark",
+      "op.hbase.spark.protobuf.generatedB\021Spark" +
       "FilterProtosH\001\210\001\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor,
-              new java.lang.String[] { "ColumnFamily", "Qualifier", "ColumnName", });
-          internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_hbase_pb_SQLPredicatePushDownFilter_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor,
-              new java.lang.String[] { "DynamicLogicExpression", "ValueFromQueryArray", "CellToColumnMapping", "EncoderClassName", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_SQLPredicatePushDownCellToColumnMapping_descriptor,
+        new java.lang.String[] { "ColumnFamily", "Qualifier", "ColumnName", });
+    internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_hbase_pb_SQLPredicatePushDownFilter_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_SQLPredicatePushDownFilter_descriptor,
+        new java.lang.String[] { "DynamicLogicExpression", "ValueFromQueryArray", "CellToColumnMapping", "EncoderClassName", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

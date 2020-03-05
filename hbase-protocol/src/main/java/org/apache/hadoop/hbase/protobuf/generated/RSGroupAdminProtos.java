@@ -6,22 +6,31 @@ package org.apache.hadoop.hbase.protobuf.generated;
 public final class RSGroupAdminProtos {
   private RSGroupAdminProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface ListTablesOfRSGroupRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // required string r_s_group_name = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface ListTablesOfRSGroupRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ListTablesOfRSGroupRequest)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     boolean hasRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     java.lang.String getRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     com.google.protobuf.ByteString
         getRSGroupNameBytes();
@@ -29,36 +38,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.ListTablesOfRSGroupRequest}
    */
-  public static final class ListTablesOfRSGroupRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements ListTablesOfRSGroupRequestOrBuilder {
+  public  static final class ListTablesOfRSGroupRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ListTablesOfRSGroupRequest)
+      ListTablesOfRSGroupRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ListTablesOfRSGroupRequest.newBuilder() to construct.
-    private ListTablesOfRSGroupRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ListTablesOfRSGroupRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ListTablesOfRSGroupRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ListTablesOfRSGroupRequest defaultInstance;
-    public static ListTablesOfRSGroupRequest getDefaultInstance() {
-      return defaultInstance;
+    private ListTablesOfRSGroupRequest() {
+      rSGroupName_ = "";
     }
 
-    public ListTablesOfRSGroupRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ListTablesOfRSGroupRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ListTablesOfRSGroupRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -70,16 +82,17 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              rSGroupName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              rSGroupName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -88,7 +101,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -99,40 +112,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ListTablesOfRSGroupRequest> PARSER =
-        new com.google.protobuf.AbstractParser<ListTablesOfRSGroupRequest>() {
-      public ListTablesOfRSGroupRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListTablesOfRSGroupRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ListTablesOfRSGroupRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string r_s_group_name = 1;
     public static final int R_S_GROUP_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object rSGroupName_;
+    private volatile java.lang.Object rSGroupName_;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     public boolean hasRSGroupName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     public java.lang.String getRSGroupName() {
       java.lang.Object ref = rSGroupName_;
@@ -150,6 +150,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     public com.google.protobuf.ByteString
         getRSGroupNameBytes() {
@@ -165,13 +166,12 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    private void initFields() {
-      rSGroupName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasRSGroupName()) {
         memoizedIsInitialized = 0;
@@ -181,35 +181,27 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rSGroupName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rSGroupName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -222,34 +214,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupName() == other.hasRSGroupName());
+      if (hasRSGroupName() != other.hasRSGroupName()) return false;
       if (hasRSGroupName()) {
-        result = result && getRSGroupName()
-            .equals(other.getRSGroupName());
+        if (!getRSGroupName()
+            .equals(other.getRSGroupName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupName()) {
         hash = (37 * hash) + R_S_GROUP_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -273,46 +273,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -320,14 +333,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.ListTablesOfRSGroupRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ListTablesOfRSGroupRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -340,18 +355,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         rSGroupName_ = "";
@@ -359,19 +372,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -380,11 +392,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.rSGroupName_ = rSGroupName_;
@@ -393,6 +406,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest)other);
@@ -409,18 +455,20 @@ public final class RSGroupAdminProtos {
           rSGroupName_ = other.rSGroupName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasRSGroupName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -430,7 +478,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -440,23 +488,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string r_s_group_name = 1;
       private java.lang.Object rSGroupName_ = "";
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return Whether the rSGroupName field is set.
        */
       public boolean hasRSGroupName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The rSGroupName.
        */
       public java.lang.String getRSGroupName() {
         java.lang.Object ref = rSGroupName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          rSGroupName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rSGroupName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -464,6 +516,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The bytes for rSGroupName.
        */
       public com.google.protobuf.ByteString
           getRSGroupNameBytes() {
@@ -480,6 +533,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupName(
           java.lang.String value) {
@@ -493,6 +548,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRSGroupName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -502,6 +558,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The bytes for rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupNameBytes(
           com.google.protobuf.ByteString value) {
@@ -513,22 +571,63 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ListTablesOfRSGroupRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ListTablesOfRSGroupRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ListTablesOfRSGroupRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ListTablesOfRSGroupRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ListTablesOfRSGroupRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ListTablesOfRSGroupRequest>() {
+      @java.lang.Override
+      public ListTablesOfRSGroupRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ListTablesOfRSGroupRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ListTablesOfRSGroupRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ListTablesOfRSGroupRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ListTablesOfRSGroupResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ListTablesOfRSGroupResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ListTablesOfRSGroupResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.TableName table_name = 1;
     /**
      * <code>repeated .hbase.pb.TableName table_name = 1;</code>
      */
@@ -556,36 +655,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.ListTablesOfRSGroupResponse}
    */
-  public static final class ListTablesOfRSGroupResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements ListTablesOfRSGroupResponseOrBuilder {
+  public  static final class ListTablesOfRSGroupResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ListTablesOfRSGroupResponse)
+      ListTablesOfRSGroupResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ListTablesOfRSGroupResponse.newBuilder() to construct.
-    private ListTablesOfRSGroupResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ListTablesOfRSGroupResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ListTablesOfRSGroupResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ListTablesOfRSGroupResponse defaultInstance;
-    public static ListTablesOfRSGroupResponse getDefaultInstance() {
-      return defaultInstance;
+    private ListTablesOfRSGroupResponse() {
+      tableName_ = java.util.Collections.emptyList();
     }
 
-    public ListTablesOfRSGroupResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ListTablesOfRSGroupResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ListTablesOfRSGroupResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -597,19 +699,20 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              tableName_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              tableName_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -618,9 +721,9 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           tableName_ = java.util.Collections.unmodifiableList(tableName_);
         }
         this.unknownFields = unknownFields.build();
@@ -632,29 +735,14 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ListTablesOfRSGroupResponse> PARSER =
-        new com.google.protobuf.AbstractParser<ListTablesOfRSGroupResponse>() {
-      public ListTablesOfRSGroupResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListTablesOfRSGroupResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ListTablesOfRSGroupResponse> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.TableName table_name = 1;
     public static final int TABLE_NAME_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_;
     /**
@@ -690,13 +778,12 @@ public final class RSGroupAdminProtos {
       return tableName_.get(index);
     }
 
-    private void initFields() {
-      tableName_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       for (int i = 0; i < getTableNameCount(); i++) {
         if (!getTableName(i).isInitialized()) {
@@ -708,18 +795,18 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < tableName_.size(); i++) {
         output.writeMessage(1, tableName_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -727,16 +814,9 @@ public final class RSGroupAdminProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, tableName_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -749,31 +829,39 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse) obj;
 
-      boolean result = true;
-      result = result && getTableNameList()
-          .equals(other.getTableNameList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getTableNameList()
+          .equals(other.getTableNameList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getTableNameCount() > 0) {
         hash = (37 * hash) + TABLE_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getTableNameList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -797,46 +885,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -844,14 +945,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.ListTablesOfRSGroupResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ListTablesOfRSGroupResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -864,19 +967,17 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getTableNameFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (tableNameBuilder_ == null) {
@@ -888,19 +989,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -909,11 +1009,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse(this);
         int from_bitField0_ = bitField0_;
         if (tableNameBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             tableName_ = java.util.Collections.unmodifiableList(tableName_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -925,6 +1026,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse)other);
@@ -955,27 +1089,29 @@ public final class RSGroupAdminProtos {
               tableName_ = other.tableName_;
               bitField0_ = (bitField0_ & ~0x00000001);
               tableNameBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getTableNameFieldBuilder() : null;
             } else {
               tableNameBuilder_.addAllMessages(other.tableName_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         for (int i = 0; i < getTableNameCount(); i++) {
           if (!getTableName(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -985,7 +1121,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -995,17 +1131,16 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.TableName table_name = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_ =
         java.util.Collections.emptyList();
       private void ensureTableNameIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>(tableName_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> tableNameBuilder_;
 
       /**
@@ -1137,7 +1272,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> values) {
         if (tableNameBuilder_ == null) {
           ensureTableNameIsMutable();
-          super.addAll(values, tableName_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, tableName_);
           onChanged();
         } else {
           tableNameBuilder_.addAllMessages(values);
@@ -1220,46 +1356,90 @@ public final class RSGroupAdminProtos {
            getTableNameBuilderList() {
         return getTableNameFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> 
           getTableNameFieldBuilder() {
         if (tableNameBuilder_ == null) {
-          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder>(
                   tableName_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           tableName_ = null;
         }
         return tableNameBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ListTablesOfRSGroupResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ListTablesOfRSGroupResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ListTablesOfRSGroupResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ListTablesOfRSGroupResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ListTablesOfRSGroupResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ListTablesOfRSGroupResponse>() {
+      @java.lang.Override
+      public ListTablesOfRSGroupResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ListTablesOfRSGroupResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ListTablesOfRSGroupResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ListTablesOfRSGroupResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListTablesOfRSGroupResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string r_s_group_name = 1;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     boolean hasRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     java.lang.String getRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     com.google.protobuf.ByteString
         getRSGroupNameBytes();
@@ -1267,36 +1447,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoRequest}
    */
-  public static final class GetRSGroupInfoRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoRequestOrBuilder {
+  public  static final class GetRSGroupInfoRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoRequest)
+      GetRSGroupInfoRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoRequest.newBuilder() to construct.
-    private GetRSGroupInfoRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoRequest defaultInstance;
-    public static GetRSGroupInfoRequest getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoRequest() {
+      rSGroupName_ = "";
     }
 
-    public GetRSGroupInfoRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1308,16 +1491,17 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              rSGroupName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              rSGroupName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -1326,7 +1510,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1337,40 +1521,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoRequest> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoRequest>() {
-      public GetRSGroupInfoRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string r_s_group_name = 1;
     public static final int R_S_GROUP_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object rSGroupName_;
+    private volatile java.lang.Object rSGroupName_;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     public boolean hasRSGroupName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     public java.lang.String getRSGroupName() {
       java.lang.Object ref = rSGroupName_;
@@ -1388,6 +1559,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     public com.google.protobuf.ByteString
         getRSGroupNameBytes() {
@@ -1403,13 +1575,12 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    private void initFields() {
-      rSGroupName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasRSGroupName()) {
         memoizedIsInitialized = 0;
@@ -1419,35 +1590,27 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rSGroupName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rSGroupName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1460,34 +1623,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupName() == other.hasRSGroupName());
+      if (hasRSGroupName() != other.hasRSGroupName()) return false;
       if (hasRSGroupName()) {
-        result = result && getRSGroupName()
-            .equals(other.getRSGroupName());
+        if (!getRSGroupName()
+            .equals(other.getRSGroupName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupName()) {
         hash = (37 * hash) + R_S_GROUP_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1511,46 +1682,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1558,14 +1742,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1578,18 +1764,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         rSGroupName_ = "";
@@ -1597,19 +1781,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1618,11 +1801,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.rSGroupName_ = rSGroupName_;
@@ -1631,6 +1815,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest)other);
@@ -1647,18 +1864,20 @@ public final class RSGroupAdminProtos {
           rSGroupName_ = other.rSGroupName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasRSGroupName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1668,7 +1887,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1678,23 +1897,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string r_s_group_name = 1;
       private java.lang.Object rSGroupName_ = "";
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return Whether the rSGroupName field is set.
        */
       public boolean hasRSGroupName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The rSGroupName.
        */
       public java.lang.String getRSGroupName() {
         java.lang.Object ref = rSGroupName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          rSGroupName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rSGroupName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1702,6 +1925,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The bytes for rSGroupName.
        */
       public com.google.protobuf.ByteString
           getRSGroupNameBytes() {
@@ -1718,6 +1942,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupName(
           java.lang.String value) {
@@ -1731,6 +1957,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRSGroupName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1740,6 +1967,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The bytes for rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupNameBytes(
           com.google.protobuf.ByteString value) {
@@ -1751,28 +1980,71 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoRequest>() {
+      @java.lang.Override
+      public GetRSGroupInfoRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     boolean hasRSGroupInfo();
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo();
     /**
@@ -1783,36 +2055,38 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoResponse}
    */
-  public static final class GetRSGroupInfoResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoResponseOrBuilder {
+  public  static final class GetRSGroupInfoResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoResponse)
+      GetRSGroupInfoResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoResponse.newBuilder() to construct.
-    private GetRSGroupInfoResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoResponse defaultInstance;
-    public static GetRSGroupInfoResponse getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoResponse() {
     }
 
-    public GetRSGroupInfoResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1824,16 +2098,9 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = rSGroupInfo_.toBuilder();
               }
               rSGroupInfo_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.PARSER, extensionRegistry);
@@ -1844,13 +2111,20 @@ public final class RSGroupAdminProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1861,58 +2135,44 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoResponse> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoResponse>() {
-      public GetRSGroupInfoResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoResponse> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     public static final int R_S_GROUP_INFO_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     public boolean hasRSGroupInfo() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder getRSGroupInfoOrBuilder() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
 
-    private void initFields() {
-      rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (hasRSGroupInfo()) {
         if (!getRSGroupInfo().isInitialized()) {
@@ -1924,35 +2184,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, rSGroupInfo_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getRSGroupInfo());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, rSGroupInfo_);
+          .computeMessageSize(1, getRSGroupInfo());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -1965,34 +2218,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupInfo() == other.hasRSGroupInfo());
+      if (hasRSGroupInfo() != other.hasRSGroupInfo()) return false;
       if (hasRSGroupInfo()) {
-        result = result && getRSGroupInfo()
-            .equals(other.getRSGroupInfo());
+        if (!getRSGroupInfo()
+            .equals(other.getRSGroupInfo())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupInfo()) {
         hash = (37 * hash) + R_S_GROUP_INFO_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupInfo().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2016,46 +2277,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2063,14 +2337,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -2083,23 +2359,21 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getRSGroupInfoFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
         } else {
           rSGroupInfoBuilder_.clear();
         }
@@ -2107,19 +2381,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -2128,23 +2401,57 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (rSGroupInfoBuilder_ == null) {
+            result.rSGroupInfo_ = rSGroupInfo_;
+          } else {
+            result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (rSGroupInfoBuilder_ == null) {
-          result.rSGroupInfo_ = rSGroupInfo_;
-        } else {
-          result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse)other);
@@ -2159,20 +2466,22 @@ public final class RSGroupAdminProtos {
         if (other.hasRSGroupInfo()) {
           mergeRSGroupInfo(other.getRSGroupInfo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (hasRSGroupInfo()) {
           if (!getRSGroupInfo().isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2182,7 +2491,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2192,22 +2501,23 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> rSGroupInfoBuilder_;
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return Whether the rSGroupInfo field is set.
        */
       public boolean hasRSGroupInfo() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return The rSGroupInfo.
        */
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         } else {
           return rSGroupInfoBuilder_.getMessage();
         }
@@ -2247,7 +2557,8 @@ public final class RSGroupAdminProtos {
        */
       public Builder mergeRSGroupInfo(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo value) {
         if (rSGroupInfoBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              rSGroupInfo_ != null &&
               rSGroupInfo_ != org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance()) {
             rSGroupInfo_ =
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.newBuilder(rSGroupInfo_).mergeFrom(value).buildPartial();
@@ -2266,7 +2577,7 @@ public final class RSGroupAdminProtos {
        */
       public Builder clearRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
           onChanged();
         } else {
           rSGroupInfoBuilder_.clear();
@@ -2289,47 +2600,91 @@ public final class RSGroupAdminProtos {
         if (rSGroupInfoBuilder_ != null) {
           return rSGroupInfoBuilder_.getMessageOrBuilder();
         } else {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         }
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> 
           getRSGroupInfoFieldBuilder() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder>(
-                  rSGroupInfo_,
+                  getRSGroupInfo(),
                   getParentForChildren(),
                   isClean());
           rSGroupInfo_ = null;
         }
         return rSGroupInfoBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoResponse>() {
+      @java.lang.Override
+      public GetRSGroupInfoResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoOfTableRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoOfTableRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoOfTableRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.TableName table_name = 1;
     /**
      * <code>required .hbase.pb.TableName table_name = 1;</code>
+     * @return Whether the tableName field is set.
      */
     boolean hasTableName();
     /**
      * <code>required .hbase.pb.TableName table_name = 1;</code>
+     * @return The tableName.
      */
     org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName getTableName();
     /**
@@ -2340,36 +2695,38 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoOfTableRequest}
    */
-  public static final class GetRSGroupInfoOfTableRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoOfTableRequestOrBuilder {
+  public  static final class GetRSGroupInfoOfTableRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoOfTableRequest)
+      GetRSGroupInfoOfTableRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoOfTableRequest.newBuilder() to construct.
-    private GetRSGroupInfoOfTableRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoOfTableRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoOfTableRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoOfTableRequest defaultInstance;
-    public static GetRSGroupInfoOfTableRequest getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoOfTableRequest() {
     }
 
-    public GetRSGroupInfoOfTableRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoOfTableRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoOfTableRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -2381,16 +2738,9 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = tableName_.toBuilder();
               }
               tableName_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry);
@@ -2401,13 +2751,20 @@ public final class RSGroupAdminProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2418,58 +2775,44 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoOfTableRequest> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoOfTableRequest>() {
-      public GetRSGroupInfoOfTableRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoOfTableRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoOfTableRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.TableName table_name = 1;
     public static final int TABLE_NAME_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName tableName_;
     /**
      * <code>required .hbase.pb.TableName table_name = 1;</code>
+     * @return Whether the tableName field is set.
      */
     public boolean hasTableName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.TableName table_name = 1;</code>
+     * @return The tableName.
      */
     public org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName getTableName() {
-      return tableName_;
+      return tableName_ == null ? org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance() : tableName_;
     }
     /**
      * <code>required .hbase.pb.TableName table_name = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder getTableNameOrBuilder() {
-      return tableName_;
+      return tableName_ == null ? org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance() : tableName_;
     }
 
-    private void initFields() {
-      tableName_ = org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasTableName()) {
         memoizedIsInitialized = 0;
@@ -2483,35 +2826,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, tableName_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getTableName());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, tableName_);
+          .computeMessageSize(1, getTableName());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -2524,34 +2860,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest) obj;
 
-      boolean result = true;
-      result = result && (hasTableName() == other.hasTableName());
+      if (hasTableName() != other.hasTableName()) return false;
       if (hasTableName()) {
-        result = result && getTableName()
-            .equals(other.getTableName());
+        if (!getTableName()
+            .equals(other.getTableName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTableName()) {
         hash = (37 * hash) + TABLE_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getTableName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2575,46 +2919,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2622,14 +2979,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoOfTableRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoOfTableRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -2642,23 +3001,21 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getTableNameFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (tableNameBuilder_ == null) {
-          tableName_ = org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance();
+          tableName_ = null;
         } else {
           tableNameBuilder_.clear();
         }
@@ -2666,19 +3023,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -2687,23 +3043,57 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (tableNameBuilder_ == null) {
+            result.tableName_ = tableName_;
+          } else {
+            result.tableName_ = tableNameBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (tableNameBuilder_ == null) {
-          result.tableName_ = tableName_;
-        } else {
-          result.tableName_ = tableNameBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest)other);
@@ -2718,22 +3108,23 @@ public final class RSGroupAdminProtos {
         if (other.hasTableName()) {
           mergeTableName(other.getTableName());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasTableName()) {
-          
           return false;
         }
         if (!getTableName().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2743,7 +3134,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2753,22 +3144,23 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.TableName table_name = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName tableName_ = org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName tableName_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> tableNameBuilder_;
       /**
        * <code>required .hbase.pb.TableName table_name = 1;</code>
+       * @return Whether the tableName field is set.
        */
       public boolean hasTableName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.TableName table_name = 1;</code>
+       * @return The tableName.
        */
       public org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName getTableName() {
         if (tableNameBuilder_ == null) {
-          return tableName_;
+          return tableName_ == null ? org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance() : tableName_;
         } else {
           return tableNameBuilder_.getMessage();
         }
@@ -2808,7 +3200,8 @@ public final class RSGroupAdminProtos {
        */
       public Builder mergeTableName(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName value) {
         if (tableNameBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              tableName_ != null &&
               tableName_ != org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance()) {
             tableName_ =
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.newBuilder(tableName_).mergeFrom(value).buildPartial();
@@ -2827,7 +3220,7 @@ public final class RSGroupAdminProtos {
        */
       public Builder clearTableName() {
         if (tableNameBuilder_ == null) {
-          tableName_ = org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance();
+          tableName_ = null;
           onChanged();
         } else {
           tableNameBuilder_.clear();
@@ -2850,47 +3243,91 @@ public final class RSGroupAdminProtos {
         if (tableNameBuilder_ != null) {
           return tableNameBuilder_.getMessageOrBuilder();
         } else {
-          return tableName_;
+          return tableName_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.getDefaultInstance() : tableName_;
         }
       }
       /**
        * <code>required .hbase.pb.TableName table_name = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> 
           getTableNameFieldBuilder() {
         if (tableNameBuilder_ == null) {
-          tableNameBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          tableNameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder>(
-                  tableName_,
+                  getTableName(),
                   getParentForChildren(),
                   isClean());
           tableName_ = null;
         }
         return tableNameBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoOfTableRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfTableRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoOfTableRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfTableRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoOfTableRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoOfTableRequest>() {
+      @java.lang.Override
+      public GetRSGroupInfoOfTableRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoOfTableRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoOfTableRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoOfTableRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoOfTableResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoOfTableResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoOfTableResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     boolean hasRSGroupInfo();
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo();
     /**
@@ -2901,36 +3338,38 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoOfTableResponse}
    */
-  public static final class GetRSGroupInfoOfTableResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoOfTableResponseOrBuilder {
+  public  static final class GetRSGroupInfoOfTableResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoOfTableResponse)
+      GetRSGroupInfoOfTableResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoOfTableResponse.newBuilder() to construct.
-    private GetRSGroupInfoOfTableResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoOfTableResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoOfTableResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoOfTableResponse defaultInstance;
-    public static GetRSGroupInfoOfTableResponse getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoOfTableResponse() {
     }
 
-    public GetRSGroupInfoOfTableResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoOfTableResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoOfTableResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -2942,16 +3381,9 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = rSGroupInfo_.toBuilder();
               }
               rSGroupInfo_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.PARSER, extensionRegistry);
@@ -2962,13 +3394,20 @@ public final class RSGroupAdminProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2979,58 +3418,44 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoOfTableResponse> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoOfTableResponse>() {
-      public GetRSGroupInfoOfTableResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoOfTableResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoOfTableResponse> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     public static final int R_S_GROUP_INFO_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     public boolean hasRSGroupInfo() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder getRSGroupInfoOrBuilder() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
 
-    private void initFields() {
-      rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (hasRSGroupInfo()) {
         if (!getRSGroupInfo().isInitialized()) {
@@ -3042,35 +3467,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, rSGroupInfo_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getRSGroupInfo());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, rSGroupInfo_);
+          .computeMessageSize(1, getRSGroupInfo());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -3083,34 +3501,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupInfo() == other.hasRSGroupInfo());
+      if (hasRSGroupInfo() != other.hasRSGroupInfo()) return false;
       if (hasRSGroupInfo()) {
-        result = result && getRSGroupInfo()
-            .equals(other.getRSGroupInfo());
+        if (!getRSGroupInfo()
+            .equals(other.getRSGroupInfo())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupInfo()) {
         hash = (37 * hash) + R_S_GROUP_INFO_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupInfo().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3134,46 +3560,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3181,14 +3620,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoOfTableResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoOfTableResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3201,23 +3642,21 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getRSGroupInfoFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
         } else {
           rSGroupInfoBuilder_.clear();
         }
@@ -3225,19 +3664,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -3246,23 +3684,57 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (rSGroupInfoBuilder_ == null) {
+            result.rSGroupInfo_ = rSGroupInfo_;
+          } else {
+            result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (rSGroupInfoBuilder_ == null) {
-          result.rSGroupInfo_ = rSGroupInfo_;
-        } else {
-          result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse)other);
@@ -3277,20 +3749,22 @@ public final class RSGroupAdminProtos {
         if (other.hasRSGroupInfo()) {
           mergeRSGroupInfo(other.getRSGroupInfo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (hasRSGroupInfo()) {
           if (!getRSGroupInfo().isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3300,7 +3774,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -3310,22 +3784,23 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> rSGroupInfoBuilder_;
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return Whether the rSGroupInfo field is set.
        */
       public boolean hasRSGroupInfo() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return The rSGroupInfo.
        */
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         } else {
           return rSGroupInfoBuilder_.getMessage();
         }
@@ -3365,7 +3840,8 @@ public final class RSGroupAdminProtos {
        */
       public Builder mergeRSGroupInfo(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo value) {
         if (rSGroupInfoBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              rSGroupInfo_ != null &&
               rSGroupInfo_ != org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance()) {
             rSGroupInfo_ =
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.newBuilder(rSGroupInfo_).mergeFrom(value).buildPartial();
@@ -3384,7 +3860,7 @@ public final class RSGroupAdminProtos {
        */
       public Builder clearRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
           onChanged();
         } else {
           rSGroupInfoBuilder_.clear();
@@ -3407,56 +3883,100 @@ public final class RSGroupAdminProtos {
         if (rSGroupInfoBuilder_ != null) {
           return rSGroupInfoBuilder_.getMessageOrBuilder();
         } else {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         }
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> 
           getRSGroupInfoFieldBuilder() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder>(
-                  rSGroupInfo_,
+                  getRSGroupInfo(),
                   getParentForChildren(),
                   isClean());
           rSGroupInfo_ = null;
         }
         return rSGroupInfoBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoOfTableResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfTableResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoOfTableResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfTableResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoOfTableResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoOfTableResponse>() {
+      @java.lang.Override
+      public GetRSGroupInfoOfTableResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoOfTableResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoOfTableResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoOfTableResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfTableResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveServersRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveServersRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveServersRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string target_group = 1;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     boolean hasTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     java.lang.String getTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     com.google.protobuf.ByteString
         getTargetGroupBytes();
 
-    // repeated .hbase.pb.ServerName servers = 3;
     /**
      * <code>repeated .hbase.pb.ServerName servers = 3;</code>
      */
@@ -3484,36 +4004,40 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.MoveServersRequest}
    */
-  public static final class MoveServersRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveServersRequestOrBuilder {
+  public  static final class MoveServersRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveServersRequest)
+      MoveServersRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveServersRequest.newBuilder() to construct.
-    private MoveServersRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveServersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveServersRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveServersRequest defaultInstance;
-    public static MoveServersRequest getDefaultInstance() {
-      return defaultInstance;
+    private MoveServersRequest() {
+      targetGroup_ = "";
+      servers_ = java.util.Collections.emptyList();
     }
 
-    public MoveServersRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveServersRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveServersRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -3525,24 +4049,26 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              targetGroup_ = input.readBytes();
+              targetGroup_ = bs;
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              servers_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
+              servers_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -3551,9 +4077,9 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           servers_ = java.util.Collections.unmodifiableList(servers_);
         }
         this.unknownFields = unknownFields.build();
@@ -3565,40 +4091,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveServersRequest> PARSER =
-        new com.google.protobuf.AbstractParser<MoveServersRequest>() {
-      public MoveServersRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveServersRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveServersRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string target_group = 1;
     public static final int TARGET_GROUP_FIELD_NUMBER = 1;
-    private java.lang.Object targetGroup_;
+    private volatile java.lang.Object targetGroup_;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     public boolean hasTargetGroup() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     public java.lang.String getTargetGroup() {
       java.lang.Object ref = targetGroup_;
@@ -3616,6 +4129,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     public com.google.protobuf.ByteString
         getTargetGroupBytes() {
@@ -3631,7 +4145,6 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    // repeated .hbase.pb.ServerName servers = 3;
     public static final int SERVERS_FIELD_NUMBER = 3;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_;
     /**
@@ -3667,14 +4180,12 @@ public final class RSGroupAdminProtos {
       return servers_.get(index);
     }
 
-    private void initFields() {
-      targetGroup_ = "";
-      servers_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasTargetGroup()) {
         memoizedIsInitialized = 0;
@@ -3690,42 +4201,34 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, targetGroup_);
       }
       for (int i = 0; i < servers_.size(); i++) {
         output.writeMessage(3, servers_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, targetGroup_);
       }
       for (int i = 0; i < servers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, servers_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -3738,27 +4241,24 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest) obj;
 
-      boolean result = true;
-      result = result && (hasTargetGroup() == other.hasTargetGroup());
+      if (hasTargetGroup() != other.hasTargetGroup()) return false;
       if (hasTargetGroup()) {
-        result = result && getTargetGroup()
-            .equals(other.getTargetGroup());
+        if (!getTargetGroup()
+            .equals(other.getTargetGroup())) return false;
       }
-      result = result && getServersList()
-          .equals(other.getServersList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getServersList()
+          .equals(other.getServersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTargetGroup()) {
         hash = (37 * hash) + TARGET_GROUP_FIELD_NUMBER;
         hash = (53 * hash) + getTargetGroup().hashCode();
@@ -3767,11 +4267,22 @@ public final class RSGroupAdminProtos {
         hash = (37 * hash) + SERVERS_FIELD_NUMBER;
         hash = (53 * hash) + getServersList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3795,46 +4306,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3842,14 +4366,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveServersRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveServersRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3862,19 +4388,17 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getServersFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         targetGroup_ = "";
@@ -3888,19 +4412,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -3909,16 +4432,17 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.targetGroup_ = targetGroup_;
         if (serversBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             servers_ = java.util.Collections.unmodifiableList(servers_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
@@ -3931,6 +4455,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest)other);
@@ -3966,31 +4523,32 @@ public final class RSGroupAdminProtos {
               servers_ = other.servers_;
               bitField0_ = (bitField0_ & ~0x00000002);
               serversBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getServersFieldBuilder() : null;
             } else {
               serversBuilder_.addAllMessages(other.servers_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasTargetGroup()) {
-          
           return false;
         }
         for (int i = 0; i < getServersCount(); i++) {
           if (!getServers(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4000,7 +4558,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4010,23 +4568,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string target_group = 1;
       private java.lang.Object targetGroup_ = "";
       /**
        * <code>required string target_group = 1;</code>
+       * @return Whether the targetGroup field is set.
        */
       public boolean hasTargetGroup() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The targetGroup.
        */
       public java.lang.String getTargetGroup() {
         java.lang.Object ref = targetGroup_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          targetGroup_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            targetGroup_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4034,6 +4596,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The bytes for targetGroup.
        */
       public com.google.protobuf.ByteString
           getTargetGroupBytes() {
@@ -4050,6 +4613,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroup(
           java.lang.String value) {
@@ -4063,6 +4628,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetGroup() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -4072,6 +4638,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The bytes for targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroupBytes(
           com.google.protobuf.ByteString value) {
@@ -4084,17 +4652,16 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      // repeated .hbase.pb.ServerName servers = 3;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_ =
         java.util.Collections.emptyList();
       private void ensureServersIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>(servers_);
           bitField0_ |= 0x00000002;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> serversBuilder_;
 
       /**
@@ -4226,7 +4793,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> values) {
         if (serversBuilder_ == null) {
           ensureServersIsMutable();
-          super.addAll(values, servers_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, servers_);
           onChanged();
         } else {
           serversBuilder_.addAllMessages(values);
@@ -4309,68 +4877,112 @@ public final class RSGroupAdminProtos {
            getServersBuilderList() {
         return getServersFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> 
           getServersFieldBuilder() {
         if (serversBuilder_ == null) {
-          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder>(
                   servers_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           servers_ = null;
         }
         return serversBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveServersRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveServersRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveServersRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MoveServersRequest>() {
+      @java.lang.Override
+      public MoveServersRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveServersRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveServersRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveServersRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveServersResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveServersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveServersResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.MoveServersResponse}
    */
-  public static final class MoveServersResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveServersResponseOrBuilder {
+  public  static final class MoveServersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveServersResponse)
+      MoveServersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveServersResponse.newBuilder() to construct.
-    private MoveServersResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveServersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveServersResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveServersResponse defaultInstance;
-    public static MoveServersResponse getDefaultInstance() {
-      return defaultInstance;
+    private MoveServersResponse() {
     }
 
-    public MoveServersResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveServersResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveServersResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -4382,8 +4994,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -4394,7 +5006,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -4405,61 +5017,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveServersResponse> PARSER =
-        new com.google.protobuf.AbstractParser<MoveServersResponse>() {
-      public MoveServersResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveServersResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveServersResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -4472,25 +5063,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4514,46 +5113,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -4561,14 +5173,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveServersResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveServersResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -4581,36 +5195,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -4619,12 +5230,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse)other);
@@ -4636,14 +5281,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4653,7 +5301,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4661,37 +5309,80 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveServersResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveServersResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveServersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MoveServersResponse>() {
+      @java.lang.Override
+      public MoveServersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveServersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveServersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveServersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveTablesRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveTablesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveTablesRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string target_group = 1;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     boolean hasTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     java.lang.String getTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     com.google.protobuf.ByteString
         getTargetGroupBytes();
 
-    // repeated .hbase.pb.TableName table_name = 2;
     /**
      * <code>repeated .hbase.pb.TableName table_name = 2;</code>
      */
@@ -4719,36 +5410,40 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.MoveTablesRequest}
    */
-  public static final class MoveTablesRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveTablesRequestOrBuilder {
+  public  static final class MoveTablesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveTablesRequest)
+      MoveTablesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveTablesRequest.newBuilder() to construct.
-    private MoveTablesRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveTablesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveTablesRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveTablesRequest defaultInstance;
-    public static MoveTablesRequest getDefaultInstance() {
-      return defaultInstance;
+    private MoveTablesRequest() {
+      targetGroup_ = "";
+      tableName_ = java.util.Collections.emptyList();
     }
 
-    public MoveTablesRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveTablesRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveTablesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -4760,24 +5455,26 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              targetGroup_ = input.readBytes();
+              targetGroup_ = bs;
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              tableName_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              tableName_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -4786,9 +5483,9 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           tableName_ = java.util.Collections.unmodifiableList(tableName_);
         }
         this.unknownFields = unknownFields.build();
@@ -4800,40 +5497,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveTablesRequest> PARSER =
-        new com.google.protobuf.AbstractParser<MoveTablesRequest>() {
-      public MoveTablesRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveTablesRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveTablesRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string target_group = 1;
     public static final int TARGET_GROUP_FIELD_NUMBER = 1;
-    private java.lang.Object targetGroup_;
+    private volatile java.lang.Object targetGroup_;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     public boolean hasTargetGroup() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     public java.lang.String getTargetGroup() {
       java.lang.Object ref = targetGroup_;
@@ -4851,6 +5535,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     public com.google.protobuf.ByteString
         getTargetGroupBytes() {
@@ -4866,7 +5551,6 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    // repeated .hbase.pb.TableName table_name = 2;
     public static final int TABLE_NAME_FIELD_NUMBER = 2;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_;
     /**
@@ -4902,14 +5586,12 @@ public final class RSGroupAdminProtos {
       return tableName_.get(index);
     }
 
-    private void initFields() {
-      targetGroup_ = "";
-      tableName_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasTargetGroup()) {
         memoizedIsInitialized = 0;
@@ -4925,42 +5607,34 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, targetGroup_);
       }
       for (int i = 0; i < tableName_.size(); i++) {
         output.writeMessage(2, tableName_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, targetGroup_);
       }
       for (int i = 0; i < tableName_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, tableName_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -4973,27 +5647,24 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest) obj;
 
-      boolean result = true;
-      result = result && (hasTargetGroup() == other.hasTargetGroup());
+      if (hasTargetGroup() != other.hasTargetGroup()) return false;
       if (hasTargetGroup()) {
-        result = result && getTargetGroup()
-            .equals(other.getTargetGroup());
+        if (!getTargetGroup()
+            .equals(other.getTargetGroup())) return false;
       }
-      result = result && getTableNameList()
-          .equals(other.getTableNameList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getTableNameList()
+          .equals(other.getTableNameList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTargetGroup()) {
         hash = (37 * hash) + TARGET_GROUP_FIELD_NUMBER;
         hash = (53 * hash) + getTargetGroup().hashCode();
@@ -5002,11 +5673,22 @@ public final class RSGroupAdminProtos {
         hash = (37 * hash) + TABLE_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getTableNameList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5030,46 +5712,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5077,14 +5772,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveTablesRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveTablesRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -5097,19 +5794,17 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getTableNameFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         targetGroup_ = "";
@@ -5123,19 +5818,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -5144,16 +5838,17 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.targetGroup_ = targetGroup_;
         if (tableNameBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             tableName_ = java.util.Collections.unmodifiableList(tableName_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
@@ -5166,6 +5861,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest)other);
@@ -5201,31 +5929,32 @@ public final class RSGroupAdminProtos {
               tableName_ = other.tableName_;
               bitField0_ = (bitField0_ & ~0x00000002);
               tableNameBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getTableNameFieldBuilder() : null;
             } else {
               tableNameBuilder_.addAllMessages(other.tableName_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasTargetGroup()) {
-          
           return false;
         }
         for (int i = 0; i < getTableNameCount(); i++) {
           if (!getTableName(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5235,7 +5964,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -5245,23 +5974,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string target_group = 1;
       private java.lang.Object targetGroup_ = "";
       /**
        * <code>required string target_group = 1;</code>
+       * @return Whether the targetGroup field is set.
        */
       public boolean hasTargetGroup() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The targetGroup.
        */
       public java.lang.String getTargetGroup() {
         java.lang.Object ref = targetGroup_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          targetGroup_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            targetGroup_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -5269,6 +6002,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The bytes for targetGroup.
        */
       public com.google.protobuf.ByteString
           getTargetGroupBytes() {
@@ -5285,6 +6019,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroup(
           java.lang.String value) {
@@ -5298,6 +6034,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetGroup() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -5307,6 +6044,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The bytes for targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroupBytes(
           com.google.protobuf.ByteString value) {
@@ -5319,17 +6058,16 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      // repeated .hbase.pb.TableName table_name = 2;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_ =
         java.util.Collections.emptyList();
       private void ensureTableNameIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>(tableName_);
           bitField0_ |= 0x00000002;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> tableNameBuilder_;
 
       /**
@@ -5461,7 +6199,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> values) {
         if (tableNameBuilder_ == null) {
           ensureTableNameIsMutable();
-          super.addAll(values, tableName_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, tableName_);
           onChanged();
         } else {
           tableNameBuilder_.addAllMessages(values);
@@ -5544,68 +6283,112 @@ public final class RSGroupAdminProtos {
            getTableNameBuilderList() {
         return getTableNameFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> 
           getTableNameFieldBuilder() {
         if (tableNameBuilder_ == null) {
-          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder>(
                   tableName_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           tableName_ = null;
         }
         return tableNameBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveTablesRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveTablesRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveTablesRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveTablesRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveTablesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MoveTablesRequest>() {
+      @java.lang.Override
+      public MoveTablesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveTablesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveTablesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveTablesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveTablesResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveTablesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveTablesResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.MoveTablesResponse}
    */
-  public static final class MoveTablesResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveTablesResponseOrBuilder {
+  public  static final class MoveTablesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveTablesResponse)
+      MoveTablesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveTablesResponse.newBuilder() to construct.
-    private MoveTablesResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveTablesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveTablesResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveTablesResponse defaultInstance;
-    public static MoveTablesResponse getDefaultInstance() {
-      return defaultInstance;
+    private MoveTablesResponse() {
     }
 
-    public MoveTablesResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveTablesResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveTablesResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -5617,8 +6400,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -5629,7 +6412,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -5640,61 +6423,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveTablesResponse> PARSER =
-        new com.google.protobuf.AbstractParser<MoveTablesResponse>() {
-      public MoveTablesResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveTablesResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveTablesResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -5707,25 +6469,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5749,46 +6519,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5796,14 +6579,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveTablesResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveTablesResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -5816,36 +6601,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveTablesResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -5854,12 +6636,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse)other);
@@ -5871,14 +6687,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5888,7 +6707,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -5896,32 +6715,76 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveTablesResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveTablesResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveTablesResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveTablesResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveTablesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MoveTablesResponse>() {
+      @java.lang.Override
+      public MoveTablesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveTablesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveTablesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveTablesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveTablesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface AddRSGroupRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface AddRSGroupRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.AddRSGroupRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string r_s_group_name = 1;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     boolean hasRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     java.lang.String getRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     com.google.protobuf.ByteString
         getRSGroupNameBytes();
@@ -5929,36 +6792,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.AddRSGroupRequest}
    */
-  public static final class AddRSGroupRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements AddRSGroupRequestOrBuilder {
+  public  static final class AddRSGroupRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.AddRSGroupRequest)
+      AddRSGroupRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use AddRSGroupRequest.newBuilder() to construct.
-    private AddRSGroupRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private AddRSGroupRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private AddRSGroupRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final AddRSGroupRequest defaultInstance;
-    public static AddRSGroupRequest getDefaultInstance() {
-      return defaultInstance;
+    private AddRSGroupRequest() {
+      rSGroupName_ = "";
     }
 
-    public AddRSGroupRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AddRSGroupRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private AddRSGroupRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -5970,16 +6836,17 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              rSGroupName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              rSGroupName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -5988,7 +6855,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -5999,40 +6866,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<AddRSGroupRequest> PARSER =
-        new com.google.protobuf.AbstractParser<AddRSGroupRequest>() {
-      public AddRSGroupRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AddRSGroupRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AddRSGroupRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string r_s_group_name = 1;
     public static final int R_S_GROUP_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object rSGroupName_;
+    private volatile java.lang.Object rSGroupName_;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     public boolean hasRSGroupName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     public java.lang.String getRSGroupName() {
       java.lang.Object ref = rSGroupName_;
@@ -6050,6 +6904,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     public com.google.protobuf.ByteString
         getRSGroupNameBytes() {
@@ -6065,13 +6920,12 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    private void initFields() {
-      rSGroupName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasRSGroupName()) {
         memoizedIsInitialized = 0;
@@ -6081,35 +6935,27 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rSGroupName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rSGroupName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6122,34 +6968,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupName() == other.hasRSGroupName());
+      if (hasRSGroupName() != other.hasRSGroupName()) return false;
       if (hasRSGroupName()) {
-        result = result && getRSGroupName()
-            .equals(other.getRSGroupName());
+        if (!getRSGroupName()
+            .equals(other.getRSGroupName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupName()) {
         hash = (37 * hash) + R_S_GROUP_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6173,46 +7027,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6220,14 +7087,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.AddRSGroupRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.AddRSGroupRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6240,18 +7109,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         rSGroupName_ = "";
@@ -6259,19 +7126,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -6280,11 +7146,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.rSGroupName_ = rSGroupName_;
@@ -6293,6 +7160,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest)other);
@@ -6309,18 +7209,20 @@ public final class RSGroupAdminProtos {
           rSGroupName_ = other.rSGroupName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasRSGroupName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6330,7 +7232,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6340,23 +7242,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string r_s_group_name = 1;
       private java.lang.Object rSGroupName_ = "";
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return Whether the rSGroupName field is set.
        */
       public boolean hasRSGroupName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The rSGroupName.
        */
       public java.lang.String getRSGroupName() {
         java.lang.Object ref = rSGroupName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          rSGroupName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rSGroupName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -6364,6 +7270,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The bytes for rSGroupName.
        */
       public com.google.protobuf.ByteString
           getRSGroupNameBytes() {
@@ -6380,6 +7287,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupName(
           java.lang.String value) {
@@ -6393,6 +7302,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRSGroupName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -6402,6 +7312,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The bytes for rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupNameBytes(
           com.google.protobuf.ByteString value) {
@@ -6413,54 +7325,98 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.AddRSGroupRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.AddRSGroupRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new AddRSGroupRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.AddRSGroupRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<AddRSGroupRequest>
+        PARSER = new com.google.protobuf.AbstractParser<AddRSGroupRequest>() {
+      @java.lang.Override
+      public AddRSGroupRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AddRSGroupRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AddRSGroupRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AddRSGroupRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface AddRSGroupResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface AddRSGroupResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.AddRSGroupResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.AddRSGroupResponse}
    */
-  public static final class AddRSGroupResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements AddRSGroupResponseOrBuilder {
+  public  static final class AddRSGroupResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.AddRSGroupResponse)
+      AddRSGroupResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use AddRSGroupResponse.newBuilder() to construct.
-    private AddRSGroupResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private AddRSGroupResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private AddRSGroupResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final AddRSGroupResponse defaultInstance;
-    public static AddRSGroupResponse getDefaultInstance() {
-      return defaultInstance;
+    private AddRSGroupResponse() {
     }
 
-    public AddRSGroupResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AddRSGroupResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private AddRSGroupResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -6472,8 +7428,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -6484,7 +7440,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -6495,61 +7451,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<AddRSGroupResponse> PARSER =
-        new com.google.protobuf.AbstractParser<AddRSGroupResponse>() {
-      public AddRSGroupResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AddRSGroupResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AddRSGroupResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6562,25 +7497,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6604,46 +7547,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6651,14 +7607,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.AddRSGroupResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.AddRSGroupResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6671,36 +7629,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_AddRSGroupResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -6709,12 +7664,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse)other);
@@ -6726,14 +7715,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6743,7 +7735,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6751,32 +7743,76 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.AddRSGroupResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.AddRSGroupResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new AddRSGroupResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.AddRSGroupResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<AddRSGroupResponse>
+        PARSER = new com.google.protobuf.AbstractParser<AddRSGroupResponse>() {
+      @java.lang.Override
+      public AddRSGroupResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AddRSGroupResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AddRSGroupResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AddRSGroupResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.AddRSGroupResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RemoveRSGroupRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RemoveRSGroupRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RemoveRSGroupRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string r_s_group_name = 1;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     boolean hasRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     java.lang.String getRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     com.google.protobuf.ByteString
         getRSGroupNameBytes();
@@ -6784,36 +7820,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.RemoveRSGroupRequest}
    */
-  public static final class RemoveRSGroupRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements RemoveRSGroupRequestOrBuilder {
+  public  static final class RemoveRSGroupRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RemoveRSGroupRequest)
+      RemoveRSGroupRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RemoveRSGroupRequest.newBuilder() to construct.
-    private RemoveRSGroupRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RemoveRSGroupRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RemoveRSGroupRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RemoveRSGroupRequest defaultInstance;
-    public static RemoveRSGroupRequest getDefaultInstance() {
-      return defaultInstance;
+    private RemoveRSGroupRequest() {
+      rSGroupName_ = "";
     }
 
-    public RemoveRSGroupRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RemoveRSGroupRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RemoveRSGroupRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -6825,16 +7864,17 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              rSGroupName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              rSGroupName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -6843,7 +7883,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -6854,40 +7894,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RemoveRSGroupRequest> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveRSGroupRequest>() {
-      public RemoveRSGroupRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveRSGroupRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RemoveRSGroupRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string r_s_group_name = 1;
     public static final int R_S_GROUP_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object rSGroupName_;
+    private volatile java.lang.Object rSGroupName_;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     public boolean hasRSGroupName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     public java.lang.String getRSGroupName() {
       java.lang.Object ref = rSGroupName_;
@@ -6905,6 +7932,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     public com.google.protobuf.ByteString
         getRSGroupNameBytes() {
@@ -6920,13 +7948,12 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    private void initFields() {
-      rSGroupName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasRSGroupName()) {
         memoizedIsInitialized = 0;
@@ -6936,35 +7963,27 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rSGroupName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rSGroupName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -6977,34 +7996,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupName() == other.hasRSGroupName());
+      if (hasRSGroupName() != other.hasRSGroupName()) return false;
       if (hasRSGroupName()) {
-        result = result && getRSGroupName()
-            .equals(other.getRSGroupName());
+        if (!getRSGroupName()
+            .equals(other.getRSGroupName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupName()) {
         hash = (37 * hash) + R_S_GROUP_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7028,46 +8055,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7075,14 +8115,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.RemoveRSGroupRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RemoveRSGroupRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7095,18 +8137,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         rSGroupName_ = "";
@@ -7114,19 +8154,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -7135,11 +8174,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.rSGroupName_ = rSGroupName_;
@@ -7148,6 +8188,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest)other);
@@ -7164,18 +8237,20 @@ public final class RSGroupAdminProtos {
           rSGroupName_ = other.rSGroupName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasRSGroupName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7185,7 +8260,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -7195,23 +8270,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string r_s_group_name = 1;
       private java.lang.Object rSGroupName_ = "";
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return Whether the rSGroupName field is set.
        */
       public boolean hasRSGroupName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The rSGroupName.
        */
       public java.lang.String getRSGroupName() {
         java.lang.Object ref = rSGroupName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          rSGroupName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rSGroupName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -7219,6 +8298,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The bytes for rSGroupName.
        */
       public com.google.protobuf.ByteString
           getRSGroupNameBytes() {
@@ -7235,6 +8315,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupName(
           java.lang.String value) {
@@ -7248,6 +8330,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRSGroupName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -7257,6 +8340,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The bytes for rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupNameBytes(
           com.google.protobuf.ByteString value) {
@@ -7268,54 +8353,98 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RemoveRSGroupRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveRSGroupRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RemoveRSGroupRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveRSGroupRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RemoveRSGroupRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveRSGroupRequest>() {
+      @java.lang.Override
+      public RemoveRSGroupRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RemoveRSGroupRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveRSGroupRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveRSGroupRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RemoveRSGroupResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RemoveRSGroupResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RemoveRSGroupResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.RemoveRSGroupResponse}
    */
-  public static final class RemoveRSGroupResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements RemoveRSGroupResponseOrBuilder {
+  public  static final class RemoveRSGroupResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RemoveRSGroupResponse)
+      RemoveRSGroupResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RemoveRSGroupResponse.newBuilder() to construct.
-    private RemoveRSGroupResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RemoveRSGroupResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RemoveRSGroupResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RemoveRSGroupResponse defaultInstance;
-    public static RemoveRSGroupResponse getDefaultInstance() {
-      return defaultInstance;
+    private RemoveRSGroupResponse() {
     }
 
-    public RemoveRSGroupResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RemoveRSGroupResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RemoveRSGroupResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7327,8 +8456,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -7339,7 +8468,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -7350,61 +8479,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RemoveRSGroupResponse> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveRSGroupResponse>() {
-      public RemoveRSGroupResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveRSGroupResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RemoveRSGroupResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -7417,25 +8525,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7459,46 +8575,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7506,14 +8635,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.RemoveRSGroupResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RemoveRSGroupResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7526,36 +8657,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveRSGroupResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -7564,12 +8692,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse)other);
@@ -7581,14 +8743,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7598,7 +8763,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -7606,32 +8771,76 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RemoveRSGroupResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveRSGroupResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RemoveRSGroupResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveRSGroupResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RemoveRSGroupResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveRSGroupResponse>() {
+      @java.lang.Override
+      public RemoveRSGroupResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RemoveRSGroupResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveRSGroupResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveRSGroupResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveRSGroupResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface BalanceRSGroupRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface BalanceRSGroupRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.BalanceRSGroupRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string r_s_group_name = 1;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     boolean hasRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     java.lang.String getRSGroupName();
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     com.google.protobuf.ByteString
         getRSGroupNameBytes();
@@ -7639,36 +8848,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.BalanceRSGroupRequest}
    */
-  public static final class BalanceRSGroupRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements BalanceRSGroupRequestOrBuilder {
+  public  static final class BalanceRSGroupRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.BalanceRSGroupRequest)
+      BalanceRSGroupRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use BalanceRSGroupRequest.newBuilder() to construct.
-    private BalanceRSGroupRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private BalanceRSGroupRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private BalanceRSGroupRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final BalanceRSGroupRequest defaultInstance;
-    public static BalanceRSGroupRequest getDefaultInstance() {
-      return defaultInstance;
+    private BalanceRSGroupRequest() {
+      rSGroupName_ = "";
     }
 
-    public BalanceRSGroupRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BalanceRSGroupRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private BalanceRSGroupRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -7680,16 +8892,17 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              rSGroupName_ = bs;
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              rSGroupName_ = input.readBytes();
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -7698,7 +8911,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -7709,40 +8922,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<BalanceRSGroupRequest> PARSER =
-        new com.google.protobuf.AbstractParser<BalanceRSGroupRequest>() {
-      public BalanceRSGroupRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BalanceRSGroupRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BalanceRSGroupRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string r_s_group_name = 1;
     public static final int R_S_GROUP_NAME_FIELD_NUMBER = 1;
-    private java.lang.Object rSGroupName_;
+    private volatile java.lang.Object rSGroupName_;
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return Whether the rSGroupName field is set.
      */
     public boolean hasRSGroupName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The rSGroupName.
      */
     public java.lang.String getRSGroupName() {
       java.lang.Object ref = rSGroupName_;
@@ -7760,6 +8960,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string r_s_group_name = 1;</code>
+     * @return The bytes for rSGroupName.
      */
     public com.google.protobuf.ByteString
         getRSGroupNameBytes() {
@@ -7775,13 +8976,12 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    private void initFields() {
-      rSGroupName_ = "";
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasRSGroupName()) {
         memoizedIsInitialized = 0;
@@ -7791,35 +8991,27 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, rSGroupName_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getRSGroupNameBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, rSGroupName_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -7832,34 +9024,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupName() == other.hasRSGroupName());
+      if (hasRSGroupName() != other.hasRSGroupName()) return false;
       if (hasRSGroupName()) {
-        result = result && getRSGroupName()
-            .equals(other.getRSGroupName());
+        if (!getRSGroupName()
+            .equals(other.getRSGroupName())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupName()) {
         hash = (37 * hash) + R_S_GROUP_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupName().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7883,46 +9083,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7930,14 +9143,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.BalanceRSGroupRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.BalanceRSGroupRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7950,18 +9165,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         rSGroupName_ = "";
@@ -7969,19 +9182,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -7990,11 +9202,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.rSGroupName_ = rSGroupName_;
@@ -8003,6 +9216,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest)other);
@@ -8019,18 +9265,20 @@ public final class RSGroupAdminProtos {
           rSGroupName_ = other.rSGroupName_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasRSGroupName()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8040,7 +9288,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8050,23 +9298,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string r_s_group_name = 1;
       private java.lang.Object rSGroupName_ = "";
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return Whether the rSGroupName field is set.
        */
       public boolean hasRSGroupName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The rSGroupName.
        */
       public java.lang.String getRSGroupName() {
         java.lang.Object ref = rSGroupName_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          rSGroupName_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rSGroupName_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -8074,6 +9326,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return The bytes for rSGroupName.
        */
       public com.google.protobuf.ByteString
           getRSGroupNameBytes() {
@@ -8090,6 +9343,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupName(
           java.lang.String value) {
@@ -8103,6 +9358,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearRSGroupName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -8112,6 +9368,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string r_s_group_name = 1;</code>
+       * @param value The bytes for rSGroupName to set.
+       * @return This builder for chaining.
        */
       public Builder setRSGroupNameBytes(
           com.google.protobuf.ByteString value) {
@@ -8123,64 +9381,109 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.BalanceRSGroupRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.BalanceRSGroupRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new BalanceRSGroupRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.BalanceRSGroupRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BalanceRSGroupRequest>
+        PARSER = new com.google.protobuf.AbstractParser<BalanceRSGroupRequest>() {
+      @java.lang.Override
+      public BalanceRSGroupRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BalanceRSGroupRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BalanceRSGroupRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BalanceRSGroupRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface BalanceRSGroupResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface BalanceRSGroupResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.BalanceRSGroupResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required bool balanceRan = 1;
     /**
      * <code>required bool balanceRan = 1;</code>
+     * @return Whether the balanceRan field is set.
      */
     boolean hasBalanceRan();
     /**
      * <code>required bool balanceRan = 1;</code>
+     * @return The balanceRan.
      */
     boolean getBalanceRan();
   }
   /**
    * Protobuf type {@code hbase.pb.BalanceRSGroupResponse}
    */
-  public static final class BalanceRSGroupResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements BalanceRSGroupResponseOrBuilder {
+  public  static final class BalanceRSGroupResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.BalanceRSGroupResponse)
+      BalanceRSGroupResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use BalanceRSGroupResponse.newBuilder() to construct.
-    private BalanceRSGroupResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private BalanceRSGroupResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private BalanceRSGroupResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final BalanceRSGroupResponse defaultInstance;
-    public static BalanceRSGroupResponse getDefaultInstance() {
-      return defaultInstance;
+    private BalanceRSGroupResponse() {
     }
 
-    public BalanceRSGroupResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BalanceRSGroupResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private BalanceRSGroupResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -8192,16 +9495,16 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               balanceRan_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8210,7 +9513,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8221,52 +9524,38 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<BalanceRSGroupResponse> PARSER =
-        new com.google.protobuf.AbstractParser<BalanceRSGroupResponse>() {
-      public BalanceRSGroupResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BalanceRSGroupResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BalanceRSGroupResponse> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required bool balanceRan = 1;
     public static final int BALANCERAN_FIELD_NUMBER = 1;
     private boolean balanceRan_;
     /**
      * <code>required bool balanceRan = 1;</code>
+     * @return Whether the balanceRan field is set.
      */
     public boolean hasBalanceRan() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required bool balanceRan = 1;</code>
+     * @return The balanceRan.
      */
     public boolean getBalanceRan() {
       return balanceRan_;
     }
 
-    private void initFields() {
-      balanceRan_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasBalanceRan()) {
         memoizedIsInitialized = 0;
@@ -8276,35 +9565,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(1, balanceRan_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, balanceRan_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -8317,34 +9599,43 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse) obj;
 
-      boolean result = true;
-      result = result && (hasBalanceRan() == other.hasBalanceRan());
+      if (hasBalanceRan() != other.hasBalanceRan()) return false;
       if (hasBalanceRan()) {
-        result = result && (getBalanceRan()
-            == other.getBalanceRan());
+        if (getBalanceRan()
+            != other.getBalanceRan()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasBalanceRan()) {
         hash = (37 * hash) + BALANCERAN_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getBalanceRan());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getBalanceRan());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8368,46 +9659,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8415,14 +9719,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.BalanceRSGroupResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.BalanceRSGroupResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -8435,18 +9741,16 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         balanceRan_ = false;
@@ -8454,19 +9758,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_BalanceRSGroupResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -8475,19 +9778,53 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.balanceRan_ = balanceRan_;
           to_bitField0_ |= 0x00000001;
         }
-        result.balanceRan_ = balanceRan_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse)other);
@@ -8502,18 +9839,20 @@ public final class RSGroupAdminProtos {
         if (other.hasBalanceRan()) {
           setBalanceRan(other.getBalanceRan());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasBalanceRan()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8523,7 +9862,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8533,22 +9872,25 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required bool balanceRan = 1;
       private boolean balanceRan_ ;
       /**
        * <code>required bool balanceRan = 1;</code>
+       * @return Whether the balanceRan field is set.
        */
       public boolean hasBalanceRan() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required bool balanceRan = 1;</code>
+       * @return The balanceRan.
        */
       public boolean getBalanceRan() {
         return balanceRan_;
       }
       /**
        * <code>required bool balanceRan = 1;</code>
+       * @param value The balanceRan to set.
+       * @return This builder for chaining.
        */
       public Builder setBalanceRan(boolean value) {
         bitField0_ |= 0x00000001;
@@ -8558,6 +9900,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required bool balanceRan = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBalanceRan() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -8565,54 +9908,98 @@ public final class RSGroupAdminProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.BalanceRSGroupResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.BalanceRSGroupResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new BalanceRSGroupResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.BalanceRSGroupResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<BalanceRSGroupResponse>
+        PARSER = new com.google.protobuf.AbstractParser<BalanceRSGroupResponse>() {
+      @java.lang.Override
+      public BalanceRSGroupResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BalanceRSGroupResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BalanceRSGroupResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BalanceRSGroupResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.BalanceRSGroupResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ListRSGroupInfosRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ListRSGroupInfosRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ListRSGroupInfosRequest)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.ListRSGroupInfosRequest}
    */
-  public static final class ListRSGroupInfosRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements ListRSGroupInfosRequestOrBuilder {
+  public  static final class ListRSGroupInfosRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ListRSGroupInfosRequest)
+      ListRSGroupInfosRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ListRSGroupInfosRequest.newBuilder() to construct.
-    private ListRSGroupInfosRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ListRSGroupInfosRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ListRSGroupInfosRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ListRSGroupInfosRequest defaultInstance;
-    public static ListRSGroupInfosRequest getDefaultInstance() {
-      return defaultInstance;
+    private ListRSGroupInfosRequest() {
     }
 
-    public ListRSGroupInfosRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ListRSGroupInfosRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ListRSGroupInfosRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -8624,8 +10011,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -8636,7 +10023,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8647,61 +10034,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ListRSGroupInfosRequest> PARSER =
-        new com.google.protobuf.AbstractParser<ListRSGroupInfosRequest>() {
-      public ListRSGroupInfosRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListRSGroupInfosRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ListRSGroupInfosRequest> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -8714,25 +10080,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8756,46 +10130,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8803,14 +10190,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.ListRSGroupInfosRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ListRSGroupInfosRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -8823,36 +10212,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -8861,12 +10247,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest)other);
@@ -8878,14 +10298,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8895,7 +10318,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8903,22 +10326,63 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ListRSGroupInfosRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ListRSGroupInfosRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ListRSGroupInfosRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ListRSGroupInfosRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ListRSGroupInfosRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ListRSGroupInfosRequest>() {
+      @java.lang.Override
+      public ListRSGroupInfosRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ListRSGroupInfosRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ListRSGroupInfosRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ListRSGroupInfosRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ListRSGroupInfosResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ListRSGroupInfosResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.ListRSGroupInfosResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.RSGroupInfo r_s_group_info = 1;
     /**
      * <code>repeated .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
      */
@@ -8946,36 +10410,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.ListRSGroupInfosResponse}
    */
-  public static final class ListRSGroupInfosResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements ListRSGroupInfosResponseOrBuilder {
+  public  static final class ListRSGroupInfosResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.ListRSGroupInfosResponse)
+      ListRSGroupInfosResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ListRSGroupInfosResponse.newBuilder() to construct.
-    private ListRSGroupInfosResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ListRSGroupInfosResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ListRSGroupInfosResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ListRSGroupInfosResponse defaultInstance;
-    public static ListRSGroupInfosResponse getDefaultInstance() {
-      return defaultInstance;
+    private ListRSGroupInfosResponse() {
+      rSGroupInfo_ = java.util.Collections.emptyList();
     }
 
-    public ListRSGroupInfosResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ListRSGroupInfosResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ListRSGroupInfosResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -8987,19 +10454,20 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 rSGroupInfo_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              rSGroupInfo_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.PARSER, extensionRegistry));
+              rSGroupInfo_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -9008,9 +10476,9 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           rSGroupInfo_ = java.util.Collections.unmodifiableList(rSGroupInfo_);
         }
         this.unknownFields = unknownFields.build();
@@ -9022,29 +10490,14 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ListRSGroupInfosResponse> PARSER =
-        new com.google.protobuf.AbstractParser<ListRSGroupInfosResponse>() {
-      public ListRSGroupInfosResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListRSGroupInfosResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ListRSGroupInfosResponse> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.RSGroupInfo r_s_group_info = 1;
     public static final int R_S_GROUP_INFO_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo> rSGroupInfo_;
     /**
@@ -9080,13 +10533,12 @@ public final class RSGroupAdminProtos {
       return rSGroupInfo_.get(index);
     }
 
-    private void initFields() {
-      rSGroupInfo_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       for (int i = 0; i < getRSGroupInfoCount(); i++) {
         if (!getRSGroupInfo(i).isInitialized()) {
@@ -9098,18 +10550,18 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < rSGroupInfo_.size(); i++) {
         output.writeMessage(1, rSGroupInfo_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -9117,16 +10569,9 @@ public final class RSGroupAdminProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, rSGroupInfo_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -9139,31 +10584,39 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse) obj;
 
-      boolean result = true;
-      result = result && getRSGroupInfoList()
-          .equals(other.getRSGroupInfoList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getRSGroupInfoList()
+          .equals(other.getRSGroupInfoList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getRSGroupInfoCount() > 0) {
         hash = (37 * hash) + R_S_GROUP_INFO_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupInfoList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9187,46 +10640,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9234,14 +10700,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.ListRSGroupInfosResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.ListRSGroupInfosResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9254,19 +10722,17 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getRSGroupInfoFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (rSGroupInfoBuilder_ == null) {
@@ -9278,19 +10744,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -9299,11 +10764,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse(this);
         int from_bitField0_ = bitField0_;
         if (rSGroupInfoBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             rSGroupInfo_ = java.util.Collections.unmodifiableList(rSGroupInfo_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -9315,6 +10781,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse)other);
@@ -9345,27 +10844,29 @@ public final class RSGroupAdminProtos {
               rSGroupInfo_ = other.rSGroupInfo_;
               bitField0_ = (bitField0_ & ~0x00000001);
               rSGroupInfoBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getRSGroupInfoFieldBuilder() : null;
             } else {
               rSGroupInfoBuilder_.addAllMessages(other.rSGroupInfo_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         for (int i = 0; i < getRSGroupInfoCount(); i++) {
           if (!getRSGroupInfo(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9375,7 +10876,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -9385,17 +10886,16 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.RSGroupInfo r_s_group_info = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo> rSGroupInfo_ =
         java.util.Collections.emptyList();
       private void ensureRSGroupInfoIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           rSGroupInfo_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo>(rSGroupInfo_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> rSGroupInfoBuilder_;
 
       /**
@@ -9527,7 +11027,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo> values) {
         if (rSGroupInfoBuilder_ == null) {
           ensureRSGroupInfoIsMutable();
-          super.addAll(values, rSGroupInfo_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rSGroupInfo_);
           onChanged();
         } else {
           rSGroupInfoBuilder_.addAllMessages(values);
@@ -9610,42 +11111,85 @@ public final class RSGroupAdminProtos {
            getRSGroupInfoBuilderList() {
         return getRSGroupInfoFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> 
           getRSGroupInfoFieldBuilder() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          rSGroupInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder>(
                   rSGroupInfo_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           rSGroupInfo_ = null;
         }
         return rSGroupInfoBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.ListRSGroupInfosResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.ListRSGroupInfosResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ListRSGroupInfosResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.ListRSGroupInfosResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ListRSGroupInfosResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ListRSGroupInfosResponse>() {
+      @java.lang.Override
+      public ListRSGroupInfosResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ListRSGroupInfosResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ListRSGroupInfosResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ListRSGroupInfosResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.ListRSGroupInfosResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoOfServerRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoOfServerRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoOfServerRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .hbase.pb.ServerName server = 2;
     /**
      * <code>required .hbase.pb.ServerName server = 2;</code>
+     * @return Whether the server field is set.
      */
     boolean hasServer();
     /**
      * <code>required .hbase.pb.ServerName server = 2;</code>
+     * @return The server.
      */
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName getServer();
     /**
@@ -9656,36 +11200,38 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoOfServerRequest}
    */
-  public static final class GetRSGroupInfoOfServerRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoOfServerRequestOrBuilder {
+  public  static final class GetRSGroupInfoOfServerRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoOfServerRequest)
+      GetRSGroupInfoOfServerRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoOfServerRequest.newBuilder() to construct.
-    private GetRSGroupInfoOfServerRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoOfServerRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoOfServerRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoOfServerRequest defaultInstance;
-    public static GetRSGroupInfoOfServerRequest getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoOfServerRequest() {
     }
 
-    public GetRSGroupInfoOfServerRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoOfServerRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoOfServerRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -9697,16 +11243,9 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 18: {
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = server_.toBuilder();
               }
               server_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry);
@@ -9717,13 +11256,20 @@ public final class RSGroupAdminProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -9734,58 +11280,44 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoOfServerRequest> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoOfServerRequest>() {
-      public GetRSGroupInfoOfServerRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoOfServerRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoOfServerRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required .hbase.pb.ServerName server = 2;
     public static final int SERVER_FIELD_NUMBER = 2;
     private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName server_;
     /**
      * <code>required .hbase.pb.ServerName server = 2;</code>
+     * @return Whether the server field is set.
      */
     public boolean hasServer() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required .hbase.pb.ServerName server = 2;</code>
+     * @return The server.
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName getServer() {
-      return server_;
+      return server_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance() : server_;
     }
     /**
      * <code>required .hbase.pb.ServerName server = 2;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder getServerOrBuilder() {
-      return server_;
+      return server_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance() : server_;
     }
 
-    private void initFields() {
-      server_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasServer()) {
         memoizedIsInitialized = 0;
@@ -9799,35 +11331,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(2, server_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(2, getServer());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, server_);
+          .computeMessageSize(2, getServer());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -9840,34 +11365,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest) obj;
 
-      boolean result = true;
-      result = result && (hasServer() == other.hasServer());
+      if (hasServer() != other.hasServer()) return false;
       if (hasServer()) {
-        result = result && getServer()
-            .equals(other.getServer());
+        if (!getServer()
+            .equals(other.getServer())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasServer()) {
         hash = (37 * hash) + SERVER_FIELD_NUMBER;
         hash = (53 * hash) + getServer().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9891,46 +11424,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9938,14 +11484,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoOfServerRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoOfServerRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9958,23 +11506,21 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getServerFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (serverBuilder_ == null) {
-          server_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance();
+          server_ = null;
         } else {
           serverBuilder_.clear();
         }
@@ -9982,19 +11528,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -10003,23 +11548,57 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (serverBuilder_ == null) {
+            result.server_ = server_;
+          } else {
+            result.server_ = serverBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (serverBuilder_ == null) {
-          result.server_ = server_;
-        } else {
-          result.server_ = serverBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest)other);
@@ -10034,22 +11613,23 @@ public final class RSGroupAdminProtos {
         if (other.hasServer()) {
           mergeServer(other.getServer());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasServer()) {
-          
           return false;
         }
         if (!getServer().isInitialized()) {
-          
           return false;
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10059,7 +11639,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -10069,22 +11649,23 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required .hbase.pb.ServerName server = 2;
-      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName server_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName server_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> serverBuilder_;
       /**
        * <code>required .hbase.pb.ServerName server = 2;</code>
+       * @return Whether the server field is set.
        */
       public boolean hasServer() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required .hbase.pb.ServerName server = 2;</code>
+       * @return The server.
        */
       public org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName getServer() {
         if (serverBuilder_ == null) {
-          return server_;
+          return server_ == null ? org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance() : server_;
         } else {
           return serverBuilder_.getMessage();
         }
@@ -10124,7 +11705,8 @@ public final class RSGroupAdminProtos {
        */
       public Builder mergeServer(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName value) {
         if (serverBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              server_ != null &&
               server_ != org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance()) {
             server_ =
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.newBuilder(server_).mergeFrom(value).buildPartial();
@@ -10143,7 +11725,7 @@ public final class RSGroupAdminProtos {
        */
       public Builder clearServer() {
         if (serverBuilder_ == null) {
-          server_ = org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance();
+          server_ = null;
           onChanged();
         } else {
           serverBuilder_.clear();
@@ -10166,47 +11748,91 @@ public final class RSGroupAdminProtos {
         if (serverBuilder_ != null) {
           return serverBuilder_.getMessageOrBuilder();
         } else {
-          return server_;
+          return server_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.getDefaultInstance() : server_;
         }
       }
       /**
        * <code>required .hbase.pb.ServerName server = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> 
           getServerFieldBuilder() {
         if (serverBuilder_ == null) {
-          serverBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          serverBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder>(
-                  server_,
+                  getServer(),
                   getParentForChildren(),
                   isClean());
           server_ = null;
         }
         return serverBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoOfServerRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfServerRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoOfServerRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfServerRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoOfServerRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoOfServerRequest>() {
+      @java.lang.Override
+      public GetRSGroupInfoOfServerRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoOfServerRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoOfServerRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoOfServerRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface GetRSGroupInfoOfServerResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface GetRSGroupInfoOfServerResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.GetRSGroupInfoOfServerResponse)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     boolean hasRSGroupInfo();
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo();
     /**
@@ -10217,36 +11843,38 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.GetRSGroupInfoOfServerResponse}
    */
-  public static final class GetRSGroupInfoOfServerResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements GetRSGroupInfoOfServerResponseOrBuilder {
+  public  static final class GetRSGroupInfoOfServerResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.GetRSGroupInfoOfServerResponse)
+      GetRSGroupInfoOfServerResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetRSGroupInfoOfServerResponse.newBuilder() to construct.
-    private GetRSGroupInfoOfServerResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private GetRSGroupInfoOfServerResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private GetRSGroupInfoOfServerResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final GetRSGroupInfoOfServerResponse defaultInstance;
-    public static GetRSGroupInfoOfServerResponse getDefaultInstance() {
-      return defaultInstance;
+    private GetRSGroupInfoOfServerResponse() {
     }
 
-    public GetRSGroupInfoOfServerResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetRSGroupInfoOfServerResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private GetRSGroupInfoOfServerResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -10258,16 +11886,9 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = rSGroupInfo_.toBuilder();
               }
               rSGroupInfo_ = input.readMessage(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.PARSER, extensionRegistry);
@@ -10278,13 +11899,20 @@ public final class RSGroupAdminProtos {
               bitField0_ |= 0x00000001;
               break;
             }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -10295,58 +11923,44 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<GetRSGroupInfoOfServerResponse> PARSER =
-        new com.google.protobuf.AbstractParser<GetRSGroupInfoOfServerResponse>() {
-      public GetRSGroupInfoOfServerResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetRSGroupInfoOfServerResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetRSGroupInfoOfServerResponse> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
     public static final int R_S_GROUP_INFO_FIELD_NUMBER = 1;
     private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return Whether the rSGroupInfo field is set.
      */
     public boolean hasRSGroupInfo() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+     * @return The rSGroupInfo.
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
     /**
      * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
      */
     public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder getRSGroupInfoOrBuilder() {
-      return rSGroupInfo_;
+      return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
     }
 
-    private void initFields() {
-      rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (hasRSGroupInfo()) {
         if (!getRSGroupInfo().isInitialized()) {
@@ -10358,35 +11972,28 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, rSGroupInfo_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getRSGroupInfo());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, rSGroupInfo_);
+          .computeMessageSize(1, getRSGroupInfo());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -10399,34 +12006,42 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse) obj;
 
-      boolean result = true;
-      result = result && (hasRSGroupInfo() == other.hasRSGroupInfo());
+      if (hasRSGroupInfo() != other.hasRSGroupInfo()) return false;
       if (hasRSGroupInfo()) {
-        result = result && getRSGroupInfo()
-            .equals(other.getRSGroupInfo());
+        if (!getRSGroupInfo()
+            .equals(other.getRSGroupInfo())) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasRSGroupInfo()) {
         hash = (37 * hash) + R_S_GROUP_INFO_FIELD_NUMBER;
         hash = (53 * hash) + getRSGroupInfo().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -10450,46 +12065,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -10497,14 +12125,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.GetRSGroupInfoOfServerResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.GetRSGroupInfoOfServerResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -10517,23 +12147,21 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getRSGroupInfoFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
         } else {
           rSGroupInfoBuilder_.clear();
         }
@@ -10541,19 +12169,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -10562,23 +12189,57 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (rSGroupInfoBuilder_ == null) {
+            result.rSGroupInfo_ = rSGroupInfo_;
+          } else {
+            result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
+          }
           to_bitField0_ |= 0x00000001;
-        }
-        if (rSGroupInfoBuilder_ == null) {
-          result.rSGroupInfo_ = rSGroupInfo_;
-        } else {
-          result.rSGroupInfo_ = rSGroupInfoBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse)other);
@@ -10593,20 +12254,22 @@ public final class RSGroupAdminProtos {
         if (other.hasRSGroupInfo()) {
           mergeRSGroupInfo(other.getRSGroupInfo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (hasRSGroupInfo()) {
           if (!getRSGroupInfo().isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10616,7 +12279,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -10626,22 +12289,23 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // optional .hbase.pb.RSGroupInfo r_s_group_info = 1;
-      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo rSGroupInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> rSGroupInfoBuilder_;
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return Whether the rSGroupInfo field is set.
        */
       public boolean hasRSGroupInfo() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
+       * @return The rSGroupInfo.
        */
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo getRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ? org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         } else {
           return rSGroupInfoBuilder_.getMessage();
         }
@@ -10681,7 +12345,8 @@ public final class RSGroupAdminProtos {
        */
       public Builder mergeRSGroupInfo(org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo value) {
         if (rSGroupInfoBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
+              rSGroupInfo_ != null &&
               rSGroupInfo_ != org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance()) {
             rSGroupInfo_ =
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.newBuilder(rSGroupInfo_).mergeFrom(value).buildPartial();
@@ -10700,7 +12365,7 @@ public final class RSGroupAdminProtos {
        */
       public Builder clearRSGroupInfo() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfo_ = org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance();
+          rSGroupInfo_ = null;
           onChanged();
         } else {
           rSGroupInfoBuilder_.clear();
@@ -10723,56 +12388,100 @@ public final class RSGroupAdminProtos {
         if (rSGroupInfoBuilder_ != null) {
           return rSGroupInfoBuilder_.getMessageOrBuilder();
         } else {
-          return rSGroupInfo_;
+          return rSGroupInfo_ == null ?
+              org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.getDefaultInstance() : rSGroupInfo_;
         }
       }
       /**
        * <code>optional .hbase.pb.RSGroupInfo r_s_group_info = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder> 
           getRSGroupInfoFieldBuilder() {
         if (rSGroupInfoBuilder_ == null) {
-          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          rSGroupInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfo.Builder, org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.RSGroupInfoOrBuilder>(
-                  rSGroupInfo_,
+                  getRSGroupInfo(),
                   getParentForChildren(),
                   isClean());
           rSGroupInfo_ = null;
         }
         return rSGroupInfoBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.GetRSGroupInfoOfServerResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfServerResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new GetRSGroupInfoOfServerResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.GetRSGroupInfoOfServerResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GetRSGroupInfoOfServerResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetRSGroupInfoOfServerResponse>() {
+      @java.lang.Override
+      public GetRSGroupInfoOfServerResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetRSGroupInfoOfServerResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRSGroupInfoOfServerResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRSGroupInfoOfServerResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.GetRSGroupInfoOfServerResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveServersAndTablesRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveServersAndTablesRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveServersAndTablesRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string target_group = 1;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     boolean hasTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     java.lang.String getTargetGroup();
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     com.google.protobuf.ByteString
         getTargetGroupBytes();
 
-    // repeated .hbase.pb.ServerName servers = 2;
     /**
      * <code>repeated .hbase.pb.ServerName servers = 2;</code>
      */
@@ -10797,7 +12506,6 @@ public final class RSGroupAdminProtos {
     org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder getServersOrBuilder(
         int index);
 
-    // repeated .hbase.pb.TableName table_name = 3;
     /**
      * <code>repeated .hbase.pb.TableName table_name = 3;</code>
      */
@@ -10825,36 +12533,41 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.MoveServersAndTablesRequest}
    */
-  public static final class MoveServersAndTablesRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveServersAndTablesRequestOrBuilder {
+  public  static final class MoveServersAndTablesRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveServersAndTablesRequest)
+      MoveServersAndTablesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveServersAndTablesRequest.newBuilder() to construct.
-    private MoveServersAndTablesRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveServersAndTablesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveServersAndTablesRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveServersAndTablesRequest defaultInstance;
-    public static MoveServersAndTablesRequest getDefaultInstance() {
-      return defaultInstance;
+    private MoveServersAndTablesRequest() {
+      targetGroup_ = "";
+      servers_ = java.util.Collections.emptyList();
+      tableName_ = java.util.Collections.emptyList();
     }
 
-    public MoveServersAndTablesRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveServersAndTablesRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveServersAndTablesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -10866,32 +12579,35 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              targetGroup_ = input.readBytes();
+              targetGroup_ = bs;
               break;
             }
             case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              servers_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
+              servers_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
               break;
             }
             case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
                 tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>();
                 mutable_bitField0_ |= 0x00000004;
               }
-              tableName_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              tableName_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -10900,12 +12616,12 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           servers_ = java.util.Collections.unmodifiableList(servers_);
         }
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
           tableName_ = java.util.Collections.unmodifiableList(tableName_);
         }
         this.unknownFields = unknownFields.build();
@@ -10917,40 +12633,27 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveServersAndTablesRequest> PARSER =
-        new com.google.protobuf.AbstractParser<MoveServersAndTablesRequest>() {
-      public MoveServersAndTablesRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveServersAndTablesRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveServersAndTablesRequest> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // required string target_group = 1;
     public static final int TARGET_GROUP_FIELD_NUMBER = 1;
-    private java.lang.Object targetGroup_;
+    private volatile java.lang.Object targetGroup_;
     /**
      * <code>required string target_group = 1;</code>
+     * @return Whether the targetGroup field is set.
      */
     public boolean hasTargetGroup() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The targetGroup.
      */
     public java.lang.String getTargetGroup() {
       java.lang.Object ref = targetGroup_;
@@ -10968,6 +12671,7 @@ public final class RSGroupAdminProtos {
     }
     /**
      * <code>required string target_group = 1;</code>
+     * @return The bytes for targetGroup.
      */
     public com.google.protobuf.ByteString
         getTargetGroupBytes() {
@@ -10983,7 +12687,6 @@ public final class RSGroupAdminProtos {
       }
     }
 
-    // repeated .hbase.pb.ServerName servers = 2;
     public static final int SERVERS_FIELD_NUMBER = 2;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_;
     /**
@@ -11019,7 +12722,6 @@ public final class RSGroupAdminProtos {
       return servers_.get(index);
     }
 
-    // repeated .hbase.pb.TableName table_name = 3;
     public static final int TABLE_NAME_FIELD_NUMBER = 3;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_;
     /**
@@ -11055,15 +12757,12 @@ public final class RSGroupAdminProtos {
       return tableName_.get(index);
     }
 
-    private void initFields() {
-      targetGroup_ = "";
-      servers_ = java.util.Collections.emptyList();
-      tableName_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasTargetGroup()) {
         memoizedIsInitialized = 0;
@@ -11085,11 +12784,11 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, targetGroup_);
       }
       for (int i = 0; i < servers_.size(); i++) {
         output.writeMessage(2, servers_.get(i));
@@ -11097,18 +12796,17 @@ public final class RSGroupAdminProtos {
       for (int i = 0; i < tableName_.size(); i++) {
         output.writeMessage(3, tableName_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getTargetGroupBytes());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, targetGroup_);
       }
       for (int i = 0; i < servers_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -11118,16 +12816,9 @@ public final class RSGroupAdminProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, tableName_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -11140,29 +12831,26 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest) obj;
 
-      boolean result = true;
-      result = result && (hasTargetGroup() == other.hasTargetGroup());
+      if (hasTargetGroup() != other.hasTargetGroup()) return false;
       if (hasTargetGroup()) {
-        result = result && getTargetGroup()
-            .equals(other.getTargetGroup());
+        if (!getTargetGroup()
+            .equals(other.getTargetGroup())) return false;
       }
-      result = result && getServersList()
-          .equals(other.getServersList());
-      result = result && getTableNameList()
-          .equals(other.getTableNameList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getServersList()
+          .equals(other.getServersList())) return false;
+      if (!getTableNameList()
+          .equals(other.getTableNameList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasTargetGroup()) {
         hash = (37 * hash) + TARGET_GROUP_FIELD_NUMBER;
         hash = (53 * hash) + getTargetGroup().hashCode();
@@ -11175,11 +12863,22 @@ public final class RSGroupAdminProtos {
         hash = (37 * hash) + TABLE_NAME_FIELD_NUMBER;
         hash = (53 * hash) + getTableNameList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -11203,46 +12902,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -11250,14 +12962,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveServersAndTablesRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveServersAndTablesRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -11270,20 +12984,18 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getServersFieldBuilder();
           getTableNameFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         targetGroup_ = "";
@@ -11303,19 +13015,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -11324,16 +13035,17 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
           to_bitField0_ |= 0x00000001;
         }
         result.targetGroup_ = targetGroup_;
         if (serversBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             servers_ = java.util.Collections.unmodifiableList(servers_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
@@ -11342,7 +13054,7 @@ public final class RSGroupAdminProtos {
           result.servers_ = serversBuilder_.build();
         }
         if (tableNameBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000004) != 0)) {
             tableName_ = java.util.Collections.unmodifiableList(tableName_);
             bitField0_ = (bitField0_ & ~0x00000004);
           }
@@ -11355,6 +13067,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest)other);
@@ -11390,7 +13135,7 @@ public final class RSGroupAdminProtos {
               servers_ = other.servers_;
               bitField0_ = (bitField0_ & ~0x00000002);
               serversBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getServersFieldBuilder() : null;
             } else {
               serversBuilder_.addAllMessages(other.servers_);
@@ -11416,37 +13161,37 @@ public final class RSGroupAdminProtos {
               tableName_ = other.tableName_;
               bitField0_ = (bitField0_ & ~0x00000004);
               tableNameBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getTableNameFieldBuilder() : null;
             } else {
               tableNameBuilder_.addAllMessages(other.tableName_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         if (!hasTargetGroup()) {
-          
           return false;
         }
         for (int i = 0; i < getServersCount(); i++) {
           if (!getServers(i).isInitialized()) {
-            
             return false;
           }
         }
         for (int i = 0; i < getTableNameCount(); i++) {
           if (!getTableName(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11456,7 +13201,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -11466,23 +13211,27 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // required string target_group = 1;
       private java.lang.Object targetGroup_ = "";
       /**
        * <code>required string target_group = 1;</code>
+       * @return Whether the targetGroup field is set.
        */
       public boolean hasTargetGroup() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The targetGroup.
        */
       public java.lang.String getTargetGroup() {
         java.lang.Object ref = targetGroup_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          targetGroup_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            targetGroup_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -11490,6 +13239,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return The bytes for targetGroup.
        */
       public com.google.protobuf.ByteString
           getTargetGroupBytes() {
@@ -11506,6 +13256,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroup(
           java.lang.String value) {
@@ -11519,6 +13271,7 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetGroup() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -11528,6 +13281,8 @@ public final class RSGroupAdminProtos {
       }
       /**
        * <code>required string target_group = 1;</code>
+       * @param value The bytes for targetGroup to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetGroupBytes(
           com.google.protobuf.ByteString value) {
@@ -11540,17 +13295,16 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      // repeated .hbase.pb.ServerName servers = 2;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_ =
         java.util.Collections.emptyList();
       private void ensureServersIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>(servers_);
           bitField0_ |= 0x00000002;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> serversBuilder_;
 
       /**
@@ -11682,7 +13436,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> values) {
         if (serversBuilder_ == null) {
           ensureServersIsMutable();
-          super.addAll(values, servers_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, servers_);
           onChanged();
         } else {
           serversBuilder_.addAllMessages(values);
@@ -11765,14 +13520,14 @@ public final class RSGroupAdminProtos {
            getServersBuilderList() {
         return getServersFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> 
           getServersFieldBuilder() {
         if (serversBuilder_ == null) {
-          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder>(
                   servers_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           servers_ = null;
@@ -11780,17 +13535,16 @@ public final class RSGroupAdminProtos {
         return serversBuilder_;
       }
 
-      // repeated .hbase.pb.TableName table_name = 3;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> tableName_ =
         java.util.Collections.emptyList();
       private void ensureTableNameIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           tableName_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName>(tableName_);
           bitField0_ |= 0x00000004;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> tableNameBuilder_;
 
       /**
@@ -11922,7 +13676,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName> values) {
         if (tableNameBuilder_ == null) {
           ensureTableNameIsMutable();
-          super.addAll(values, tableName_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, tableName_);
           onChanged();
         } else {
           tableNameBuilder_.addAllMessages(values);
@@ -12005,68 +13760,112 @@ public final class RSGroupAdminProtos {
            getTableNameBuilderList() {
         return getTableNameFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder> 
           getTableNameFieldBuilder() {
         if (tableNameBuilder_ == null) {
-          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          tableNameBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableName.Builder, org.apache.hadoop.hbase.protobuf.generated.TableProtos.TableNameOrBuilder>(
                   tableName_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
                   isClean());
           tableName_ = null;
         }
         return tableNameBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveServersAndTablesRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersAndTablesRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveServersAndTablesRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersAndTablesRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveServersAndTablesRequest>
+        PARSER = new com.google.protobuf.AbstractParser<MoveServersAndTablesRequest>() {
+      @java.lang.Override
+      public MoveServersAndTablesRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveServersAndTablesRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveServersAndTablesRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveServersAndTablesRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface MoveServersAndTablesResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface MoveServersAndTablesResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.MoveServersAndTablesResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.MoveServersAndTablesResponse}
    */
-  public static final class MoveServersAndTablesResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements MoveServersAndTablesResponseOrBuilder {
+  public  static final class MoveServersAndTablesResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.MoveServersAndTablesResponse)
+      MoveServersAndTablesResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use MoveServersAndTablesResponse.newBuilder() to construct.
-    private MoveServersAndTablesResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private MoveServersAndTablesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private MoveServersAndTablesResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final MoveServersAndTablesResponse defaultInstance;
-    public static MoveServersAndTablesResponse getDefaultInstance() {
-      return defaultInstance;
+    private MoveServersAndTablesResponse() {
     }
 
-    public MoveServersAndTablesResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MoveServersAndTablesResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private MoveServersAndTablesResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -12078,8 +13877,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -12090,7 +13889,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -12101,61 +13900,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<MoveServersAndTablesResponse> PARSER =
-        new com.google.protobuf.AbstractParser<MoveServersAndTablesResponse>() {
-      public MoveServersAndTablesResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MoveServersAndTablesResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MoveServersAndTablesResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -12168,25 +13946,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12210,46 +13996,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -12257,14 +14056,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.MoveServersAndTablesResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.MoveServersAndTablesResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -12277,36 +14078,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -12315,12 +14113,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse)other);
@@ -12332,14 +14164,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -12349,7 +14184,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -12357,22 +14192,63 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.MoveServersAndTablesResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersAndTablesResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new MoveServersAndTablesResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.MoveServersAndTablesResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MoveServersAndTablesResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MoveServersAndTablesResponse>() {
+      @java.lang.Override
+      public MoveServersAndTablesResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MoveServersAndTablesResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MoveServersAndTablesResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MoveServersAndTablesResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.MoveServersAndTablesResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RemoveServersRequestOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RemoveServersRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RemoveServersRequest)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .hbase.pb.ServerName servers = 1;
     /**
      * <code>repeated .hbase.pb.ServerName servers = 1;</code>
      */
@@ -12400,36 +14276,39 @@ public final class RSGroupAdminProtos {
   /**
    * Protobuf type {@code hbase.pb.RemoveServersRequest}
    */
-  public static final class RemoveServersRequest extends
-      com.google.protobuf.GeneratedMessage
-      implements RemoveServersRequestOrBuilder {
+  public  static final class RemoveServersRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RemoveServersRequest)
+      RemoveServersRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RemoveServersRequest.newBuilder() to construct.
-    private RemoveServersRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RemoveServersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RemoveServersRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RemoveServersRequest defaultInstance;
-    public static RemoveServersRequest getDefaultInstance() {
-      return defaultInstance;
+    private RemoveServersRequest() {
+      servers_ = java.util.Collections.emptyList();
     }
 
-    public RemoveServersRequest getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RemoveServersRequest();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RemoveServersRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -12441,19 +14320,20 @@ public final class RSGroupAdminProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              servers_.add(input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
+              servers_.add(
+                  input.readMessage(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -12462,9 +14342,9 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           servers_ = java.util.Collections.unmodifiableList(servers_);
         }
         this.unknownFields = unknownFields.build();
@@ -12476,29 +14356,14 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RemoveServersRequest> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveServersRequest>() {
-      public RemoveServersRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveServersRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RemoveServersRequest> getParserForType() {
-      return PARSER;
-    }
-
-    // repeated .hbase.pb.ServerName servers = 1;
     public static final int SERVERS_FIELD_NUMBER = 1;
     private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_;
     /**
@@ -12534,13 +14399,12 @@ public final class RSGroupAdminProtos {
       return servers_.get(index);
     }
 
-    private void initFields() {
-      servers_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       for (int i = 0; i < getServersCount(); i++) {
         if (!getServers(i).isInitialized()) {
@@ -12552,18 +14416,18 @@ public final class RSGroupAdminProtos {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < servers_.size(); i++) {
         output.writeMessage(1, servers_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -12571,16 +14435,9 @@ public final class RSGroupAdminProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, servers_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -12593,31 +14450,39 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest) obj;
 
-      boolean result = true;
-      result = result && getServersList()
-          .equals(other.getServersList());
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!getServersList()
+          .equals(other.getServersList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (getServersCount() > 0) {
         hash = (37 * hash) + SERVERS_FIELD_NUMBER;
         hash = (53 * hash) + getServersList().hashCode();
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12641,46 +14506,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -12688,14 +14566,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.RemoveServersRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequestOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RemoveServersRequest)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -12708,19 +14588,17 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getServersFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (serversBuilder_ == null) {
@@ -12732,19 +14610,18 @@ public final class RSGroupAdminProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersRequest_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -12753,11 +14630,12 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest(this);
         int from_bitField0_ = bitField0_;
         if (serversBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             servers_ = java.util.Collections.unmodifiableList(servers_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -12769,6 +14647,39 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest)other);
@@ -12799,27 +14710,29 @@ public final class RSGroupAdminProtos {
               servers_ = other.servers_;
               bitField0_ = (bitField0_ & ~0x00000001);
               serversBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getServersFieldBuilder() : null;
             } else {
               serversBuilder_.addAllMessages(other.servers_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         for (int i = 0; i < getServersCount(); i++) {
           if (!getServers(i).isInitialized()) {
-            
             return false;
           }
         }
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -12829,7 +14742,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -12839,17 +14752,16 @@ public final class RSGroupAdminProtos {
       }
       private int bitField0_;
 
-      // repeated .hbase.pb.ServerName servers = 1;
       private java.util.List<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> servers_ =
         java.util.Collections.emptyList();
       private void ensureServersIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           servers_ = new java.util.ArrayList<org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName>(servers_);
           bitField0_ |= 0x00000001;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> serversBuilder_;
 
       /**
@@ -12981,7 +14893,8 @@ public final class RSGroupAdminProtos {
           java.lang.Iterable<? extends org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName> values) {
         if (serversBuilder_ == null) {
           ensureServersIsMutable();
-          super.addAll(values, servers_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, servers_);
           onChanged();
         } else {
           serversBuilder_.addAllMessages(values);
@@ -13064,68 +14977,112 @@ public final class RSGroupAdminProtos {
            getServersBuilderList() {
         return getServersFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder> 
           getServersFieldBuilder() {
         if (serversBuilder_ == null) {
-          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          serversBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName.Builder, org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerNameOrBuilder>(
                   servers_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           servers_ = null;
         }
         return serversBuilder_;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RemoveServersRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveServersRequest)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RemoveServersRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveServersRequest)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RemoveServersRequest>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveServersRequest>() {
+      @java.lang.Override
+      public RemoveServersRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RemoveServersRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveServersRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveServersRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface RemoveServersResponseOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface RemoveServersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.RemoveServersResponse)
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * Protobuf type {@code hbase.pb.RemoveServersResponse}
    */
-  public static final class RemoveServersResponse extends
-      com.google.protobuf.GeneratedMessage
-      implements RemoveServersResponseOrBuilder {
+  public  static final class RemoveServersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.RemoveServersResponse)
+      RemoveServersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use RemoveServersResponse.newBuilder() to construct.
-    private RemoveServersResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private RemoveServersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RemoveServersResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RemoveServersResponse defaultInstance;
-    public static RemoveServersResponse getDefaultInstance() {
-      return defaultInstance;
+    private RemoveServersResponse() {
     }
 
-    public RemoveServersResponse getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RemoveServersResponse();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RemoveServersResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -13137,8 +15094,8 @@ public final class RSGroupAdminProtos {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -13149,7 +15106,7 @@ public final class RSGroupAdminProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -13160,61 +15117,40 @@ public final class RSGroupAdminProtos {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersResponse_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse.class, org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<RemoveServersResponse> PARSER =
-        new com.google.protobuf.AbstractParser<RemoveServersResponse>() {
-      public RemoveServersResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RemoveServersResponse(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RemoveServersResponse> getParserForType() {
-      return PARSER;
-    }
-
-    private void initFields() {
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -13227,25 +15163,33 @@ public final class RSGroupAdminProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse other = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse) obj;
 
-      boolean result = true;
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13269,46 +15213,59 @@ public final class RSGroupAdminProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -13316,14 +15273,16 @@ public final class RSGroupAdminProtos {
      * Protobuf type {@code hbase.pb.RemoveServersResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponseOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.RemoveServersResponse)
+        org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersResponse_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -13336,36 +15295,33 @@ public final class RSGroupAdminProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.internal_static_hbase_pb_RemoveServersResponse_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse build() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -13374,12 +15330,46 @@ public final class RSGroupAdminProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse result = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse)other);
@@ -13391,14 +15381,17 @@ public final class RSGroupAdminProtos {
 
       public Builder mergeFrom(org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse other) {
         if (other == org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -13408,7 +15401,7 @@ public final class RSGroupAdminProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -13416,16 +15409,57 @@ public final class RSGroupAdminProtos {
         }
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.RemoveServersResponse)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveServersResponse)
+    private static final org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RemoveServersResponse(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.RemoveServersResponse)
+    public static org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RemoveServersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<RemoveServersResponse>() {
+      @java.lang.Override
+      public RemoveServersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RemoveServersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RemoveServersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RemoveServersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.RSGroupAdminProtos.RemoveServersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   /**
@@ -14370,132 +16404,132 @@ public final class RSGroupAdminProtos {
     // @@protoc_insertion_point(class_scope:hbase.pb.RSGroupAdminService)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ListTablesOfRSGroupRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ListTablesOfRSGroupResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveServersRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveServersRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveServersResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveServersResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveTablesRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveTablesRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveTablesResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveTablesResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_AddRSGroupRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_AddRSGroupRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_AddRSGroupResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_AddRSGroupResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RemoveRSGroupRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RemoveRSGroupRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RemoveRSGroupResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RemoveRSGroupResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_BalanceRSGroupRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_BalanceRSGroupRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_BalanceRSGroupResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_BalanceRSGroupResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ListRSGroupInfosRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_ListRSGroupInfosResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveServersAndTablesRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_MoveServersAndTablesResponse_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RemoveServersRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RemoveServersRequest_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_RemoveServersResponse_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_RemoveServersResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -14508,7 +16542,7 @@ public final class RSGroupAdminProtos {
       "\030\001 \002(\t\"G\n\026GetRSGroupInfoResponse\022-\n\016r_s_" +
       "group_info\030\001 \001(\0132\025.hbase.pb.RSGroupInfo\"" +
       "G\n\034GetRSGroupInfoOfTableRequest\022\'\n\ntable" +
-      "_name\030\001 \002(\0132\023.hbase.pb.TableName\"N\n\035GetR",
+      "_name\030\001 \002(\0132\023.hbase.pb.TableName\"N\n\035GetR" +
       "SGroupInfoOfTableResponse\022-\n\016r_s_group_i" +
       "nfo\030\001 \001(\0132\025.hbase.pb.RSGroupInfo\"Q\n\022Move" +
       "ServersRequest\022\024\n\014target_group\030\001 \002(\t\022%\n\007" +
@@ -14518,7 +16552,7 @@ public final class RSGroupAdminProtos {
       "\0132\023.hbase.pb.TableName\"\024\n\022MoveTablesResp" +
       "onse\"+\n\021AddRSGroupRequest\022\026\n\016r_s_group_n" +
       "ame\030\001 \002(\t\"\024\n\022AddRSGroupResponse\".\n\024Remov" +
-      "eRSGroupRequest\022\026\n\016r_s_group_name\030\001 \002(\t\"",
+      "eRSGroupRequest\022\026\n\016r_s_group_name\030\001 \002(\t\"" +
       "\027\n\025RemoveRSGroupResponse\"/\n\025BalanceRSGro" +
       "upRequest\022\026\n\016r_s_group_name\030\001 \002(\t\",\n\026Bal" +
       "anceRSGroupResponse\022\022\n\nbalanceRan\030\001 \002(\010\"" +
@@ -14528,7 +16562,7 @@ public final class RSGroupAdminProtos {
       "fServerRequest\022$\n\006server\030\002 \002(\0132\024.hbase.p" +
       "b.ServerName\"O\n\036GetRSGroupInfoOfServerRe" +
       "sponse\022-\n\016r_s_group_info\030\001 \001(\0132\025.hbase.p" +
-      "b.RSGroupInfo\"\203\001\n\033MoveServersAndTablesRe",
+      "b.RSGroupInfo\"\203\001\n\033MoveServersAndTablesRe" +
       "quest\022\024\n\014target_group\030\001 \002(\t\022%\n\007servers\030\002" +
       " \003(\0132\024.hbase.pb.ServerName\022\'\n\ntable_name" +
       "\030\003 \003(\0132\023.hbase.pb.TableName\"\036\n\034MoveServe" +
@@ -14538,7 +16572,7 @@ public final class RSGroupAdminProtos {
       "dminService\022S\n\016GetRSGroupInfo\022\037.hbase.pb" +
       ".GetRSGroupInfoRequest\032 .hbase.pb.GetRSG" +
       "roupInfoResponse\022h\n\025GetRSGroupInfoOfTabl" +
-      "e\022&.hbase.pb.GetRSGroupInfoOfTableReques",
+      "e\022&.hbase.pb.GetRSGroupInfoOfTableReques" +
       "t\032\'.hbase.pb.GetRSGroupInfoOfTableRespon" +
       "se\022k\n\026GetRSGroupInfoOfServer\022\'.hbase.pb." +
       "GetRSGroupInfoOfServerRequest\032(.hbase.pb" +
@@ -14548,7 +16582,7 @@ public final class RSGroupAdminProtos {
       "s\022\033.hbase.pb.MoveTablesRequest\032\034.hbase.p" +
       "b.MoveTablesResponse\022G\n\nAddRSGroup\022\033.hba" +
       "se.pb.AddRSGroupRequest\032\034.hbase.pb.AddRS" +
-      "GroupResponse\022P\n\rRemoveRSGroup\022\036.hbase.p",
+      "GroupResponse\022P\n\rRemoveRSGroup\022\036.hbase.p" +
       "b.RemoveRSGroupRequest\032\037.hbase.pb.Remove" +
       "RSGroupResponse\022S\n\016BalanceRSGroup\022\037.hbas" +
       "e.pb.BalanceRSGroupRequest\032 .hbase.pb.Ba" +
@@ -14558,170 +16592,165 @@ public final class RSGroupAdminProtos {
       "erversAndTables\022%.hbase.pb.MoveServersAn" +
       "dTablesRequest\032&.hbase.pb.MoveServersAnd" +
       "TablesResponse\022P\n\rRemoveServers\022\036.hbase." +
-      "pb.RemoveServersRequest\032\037.hbase.pb.Remov",
+      "pb.RemoveServersRequest\032\037.hbase.pb.Remov" +
       "eServersResponseBH\n*org.apache.hadoop.hb" +
       "ase.protobuf.generatedB\022RSGroupAdminProt" +
       "osH\001\210\001\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_ListTablesOfRSGroupRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor,
-              new java.lang.String[] { "RSGroupName", });
-          internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_hbase_pb_ListTablesOfRSGroupResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor,
-              new java.lang.String[] { "TableName", });
-          internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_hbase_pb_GetRSGroupInfoRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor,
-              new java.lang.String[] { "RSGroupName", });
-          internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_hbase_pb_GetRSGroupInfoResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor,
-              new java.lang.String[] { "RSGroupInfo", });
-          internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor =
-            getDescriptor().getMessageTypes().get(4);
-          internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor,
-              new java.lang.String[] { "TableName", });
-          internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor =
-            getDescriptor().getMessageTypes().get(5);
-          internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor,
-              new java.lang.String[] { "RSGroupInfo", });
-          internal_static_hbase_pb_MoveServersRequest_descriptor =
-            getDescriptor().getMessageTypes().get(6);
-          internal_static_hbase_pb_MoveServersRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveServersRequest_descriptor,
-              new java.lang.String[] { "TargetGroup", "Servers", });
-          internal_static_hbase_pb_MoveServersResponse_descriptor =
-            getDescriptor().getMessageTypes().get(7);
-          internal_static_hbase_pb_MoveServersResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveServersResponse_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_MoveTablesRequest_descriptor =
-            getDescriptor().getMessageTypes().get(8);
-          internal_static_hbase_pb_MoveTablesRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveTablesRequest_descriptor,
-              new java.lang.String[] { "TargetGroup", "TableName", });
-          internal_static_hbase_pb_MoveTablesResponse_descriptor =
-            getDescriptor().getMessageTypes().get(9);
-          internal_static_hbase_pb_MoveTablesResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveTablesResponse_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_AddRSGroupRequest_descriptor =
-            getDescriptor().getMessageTypes().get(10);
-          internal_static_hbase_pb_AddRSGroupRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_AddRSGroupRequest_descriptor,
-              new java.lang.String[] { "RSGroupName", });
-          internal_static_hbase_pb_AddRSGroupResponse_descriptor =
-            getDescriptor().getMessageTypes().get(11);
-          internal_static_hbase_pb_AddRSGroupResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_AddRSGroupResponse_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_RemoveRSGroupRequest_descriptor =
-            getDescriptor().getMessageTypes().get(12);
-          internal_static_hbase_pb_RemoveRSGroupRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RemoveRSGroupRequest_descriptor,
-              new java.lang.String[] { "RSGroupName", });
-          internal_static_hbase_pb_RemoveRSGroupResponse_descriptor =
-            getDescriptor().getMessageTypes().get(13);
-          internal_static_hbase_pb_RemoveRSGroupResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RemoveRSGroupResponse_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_BalanceRSGroupRequest_descriptor =
-            getDescriptor().getMessageTypes().get(14);
-          internal_static_hbase_pb_BalanceRSGroupRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_BalanceRSGroupRequest_descriptor,
-              new java.lang.String[] { "RSGroupName", });
-          internal_static_hbase_pb_BalanceRSGroupResponse_descriptor =
-            getDescriptor().getMessageTypes().get(15);
-          internal_static_hbase_pb_BalanceRSGroupResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_BalanceRSGroupResponse_descriptor,
-              new java.lang.String[] { "BalanceRan", });
-          internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor =
-            getDescriptor().getMessageTypes().get(16);
-          internal_static_hbase_pb_ListRSGroupInfosRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor =
-            getDescriptor().getMessageTypes().get(17);
-          internal_static_hbase_pb_ListRSGroupInfosResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor,
-              new java.lang.String[] { "RSGroupInfo", });
-          internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor =
-            getDescriptor().getMessageTypes().get(18);
-          internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor,
-              new java.lang.String[] { "Server", });
-          internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor =
-            getDescriptor().getMessageTypes().get(19);
-          internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor,
-              new java.lang.String[] { "RSGroupInfo", });
-          internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor =
-            getDescriptor().getMessageTypes().get(20);
-          internal_static_hbase_pb_MoveServersAndTablesRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor,
-              new java.lang.String[] { "TargetGroup", "Servers", "TableName", });
-          internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor =
-            getDescriptor().getMessageTypes().get(21);
-          internal_static_hbase_pb_MoveServersAndTablesResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor,
-              new java.lang.String[] { });
-          internal_static_hbase_pb_RemoveServersRequest_descriptor =
-            getDescriptor().getMessageTypes().get(22);
-          internal_static_hbase_pb_RemoveServersRequest_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RemoveServersRequest_descriptor,
-              new java.lang.String[] { "Servers", });
-          internal_static_hbase_pb_RemoveServersResponse_descriptor =
-            getDescriptor().getMessageTypes().get(23);
-          internal_static_hbase_pb_RemoveServersResponse_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_RemoveServersResponse_descriptor,
-              new java.lang.String[] { });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           org.apache.hadoop.hbase.protobuf.generated.TableProtos.getDescriptor(),
           org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor(),
           org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.getDescriptor(),
-        }, assigner);
+        });
+    internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_ListTablesOfRSGroupRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ListTablesOfRSGroupRequest_descriptor,
+        new java.lang.String[] { "RSGroupName", });
+    internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_hbase_pb_ListTablesOfRSGroupResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ListTablesOfRSGroupResponse_descriptor,
+        new java.lang.String[] { "TableName", });
+    internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_hbase_pb_GetRSGroupInfoRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoRequest_descriptor,
+        new java.lang.String[] { "RSGroupName", });
+    internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_hbase_pb_GetRSGroupInfoResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoResponse_descriptor,
+        new java.lang.String[] { "RSGroupInfo", });
+    internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoOfTableRequest_descriptor,
+        new java.lang.String[] { "TableName", });
+    internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoOfTableResponse_descriptor,
+        new java.lang.String[] { "RSGroupInfo", });
+    internal_static_hbase_pb_MoveServersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_hbase_pb_MoveServersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveServersRequest_descriptor,
+        new java.lang.String[] { "TargetGroup", "Servers", });
+    internal_static_hbase_pb_MoveServersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_hbase_pb_MoveServersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveServersResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_MoveTablesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_hbase_pb_MoveTablesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveTablesRequest_descriptor,
+        new java.lang.String[] { "TargetGroup", "TableName", });
+    internal_static_hbase_pb_MoveTablesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_hbase_pb_MoveTablesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveTablesResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_AddRSGroupRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_hbase_pb_AddRSGroupRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_AddRSGroupRequest_descriptor,
+        new java.lang.String[] { "RSGroupName", });
+    internal_static_hbase_pb_AddRSGroupResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_hbase_pb_AddRSGroupResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_AddRSGroupResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_RemoveRSGroupRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_hbase_pb_RemoveRSGroupRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RemoveRSGroupRequest_descriptor,
+        new java.lang.String[] { "RSGroupName", });
+    internal_static_hbase_pb_RemoveRSGroupResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_hbase_pb_RemoveRSGroupResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RemoveRSGroupResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_BalanceRSGroupRequest_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_hbase_pb_BalanceRSGroupRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_BalanceRSGroupRequest_descriptor,
+        new java.lang.String[] { "RSGroupName", });
+    internal_static_hbase_pb_BalanceRSGroupResponse_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_hbase_pb_BalanceRSGroupResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_BalanceRSGroupResponse_descriptor,
+        new java.lang.String[] { "BalanceRan", });
+    internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_hbase_pb_ListRSGroupInfosRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ListRSGroupInfosRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_hbase_pb_ListRSGroupInfosResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_ListRSGroupInfosResponse_descriptor,
+        new java.lang.String[] { "RSGroupInfo", });
+    internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoOfServerRequest_descriptor,
+        new java.lang.String[] { "Server", });
+    internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_GetRSGroupInfoOfServerResponse_descriptor,
+        new java.lang.String[] { "RSGroupInfo", });
+    internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_hbase_pb_MoveServersAndTablesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveServersAndTablesRequest_descriptor,
+        new java.lang.String[] { "TargetGroup", "Servers", "TableName", });
+    internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_hbase_pb_MoveServersAndTablesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_MoveServersAndTablesResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_hbase_pb_RemoveServersRequest_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_hbase_pb_RemoveServersRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RemoveServersRequest_descriptor,
+        new java.lang.String[] { "Servers", });
+    internal_static_hbase_pb_RemoveServersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_hbase_pb_RemoveServersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_RemoveServersResponse_descriptor,
+        new java.lang.String[] { });
+    org.apache.hadoop.hbase.protobuf.generated.TableProtos.getDescriptor();
+    org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.getDescriptor();
+    org.apache.hadoop.hbase.protobuf.generated.RSGroupProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

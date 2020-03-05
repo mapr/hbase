@@ -6,54 +6,64 @@ package org.apache.hadoop.hbase.protobuf.generated;
 public final class LoadBalancerProtos {
   private LoadBalancerProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
-  public interface LoadBalancerStateOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
 
-    // optional bool balancer_on = 1;
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface LoadBalancerStateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:hbase.pb.LoadBalancerState)
+      com.google.protobuf.MessageOrBuilder {
+
     /**
      * <code>optional bool balancer_on = 1;</code>
+     * @return Whether the balancerOn field is set.
      */
     boolean hasBalancerOn();
     /**
      * <code>optional bool balancer_on = 1;</code>
+     * @return The balancerOn.
      */
     boolean getBalancerOn();
   }
   /**
    * Protobuf type {@code hbase.pb.LoadBalancerState}
    */
-  public static final class LoadBalancerState extends
-      com.google.protobuf.GeneratedMessage
-      implements LoadBalancerStateOrBuilder {
+  public  static final class LoadBalancerState extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:hbase.pb.LoadBalancerState)
+      LoadBalancerStateOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use LoadBalancerState.newBuilder() to construct.
-    private LoadBalancerState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private LoadBalancerState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private LoadBalancerState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final LoadBalancerState defaultInstance;
-    public static LoadBalancerState getDefaultInstance() {
-      return defaultInstance;
+    private LoadBalancerState() {
     }
 
-    public LoadBalancerState getDefaultInstanceForType() {
-      return defaultInstance;
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new LoadBalancerState();
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private LoadBalancerState(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -65,16 +75,16 @@ public final class LoadBalancerProtos {
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               bitField0_ |= 0x00000001;
               balancerOn_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -83,7 +93,7 @@ public final class LoadBalancerProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -94,86 +104,65 @@ public final class LoadBalancerProtos {
       return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.internal_static_hbase_pb_LoadBalancerState_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState.class, org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<LoadBalancerState> PARSER =
-        new com.google.protobuf.AbstractParser<LoadBalancerState>() {
-      public LoadBalancerState parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LoadBalancerState(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<LoadBalancerState> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
-    // optional bool balancer_on = 1;
     public static final int BALANCER_ON_FIELD_NUMBER = 1;
     private boolean balancerOn_;
     /**
      * <code>optional bool balancer_on = 1;</code>
+     * @return Whether the balancerOn field is set.
      */
     public boolean hasBalancerOn() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bool balancer_on = 1;</code>
+     * @return The balancerOn.
      */
     public boolean getBalancerOn() {
       return balancerOn_;
     }
 
-    private void initFields() {
-      balancerOn_ = false;
-    }
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBool(1, balancerOn_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, balancerOn_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
     }
 
     @java.lang.Override
@@ -186,34 +175,43 @@ public final class LoadBalancerProtos {
       }
       org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState other = (org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState) obj;
 
-      boolean result = true;
-      result = result && (hasBalancerOn() == other.hasBalancerOn());
+      if (hasBalancerOn() != other.hasBalancerOn()) return false;
       if (hasBalancerOn()) {
-        result = result && (getBalancerOn()
-            == other.getBalancerOn());
+        if (getBalancerOn()
+            != other.getBalancerOn()) return false;
       }
-      result = result &&
-          getUnknownFields().equals(other.getUnknownFields());
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    private int memoizedHashCode = 0;
     @java.lang.Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (19 * hash) + getDescriptor().hashCode();
       if (hasBalancerOn()) {
         hash = (37 * hash) + BALANCER_ON_FIELD_NUMBER;
-        hash = (53 * hash) + hashBoolean(getBalancerOn());
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getBalancerOn());
       }
-      hash = (29 * hash) + getUnknownFields().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
+    public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -237,46 +235,59 @@ public final class LoadBalancerProtos {
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -284,14 +295,16 @@ public final class LoadBalancerProtos {
      * Protobuf type {@code hbase.pb.LoadBalancerState}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerStateOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:hbase.pb.LoadBalancerState)
+        org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.internal_static_hbase_pb_LoadBalancerState_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -304,18 +317,16 @@ public final class LoadBalancerProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         balancerOn_ = false;
@@ -323,19 +334,18 @@ public final class LoadBalancerProtos {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.internal_static_hbase_pb_LoadBalancerState_descriptor;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState getDefaultInstanceForType() {
         return org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState.getDefaultInstance();
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState build() {
         org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState result = buildPartial();
         if (!result.isInitialized()) {
@@ -344,19 +354,53 @@ public final class LoadBalancerProtos {
         return result;
       }
 
+      @java.lang.Override
       public org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState buildPartial() {
         org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState result = new org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.balancerOn_ = balancerOn_;
           to_bitField0_ |= 0x00000001;
         }
-        result.balancerOn_ = balancerOn_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState) {
           return mergeFrom((org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState)other);
@@ -371,14 +415,17 @@ public final class LoadBalancerProtos {
         if (other.hasBalancerOn()) {
           setBalancerOn(other.getBalancerOn());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -388,7 +435,7 @@ public final class LoadBalancerProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -398,22 +445,25 @@ public final class LoadBalancerProtos {
       }
       private int bitField0_;
 
-      // optional bool balancer_on = 1;
       private boolean balancerOn_ ;
       /**
        * <code>optional bool balancer_on = 1;</code>
+       * @return Whether the balancerOn field is set.
        */
       public boolean hasBalancerOn() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>optional bool balancer_on = 1;</code>
+       * @return The balancerOn.
        */
       public boolean getBalancerOn() {
         return balancerOn_;
       }
       /**
        * <code>optional bool balancer_on = 1;</code>
+       * @param value The balancerOn to set.
+       * @return This builder for chaining.
        */
       public Builder setBalancerOn(boolean value) {
         bitField0_ |= 0x00000001;
@@ -423,6 +473,7 @@ public final class LoadBalancerProtos {
       }
       /**
        * <code>optional bool balancer_on = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBalancerOn() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -430,29 +481,70 @@ public final class LoadBalancerProtos {
         onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:hbase.pb.LoadBalancerState)
     }
 
+    // @@protoc_insertion_point(class_scope:hbase.pb.LoadBalancerState)
+    private static final org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState DEFAULT_INSTANCE;
     static {
-      defaultInstance = new LoadBalancerState(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState();
     }
 
-    // @@protoc_insertion_point(class_scope:hbase.pb.LoadBalancerState)
+    public static org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<LoadBalancerState>
+        PARSER = new com.google.protobuf.AbstractParser<LoadBalancerState>() {
+      @java.lang.Override
+      public LoadBalancerState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new LoadBalancerState(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LoadBalancerState> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<LoadBalancerState> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.apache.hadoop.hbase.protobuf.generated.LoadBalancerProtos.LoadBalancerState getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_hbase_pb_LoadBalancerState_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -461,24 +553,16 @@ public final class LoadBalancerProtos {
       "apache.hadoop.hbase.protobuf.generatedB\022" +
       "LoadBalancerProtosH\001\240\001\001"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_hbase_pb_LoadBalancerState_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_hbase_pb_LoadBalancerState_descriptor,
-              new java.lang.String[] { "BalancerOn", });
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+        });
+    internal_static_hbase_pb_LoadBalancerState_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_hbase_pb_LoadBalancerState_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_hbase_pb_LoadBalancerState_descriptor,
+        new java.lang.String[] { "BalancerOn", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
