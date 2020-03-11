@@ -1,6 +1,4 @@
 #
-# Copyright 2010 The Apache Software Foundation
-#
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -18,27 +16,23 @@
 # limitations under the License.
 #
 
-include Java
+module Shell
+  module Commands
+    class ListPerm < Command
+      def help
+        return <<-EOF
+Lists all access control permissions set on a MapR table.
+Syntax : list_perm <table path>
+For example:
+    hbase> list_perm '/user/finance/payroll'
 
-module Hbase
-  class M7Admin
-    include HBaseConstants
-
-    def initialize(configuration, formatter)
-      @formatter = formatter
-      begin
-        @mapping_rules = com.mapr.fs.MapRTableMappingRules.new(configuration)
-      rescue NameError
-        @mapping_rules = nil
+This command is not applicable for Apache HBase tables.
+EOF
       end
-    end
 
-    def is_m7_default?()
-      @mapping_rules != nil && @mapping_rules.isMapRDefault
-    end
-
-    def m7_available?()
-      @mapping_rules != nil
+      def command(table_path)
+        mapr_admin.list_perm(table_path)
+      end
     end
   end
 end

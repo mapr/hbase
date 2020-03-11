@@ -84,6 +84,10 @@ module HBaseConstants
   LOCALITY_THRESHOLD = 'LOCALITY_THRESHOLD'
   RESTORE_ACL = 'RESTORE_ACL'
 
+  #MapR constants
+  PERM = "PERM"
+  EXPR = "EXPR"
+
   # Load constants from hbase java API
   def self.promote_constants(constants)
     # The constants to import are all in uppercase

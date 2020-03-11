@@ -31,17 +31,19 @@ EOF
       end
 
       def command(regex = nil)
-        if regex == nil && m7admin.m7_available? && !m7admin.is_m7_default?
-          $stderr.puts "Listing HBase tables. Specify a path or configure namespace mappings to list M7 tables."
-          begin
-            masterRunning = admin.isMasterRunning
-          rescue => e
-            if e.cause != nil && e.cause.cause != nil && e.cause.cause.kind_of?(javax.security.sasl.SaslException)
-              raise e
+        if regex == nil
+          if mapr_admin.m7_available? && !mapr_admin.is_m7_default?
+            $stderr.puts "Listing HBase tables. Specify a path or configure namespace mappings to list M7 tables."
+            begin
+              masterRunning = admin.isMasterRunning
+            rescue => e
+              if e.cause != nil && e.cause.cause != nil && e.cause.cause.kind_of?(javax.security.sasl.SaslException)
+                raise e
+              end
             end
-          end
-          if !masterRunning
-            $stderr.puts "Unable to connect to HBase services."
+            if !masterRunning
+              $stderr.puts "Unable to connect to HBase services."
+            end
           end
           regex = ".*"
         end
