@@ -303,7 +303,7 @@ public class RESTServer implements Constants {
         .getBoolean(REST_HTTP_ALLOW_OPTIONS_METHOD, REST_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT));
 
     // Put up info server.
-    int port = conf.getInt("hbase.rest.info.port", 8085);
+    int port = conf.getInt("hbase.rest.info.port", 8086);
     if (port >= 0) {
       conf.setLong("startcode", System.currentTimeMillis());
       String a = conf.get("hbase.rest.info.bindAddress", "0.0.0.0");
