@@ -147,6 +147,11 @@ function set_property() {
   fi
 }
 
+get_property_value() {
+  local property_name=$1
+  sed -n '/'${property_name}'/{:a;N;/<\/value>/!ba {s|.*<value>\(.*\)</value>|\1|p}}' "$HBASE_SITE"
+}
+
 function add_comment(){
   line_name=$1
   sed -i -e "s|</configuration>| \n <!--${line_name}-->\n</configuration>|" ${HBASE_SITE}
@@ -156,6 +161,16 @@ function remove_comment(){
   line_name=$1
   sed  -i  "/<!--${line_name}-->/d" ${HBASE_SITE}
 }
+
+trim_string() {
+  str=$1
+  # remove leading whitespace characters
+  str="${str#"${str%%[![:space:]]*}"}"
+  # remove trailing whitespace characters
+  str="${str%"${str##*[![:space:]]}"}"
+  echo "$str"
+}
+
 
 ###############################################
 #    BASIC HBASE  CONFIGURATION               #
@@ -211,16 +226,87 @@ function change_permissions() {
 #    HBASE AUTHORIZATION CONFIGURATION        #
 ###############################################
 
+concat_values_if_missing() {
+  current_value=$1
+  additional_value=$2
+  result_value=""
+  OLD_IFS="$IFS"
+  IFS=','
+  missing=true
+  for entry in $current_value
+  do
+    trimmed_value=$(trim_string $entry)
+    if [ -n "$trimmed_value" ]; then
+      if [ -z "$result_value" ]; then
+        result_value="$trimmed_value"
+      else
+        result_value="$result_value,$trimmed_value"
+      fi
+      if [ "$trimmed_value" = "$additional_value" ]; then
+        missing=false
+      fi
+    fi
+  done
+  IFS="$OLD_IFS"
+  if $missing; then
+    echo "$result_value,$additional_value"
+  else
+    echo "$result_value"
+  fi
+}
+
+cut_value_if_present() {
+  current_value=$1
+  value_to_remove=$2
+  result_value=""
+  OLD_IFS="$IFS"
+  IFS=','
+  for entry in $current_value
+  do
+    trimmed_value=$(trim_string $entry)
+    if [ -n "$trimmed_value" ] && [ "$trimmed_value" != "$value_to_remove" ]; then
+      if [ -z "$result_value" ]; then
+        result_value="$trimmed_value"
+      else
+        result_value="$result_value,$trimmed_value"
+      fi
+    fi
+  done
+  IFS="$OLD_IFS"
+  echo "$result_value"
+}
+
+add_additional_value_if_missing() {
+  property_name=$1
+  additional_value=$2
+  current_value=$(get_property_value "$property_name")
+  if [ -n "$current_value" ]; then
+    additional_value=$(concat_values_if_missing "$current_value" "$additional_value")
+  fi
+  set_property "$property_name" "$additional_value"
+}
+
+remove_value_if_present() {
+  property_name=$1
+  value_to_remove=$2
+  current_value=$(get_property_value "$property_name")
+  value_after_removing=$(cut_value_if_present "$current_value" "$value_to_remove")
+  if [ -z "$value_after_removing" ]; then
+    remove_property "$property_name"
+  else
+    set_property "$property_name" "$value_after_removing"
+  fi
+}
+
+
 function configure_hbase_authorization_secure() {
   if ! grep -q hbase.security.authorization "$HBASE_SITE" ; then
     add_comment "Enabling Hbase authorization"
     add_property hbase.security.authorization true
-    [ ! $(grep -q hbase.security.exec.permission.checks "$HBASE_SITE") ] && add_property hbase.security.exec.permission.checks true
-    [ ! $(grep -q hbase.coprocessor.master.classes "$HBASE_SITE") ] && \
-      add_property hbase.coprocessor.master.classes org.apache.hadoop.hbase.security.access.AccessController
-    [ ! $(grep -q hbase.coprocessor.region.classes "$HBASE_SITE") ] && \
-      add_property hbase.coprocessor.region.classes \
-      org.apache.hadoop.hbase.security.token.TokenProvider,org.apache.hadoop.hbase.security.access.AccessController
+    ! grep -q hbase.security.exec.permission.checks "$HBASE_SITE" && add_property hbase.security.exec.permission.checks true
+    add_additional_value_if_missing hbase.coprocessor.master.classes org.apache.hadoop.hbase.security.access.AccessController
+    add_additional_value_if_missing hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.token.TokenProvider
+    add_additional_value_if_missing hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.access.AccessController
   fi
 }
 
@@ -228,8 +314,9 @@ function configure_hbase_authorization_insecure() {
   remove_comment "Enabling Hbase authorization"
   remove_property hbase.security.authorization
   remove_property hbase.security.exec.permission.checks
-  remove_property hbase.coprocessor.master.classes
-  remove_property hbase.coprocessor.region.classes
+  remove_value_if_present hbase.coprocessor.master.classes org.apache.hadoop.hbase.security.access.AccessController
+  remove_value_if_present hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.token.TokenProvider
+  remove_value_if_present hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.access.AccessController
 }
 
 ###############################################
@@ -240,7 +327,7 @@ function configure_hbase_encryption_secure() {
   if ! grep -q hbase.security.authentication "$HBASE_SITE" ; then
     add_comment "Enabling Hbase encryption"
     add_property hbase.security.authentication maprsasl
-    [ ! $(grep -q hbase.rpc.protection "$HBASE_SITE") ] && add_property hbase.rpc.protection privacy
+    ! grep -q hbase.rpc.protection "$HBASE_SITE" && add_property hbase.rpc.protection privacy
   fi
 }
 
@@ -279,7 +366,7 @@ function configure_thrift_secure() {
   if ! grep -q hbase.thrift.support.proxyuser "$HBASE_SITE" ; then
     add_comment "Enabling Hbase thrift impersonation"
     add_property hbase.thrift.support.proxyuser true
-    [ ! $(grep -q hbase.regionserver.thrift.http "$HBASE_SITE") ] && add_property hbase.regionserver.thrift.http true
+    ! grep -q hbase.regionserver.thrift.http "$HBASE_SITE" && add_property hbase.regionserver.thrift.http true
   fi
 }
 
