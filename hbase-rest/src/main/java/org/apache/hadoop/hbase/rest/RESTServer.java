@@ -38,10 +38,7 @@ import org.apache.hadoop.hbase.http.InfoServer;
 import org.apache.hadoop.hbase.jetty.SslSelectChannelConnectorSecure;
 import org.apache.hadoop.hbase.rest.filter.AuthFilter;
 import org.apache.hadoop.hbase.security.UserProvider;
-import org.apache.hadoop.hbase.util.DNS;
-import org.apache.hadoop.hbase.util.HttpServerUtil;
-import org.apache.hadoop.hbase.util.Strings;
-import org.apache.hadoop.hbase.util.VersionInfo;
+import org.apache.hadoop.hbase.util.*;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.nio.SelectChannelConnector;
@@ -186,6 +183,7 @@ public class RESTServer implements Constants {
 
     Server server = new Server();
 
+    LOG.info("Enabled TLS protocols: " + SslProtocolsUtil.getEnabledSslProtocolsString());
     Connector connector = new SelectChannelConnector();
     if(conf.getBoolean(REST_SSL_ENABLED, false)) {
       SslSelectChannelConnectorSecure sslConnector = new SslSelectChannelConnectorSecure();

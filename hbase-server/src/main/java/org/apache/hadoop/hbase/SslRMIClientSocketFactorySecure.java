@@ -10,6 +10,8 @@
  */
 package org.apache.hadoop.hbase;
 
+import org.apache.hadoop.hbase.util.SslProtocolsUtil;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -25,14 +27,7 @@ public class SslRMIClientSocketFactorySecure extends SslRMIClientSocketFactory {
   @Override
   public Socket createSocket(String host, int port) throws IOException {
     SSLSocket socket = (SSLSocket) super.createSocket(host, port);
-    ArrayList<String> secureProtocols = new ArrayList<String>();
-    for (String p : socket.getEnabledProtocols()) {
-      if (!p.contains("SSLv3")) {
-        secureProtocols.add(p);
-      }
-    }
-    socket.setEnabledProtocols(secureProtocols.toArray(
-            new String[secureProtocols.size()]));
+    socket.setEnabledProtocols(SslProtocolsUtil.getEnabledSslProtocols());
     return socket;
   }
 }
