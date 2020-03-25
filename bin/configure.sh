@@ -354,14 +354,14 @@ function configure_hbase_webui_ssl_insecure() {
 }
 
 function configure_hbase_ssl_protocols_secure() {
-  if ! grep -q hbase.ssl.enabled "$HBASE_SITE" ; then
+  if ! grep -q hbase.ssl.enabled.protocols "$HBASE_SITE" ; then
     add_comment "Enabled TLS protocols"
     add_property hbase.ssl.enabled.protocols TLSv1.2
   fi
 }
 
 function configure_hbase_ssl_protocols_insecure() {
-  if ! grep -q hbase.ssl.enabled "$HBASE_SITE" ; then
+  if ! grep -q hbase.ssl.enabled.protocols "$HBASE_SITE" ; then
     remove_comment "Enabled TLS protocols"
     remove_property hbase.ssl.enabled.protocols
   fi
