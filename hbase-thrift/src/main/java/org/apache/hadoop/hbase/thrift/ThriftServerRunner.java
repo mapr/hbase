@@ -111,12 +111,7 @@ import org.apache.hadoop.hbase.thrift.generated.TIncrement;
 import org.apache.hadoop.hbase.thrift.generated.TRegionInfo;
 import org.apache.hadoop.hbase.thrift.generated.TRowResult;
 import org.apache.hadoop.hbase.thrift.generated.TScan;
-import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.hbase.util.ConnectionCache;
-import org.apache.hadoop.hbase.util.DNS;
-import org.apache.hadoop.hbase.util.HttpServerUtil;
-import org.apache.hadoop.hbase.util.JvmPauseMonitor;
-import org.apache.hadoop.hbase.util.Strings;
+import org.apache.hadoop.hbase.util.*;
 import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.SaslRpcServer.SaslGssCallbackHandler;
 import org.apache.hadoop.security.UserGroupInformation;
@@ -402,6 +397,7 @@ public class ThriftServerRunner implements Runnable {
       @Override
       public Object run() {
         try {
+          LOG.info("Enabled TLS protocols: " + SslProtocolsUtil.getEnabledSslProtocolsString());
           pauseMonitor.start();
           if (conf.getBoolean(USE_HTTP_CONF_KEY, false)) {
             setupHTTPServer();

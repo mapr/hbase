@@ -18,6 +18,7 @@
 
 package org.apache.hadoop.hbase.http;
 
+import org.apache.hadoop.hbase.util.SslProtocolsUtil;
 import org.mortbay.jetty.security.SslSocketConnector;
 
 import javax.net.ssl.SSLServerSocket;
@@ -40,20 +41,14 @@ public class SslSocketConnectorSecure extends SslSocketConnector {
   /**
    * Create a new ServerSocket that will not accept SSLv3 connections,
    * but will accept TLSv1.x connections.
+   * Changed to accept protocols specified in configuration.
    */
   @Override
   protected ServerSocket newServerSocket(String host, int port,int backlog)
           throws IOException {
     SSLServerSocket socket = (SSLServerSocket)
             super.newServerSocket(host, port, backlog);
-    ArrayList<String> nonSSLProtocols = new ArrayList<String>();
-    for (String p : socket.getEnabledProtocols()) {
-      if (!p.contains("SSLv3")) {
-        nonSSLProtocols.add(p);
-      }
-    }
-    socket.setEnabledProtocols(nonSSLProtocols.toArray(
-            new String[nonSSLProtocols.size()]));
+    socket.setEnabledProtocols(SslProtocolsUtil.getEnabledSslProtocols());
     return socket;
   }
 }

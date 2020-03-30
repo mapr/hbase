@@ -1358,6 +1358,9 @@ public final class HConstants {
   /** Custom headers file location parameter. */
   public static final String CUSTOM_HEADERS_FILE = "hbase.custom.headers.file";
 
+  public static final String SSL_ENABLED_PROTOCOLS = "hbase.ssl.enabled.protocols";
+  public static final String DEFAULT_SSL_ENABLED_PROTOCOLS = "TLSv1.2";
+
   private HConstants() {
     // Can't be instantiated with this ctor.
   }

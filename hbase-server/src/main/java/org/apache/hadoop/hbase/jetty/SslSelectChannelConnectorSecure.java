@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.SSLEngine;
 
+import org.apache.hadoop.hbase.util.SslProtocolsUtil;
 import org.mortbay.jetty.security.SslSelectChannelConnector;
 
 /**
@@ -24,13 +25,7 @@ public class SslSelectChannelConnectorSecure extends SslSelectChannelConnector {
   @Override
   protected SSLEngine createSSLEngine() throws IOException {
     SSLEngine sslEngine = super.createSSLEngine();
-    ArrayList<String> secureProtocols = new ArrayList<String>();
-    for (String p : sslEngine.getEnabledProtocols()) {
-      if (!p.contains("SSLv3")) {
-        secureProtocols.add(p);
-      }
-    }
-    sslEngine.setEnabledProtocols(secureProtocols.toArray(new String[secureProtocols.size()]));
+    sslEngine.setEnabledProtocols(SslProtocolsUtil.getEnabledSslProtocols());
     return sslEngine;
   }
 }

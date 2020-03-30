@@ -353,6 +353,20 @@ function configure_hbase_webui_ssl_insecure() {
   remove_property hbase.ssl.enabled
 }
 
+function configure_hbase_ssl_protocols_secure() {
+  if ! grep -q hbase.ssl.enabled.protocols "$HBASE_SITE" ; then
+    add_comment "Enabled TLS protocols"
+    add_property hbase.ssl.enabled.protocols TLSv1.2
+  fi
+}
+
+function configure_hbase_ssl_protocols_insecure() {
+  if ! grep -q hbase.ssl.enabled.protocols "$HBASE_SITE" ; then
+    remove_comment "Enabled TLS protocols"
+    remove_property hbase.ssl.enabled.protocols
+  fi
+}
+
 
 ###############################################
 #    HBASE THRIFT CONFIGURATION               #
@@ -532,6 +546,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
       configure_hbase_authorization_secure
       configure_hbase_encryption_secure
       configure_hbase_webui_ssl_secure
+      configure_hbase_ssl_protocols_secure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_secure
       fi
@@ -542,6 +557,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
       configure_hbase_authorization_insecure
       configure_hbase_encryption_insecure
       configure_hbase_webui_ssl_insecure
+      configure_hbase_ssl_protocols_insecure
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_insecure
       fi
