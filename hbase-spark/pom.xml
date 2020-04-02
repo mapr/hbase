@@ -42,7 +42,7 @@
     <scala.binary.version>2.11</scala.binary.version>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
     <top.dir>${project.basedir}/..</top.dir>
-    <avro.version>1.8.2</avro.version>
+    <avro.version>1.7.7</avro.version>
     <avro.mapred.classifier></avro.mapred.classifier>
   </properties>
 
@@ -75,6 +75,22 @@
           <!-- make sure wrong scala version is not pulled in -->
           <groupId>org.scala-lang</groupId>
           <artifactId>scala-library</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-math3</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.java.dev.jets3t</groupId>
+          <artifactId>jets3t</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.xerial.snappy</groupId>
+          <artifactId>snappy-java</artifactId>
         </exclusion>
         <exclusion>
           <!-- make sure wrong scala version is not pulled in -->
