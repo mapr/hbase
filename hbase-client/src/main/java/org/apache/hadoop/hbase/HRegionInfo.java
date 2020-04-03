@@ -963,7 +963,8 @@ public class HRegionInfo implements Comparable<HRegionInfo> {
       this.tableName = TableName.valueOf(Bytes.readByteArray(in));
       this.hashCode = in.readInt();
     } else {
-      throw new IOException("Non-migratable/unknown version=" + getVersion());
+      throw new IOException(String.format("Non-migratable/unknown version = %d, possible values are 0 and %d",
+              version, getVersion()));
     }
   }
 
