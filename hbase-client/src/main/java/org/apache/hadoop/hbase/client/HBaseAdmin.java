@@ -292,8 +292,10 @@ public class HBaseAdmin implements Admin {
             "hbase.client.retries.longer.multiplier", 10);
     this.syncWaitTimeout = this.conf.getInt(
             "hbase.client.sync.wait.timeout.msec", 10 * 60000); // 10min
-    this.rpcCallerFactory = RpcRetryingCallerFactory.instantiate(this.conf,
-            connection.getStatisticsTracker());
+    this.rpcCallerFactory = connection.getRpcRetryingCallerFactory();
+    this.rpcControllerFactory = connection.getRpcControllerFactory();
+
+    this.ng = this.connection.getNonceGenerator();
   }
 
   @Override
@@ -556,6 +558,10 @@ public class HBaseAdmin implements Admin {
   public boolean abortProcedure(
       final long procId,
       final boolean mayInterruptIfRunning) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      return maprHBaseAdmin_.abortProcedure(procId, mayInterruptIfRunning);
+    }
+
     Future<Boolean> future = abortProcedureAsync(procId, mayInterruptIfRunning);
     try {
       return future.get(syncWaitTimeout, TimeUnit.MILLISECONDS);
@@ -588,6 +594,10 @@ public class HBaseAdmin implements Admin {
   public Future<Boolean> abortProcedureAsync(
       final long procId,
       final boolean mayInterruptIfRunning) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      return maprHBaseAdmin_.abortProcedureAsync(procId, mayInterruptIfRunning);
+    }
+
     Boolean abortProcResponse = executeCallable(
       new MasterCallable<AbortProcedureResponse>(getConnection()) {
         @Override
@@ -3847,6 +3857,10 @@ public class HBaseAdmin implements Admin {
    */
   @Override
   public ProcedureInfo[] listProcedures() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      return maprHBaseAdmin_.listProcedures();
+    }
+
     return
         executeCallable(new MasterCallable<ProcedureInfo[]>(getConnection()) {
           @Override

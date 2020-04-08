@@ -28,82 +28,14 @@ import com.google.common.annotations.VisibleForTesting;
  * see HBASE-12128
  */
 @InterfaceAudience.Private
-public class ConnectionConfiguration {
-  static final Log LOG = LogFactory.getLog(ConnectionConfiguration.class);
-
-  public static final String WRITE_BUFFER_SIZE_KEY = "hbase.client.write.buffer";
-  public static final long WRITE_BUFFER_SIZE_DEFAULT = 2097152;
-  public static final String MAX_KEYVALUE_SIZE_KEY = "hbase.client.keyvalue.maxsize";
-  public static final int MAX_KEYVALUE_SIZE_DEFAULT = -1;
-
-  private final long writeBufferSize;
-  private final int metaOperationTimeout;
-  private final int operationTimeout;
-  private final int scannerCaching;
-  private final long scannerMaxResultSize;
-  private final int primaryCallTimeoutMicroSecond;
-  private final int replicaCallTimeoutMicroSecondScan;
-  private final int metaReplicaCallTimeoutMicroSecondScan;
-  private final int retries;
-  private final int maxKeyValueSize;
-  private final int readRpcTimeout;
-  private final int writeRpcTimeout;
-  private final long pause;
-  private final long pauseForCQTBE;
+public class ConnectionConfiguration extends TableConfiguration{
 
   /**
    * Constructor
    * @param conf Configuration object
    */
   ConnectionConfiguration(Configuration conf) {
-    this.writeBufferSize = conf.getLong(WRITE_BUFFER_SIZE_KEY, WRITE_BUFFER_SIZE_DEFAULT);
-
-    this.metaOperationTimeout = conf.getInt(HConstants.HBASE_CLIENT_META_OPERATION_TIMEOUT,
-        HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT);
-
-    this.operationTimeout = conf.getInt(
-      HConstants.HBASE_CLIENT_OPERATION_TIMEOUT, HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT);
-
-    this.scannerCaching = conf.getInt(
-      HConstants.HBASE_CLIENT_SCANNER_CACHING, HConstants.DEFAULT_HBASE_CLIENT_SCANNER_CACHING);
-
-    this.scannerMaxResultSize =
-        conf.getLong(HConstants.HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY,
-            HConstants.DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE);
-
-    this.primaryCallTimeoutMicroSecond =
-        conf.getInt("hbase.client.primaryCallTimeout.get", 10000); // 10ms
-
-    this.replicaCallTimeoutMicroSecondScan =
-        conf.getInt("hbase.client.replicaCallTimeout.scan", 1000000); // 1000 ms
-
-    this.metaReplicaCallTimeoutMicroSecondScan =
-        conf.getInt(HConstants.HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT,
-            HConstants.HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT_DEFAULT);
-
-    this.retries = conf.getInt(
-        HConstants.HBASE_CLIENT_RETRIES_NUMBER, HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER);
-
-    this.maxKeyValueSize = conf.getInt(MAX_KEYVALUE_SIZE_KEY, MAX_KEYVALUE_SIZE_DEFAULT);
-
-    this.readRpcTimeout = conf.getInt(HConstants.HBASE_RPC_READ_TIMEOUT_KEY,
-        conf.getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,
-            HConstants.DEFAULT_HBASE_RPC_TIMEOUT));
-
-    this.writeRpcTimeout = conf.getInt(HConstants.HBASE_RPC_WRITE_TIMEOUT_KEY,
-        conf.getInt(HConstants.HBASE_RPC_TIMEOUT_KEY,
-            HConstants.DEFAULT_HBASE_RPC_TIMEOUT));
-
-    this.pause = conf.getLong(HConstants.HBASE_CLIENT_PAUSE, HConstants.DEFAULT_HBASE_CLIENT_PAUSE);
-    long configuredPauseForCQTBE = conf.getLong(HConstants.HBASE_CLIENT_PAUSE_FOR_CQTBE, pause);
-    if (configuredPauseForCQTBE < pause) {
-      LOG.warn("The " + HConstants.HBASE_CLIENT_PAUSE_FOR_CQTBE + " setting: "
-          + configuredPauseForCQTBE + " is smaller than " + HConstants.HBASE_CLIENT_PAUSE
-          + ", will use " + pause + " instead.");
-      this.pauseForCQTBE = pause;
-    } else {
-      this.pauseForCQTBE = configuredPauseForCQTBE;
-    }
+    super(conf);
   }
 
   /**
@@ -113,76 +45,6 @@ public class ConnectionConfiguration {
    */
   @VisibleForTesting
   protected ConnectionConfiguration() {
-    this.writeBufferSize = WRITE_BUFFER_SIZE_DEFAULT;
-    this.metaOperationTimeout = HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT;
-    this.operationTimeout = HConstants.DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT;
-    this.scannerCaching = HConstants.DEFAULT_HBASE_CLIENT_SCANNER_CACHING;
-    this.scannerMaxResultSize = HConstants.DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE;
-    this.primaryCallTimeoutMicroSecond = 10000;
-    this.replicaCallTimeoutMicroSecondScan = 1000000;
-    this.metaReplicaCallTimeoutMicroSecondScan =
-        HConstants.HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT_DEFAULT;
-    this.retries = HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER;
-    this.maxKeyValueSize = MAX_KEYVALUE_SIZE_DEFAULT;
-    this.readRpcTimeout = HConstants.DEFAULT_HBASE_RPC_TIMEOUT;
-    this.writeRpcTimeout = HConstants.DEFAULT_HBASE_RPC_TIMEOUT;
-    this.pause = HConstants.DEFAULT_HBASE_CLIENT_PAUSE;
-    this.pauseForCQTBE = HConstants.DEFAULT_HBASE_CLIENT_PAUSE;
-  }
-
-  public long getWriteBufferSize() {
-    return writeBufferSize;
-  }
-
-  public int getMetaOperationTimeout() {
-    return metaOperationTimeout;
-  }
-
-  public int getOperationTimeout() {
-    return operationTimeout;
-  }
-
-  public int getScannerCaching() {
-    return scannerCaching;
-  }
-
-  public int getPrimaryCallTimeoutMicroSecond() {
-    return primaryCallTimeoutMicroSecond;
-  }
-
-  public int getReplicaCallTimeoutMicroSecondScan() {
-    return replicaCallTimeoutMicroSecondScan;
-  }
-
-  public int getMetaReplicaCallTimeoutMicroSecondScan() {
-    return metaReplicaCallTimeoutMicroSecondScan;
-  }
-
-  public int getRetriesNumber() {
-    return retries;
-  }
-
-  public int getMaxKeyValueSize() {
-    return maxKeyValueSize;
-  }
-
-  public long getScannerMaxResultSize() {
-    return scannerMaxResultSize;
-  }
-
-  public int getReadRpcTimeout() {
-    return readRpcTimeout;
-  }
-
-  public int getWriteRpcTimeout() {
-    return writeRpcTimeout;
-  }
-
-  public long getPause() {
-    return pause;
-  }
-
-  public long getPauseForCQTBE() {
-    return pauseForCQTBE;
+    super();
   }
 }

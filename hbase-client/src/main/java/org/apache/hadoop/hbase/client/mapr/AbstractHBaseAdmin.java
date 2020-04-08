@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
@@ -35,6 +36,7 @@ import org.apache.hadoop.hbase.HRegionInfo;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.NamespaceDescriptor;
+import org.apache.hadoop.hbase.ProcedureInfo;
 import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.TableExistsException;
 import org.apache.hadoop.hbase.TableName;
@@ -75,6 +77,23 @@ public abstract class AbstractHBaseAdmin implements Closeable {
   public void setUser(User user) {
     LOG.debug("setUser() called with MapR Table without impersonation support.");
   }
+
+  public boolean abortProcedure(
+      final long procId,
+      final boolean mayInterruptIfRunning) throws IOException {
+    throw new UnsupportedOperationException("abortProcedure is not supported for MapR.");
+  }
+
+  public Future<Boolean> abortProcedureAsync(
+      final long procId,
+      final boolean mayInterruptIfRunning) throws IOException {
+    throw new UnsupportedOperationException("abortProcedureAsync is not supported for MapR.");
+  }
+
+  public ProcedureInfo[] listProcedures() throws IOException {
+    throw new UnsupportedOperationException("listProcedures is not supported for MapR.");
+  }
+
   /** @return - true if the master server is running. Throws an exception
    *  otherwise.
    * @throws ZooKeeperConnectionException
