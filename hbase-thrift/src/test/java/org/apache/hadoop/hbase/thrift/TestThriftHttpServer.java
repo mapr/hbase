@@ -18,6 +18,8 @@
  */
 package org.apache.hadoop.hbase.thrift;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,12 +40,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
 import com.google.common.base.Joiner;
+
+import static org.junit.Assert.*;
 
 /**
  * Start the HBase Thrift HTTP server on a random port through the command-line
@@ -125,6 +127,46 @@ public class TestThriftHttpServer {
     runThriftServer(0);
   }
 
+  @Test
+  public void testThriftServerHttpTraceForbiddenWhenOptionsDisabled() throws Exception {
+    // HTTP TRACE method should be disabled for security
+    // See https://www.owasp.org/index.php/Cross_Site_Tracing
+    checkHttpMethods("TRACE", HttpURLConnection.HTTP_FORBIDDEN);
+  }
+
+  @Test
+  public void testThriftServerHttpTraceForbiddenWhenOptionsEnabled() throws Exception {
+    // HTTP TRACE method should be disabled for security
+    // See https://www.owasp.org/index.php/Cross_Site_Tracing
+    TEST_UTIL.getConfiguration().setBoolean(ThriftServerRunner.THRIFT_HTTP_ALLOW_OPTIONS_METHOD,
+            true);
+    checkHttpMethods("TRACE", HttpURLConnection.HTTP_FORBIDDEN);
+  }
+
+  @Test
+  public void testThriftServerHttpOptionsForbiddenWhenOptionsDisabled() throws Exception {
+    // HTTP OPTIONS method should be disabled by default, so we make sure
+    // hbase.thrift.http.allow.options.method is not set anywhere in the config
+    TEST_UTIL.getConfiguration().unset(ThriftServerRunner.THRIFT_HTTP_ALLOW_OPTIONS_METHOD);
+    checkHttpMethods("OPTIONS", HttpURLConnection.HTTP_FORBIDDEN);
+  }
+
+  @Test
+  public void testThriftServerHttpOptionsOkWhenOptionsEnabled() throws Exception {
+    TEST_UTIL.getConfiguration().setBoolean(ThriftServerRunner.THRIFT_HTTP_ALLOW_OPTIONS_METHOD,
+            true);
+    checkHttpMethods("OPTIONS", HttpURLConnection.HTTP_OK);
+  }
+
+  private void waitThriftServerStartup() throws Exception{
+    // wait up to 10s for the server to start
+    for (int i = 0; i < 100
+            && ( thriftServer.serverRunner == null ||  thriftServer.serverRunner.httpServer ==
+            null); i++) {
+      Thread.sleep(100);
+    }
+  }
+
   private void runThriftServer(int customHeaderSize) throws Exception {
     List<String> args = new ArrayList<String>();
     port = HBaseTestingUtility.randomFreePort();
@@ -138,12 +180,7 @@ public class TestThriftHttpServer {
     thriftServer = new ThriftServer(TEST_UTIL.getConfiguration());
     startHttpServerThread(args.toArray(new String[args.size()]));
 
-    // wait up to 10s for the server to start
-    for (int i = 0; i < 100
-        && ( thriftServer.serverRunner == null ||  thriftServer.serverRunner.httpServer ==
-        null); i++) {
-      Thread.sleep(100);
-    }
+    waitThriftServerStartup();
 
     try {
       talkToThriftServer(customHeaderSize);
@@ -202,4 +239,21 @@ public class TestThriftHttpServer {
       throw new Exception(httpServerException);
     }
   }
+
+  private void checkHttpMethods(String httpRequestMethod,
+                                int httpExpectedResponse) throws Exception {
+    port = HBaseTestingUtility.randomFreePort();
+    thriftServer = new ThriftServer(TEST_UTIL.getConfiguration());
+    try {
+      startHttpServerThread(new String[] { "-port", String.valueOf(port), "start" });
+      waitThriftServerStartup();
+      final URL url = new URL("http://"+ HConstants.LOCALHOST + ":" + port);
+      final HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+      httpConn.setRequestMethod(httpRequestMethod);
+      assertEquals(httpExpectedResponse, httpConn.getResponseCode());
+    } finally {
+      stopHttpServerThread();
+    }
+  }
+
 }
