@@ -643,7 +643,6 @@ module Hbase
 
       # Get table descriptor
       htd = @admin.getTableDescriptor(TableName.valueOf(table_name))
-      hasTableUpdate = false
 
       # Process all args
       args.each do |arg|
@@ -664,11 +663,18 @@ module Hbase
 
           # If column already exist, then try to alter it. Create otherwise.
           if htd.hasFamily(column_name.to_java_bytes)
-            htd.modifyFamily(descriptor)
+            @admin.modifyColumn(table_name, descriptor)
           else
-            htd.addFamily(descriptor)
+            @admin.addColumn(table_name, descriptor)
           end
-          hasTableUpdate = true
+
+          if wait == true
+            puts "Updating all regions with the new schema..."
+            alter_status(table_name)
+          end
+
+          # We bypass descriptor when adding column families; refresh it to apply other args correctly.
+          htd = @admin.getTableDescriptor(TableName.valueOf(table_name))
           next
         end
 
@@ -678,8 +684,7 @@ module Hbase
           # Delete column family
           if method == "delete"
             raise(ArgumentError, "NAME parameter missing for delete method") unless name
-            htd.removeFamily(name.to_java_bytes)
-            hasTableUpdate = true
+            @admin.deleteColumn(table_name, name)
           # Unset table attributes
           elsif method == "table_att_unset"
             raise(ArgumentError, "NAME parameter missing for table_att_unset method") unless name
@@ -696,7 +701,7 @@ module Hbase
               end
               htd.remove(name)
             end
-            hasTableUpdate = true
+            @admin.modifyTable(table_name.to_java_bytes, htd)
           # Unknown method
           else
             raise ArgumentError, "Unknown method: #{method}"
@@ -706,6 +711,15 @@ module Hbase
             puts("Unknown argument ignored: %s" % [unknown_key])
           end
 
+          if wait == true
+            puts "Updating all regions with the new schema..."
+            alter_status(table_name)
+          end
+
+          if method == "delete"
+            # We bypass descriptor when deleting column families; refresh it to apply other args correctly.
+            htd = @admin.getTableDescriptor(TableName.valueOf(table_name))
+          end
           next
         end
 
@@ -737,23 +751,17 @@ module Hbase
             arg.delete(key)
           end
 
-          hasTableUpdate = true
+          @admin.modifyTable(table_name.to_java_bytes, htd)
 
           arg.each_key do |unknown_key|
             puts("Unknown argument ignored: %s" % [unknown_key])
           end
 
+          if wait == true
+            puts "Updating all regions with the new schema..."
+            alter_status(table_name)
+          end
           next
-        end
-      end
-
-      # Bulk apply all table modifications.
-      if hasTableUpdate
-        @admin.modifyTable(table_name, htd)
-
-        if wait == true
-          puts "Updating all regions with the new schema..."
-          alter_status(table_name)
         end
       end
     end
