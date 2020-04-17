@@ -146,7 +146,7 @@ function personality_modules
   fi
 
   if [[ -n "${HADOOP_PROFILE}" ]]; then
-    extra="${extra} -Dhadoop.profile=${HADOOP_PROFILE}"
+    extra="${extra} -Phadoop-${HADOOP_PROFILE}"
   fi
 
   # BUILDMODE value is 'full' when there is no patch to be tested, and we are running checks on
