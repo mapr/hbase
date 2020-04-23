@@ -126,11 +126,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
       throw new IllegalArgumentException("BufferedMutator for " + this.tableName + " has a listener, but does not have a pool");
     }
 
-    ConnectionConfiguration connConf = conn.getConnectionConfiguration();
-    if (connConf == null) {
-      // Slow: parse conf in ConnectionConfiguration constructor
-      connConf = new ConnectionConfiguration(conf);
-    }
+    ConnectionConfiguration connConf = new ConnectionConfiguration(conf);
     this.writeBufferSize = params.getWriteBufferSize() != BufferedMutatorParams.UNSET ?
         params.getWriteBufferSize() : connConf.getWriteBufferSize();
     this.maxKeyValueSize = params.getMaxKeyValueSize() != BufferedMutatorParams.UNSET ?
