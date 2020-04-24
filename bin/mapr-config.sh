@@ -81,7 +81,7 @@ if [ "$MAPR_SECURITY_STATUS" = "true" ]; then
     MAPR_ZOOKEEPER_OPTS="${MAPR_ZOOKEEPER_OPTS} -Dzookeeper.sasl.client=true"
     if (cat "$MAPR_CLUSTERS_CONF" | grep -q "kerberosEnable=true"); then
         MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=kerberos_keytab"
-        MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=kerberos"
+        MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=hybrid"
     else
         MAPR_HBASE_SERVER_OPTS="-Dhadoop.login=maprsasl_keytab"
         MAPR_HBASE_CLIENT_OPTS="-Dhadoop.login=maprsasl"
