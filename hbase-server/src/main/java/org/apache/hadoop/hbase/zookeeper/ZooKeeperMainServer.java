@@ -20,14 +20,13 @@
 package org.apache.hadoop.hbase.zookeeper;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseInterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
-import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeperMain;
+import org.apache.zookeeper.cli.CliException;
 
 /**
  * Tool for running ZookeeperMain from HBase by  reading a ZooKeeper server
@@ -62,11 +61,11 @@ public class ZooKeeperMainServer {
 
     /**
      * Run the command-line args passed.  Calls System.exit when done.
-     * @throws KeeperException
      * @throws IOException
      * @throws InterruptedException
+     * @throws CliException if the ZooKeeper exception happens in cli command
      */
-    void runCmdLine() throws KeeperException, IOException, InterruptedException {
+    void runCmdLine() throws IOException, InterruptedException, CliException {
       processCmd(this.cl);
       System.exit(0);
     }

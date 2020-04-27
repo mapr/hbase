@@ -32,6 +32,7 @@ import org.apache.hadoop.hbase.util.Strings;
 import org.apache.hadoop.util.StringUtils;
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
+import org.apache.zookeeper.server.admin.AdminServer;
 import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
 import org.apache.zookeeper.server.quorum.QuorumPeerMain;
 
@@ -40,7 +41,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -84,7 +84,7 @@ public class HQuorumPeer {
     }
   }
 
-  private static void runZKServer(QuorumPeerConfig zkConfig) throws UnknownHostException, IOException {
+  private static void runZKServer(QuorumPeerConfig zkConfig) throws IOException, AdminServer.AdminServerException {
     if (zkConfig.isDistributed()) {
       QuorumPeerMain qp = new QuorumPeerMain();
       qp.runFromConfig(zkConfig);
