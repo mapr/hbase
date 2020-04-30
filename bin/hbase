@@ -324,7 +324,7 @@ else
 fi
 
 if [ "$AUTH_AS_SERVER" == "true" ] || [ "$COMMAND" = "hbck" ]; then
-   if [ -n "$HBASE_SERVER_JAAS_OPTS" ]; then
+   if [ -n "$HBASE_SERVER_JAAS_OPTS" ] || [ "$COMMAND" = "hbck" ]; then
      HBASE_OPTS="$HBASE_OPTS $HBASE_SERVER_JAAS_OPTS"
    else
      HBASE_OPTS="$HBASE_OPTS $HBASE_REGIONSERVER_OPTS"
