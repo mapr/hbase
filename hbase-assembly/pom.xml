@@ -224,10 +224,6 @@
        <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-hbtop</artifactId>
       <version>${project.version}</version>

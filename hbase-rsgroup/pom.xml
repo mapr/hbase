@@ -211,11 +211,6 @@
       <artifactId>hbase-testing-util</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 
   <profiles>

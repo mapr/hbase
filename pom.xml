@@ -1311,9 +1311,8 @@
     <http-components-client.version>4.5.2</http-components-client.version>
     <metrics-core.version>2.2.0</metrics-core.version>
     <guava.version>12.0.1</guava.version>
-    <jackson1.version>1.9.13</jackson1.version>
-    <jackson2.version>2.9.10</jackson2.version>
-    <jackson2.databind.version>2.9.10.1</jackson2.databind.version>
+    <jackson.version>2.10.1</jackson.version>
+    <jackson.databind.version>2.10.1</jackson.databind.version>
     <jasper.version>5.5.23</jasper.version>
     <jaxb-api.version>2.2.2</jaxb-api.version>
     <jetty.version>6.1.26</jetty.version>
@@ -1623,6 +1622,16 @@
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${avro.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <!--This is not used by hbase directly.  Used by thrift,
           yammer and zk.-->
@@ -1825,44 +1834,24 @@
            can bring in jars from different, incompatible versions. We force
            the same version with these dependencies -->
       <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-core-asl</artifactId>
-        <version>${jackson1.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-mapper-asl</artifactId>
-        <version>${jackson1.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-jaxrs</artifactId>
-        <version>${jackson1.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-xc</artifactId>
-        <version>${jackson1.version}</version>
-      </dependency>
-      <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
-        <version>${jackson2.version}</version>
+        <version>${jackson.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
-        <version>${jackson2.version}</version>
+        <version>${jackson.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
-        <version>${jackson2.version}</version>
+        <version>${jackson.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>${jackson2.databind.version}</version>
+        <version>${jackson.databind.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.hbase.thirdparty</groupId>
@@ -1931,6 +1920,14 @@
           <exclusion>
             <groupId>stax</groupId>
             <artifactId>stax-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -2271,6 +2268,14 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-jaxrs</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-xc</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
@@ -2383,12 +2388,38 @@
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-jaxrs</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-xc</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop-two.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+              </exclusion>
+            </exclusions>
           </dependency>
           <!-- This was marked as test dep in earlier pom, but was scoped compile.
             Where do we actually need it? -->
@@ -2473,6 +2504,14 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
               </exclusion>
+             <exclusion>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-jaxrs</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-xc</artifactId>
+             </exclusion>
            </exclusions>
          </dependency>
          <dependency>
@@ -2673,6 +2712,14 @@
              <exclusion>
                <groupId>com.google.code.findbugs</groupId>
                <artifactId>jsr305</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-jaxrs</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-xc</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
