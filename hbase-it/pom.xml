@@ -260,6 +260,11 @@
       <artifactId>netty</artifactId>
       <version>3.2.4.Final</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <profiles>

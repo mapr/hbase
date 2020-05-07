@@ -17,7 +17,7 @@
  */
 package org.apache.hadoop.hbase.io.hfile;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.yammer.metrics.core.Histogram;
 import com.yammer.metrics.stats.Snapshot;

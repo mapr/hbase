@@ -43,9 +43,8 @@ import javax.management.openmbean.TabularData;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonGenerator;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 
 /**
  * Utility for doing JSON and MBeans.
@@ -62,14 +61,14 @@ public class JSONBean {
    * Use dumping out mbeans as JSON.
    */
   public interface Writer extends Closeable {
-    void write(final String key, final String value) throws JsonGenerationException, IOException;
+    void write(final String key, final String value) throws IOException;
     int write(final MBeanServer mBeanServer, ObjectName qry, String attribute,
         final boolean description) throws IOException;
     void flush() throws IOException;
   }
 
   public Writer open(final PrintWriter writer) throws IOException {
-    final JsonGenerator jg = jsonFactory.createJsonGenerator(writer);
+    final JsonGenerator jg = jsonFactory.createGenerator(writer);
     jg.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
     jg.useDefaultPrettyPrinter();
     jg.writeStartObject();
@@ -85,7 +84,7 @@ public class JSONBean {
       }
 
       @Override
-      public void write(String key, String value) throws JsonGenerationException, IOException {
+      public void write(String key, String value) throws IOException {
         jg.writeStringField(key, value);
       }
 
