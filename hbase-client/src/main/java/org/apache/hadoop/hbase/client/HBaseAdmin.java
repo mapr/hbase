@@ -3067,6 +3067,9 @@ public class HBaseAdmin implements Admin {
    */
   @Override
   public boolean normalize() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("normalize is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3086,6 +3089,9 @@ public class HBaseAdmin implements Admin {
    */
   @Override
   public boolean isNormalizerEnabled() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("isNormalizerEnabled is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3105,6 +3111,9 @@ public class HBaseAdmin implements Admin {
    */
   @Override
   public boolean setNormalizerRunning(final boolean on) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("setNormalizerRunning is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3187,6 +3196,9 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public boolean setCleanerChoreRunning(final boolean on) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("setCleanerChoreRunning is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3198,6 +3210,9 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public boolean runCleanerChore() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("runCleanerChore is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3209,6 +3224,9 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public boolean isCleanerChoreEnabled() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("isCleanerChoreEnabled is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -3684,6 +3702,9 @@ public class HBaseAdmin implements Admin {
    */
   @Override
   public boolean isMasterInMaintenanceMode() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("isMasterInMaintenanceMode is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<IsInMaintenanceModeResponse>(getConnection()) {
       @Override
       public IsInMaintenanceModeResponse call(int callTimeout) throws ServiceException {
@@ -5248,6 +5269,9 @@ public class HBaseAdmin implements Admin {
   @Override
   public void deleteTableSnapshots(Pattern tableNamePattern, Pattern snapshotNamePattern)
       throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("deleteTableSnapshots is not supported for MapR.");
+    }
     List<SnapshotDescription> snapshots = listTableSnapshots(tableNamePattern, snapshotNamePattern);
     for (SnapshotDescription snapshot : snapshots) {
       try {
@@ -5748,6 +5772,9 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public List<SecurityCapability> getSecurityCapabilities() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("getSecurityCapabilities is not supported for MapR.");
+    }
     try {
       return executeCallable(new MasterCallable<List<SecurityCapability>>(getConnection()) {
         @Override
@@ -5771,6 +5798,9 @@ public class HBaseAdmin implements Admin {
   public boolean[] setSplitOrMergeEnabled(final boolean enabled, final boolean synchronous,
                                           final MasterSwitchType... switchTypes)
     throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("setSplitOrMergeEnabled is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<boolean[]>(getConnection()) {
       @Override
       public boolean[] call(int callTimeout) throws ServiceException {
@@ -5788,6 +5818,9 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public boolean isSplitOrMergeEnabled(final MasterSwitchType switchType) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("isSplitOrMergeEnabled is not supported for MapR.");
+    }
     return executeCallable(new MasterCallable<Boolean>(getConnection()) {
       @Override
       public Boolean call(int callTimeout) throws ServiceException {
@@ -5799,11 +5832,17 @@ public class HBaseAdmin implements Admin {
 
   @Override
   public List<ServerName> listDeadServers() throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("listDeadServers is not supported for MapR.");
+    }
     return new ArrayList<>(getClusterStatus().getDeadServerNames());
   }
 
   @Override
   public List<ServerName> clearDeadServers(final List<ServerName> servers) throws IOException {
+    if (checkIfMapRDefault(true)) {
+      throw new UnsupportedOperationException("clearDeadServers is not supported for MapR.");
+    }
     if (servers == null || servers.size() == 0) {
       throw new IllegalArgumentException("servers cannot be null or empty");
     }
