@@ -1,0 +1,103 @@
+<project xmlns="https://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+      /**
+       * Licensed to the Apache Software Foundation (ASF) under one
+       * or more contributor license agreements.  See the NOTICE file
+       * distributed with this work for additional information
+       * regarding copyright ownership.  The ASF licenses this file
+       * to you under the Apache License, Version 2.0 (the
+       * "License"); you may not use this file except in compliance
+       * with the License.  You may obtain a copy of the License at
+       *
+       *     http://www.apache.org/licenses/LICENSE-2.0
+       *
+       * Unless required by applicable law or agreed to in writing, software
+       * distributed under the License is distributed on an "AS IS" BASIS,
+       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       * See the License for the specific language governing permissions and
+       * limitations under the License.
+       */
+      -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+      <artifactId>hbase-shaded</artifactId>
+      <groupId>org.apache.hbase</groupId>
+      <version>1.4.12.0-mapr-SNAPSHOT</version>
+      <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>hbase-shaded-guava</artifactId>
+    <name>HBase Shaded Guava 12</name>
+
+    <build>
+        <plugins>
+          <plugin>
+            <!--Make it so assembly:single does nothing in here-->
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+              <skipAssembly>true</skipAssembly>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.3</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals><goal>shade</goal></goals>
+              </execution>
+            </executions>
+            <configuration>
+              <minimizeJar>false</minimizeJar>
+              <createDependencyReducedPom>true</createDependencyReducedPom>
+              <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+              <artifactSet>
+                <includes>
+                  <include>com.google.guava:guava</include>
+                </includes>
+              </artifactSet>
+              <relocations>
+                <relocation>
+                  <pattern>com.jcraft</pattern>
+                  <shadedPattern>org.apache.hadoop.hbase.shaded.com.jcraft</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>com.google.common</pattern>
+                  <shadedPattern>org.apache.hadoop.hbase.shaded.com.google.common</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
+          </plugin>      
+        </plugins>
+    </build>
+
+    <dependencies>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <!-- adi:- we build hbase-server module with an older
+         version of Guava because of complex changes in 
+         `com.google.common.util.concurrent.Service` Interface.
+         The older version is shaded into `hbase-server` jar -->
+        <version>12.0.1</version><!--$NO-MVN-MAN-VER$-->
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    </dependencies>
+
+</project>

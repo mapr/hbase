@@ -19,7 +19,7 @@
 package org.apache.hadoop.hbase.regionserver;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Objects;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
 
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;

@@ -38,6 +38,7 @@
       <license.bundles.dependencies>true</license.bundles.dependencies>
     </properties>
     <modules>
+        <module>hbase-shaded-guava</module>
         <module>hbase-shaded-client</module>
         <module>hbase-shaded-server</module>
         <module>hbase-shaded-testing-util</module>

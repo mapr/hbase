@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.HBaseInterfaceAudience;
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.AbstractService;
+import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.AbstractService;
 
 import static org.apache.hadoop.hbase.client.replication.ReplicationAdmin.REPLICATION_WALENTRYFILTER_CONFIG_KEY;
 

@@ -48,7 +48,7 @@ import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.apache.hadoop.util.StringUtils;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.google.common.base.Stopwatch;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Stopwatch;
 
 /**
  * A simple performance evaluation tool for single client and MR scans

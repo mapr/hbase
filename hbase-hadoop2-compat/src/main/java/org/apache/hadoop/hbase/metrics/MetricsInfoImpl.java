@@ -18,6 +18,7 @@
 
 package org.apache.hadoop.hbase.metrics;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
@@ -58,7 +59,7 @@ class MetricsInfoImpl implements MetricsInfo {
   }
 
   @Override public String toString() {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
         .add("name", name).add("description", description)
         .toString();
   }

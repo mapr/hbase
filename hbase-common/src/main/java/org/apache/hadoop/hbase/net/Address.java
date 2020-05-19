@@ -48,7 +48,7 @@ public class Address implements Comparable<Address> {
   }
 
   public String getHostname() {
-    return this.hostAndPort.getHostText();
+    return this.hostAndPort.getHost();
   }
 
   public int getPort() {

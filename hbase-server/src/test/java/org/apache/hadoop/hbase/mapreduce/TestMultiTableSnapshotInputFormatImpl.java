@@ -158,7 +158,7 @@ public class TestMultiTableSnapshotInputFormatImpl {
 
     @Override
     public String toString() {
-      return com.google.common.base.Objects.toStringHelper(this).add("startRow", startRow)
+      return org.apache.hadoop.hbase.shaded.com.google.common.base.Objects.toStringHelper(this).add("startRow", startRow)
           .add("stopRow", stopRow).toString();
     }
   }

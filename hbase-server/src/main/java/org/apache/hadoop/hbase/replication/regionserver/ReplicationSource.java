@@ -19,8 +19,8 @@
 package org.apache.hadoop.hbase.replication.regionserver;
 
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.Service;
+import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.ListenableFuture;
+import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
