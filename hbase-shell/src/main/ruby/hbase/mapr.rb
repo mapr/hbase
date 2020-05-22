@@ -44,9 +44,9 @@ module Hbase
       @security_available = false
       begin
         @perm_maps = {
-          TYPE_TABLE => com.mapr.fs.AceHelper::TABLE_PERMISSIONS,
-          TYPE_FAMILY => com.mapr.fs.AceHelper::FAMILY_PERMISSIONS,
-          TYPE_QUALIFIER => com.mapr.fs.AceHelper::COLUMN_PERMISSIONS
+          TYPE_TABLE => com.mapr.baseutils.utils.AceHelper::TABLE_PERMISSIONS,
+          TYPE_FAMILY => com.mapr.baseutils.utils.AceHelper::FAMILY_PERMISSIONS,
+          TYPE_QUALIFIER => com.mapr.baseutils.utils.AceHelper::COLUMN_PERMISSIONS
         }
         @admin = com.mapr.fs.hbase.HBaseAdminImpl.new(configuration, @mapping_rules)
         @security_available = true
