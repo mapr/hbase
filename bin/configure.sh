@@ -35,6 +35,7 @@ HBASE_VERSION=$(cat "$HBASE_VERSION_FILE")
 HBASE_HOME="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"
 HBASE_CONF="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"/conf
 HBASE_SITE=${HBASE_CONF}/hbase-site.xml
+DEFAULT_HEADERS_FILE="${HBASE_CONF}/jetty-headers.xml"
 
 HB_MASTER_ROLE="hbmaster"
 HB_REGIONSERVER_ROLE="hbregionserver"
@@ -131,6 +132,11 @@ function remove_property() {
   sed -i '/<property>/{:a;N;/<\/property>/!ba; /<name>'${property_name}'<\/name>/d}' ${HBASE_SITE}
 }
 
+function remove_headers_file_entry() {
+  entry=$1
+  sed -i '/'${entry}'/d' ${DEFAULT_HEADERS_FILE}
+}
+
 function add_property() {
   property_name=$1
   property_value=$2
@@ -201,8 +207,7 @@ function configure_hbase_default_db() {
 }
 
 function configure_custom_headers() {
-  local default_headers_location="${HBASE_HOME}/conf/jetty-headers.xml"
-  set_property hbase.custom.headers.file ${default_headers_location}
+  set_property hbase.custom.headers.file ${DEFAULT_HEADERS_FILE}
 }
 
 function change_permissions() {
@@ -541,6 +546,9 @@ if [ "$isOnlyRoles" == 1 ] ; then
   configure_custom_headers
   remove_old_warden_entries
 
+  if [ "$isSecure" = "false" ]; then
+    remove_headers_file_entry "Content-Security-Policy"
+  fi
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
       configure_hbase_authorization_secure
