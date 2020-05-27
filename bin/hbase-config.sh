@@ -78,23 +78,6 @@ HBASE_CONF_DIR="${HBASE_CONF_DIR:-$HBASE_HOME/conf}"
 HBASE_REGIONSERVERS="${HBASE_REGIONSERVERS:-$HBASE_CONF_DIR/regionservers}"
 # List of hbase secondary masters.
 HBASE_BACKUP_MASTERS="${HBASE_BACKUP_MASTERS:-$HBASE_CONF_DIR/backup-masters}"
-# Thrift JMX opts
-if [ -n "$HBASE_JMX_OPTS" ] && [ -z "$HBASE_THRIFT_JMX_OPTS" ]; then
-  HBASE_THRIFT_JMX_OPTS="$HBASE_JMX_OPTS -Dcom.sun.management.jmxremote.port=10103"
-fi
-# Thrift opts
-if [ -z "$HBASE_THRIFT_OPTS" ]; then
-  export HBASE_THRIFT_OPTS="$HBASE_THRIFT_JMX_OPTS"
-fi
-
-# REST JMX opts
-if [ -n "$HBASE_JMX_OPTS" ] && [ -z "$HBASE_REST_JMX_OPTS" ]; then
-  HBASE_REST_JMX_OPTS="$HBASE_JMX_OPTS -Dcom.sun.management.jmxremote.port=10105"
-fi
-# REST opts
-if [ -z "$HBASE_REST_OPTS" ]; then
-  export HBASE_REST_OPTS="$HBASE_REST_JMX_OPTS"
-fi
 
 # Source the hbase-env.sh.  Will have JAVA_HOME defined.
 # HBASE-7817 - Source the hbase-env.sh only if it has not already been done. HBASE_ENV_INIT keeps track of it.
