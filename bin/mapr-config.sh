@@ -166,7 +166,7 @@ else
 fi
 
 if [[ -n "$MAPR_JMX_OPTS" && ( "$MAPR_JMXLOCALHOST" = "true" || "$MAPR_JMXREMOTEHOST" = "true" ) ]]; then
-    if [ -z "$MAPR_JMX_HBASE_MASTER_ENABLE" ] || [ "$MAPR_JMX_HABSE_MASTER_ENABLE" = "true" ]; then
+    if [ -z "$MAPR_JMX_HBASE_MASTER_ENABLE" ] || [ "$MAPR_JMX_HBASE_MASTER_ENABLE" = "true" ]; then
         export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_MASTER_PORT"
     fi
     if [ -z "$MAPR_JMX_HBASE_REGIONSERVER_ENABLE" ] || [ "$MAPR_JMX_HBASE_REGIONSERVER_ENABLE" = "true" ]; then
