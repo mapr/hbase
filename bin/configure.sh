@@ -566,6 +566,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
       configure_hbase_encryption_insecure
       configure_hbase_webui_ssl_insecure
       configure_hbase_ssl_protocols_insecure
+      remove_headers_file_entry "Content-Security-Policy"
       if hasRole "$HB_THRIFT_ROLE" ; then
         configure_thrift_insecure
       fi
