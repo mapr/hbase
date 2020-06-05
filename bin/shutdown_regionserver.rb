@@ -23,8 +23,8 @@
 #  ./bin/hbase org.jruby.Main bin/shutdown_regionserver.rb c2021:16020
 
 include Java
-import org.apache.hadoop.hbase.HBaseConfiguration
-import org.apache.hadoop.hbase.client.HBaseAdmin
+java_import org.apache.hadoop.hbase.HBaseConfiguration
+java_import org.apache.hadoop.hbase.client.HBaseAdmin
 
 def usage(msg=nil)
   $stderr.puts 'Usage: shutdown_regionserver.rb <host:port>..'
