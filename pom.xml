@@ -1345,7 +1345,7 @@
     <error-prone.version>2.1.1</error-prone.version>
     <maven.assembly.version>3.1.1</maven.assembly.version>
     <maven.antrun.version>1.6</maven.antrun.version>
-    <maven.compiler.version>3.6.1</maven.compiler.version>
+    <maven.compiler.version>3.8.0</maven.compiler.version>
     <jamon.plugin.version>2.4.1</jamon.plugin.version>
     <findbugs-annotations>1.3.9-1</findbugs-annotations>
     <findbugs.maven.version>3.0.4</findbugs.maven.version>
@@ -2070,7 +2070,7 @@
     <profile>
       <id>build-with-jdk8</id>
       <activation>
-        <jdk>1.8</jdk>
+        <jdk>[1.8,)</jdk>
       </activation>
       <build>
         <pluginManagement>
@@ -2105,6 +2105,27 @@
           </plugins>
         </pluginManagement>
       </build>
+    </profile>
+    <profile>
+      <id>build-with-jdk11</id>
+      <activation>
+        <jdk>[1.11,)</jdk>
+      </activation>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <version>2.3.1</version>
+            <type>pom</type>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
     </profile>
 
     <!--In JDK 1.8 and newer the PermGem has been removed. -->

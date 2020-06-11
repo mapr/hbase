@@ -272,6 +272,18 @@
         </plugins>
       </build>
     </profile>
+      <profile>
+        <id>build-with-jdk11</id>
+        <activation>
+          <jdk>[1.11,)</jdk>
+        </activation>
+        <dependencies>
+          <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </dependency>
+        </dependencies>
+      </profile>
 
     </profiles>
 </project>
