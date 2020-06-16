@@ -2,18 +2,20 @@ package org.apache.hadoop.hbase.http;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
-import org.mortbay.jetty.Handler;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.FilterHolder;
+import org.eclipse.jetty.servlet.FilterHolder;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 import static org.apache.hadoop.hbase.HConstants.CUSTOM_HEADERS_FILE;
 
 public class FiltersUtil {
 
-  public static void addCustomHeadersFilterIfPresent(Context context, Configuration configuration) {
+  public static void addCustomHeadersFilterIfPresent(ServletContextHandler contextHandler, Configuration configuration) {
     String headersFileLocation = configuration.get(CUSTOM_HEADERS_FILE);
     if (!StringUtils.isEmpty(headersFileLocation)) {
-      context.addFilter(makeCustomHeadersFilter(headersFileLocation), "/*", Handler.ALL);
+      contextHandler.addFilter(makeCustomHeadersFilter(headersFileLocation), "/*", EnumSet.allOf(DispatcherType.class));
     }
   }
 

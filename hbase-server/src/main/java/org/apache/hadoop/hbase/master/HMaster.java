@@ -178,10 +178,9 @@ import org.apache.hadoop.hbase.zookeeper.ZKClusterId;
 import org.apache.hadoop.hbase.zookeeper.ZKUtil;
 import org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher;
 import org.apache.zookeeper.KeeperException;
-import org.mortbay.jetty.Connector;
-import org.mortbay.jetty.nio.SelectChannelConnector;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
@@ -373,7 +372,7 @@ public class HMaster extends HRegionServer implements MasterServices, Server {
   private volatile boolean initializationBeforeMetaAssignment = false;
 
   /** jetty server for master to redirect requests to regionserver infoServer */
-  private org.mortbay.jetty.Server masterJettyServer;
+  private org.eclipse.jetty.server.Server masterJettyServer;
 
   public static class RedirectServlet extends HttpServlet {
     private static final long serialVersionUID = 2894774810058302473L;
@@ -543,8 +542,8 @@ public class HMaster extends HRegionServer implements MasterServices, Server {
     // TODO I'm pretty sure we could just add another binding to the InfoServer run by
     // the RegionServer and have it run the RedirectServlet instead of standing up
     // a second entire stack here.
-    masterJettyServer = new org.mortbay.jetty.Server();
-    Connector connector = new SelectChannelConnector();
+    masterJettyServer = new org.eclipse.jetty.server.Server();
+    ServerConnector connector = new ServerConnector(masterJettyServer);
     connector.setHost(addr);
     connector.setPort(infoPort);
     masterJettyServer.addConnector(connector);
@@ -553,8 +552,9 @@ public class HMaster extends HRegionServer implements MasterServices, Server {
     final String redirectHostname = shouldUseThisHostnameInstead() ? useThisHostnameInstead : null;
 
     final RedirectServlet redirect = new RedirectServlet(infoServer, redirectHostname);
-    Context context = new Context(masterJettyServer, "/", Context.NO_SESSIONS);
+    WebAppContext context = new WebAppContext(null, "/", null, null, null, null, WebAppContext.NO_SESSIONS);
     context.addServlet(new ServletHolder(redirect), "/*");
+    context.setServer(masterJettyServer);
 
     try {
       masterJettyServer.start();
