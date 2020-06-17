@@ -632,6 +632,7 @@
           <charset>${project.build.sourceEncoding}</charset>
           <scalaVersion>${scala.version}</scalaVersion>
           <args>
+            <arg>-nobootcp</arg>
             <arg>-feature</arg>
           </args>
         </configuration>
