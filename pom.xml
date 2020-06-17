@@ -506,6 +506,10 @@
             <showWarnings>true</showWarnings>
             <showDeprecation>false</showDeprecation>
             <compilerArgument>-Xlint:-options</compilerArgument>
+            <compilerArgs>
+              <arg>--add-exports</arg>
+              <arg>java.base/sun.nio.ch=ALL-UNNAMED</arg>
+            </compilerArgs>
           </configuration>
         </plugin>
         <!-- Test oriented plugins -->
@@ -1266,7 +1270,7 @@
       yyyy-MM-dd'T'HH:mm
     </maven.build.timestamp.format>
     <buildDate>${maven.build.timestamp}</buildDate>
-    <compileSource>1.8</compileSource>
+    <compileSource>11</compileSource>
     <!-- Build dependencies -->
     <maven.min.version>3.0.3</maven.min.version>
     <java.min.version>${compileSource}</java.min.version>
