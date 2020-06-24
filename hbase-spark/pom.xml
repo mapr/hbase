@@ -37,9 +37,9 @@
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <spark.version>2.4.4.0-mapr-SNAPSHOT</spark.version>
-    <scala.version>2.11.12</scala.version>
-    <scala.binary.version>2.11</scala.binary.version>
+    <spark.version>2.4.5.0-mapr-SNAPSHOT</spark.version>
+    <scala.version>2.12.10</scala.version>
+    <scala.binary.version>2.12</scala.binary.version>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
     <top.dir>${project.basedir}/..</top.dir>
     <avro.version>1.7.7</avro.version>
@@ -157,14 +157,14 @@
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_${scala.binary.version}</artifactId>
-      <version>2.2.4</version>
+      <version>3.0.3</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalamock</groupId>
       <artifactId>scalamock-scalatest-support_${scala.binary.version}</artifactId>
-      <version>3.1.4</version>
+      <version>3.6.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -627,7 +627,7 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.4.4</version>
         <configuration>
           <charset>${project.build.sourceEncoding}</charset>
           <scalaVersion>${scala.version}</scalaVersion>
@@ -658,7 +658,7 @@
       <plugin>
         <groupId>org.scalatest</groupId>
         <artifactId>scalatest-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>2.0.0</version>
         <configuration>
           <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
           <junitxml>.</junitxml>
