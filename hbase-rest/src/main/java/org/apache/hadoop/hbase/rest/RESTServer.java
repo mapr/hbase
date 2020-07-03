@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -38,7 +39,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseInterfaceAudience;
 import org.apache.hadoop.hbase.http.FiltersUtil;
-import org.apache.hadoop.hbase.http.HttpServer;
 import org.apache.hadoop.hbase.http.InfoServer;
 import org.apache.hadoop.hbase.rest.filter.AuthFilter;
 import org.apache.hadoop.hbase.rest.filter.RestCsrfPreventionFilter;
@@ -62,7 +62,6 @@ import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.servlet.FilterHolder;
 
-import org.glassfish.jersey.jackson1.Jackson1Feature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
@@ -248,7 +247,7 @@ public class RESTServer implements Constants {
 
     // set up the Jersey servlet container for Jetty
     ResourceConfig application = new ResourceConfig().
-            packages("org.apache.hadoop.hbase.rest").register(Jackson1Feature.class);
+            packages("org.apache.hadoop.hbase.rest").register(JacksonJaxbJsonProvider.class);
     ServletHolder sh = new ServletHolder(new ServletContainer(application));
 
     // Set the default max thread number to 100 to limit

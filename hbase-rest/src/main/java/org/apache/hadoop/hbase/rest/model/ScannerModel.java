@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.apache.hadoop.hbase.HConstants;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.client.Scan;
@@ -79,7 +81,6 @@ import org.apache.hadoop.hbase.util.ByteStringer;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import com.google.protobuf.ByteString;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
 
 /**
@@ -103,6 +104,7 @@ import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
  */
 @XmlRootElement(name="Scanner")
 @InterfaceAudience.Private
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ScannerModel implements ProtobufMessageHandler, Serializable {
 
   private static final long serialVersionUID = 1L;
