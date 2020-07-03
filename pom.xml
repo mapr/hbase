@@ -1285,7 +1285,7 @@
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
-    <mapr.release.version>6.2.0-mapr-SNAPSHOT</mapr.release.version>
+    <mapr.release.version>6.2.0.0-mapr-SNAPSHOT</mapr.release.version>
     <hadoop-two.version>2.7.4.0-mapr-1908-SNAPSHOT</hadoop-two.version>
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
