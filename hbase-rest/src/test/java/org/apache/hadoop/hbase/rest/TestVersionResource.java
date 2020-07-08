@@ -39,6 +39,7 @@ import org.apache.hadoop.hbase.rest.client.Response;
 import org.apache.hadoop.hbase.rest.model.StorageClusterVersionModel;
 import org.apache.hadoop.hbase.rest.model.VersionModel;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.glassfish.jersey.servlet.ServletContainer;
 
 import static org.junit.Assert.*;
 
@@ -46,7 +47,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.junit.experimental.categories.Category;
 
 @Category(MediumTests.class)
@@ -93,7 +93,7 @@ public class TestVersionResource {
     assertNotNull(model.getServerVersion());
     String jerseyVersion = model.getJerseyVersion();
     assertNotNull(jerseyVersion);
-    assertEquals(jerseyVersion, ServletContainer.class.getPackage()
+    assertEquals(jerseyVersion, ServletContainer.class.getClass().getPackage()
       .getImplementationVersion());
   }
 
@@ -111,7 +111,7 @@ public class TestVersionResource {
     assertTrue(body.contains(System.getProperty("os.name")));
     assertTrue(body.contains(System.getProperty("os.version")));
     assertTrue(body.contains(System.getProperty("os.arch")));
-    assertTrue(body.contains(ServletContainer.class.getPackage()
+    assertTrue(body.contains(ServletContainer.class.getClass().getPackage()
       .getImplementationVersion()));
   }
 

@@ -20,9 +20,12 @@ package org.apache.hadoop.hbase;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,7 +94,7 @@ public class RESTApiClusterManager extends Configured implements ClusterManager 
   private static final String API_VERSION = "v6";
 
   // Client instances are expensive, so use the same one for all our REST queries.
-  private Client client = Client.create();
+  private Client client = ClientBuilder.newClient();
 
   // An instance of HBaseClusterManager is used for methods like the kill, resume, and suspend
   // because cluster managers don't tend to implement these operations.
@@ -117,7 +120,7 @@ public class RESTApiClusterManager extends Configured implements ClusterManager 
     clusterName = conf.get(REST_API_CLUSTER_MANAGER_CLUSTER_NAME, DEFAULT_CLUSTER_NAME);
 
     // Add filter to Client instance to enable server authentication.
-    client.addFilter(new HTTPBasicAuthFilter(serverUsername, serverPassword));
+    client.register(HttpAuthenticationFeature.basic(serverUsername, serverPassword));
   }
 
   @Override
@@ -193,9 +196,9 @@ public class RESTApiClusterManager extends Configured implements ClusterManager 
         .build();
     String body = "{ \"items\": [ \"" + roleName + "\" ] }";
     LOG.info("Executing POST against " + uri + " with body " + body + "...");
-    ClientResponse response = client.resource(uri)
-        .type(MediaType.APPLICATION_JSON)
-        .post(ClientResponse.class, body);
+    WebTarget webTarget = client.target(uri);
+    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+    Response response = invocationBuilder.post(Entity.json(body));
 
     int statusCode = response.getStatus();
     if (statusCode != Response.Status.OK.getStatusCode()) {
@@ -237,16 +240,16 @@ public class RESTApiClusterManager extends Configured implements ClusterManager 
   // Execute GET against URI, returning a JsonNode object to be traversed.
   private JsonNode getJsonNodeFromURIGet(URI uri) throws IOException {
     LOG.info("Executing GET against " + uri + "...");
-    ClientResponse response = client.resource(uri)
-        .accept(MediaType.APPLICATION_JSON_TYPE)
-        .get(ClientResponse.class);
+    WebTarget webTarget = client.target(uri);
+    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+    Response response = invocationBuilder.get();
 
     int statusCode = response.getStatus();
     if (statusCode != Response.Status.OK.getStatusCode()) {
       throw new HTTPException(statusCode);
     }
     // This API folds information as the value to an "items" attribute.
-    return new ObjectMapper().readTree(response.getEntity(String.class)).get("items");
+    return new ObjectMapper().readTree(response.readEntity(String.class)).get("items");
   }
 
   // This API assigns a unique role name to each host's instance of a role.

@@ -78,6 +78,8 @@
               <exclude>org.apache.hadoop:hadoop-yarn-server-common</exclude>
               <exclude>org.apache.hadoop:hadoop-yarn-server-nodemanager</exclude>
               <exclude>com.google.protobuf:protobuf-java</exclude>
+              <exclude>com.sun.jersey:*</exclude>
+              <exclude>com.sun.jersey.contribs:*</exclude>
             </excludes>
             <fileMode>0644</fileMode>
             <directoryMode>0644</directoryMode>
