@@ -156,3 +156,24 @@ if [ -z "$JAVA_HOME" ]; then
 EOF
     exit 1
 fi
+
+JAVA=$JAVA_HOME/bin/java
+version=$($JAVA -version 2>&1 | awk -F '"' '/version/ {print $2}')
+if [[ "$version" > "11" ]]; then
+  # Uncomment the following line to enable warnings of further illegal reflective access operations
+  #HBASE_OPTS="$HBASE_OPTS --illegal-access=warn"
+
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.nio=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.security.jgss/sun.security.krb5=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/sun.nio.ch=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/sun.nio.cs=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.lang=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.util.regex=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.util.zip=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.util=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.net=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.io=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.security=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/javax.crypto=ALL-UNNAMED"
+fi

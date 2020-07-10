@@ -165,7 +165,7 @@ module Shell
         end
 
         # Throw the other exception which hasn't been handled above       
-        raise e
+        raise cause
       end
     end
   end

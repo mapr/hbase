@@ -69,7 +69,7 @@ module Hbase
     #----------------------------------------------------------------------------------------------
     # Returns a list of tables in hbase
     def list(regex = ".*")
-      @admin.listTableNames(regex).map { |t| t.getNameAsString }
+      @admin.listTableNames(java.util.regex.Pattern.compile(regex)).map { |t| t.getNameAsString }
     end
 
     #----------------------------------------------------------------------------------------------
