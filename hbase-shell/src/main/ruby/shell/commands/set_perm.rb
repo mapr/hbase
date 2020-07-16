@@ -30,7 +30,7 @@ Examples:
   hbase> set_perm "/user/finance/payroll", {COLUMN => "info:bonus", PERM => "writeperm", EXPR => "u:bob | u:carol | g:managers"}
 
 Available permissions:
-#{com.mapr.fs.AceHelper::getPermissionsListForShellHelp}
+#{com.mapr.baseutils.utils.AceHelper::getPermissionsListForShellHelp}
 
 This command is not applicable for Apache HBase tables.
 EOF

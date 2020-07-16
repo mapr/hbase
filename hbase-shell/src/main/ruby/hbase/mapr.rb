@@ -172,7 +172,7 @@ module Hbase
     def validate_permissions(type, permission, expression=nil)
       raise(ArgumentError, "The permission '#{permission}' is not valid for #{type}.") if !@perm_maps[type].contains(permission)
       begin
-        com.mapr.fs.AceHelper::toPostfix(expression) unless expression.nil?
+        com.mapr.baseutils.utils.AceHelper::toPostfix(expression) unless expression.nil?
       rescue => e
         puts e.message
         puts "Backtrace: #{e.backtrace.join("\n           ")}" if @shell.debug
