@@ -37,12 +37,16 @@ EOF
 
       def command( )
         now = Time.now
+        formatter.header(['FILTER NAME'])
+
         parseFilter = ParseFilter.new
         supportedFilters = parseFilter.getSupportedFilters
 
         supportedFilters.each do |filter|
           formatter.row([filter])
         end
+
+        formatter.footer(now, servers.size)
       end
     end
   end
