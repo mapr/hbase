@@ -46,7 +46,7 @@ EOF
           formatter.row([filter])
         end
 
-        formatter.footer(now, servers.size)
+        formatter.footer(now, supportedFilters.size)
       end
     end
   end
