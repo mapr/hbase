@@ -126,7 +126,7 @@ if [ -z "$MAPR_JMXSSL" ]; then
 fi
 
 if [ -z "$MAPR_JMX_LOGIN_CONFIG" ]; then
-	  MAPR_JMX_LOGIN_CONFIG="hadoop_simple"
+	  MAPR_JMX_LOGIN_CONFIG="JMX_AGENT_LOGIN"
 fi
 
 if [ -z "$MAPR_JMXDISABLE" ] && [ -z "$MAPR_JMXLOCALHOST" ] && [ -z "$MAPR_JMXREMOTEHOST" ]; then
@@ -142,29 +142,31 @@ if [ -z "$MAPR_JMXDISABLE" ] || [ "$MAPR_JMXDISABLE" = 'false' ]; then
         MAPR_JMXREMOTEHOST=false
     fi
 
+    if [ "$MAPR_SECURITY_STATUS" = "true" ] && [ "$MAPR_JMXREMOTEHOST" = "true" ]; then
+        JMX_JAR=$(echo ${MAPR_HOME:-/opt/mapr}/lib/jmxagent*)
+        if [ -n "$JMX_JAR" ] && [ -f ${JMX_JAR} ]; then
+            MAPR_JMX_OPTS="-javaagent:$JMX_JAR -Dmapr.jmx.agent.login.config=$MAPR_JMX_LOGIN_CONFIG"
+            MAPR_JMXAUTH="true"
+        else
+            logJmxMsg "jmxagent jar file missed"
+            [ $LOG_JMX_MSGS -eq 1 ] && exit 1
+        fi
+    fi
+
     if [ "$MAPR_JMXAUTH" = "true" ]; then
         if [ "$MAPR_SECURITY_STATUS" = "true" ]; then
-            if [ "$MAPR_JMXREMOTEHOST" = "true" ]; then
-                if [ -f "$MAPR_LOGIN_CONF" ] && \
-                   [ -f "${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access" ]; then
-                      MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=true \
-                          -Djava.security.auth.login.config=$MAPR_LOGIN_CONF \
-                          -Dmapr.jmx.agent.login.config=$MAPR_JMX_LOGIN_CONFIG \
-                          -Dcom.sun.management.jmxremote.access.file=${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access"
-                else
-                    logJmxMsg "JMX login config or access file missing - not starting since we are in secure mode"
-                    [ $LOG_JMX_MSGS -eq 1 ] && exit 1
-                fi
+            if [ -f "$MAPR_LOGIN_CONF" ] && \
+               [ -f "${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access" ]; then
+                MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=true \
+                  -Djava.security.auth.login.config=$MAPR_LOGIN_CONF \
+                  -Dcom.sun.management.jmxremote.access.file=${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access"
             else
-                if [ -f "${MAPR_HOME:-/opt/mapr}/conf/jmxremote.password" ] && \
-                   [ -f "${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access" ]; then
-                       MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=true \
-                          -Dcom.sun.management.jmxremote.password.file=${MAPR_HOME:-/opt/mapr}/conf/jmxremote.password \
-                          -Dcom.sun.management.jmxremote.access.file=${MAPR_HOME:-/opt/mapr}/conf/jmxremote.access"
-                else
-                    logJmxMsg "JMX password and/or access files missing - not starting since we are in secure mode"
-                    [ $LOG_JMX_MSGS -eq 1 ] && exit 1
-                fi
+                logJmxMsg "JMX password and/or access files missing - not starting since we are in secure mode"
+                [ $LOG_JMX_MSGS -eq 1 ] && exit 1
+            fi
+
+            if [ "$MAPR_JMXREMOTEHOST" = "false" ]; then
+                MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.login.config=$MAPR_JMX_LOGIN_CONFIG"
             fi
         else
             logJmxMsg "JMX Authentication configured - not starting since we are not in secure mode"
@@ -175,24 +177,16 @@ if [ -z "$MAPR_JMXDISABLE" ] || [ "$MAPR_JMXDISABLE" = 'false' ]; then
     fi
 
     if [ "$MAPR_JMXLOCALHOST" = "true" ] || [ "$MAPR_JMXREMOTEHOST" = "true" ]; then
-        if [ "$MAPR_JMXSSL" = "true" ]; then
-            MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.ssl=true"
+        if [ "$MAPR_JMXSSL" = "true" ] && [ "$MAPR_JMXLOCALHOST" = "true" ] ; then
+            echo "WARNING: ssl is not implemented in localhost. Setting default to false"
+            MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.ssl=false"
         else
             MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.ssl=false"
         fi
-
         if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
             MAPR_JMX_OPTS="$MAPR_JMX_OPTS -Djava.rmi.server.hostname=localhost \
                 -Dcom.sun.management.jmxremote.host=localhost \
                 -Dcom.sun.management.jmxremote.local.only=true"
-        else
-            JMX_JAR=$(echo "${MAPR_HOME:-/opt/mapr}/lib/jmxagent*")
-            if [ -n "$JMX_JAR" ] && [ -f ${JMX_JAR} ]; then
-                MAPR_JMX_OPTS="-javaagent:${JMX_JAR} $MAPR_JMX_OPTS"
-            else
-                logJmxMsg "jmxagent jar file missed"
-                [ $LOG_JMX_MSGS -eq 1 ] && exit 1
-            fi
         fi
     fi
 
@@ -207,45 +201,57 @@ fi
 
 if [[ -n "$MAPR_JMX_OPTS" && ( "$MAPR_JMXLOCALHOST" = "true" || "$MAPR_JMXREMOTEHOST" = "true" ) ]]; then
     if [ -z "$MAPR_JMX_HBASE_MASTER_ENABLE" ] || [ "$MAPR_JMX_HBASE_MASTER_ENABLE" = "true" ]; then
-        export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $MAPR_JMX_OPTS"
-        if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
-            export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_MASTER_PORT"
-            logJmxMsg "Jmx access enabled on localhost interface for hbase master on port $MAPR_JMX_HBASE_MASTER_PORT"
-        else
-            export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_MASTER_PORT"
+        if [ "$MAPR_JMXREMOTEHOST" = "true" ] && [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+            export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $MAPR_JMX_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_MASTER_PORT"
             logJmxMsg "Jmx access enabled on all interfaces for hbase master on port $MAPR_JMX_HBASE_MASTER_PORT"
+        else
+            export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_MASTER_PORT"
+            if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
+                logJmxMsg "Jmx access enabled on localhost interface for hbase master on port $MAPR_JMX_HBASE_MASTER_PORT"
+            else
+                logJmxMsg "Jmx access enabled on all interfaces for hbase master on port $MAPR_JMX_HBASE_MASTER_PORT"
+            fi
         fi
     fi
     if [ -z "$MAPR_JMX_HBASE_REGIONSERVER_ENABLE" ] || [ "$MAPR_JMX_HBASE_REGIONSERVER_ENABLE" = "true" ]; then
-        export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS $MAPR_JMX_OPTS"
-        if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
-            export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_REGIONSERVER_PORT"
-            logJmxMsg "Jmx access enabled on localhost interface for regionserver on port $MAPR_JMX_HBASE_REGIONSERVER_PORT"
-        else
-            export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_REGIONSERVER_PORT"
+        if [ "$MAPR_JMXREMOTEHOST" = "true" ] && [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+            export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS $MAPR_JMX_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_REGIONSERVER_PORT"
             logJmxMsg "Jmx access enabled on all interfaces for regionserver on port $MAPR_JMX_HBASE_REGIONSERVER_PORT"
+        else
+            export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS $MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_REGIONSERVER_PORT"
+            if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
+                logJmxMsg "Jmx access enabled on localhost interface for regionserver on port $MAPR_JMX_HBASE_REGIONSERVER_PORT"
+            else
+                logJmxMsg "Jmx access enabled on all interfaces for regionserver on port $MAPR_JMX_HBASE_REGIONSERVER_PORT"
+            fi
         fi
     fi
     # only enable if explicitly set
     if [ -n "$MAPR_JMX_HBASE_THRIFTSERVER_ENABLE" ] && [ "$MAPR_JMX_HBASE_THRIFTSERVER_ENABLE" = "true" ]; then
-        export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS $MAPR_JMX_OPTS"
-        if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
-            export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_THRIFTSERVER_PORT"
-            logJmxMsg "Jmx access enabled on localhost interface for hbase thriftserver on port $MAPR_JMX_HBASE_THRIFTSERVER_PORT"
-        else
-            export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_THRIFTSERVER_PORT"
+        if [ "$MAPR_JMXREMOTEHOST" = "true" ] && [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+            export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS $MAPR_JMX_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_THRIFTSERVER_PORT"
             logJmxMsg "Jmx access enabled on all interfaces for hbase thriftserver on port $MAPR_JMX_HBASE_THRIFTSERVER_PORT"
+        else
+            export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS $MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_THRIFTSERVER_PORT"
+            if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
+                logJmxMsg "Jmx access enabled on localhost interface for hbase thriftserver on port $MAPR_JMX_HBASE_THRIFTSERVER_PORT"
+            else
+                logJmxMsg "Jmx access enabled on all interfaces for hbase thriftserver on port $MAPR_JMX_HBASE_THRIFTSERVER_PORT"
+            fi
         fi
     fi
     # only enable if explicitly set
     if [ -n "$MAPR_JMX_HBASE_RESTSERVER_ENABLE" ] && [ "$MAPR_JMX_HBASE_RESTSERVER_ENABLE" = "true" ]; then
-        export HBASE_REST_OPTS="$HBASE_REST_OPTS $MAPR_JMX_OPTS"
-        if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
-            export HBASE_REST_OPTS="$HBASE_REST_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_RESTSERVER_PORT"
-            logJmxMsg "Jmx access enabled on localhost interface for hbase master on port $MAPR_JMX_HBASE_RESTSERVER_PORT"
-        else
-            export HBASE_REST_OPTS="$HBASE_REST_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_RESTSERVER_PORT"
+        if [ "$MAPR_JMXREMOTEHOST" = "true" ] && [ "$MAPR_SECURITY_STATUS" = "true" ]; then
+            export HBASE_REST_OPTS="$HBASE_REST_OPTS $MAPR_JMX_OPTS -Dmapr.jmx.agent.port=$MAPR_JMX_HBASE_RESTSERVER_PORT"
             logJmxMsg "Jmx access enabled on all interfaces for hbase master on port $MAPR_JMX_HBASE_RESTSERVER_PORT"
+        else
+            export HBASE_REST_OPTS="$HBASE_REST_OPTS $MAPR_JMX_OPTS -Dcom.sun.management.jmxremote.port=$MAPR_JMX_HBASE_RESTSERVER_PORT"
+            if [ "$MAPR_JMXLOCALHOST" = "true" ]; then
+                logJmxMsg "Jmx access enabled on localhost interface for hbase master on port $MAPR_JMX_HBASE_RESTSERVER_PORT"
+            else
+                logJmxMsg "Jmx access enabled on all interfaces for hbase master on port $MAPR_JMX_HBASE_RESTSERVER_PORT"
+        fi
         fi
     fi
 else
