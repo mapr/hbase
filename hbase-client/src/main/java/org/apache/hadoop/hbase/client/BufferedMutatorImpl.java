@@ -193,7 +193,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
     }
 
     //TODO: add maprTable_.mutate() to com.mapr.fs.hbase
-    if (maprTable_ != null) {
+    if (isMapRTable()) {
       for (Mutation m : ms) {
         try {
           if (m instanceof Put) {
@@ -254,7 +254,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
       // As we can have an operation in progress even if the buffer is empty, we call
       // backgroundFlushCommits at least one time.
       backgroundFlushCommits(true);
-      if (maprTable_ != null) {
+      if (isMapRTable()) {
         maprTable_.close();
         maprTable_ = null;
       }
@@ -300,7 +300,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
   private void backgroundFlushCommits(boolean synchronous) throws
       InterruptedIOException,
       RetriesExhaustedWithDetailsException {
-    if (maprTable_ != null) {
+    if (isMapRTable()) {
       maprTable_.flushCommits();
       return;
     }
@@ -347,7 +347,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
   @Deprecated
   public void setWriteBufferSize(long writeBufferSize) throws RetriesExhaustedWithDetailsException,
       InterruptedIOException {
-    if (maprTable_ != null) {
+    if (isMapRTable()) {
       try {
         maprTable_.setWriteBufferSize(writeBufferSize);
       } catch (IOException e) {
@@ -361,12 +361,16 @@ public class BufferedMutatorImpl implements BufferedMutator {
     }
   }
 
+  private boolean isMapRTable() {
+    return maprTable_ != null;
+  }
+
   /**
    * {@inheritDoc}
    */
   @Override
   public long getWriteBufferSize() {
-    if (maprTable_ != null) {
+    if (isMapRTable()) {
       return maprTable_.getWriteBufferSize();
     }
     return this.writeBufferSize;
@@ -374,12 +378,16 @@ public class BufferedMutatorImpl implements BufferedMutator {
 
   public void setRpcTimeout(int writeRpcTimeout) {
     this.writeRpcTimeout = writeRpcTimeout;
-    this.ap.setRpcTimeout(writeRpcTimeout);
+    if (!isMapRTable()) {
+      this.ap.setRpcTimeout(writeRpcTimeout);
+    }
   }
 
   public void setOperationTimeout(int operationTimeout) {
     this.operationTimeout = operationTimeout;
-    this.ap.setOperationTimeout(operationTimeout);
+    if (!isMapRTable()) {
+      this.ap.setOperationTimeout(operationTimeout);
+    }
   }
 
   /**
@@ -389,7 +397,7 @@ public class BufferedMutatorImpl implements BufferedMutator {
 Ó   */
   @Deprecated
   public List<Row> getWriteBuffer() {
-    if (maprTable_ != null) {
+    if (isMapRTable()) {
       return null;
     }
     return Arrays.asList(writeAsyncBuffer.toArray(new Row[0]));
