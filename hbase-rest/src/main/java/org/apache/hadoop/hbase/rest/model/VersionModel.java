@@ -75,8 +75,9 @@ public class VersionModel implements Serializable, ProtobufMessageHandler {
       System.getProperty("os.version") + ' ' +
       System.getProperty("os.arch");
     serverVersion = context.getServerInfo();
-    jerseyVersion = ServletContainer.class.getClass().getPackage()
-      .getImplementationVersion();
+    String jerseyPackageVersion = ServletContainer.class.getPackage().getImplementationVersion();
+    // Hardcode jersey version in case of missing package info
+    jerseyVersion = jerseyPackageVersion != null ? jerseyPackageVersion : "2.29";
   }
 
   /**
