@@ -61,4 +61,54 @@ public class MapRSslConfigReader {
     }
   }
 
+  public static String getServerKeystoreLocation() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return sslConfig.getServerKeystoreLocation();
+    }
+  }
+
+  public static String getServerKeystorePassword() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return new String(sslConfig.getServerKeystorePassword());
+
+    }
+  }
+
+
+  public static String getServerKeyPassword() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return new String(sslConfig.getServerKeyPassword());
+
+    }
+  }
+
+  public static String getServerKeystoreType() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return sslConfig.getServerKeystoreType();
+
+    }
+  }
+
+  public static String getServerTruststoreLocation() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return sslConfig.getServerTruststoreLocation();
+
+    }
+  }
+
+
+  public static String getServerTruststorePassword() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return new String(sslConfig.getServerTruststorePassword());
+
+    }
+  }
+
+  public static String getServerTruststoreType() {
+    try (SslConfig sslConfig = WebSecurityManager.getSslConfig(SslConfig.SslConfigScope.SCOPE_ALL)) {
+      return sslConfig.getServerTruststoreType();
+
+    }
+  }
+
 }
