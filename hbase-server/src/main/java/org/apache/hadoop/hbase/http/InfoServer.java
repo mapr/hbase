@@ -26,10 +26,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
 
+import static org.apache.hadoop.hbase.MapRSslConfigReader.*;
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
 import static org.apache.hadoop.hbase.security.User.KERBEROS;
 import static org.apache.hadoop.hbase.security.User.MAPR_SASL;
@@ -73,13 +75,19 @@ public class InfoServer {
         builder.setLogDir(logDir);
       }
     if (httpConfig.isSecure()) {
-      builder.keyPassword(c.get("ssl.server.keystore.keypassword"))
-        .keyStore(c.get("ssl.server.keystore.location"),
-          c.get("ssl.server.keystore.password"),
-          c.get("ssl.server.keystore.type", "jks"))
-        .trustStore(c.get("ssl.server.truststore.location"),
-          c.get("ssl.server.truststore.password"),
-          c.get("ssl.server.truststore.type", "jks"));
+      String keyPassword = HBaseConfiguration.getPassword(c, "ssl.server.keystore.keypassword", getServerKeyPassword());
+      String keystore = c.get("ssl.server.keystore.location", getServerKeystoreLocation());
+      String keystorePassword = HBaseConfiguration.getPassword(c, "ssl.server.keystore.password", getServerKeystorePassword());
+      String keystoreType = c.get("ssl.server.keystore.type", getServerKeystoreType());
+
+      String truststore = c.get("ssl.server.truststore.location", getServerTruststoreLocation());
+      String truststorePassword = HBaseConfiguration.getPassword(c, "ssl.server.truststore.password", getServerTruststorePassword());
+      String truststoreType = c.get("ssl.server.truststore.type", getServerTruststoreType());
+
+
+      builder.keyPassword(keyPassword)
+        .keyStore(keystore, keystorePassword, keystoreType)
+        .trustStore(truststore, truststorePassword, truststoreType);
     }
     this.httpServer = builder.build();
 
