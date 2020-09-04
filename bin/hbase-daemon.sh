@@ -87,7 +87,7 @@ cleanAfterRun() {
 
   if [ -f ${HBASE_ZNODE_FILE} ]; then
     if [ "$command" = "master" ]; then
-      HBASE_OPTS="$HBASE_OPTS $HBASE_MASTER_OPTS" $bin/hbase master clear > /dev/null 2>&1
+      HBASE_OPTS="$HBASE_OPTS" $bin/hbase master clear > /dev/null 2>&1
     else
       #call ZK to delete the node
       ZNODE=`cat ${HBASE_ZNODE_FILE}`
