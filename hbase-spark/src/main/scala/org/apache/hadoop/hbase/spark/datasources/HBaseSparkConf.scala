@@ -17,7 +17,7 @@
 
 package org.apache.hadoop.hbase.spark.datasources
 
-object HBaseSparkConf{
+object HBaseSparkConf {
   // This is the hbase configuration. User can either set them in SparkConf, which
   // will take effect globally, or configure it per table, which will overwrite the value
   // set in SparkConf. If not setted, the default value will take effect.
@@ -42,6 +42,7 @@ object HBaseSparkConf{
   val MIN_TIMESTAMP = "hbase.spark.query.minTimestamp"
   val MAX_TIMESTAMP = "hbase.spark.query.maxTimestamp"
   val MAX_VERSIONS = "hbase.spark.query.maxVersions"
+  val MERGE_TO_LATEST = "hbase.spark.query.mergeToLatest"
   val ENCODER = "hbase.spark.query.encoder"
   val defaultEncoder = classOf[NaiveEncoder].getCanonicalName
 
