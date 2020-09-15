@@ -96,6 +96,7 @@ case class HBaseRelation (
   val minTimestamp = parameters.get(HBaseSparkConf.MIN_TIMESTAMP).map(_.toLong)
   val maxTimestamp = parameters.get(HBaseSparkConf.MAX_TIMESTAMP).map(_.toLong)
   val maxVersions = parameters.get(HBaseSparkConf.MAX_VERSIONS).map(_.toInt)
+  val mergeToLatest = parameters.get(HBaseSparkConf.MERGE_TO_LATEST).map(_.toBoolean)
   val encoderClsName = parameters.getOrElse(HBaseSparkConf.ENCODER, HBaseSparkConf.defaultEncoder)
 
   @transient val encoder = JavaBytesEncoder.create(encoderClsName)
@@ -177,6 +178,7 @@ case class HBaseRelation (
           cfs.foreach { x =>
             val cf = new HColumnDescriptor(x.getBytes())
             logger.debug(s"add family $x to ${catalog.name}")
+            maxVersions.foreach(cf.setMaxVersions)
             tableDesc.addFamily(cf)
           }
           val splitKeys = Bytes.split(startKey, endKey, numReg);
@@ -279,6 +281,41 @@ case class HBaseRelation (
     })._2.toMap
   }
 
+
+  // TODO: It is a big performance overhead, as for each row, there is a hashmap lookup.
+  def buildRows(fields: Seq[Field], result: Result): Set[Row] = {
+    val r = result.getRow
+    val keySeq = parseRowKey(r, catalog.getRowKey)
+
+    val valueSeq: Seq[Map[Long, (Field, Any)]] = fields.filter(!_.isRowKey)
+      .map { x =>
+        import scala.collection.JavaConverters.asScalaBufferConverter
+        val kvs = result
+          .getColumnCells(Bytes.toBytes(x.cf), Bytes.toBytes(x.col))
+          .asScala
+
+        kvs.map(kv => {
+          val v = CellUtil.cloneValue(kv)
+          val typedValue = x.dt match {
+            // Here, to avoid arraycopy, return v directly instead of calling hbaseFieldToScalaType
+            case BinaryType => v
+            case _ => Utils.hbaseFieldToScalaType(x, v, 0, v.length)
+          }
+
+          (kv.getTimestamp, x -> typedValue)
+        }).toMap
+    }
+
+    val ts = valueSeq.foldLeft(Set.empty[Long])((acc, map) => acc ++ map.keySet)
+    //we are loosing duplicate here, because we didn't support passing version (timestamp) to the row
+    ts.map(version => {
+      keySeq ++ valueSeq.map(_.apply(version)).toMap
+    }).map { unioned =>
+      // Return the row ordered by the requested order
+      Row.fromSeq(fields.map(unioned.get(_).orNull))
+    }
+  }
+
   def buildRow(fields: Seq[Field], result: Result): Row = {
     val r = result.getRow
     val keySeq = parseRowKey(r, catalog.getRowKey)
@@ -366,12 +403,20 @@ case class HBaseRelation (
     pushDownRowKeyFilter.ranges.foreach(hRdd.addRange(_))
 
     var resultRDD: RDD[Row] = {
-      val tmp = hRdd.map{ r =>
-        val indexedFields = getIndexedProjections(requiredColumns).map(_._1)
-        buildRow(indexedFields, r)
+      val tmp =
+        if (mergeToLatest.getOrElse(false)) {
+          hRdd.flatMap { r =>
+            val indexedFields = getIndexedProjections(requiredColumns).map(_._1)
+            buildRows(indexedFields, r)
+          }
+        } else {
+          hRdd.map { r =>
+            val indexedFields = getIndexedProjections(requiredColumns).map(_._1)
+            buildRow(indexedFields, r)
+          }
+        }
 
-      }
-      if (tmp.partitions.size > 0) {
+      if (tmp.partitions.length > 0) {
         tmp
       } else {
         null
