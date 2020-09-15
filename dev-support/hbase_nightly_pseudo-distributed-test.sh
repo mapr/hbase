@@ -179,8 +179,10 @@ echo "HBase version information:"
 hbase_version=$("${component_install}/bin/hbase" version | head -n 1 2>/dev/null)
 hbase_version="${hbase_version#HBase }"
 
+echo "version is $hbase_version"
 echo "${hbase_client}/lib/shaded-clients"
 ls -R ${hbase_client}
+ls "${hbase_client}/lib/shaded-clients/hbase-shaded-mapreduce-${hbase_version}.jar"
 
 if [ ! -s "${hbase_client}/lib/shaded-clients/hbase-shaded-mapreduce-${hbase_version}.jar" ]; then
   echo "HBase binary install doesn't appear to include a shaded mapreduce artifact." >&2
