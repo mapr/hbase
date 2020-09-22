@@ -30,6 +30,7 @@ import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -75,6 +76,7 @@ import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.hbase.util.Threads;
+import org.apache.hadoop.util.StopWatch;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.junit.Before;
@@ -83,7 +85,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
-import com.google.common.base.Stopwatch;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.RpcController;
 import com.google.protobuf.ServiceException;
@@ -743,14 +744,14 @@ public class TestClientNoCluster extends Configured implements Tool {
     TableName tableName = TableName.valueOf(BIG_USER_TABLE);
     if (get) {
       try (Table table = sharedConnection.getTable(tableName)){
-        Stopwatch stopWatch = new Stopwatch();
+        StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         for (int i = 0; i < namespaceSpan; i++) {
           byte [] b = format(rd.nextLong());
           Get g = new Get(b);
           table.get(g);
           if (i % printInterval == 0) {
-            LOG.info("Get " + printInterval + "/" + stopWatch.elapsedMillis());
+            LOG.info("Get " + printInterval + "/" + stopWatch.now(TimeUnit.MILLISECONDS));
             stopWatch.reset();
             stopWatch.start();
           }
@@ -760,7 +761,7 @@ public class TestClientNoCluster extends Configured implements Tool {
       }
     } else {
       try (BufferedMutator mutator = sharedConnection.getBufferedMutator(tableName)) {
-        Stopwatch stopWatch = new Stopwatch();
+        StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         for (int i = 0; i < namespaceSpan; i++) {
           byte [] b = format(rd.nextLong());
@@ -768,7 +769,7 @@ public class TestClientNoCluster extends Configured implements Tool {
           p.add(HConstants.CATALOG_FAMILY, b, b);
           mutator.mutate(p);
           if (i % printInterval == 0) {
-            LOG.info("Put " + printInterval + "/" + stopWatch.elapsedMillis());
+            LOG.info("Put " + printInterval + "/" + stopWatch.now(TimeUnit.MILLISECONDS));
             stopWatch.reset();
             stopWatch.start();
           }
