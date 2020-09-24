@@ -17,9 +17,9 @@
  */
 package org.apache.hadoop.hbase.zookeeper;
 
-import com.google.common.base.Stopwatch;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import org.apache.hadoop.util.StopWatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
@@ -62,6 +62,7 @@ import java.net.UnknownHostException;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Utility class to perform operation (get/wait for/verify/set/delete) on znode in ZooKeeper
@@ -234,11 +235,11 @@ public class MetaTableLocator {
    * @throws InterruptedException if interrupted while waiting
    */
   public void waitMetaRegionLocation(ZooKeeperWatcher zkw) throws InterruptedException {
-    Stopwatch stopwatch = new Stopwatch().start();
+    StopWatch stopwatch = new StopWatch().start();
     while (!stopped) {
       try {
         if (waitMetaRegionLocation(zkw, 100) != null) break;
-        long sleepTime = stopwatch.elapsedMillis();
+        long sleepTime = stopwatch.now(TimeUnit.MILLISECONDS);
         // +1 in case sleepTime=0
         if ((sleepTime + 1) % 10000 == 0) {
           LOG.warn("Have been waiting for meta to be assigned for " + sleepTime + "ms");
@@ -601,12 +602,12 @@ public class MetaTableLocator {
   throws InterruptedException {
     if (timeout < 0) throw new IllegalArgumentException();
     if (zkw == null) throw new IllegalArgumentException();
-    Stopwatch sw = new Stopwatch().start();
+    StopWatch sw = new StopWatch().start();
     ServerName sn = null;
     try {
       while (true) {
         sn = getMetaRegionLocation(zkw, replicaId);
-        if (sn != null || sw.elapsedMillis()
+        if (sn != null || sw.now(TimeUnit.MILLISECONDS)
             > timeout - HConstants.SOCKET_RETRY_WAIT_MS) {
           break;
         }
