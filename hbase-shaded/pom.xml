@@ -149,6 +149,11 @@
                                         <exclude>org.apache.htrace:*</exclude>
                                         <exclude>log4j:*</exclude>
                                         <exclude>commons-logging:*</exclude>
+                                        <exclude>com.sun.jersey:*</exclude>
+                                        <exclude>org.apache.yetus:*</exclude>
+                                        <exclude>org.jboss.netty:*</exclude>
+                                        <exclude>com.mapr.security:*</exclude>
+                                        <exclude>org.apache.hadoop:hadoop-common</exclude>
                                     </excludes>
                                 </artifactSet>
                                 <relocations>
@@ -426,6 +431,12 @@
                                     <artifact>org.apache.hadoop:*</artifact>
                                     <excludes>
                                       <exclude>mapred-default.xml.orig</exclude>
+                                    </excludes>
+                                  </filter>
+                                  <filter>
+                                    <artifact>org.apache.hadoop:*</artifact>
+                                    <excludes>
+                                      <exclude>hdfs-site.xml</exclude>
                                     </excludes>
                                   </filter>
                                 </filters>
