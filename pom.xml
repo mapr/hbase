@@ -587,7 +587,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.0.4</version>
           <!--NOTE: Findbugs 3.0.0 requires jdk7-->
           <configuration>
             <excludeFilterFile>${project.basedir}/../dev-support/findbugs-exclude.xml</excludeFilterFile>
@@ -1290,7 +1290,7 @@
     <collections.version>3.2.2</collections.version>
     <httpclient.version>3.1</httpclient.version>
     <metrics-core.version>2.2.0</metrics-core.version>
-    <guava.version>12.0.1</guava.version>
+    <guava.version>28.2-jre</guava.version>
     <jackson.version>2.10.1</jackson.version>
     <jasper.version>5.5.23</jasper.version>
     <jaxb-api.version>2.2.2</jaxb-api.version>
@@ -1599,6 +1599,11 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.hbase</groupId>
+        <artifactId>hbase-shaded-guava</artifactId>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>

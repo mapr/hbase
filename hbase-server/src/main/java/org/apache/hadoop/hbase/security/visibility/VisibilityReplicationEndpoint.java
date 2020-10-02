@@ -34,7 +34,7 @@ import org.apache.hadoop.hbase.replication.ReplicationEndpoint;
 import org.apache.hadoop.hbase.replication.WALEntryFilter;
 import org.apache.hadoop.hbase.wal.WAL.Entry;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.ListenableFuture;
 
 @InterfaceAudience.Private
 public class VisibilityReplicationEndpoint implements ReplicationEndpoint {

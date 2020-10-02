@@ -29,8 +29,8 @@ import org.apache.hadoop.metrics2.MetricsRecordBuilder;
 import org.apache.hadoop.metrics2.MetricsTag;
 import org.apache.hadoop.metrics2.impl.MsInfo;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Maps;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Maps;
 
 /**
  * An optional metrics registry class for creating and maintaining a
