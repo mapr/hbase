@@ -50,6 +50,7 @@ import org.apache.hadoop.hbase.rest.model.TableModel;
 import org.apache.hadoop.hbase.rest.model.TestNamespacesInstanceModel;
 import org.apache.hadoop.hbase.testclassification.MediumTests;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.commons.httpclient.Header;
 
 import static org.junit.Assert.*;
 
@@ -324,6 +325,12 @@ public class TestNamespacesInstanceResource {
     jsonString = jsonMapper.writeValueAsString(model2);
     response = client.post(namespacePath2, Constants.MIMETYPE_JSON, Bytes.toBytes(jsonString));
     assertEquals(201, response.getCode());
+    //check passing null content-type with a payload returns 415
+    Header[] nullHeaders = null;
+    response = client.post(namespacePath1, nullHeaders, toXML(model1));
+    assertEquals(415, response.getCode());
+    response = client.post(namespacePath1, nullHeaders, Bytes.toBytes(jsonString));
+    assertEquals(415, response.getCode());
 
     // Check that created namespaces correctly.
     nd1 = findNamespace(admin, NAMESPACE1);
@@ -373,9 +380,12 @@ public class TestNamespacesInstanceResource {
     testNamespacesInstanceModel.checkModel(model3, NAMESPACE3, NAMESPACE3_PROPS);
     model4 = testNamespacesInstanceModel.buildTestModel(NAMESPACE4, NAMESPACE4_PROPS);
     testNamespacesInstanceModel.checkModel(model4, NAMESPACE4, NAMESPACE4_PROPS);
+    //Defines null headers for use in tests where no body content is provided, so that we set
+    // no content-type in the request
+    Header[] nullHeaders = null;
 
     // Test cannot PUT (alter) non-existent namespace.
-    response = client.put(namespacePath3, Constants.MIMETYPE_BINARY, new byte[]{});
+    response = client.put(namespacePath3, nullHeaders, new byte[]{});
     assertEquals(403, response.getCode());
     response = client.put(namespacePath4, Constants.MIMETYPE_PROTOBUF,
       model4.createProtobufOutput());
@@ -383,7 +393,7 @@ public class TestNamespacesInstanceResource {
 
     // Test cannot create tables when in read only mode.
     conf.set("hbase.rest.readonly", "true");
-    response = client.post(namespacePath3, Constants.MIMETYPE_BINARY, new byte[]{});
+    response = client.post(namespacePath3, nullHeaders, new byte[]{});
     assertEquals(403, response.getCode());
     response = client.put(namespacePath4, Constants.MIMETYPE_PROTOBUF,
       model4.createProtobufOutput());
@@ -394,12 +404,16 @@ public class TestNamespacesInstanceResource {
     assertNull(nd4);
     conf.set("hbase.rest.readonly", "false");
 
-    // Create namespace via no body and protobuf.
-    response = client.post(namespacePath3, Constants.MIMETYPE_BINARY, new byte[]{});
+    // Create namespace with no body and binary content type.
+    response = client.post(namespacePath3, nullHeaders, new byte[]{});
     assertEquals(201, response.getCode());
+    // Create namespace with protobuf content-type.
     response = client.post(namespacePath4, Constants.MIMETYPE_PROTOBUF,
       model4.createProtobufOutput());
     assertEquals(201, response.getCode());
+    //check setting unsupported content-type returns 415
+    response = client.post(namespacePath3, Constants.MIMETYPE_BINARY, new byte[]{});
+    assertEquals(415, response.getCode());
 
     // Check that created namespaces correctly.
     nd3 = findNamespace(admin, NAMESPACE3);
@@ -410,7 +424,7 @@ public class TestNamespacesInstanceResource {
     checkNamespaceProperties(nd4, NAMESPACE4_PROPS);
 
     // Check cannot post tables that already exist.
-    response = client.post(namespacePath3, Constants.MIMETYPE_BINARY, new byte[]{});
+    response = client.post(namespacePath3, nullHeaders, new byte[]{});
     assertEquals(403, response.getCode());
     response = client.post(namespacePath4, Constants.MIMETYPE_PROTOBUF, 
       model4.createProtobufOutput());
