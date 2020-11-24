@@ -480,7 +480,7 @@ public class ThriftServerRunner implements Runnable {
       HttpConfiguration httpsConfig = new HttpConfiguration(httpConfig);
       httpsConfig.addCustomizer(new SecureRequestCustomizer());
 
-      SslContextFactory sslCtxFactory = new SslContextFactory();
+      SslContextFactory sslCtxFactory = new SslContextFactory.Server();
       String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
       String password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, getClientKeystorePassword());
       String keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, getClientKeyPassword());
@@ -587,7 +587,7 @@ public class ThriftServerRunner implements Runnable {
         SaslServer saslServer = saslServerTransport.getSaslServer();
         String principal = saslServer.getAuthorizationID();
         hbaseHandler.setEffectiveUser(principal);
-        return p.process(inProt, outProt);
+        p.process(inProt, outProt);
       };
     }
 

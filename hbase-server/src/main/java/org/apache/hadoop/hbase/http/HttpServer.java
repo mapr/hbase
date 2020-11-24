@@ -395,7 +395,7 @@ public class HttpServer implements FilterContainer {
         } else if ("https".equals(scheme)) {
           HttpConfiguration httpsConfig = new HttpConfiguration(httpConfig);
           httpsConfig.addCustomizer(new SecureRequestCustomizer());
-          SslContextFactory sslCtxFactory = new SslContextFactory();
+          SslContextFactory sslCtxFactory = new SslContextFactory.Server();
           sslCtxFactory.setNeedClientAuth(needsClientAuth);
           sslCtxFactory.setKeyManagerPassword(keyPassword);
 
