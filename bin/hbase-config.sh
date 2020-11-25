@@ -167,6 +167,7 @@ if [[ "$version" > "11" ]]; then
   HBASE_OPTS="$HBASE_OPTS --add-opens java.security.jgss/sun.security.krb5=ALL-UNNAMED"
   HBASE_OPTS="$HBASE_OPTS --add-opens java.base/sun.nio.ch=ALL-UNNAMED"
   HBASE_OPTS="$HBASE_OPTS --add-opens java.base/sun.nio.cs=ALL-UNNAMED"
+  HBASE_OPTS="$HBASE_OPTS --add-opens java.base/sun.net.www.protocol.http=ALL-UNNAMED"
   HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.lang=ALL-UNNAMED"
   HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.lang.reflect=ALL-UNNAMED"
   HBASE_OPTS="$HBASE_OPTS --add-opens java.base/java.util.regex=ALL-UNNAMED"
