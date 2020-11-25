@@ -1319,7 +1319,7 @@
     <jackson.databind.version>2.10.1</jackson.databind.version>
     <jasper.version>5.5.23</jasper.version>
     <jaxb-api.version>2.2.2</jaxb-api.version>
-    <jetty.version>9.3.28.v20191105</jetty.version>
+    <jetty.version>9.4.28.v20200408</jetty.version>
     <servlet.api.version>3.1.0</servlet.api.version>
     <jersey.version>2.29</jersey.version>
     <glassfish.jsp.version>2.3.2</glassfish.jsp.version>
@@ -1331,7 +1331,7 @@
     <mockito-all.version>1.10.19</mockito-all.version>
     <protobuf.version>3.11.1</protobuf.version>
     <thrift.path>thrift</thrift.path>
-    <thrift.version>0.12.0</thrift.version>
+    <thrift.version>0.13.0</thrift.version>
     <zookeeper.version>3.5.6.0-mapr-SNAPSHOT</zookeeper.version>
     <slf4j.version>1.7.5</slf4j.version>
     <clover.version>4.0.3</clover.version>
