@@ -535,7 +535,7 @@ public class ThriftServerRunner implements Runnable {
         SaslServer saslServer = saslServerTransport.getSaslServer();
         String principal = saslServer.getAuthorizationID();
         hbaseHandler.setEffectiveUser(principal);
-        return p.process(inProt, outProt);
+        p.process(inProt, outProt);
       };
     }
 
