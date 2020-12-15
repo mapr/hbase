@@ -1292,7 +1292,9 @@
     <metrics-core.version>2.2.0</metrics-core.version>
     <guava.version>28.2-jre</guava.version>
     <jackson.version>2.10.1</jackson.version>
-    <jasper.version>5.5.23</jasper.version>
+    <tomcat-catalina.version>10.0.0-M4</tomcat-catalina.version>
+    <tomcat-jasper.version>10.0.0-M4</tomcat-jasper.version>
+    <tomcat-embed-jasper.version>10.0.0-M4</tomcat-embed-jasper.version>
     <jaxb-api.version>2.2.2</jaxb-api.version>
     <jetty.version>6.1.26</jetty.version>
     <jetty.jspapi.version>6.1.14</jetty.jspapi.version>
@@ -1783,40 +1785,29 @@
         <version>${jackson.version}</version>
       </dependency>
       <dependency>
-        <!--If this is not in the runtime lib, we get odd
-      "2009-02-27 11:38:39.504::WARN:  failed jsp
-       java.lang.NoSuchFieldError: IS_SECURITY_ENABLED"
-       exceptions out of jetty deploying webapps.
-       St.Ack Thu May 20 01:04:41 PDT 2010
-      -->
-        <groupId>tomcat</groupId>
-        <artifactId>jasper-compiler</artifactId>
-        <version>${jasper.version}</version>
-        <scope>runtime</scope>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-catalina</artifactId>
+        <version>${tomcat-catalina.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-jasper</artifactId>
+        <version>${tomcat-jasper.version}</version>
         <exclusions>
           <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>ant</groupId>
-            <artifactId>ant</artifactId>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>tomcat</groupId>
-        <artifactId>jasper-runtime</artifactId>
-        <version>${jasper.version}</version>
-        <scope>runtime</scope>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+        <version>${tomcat-embed-jasper.version}</version>
         <exclusions>
           <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
           </exclusion>
         </exclusions>
       </dependency>

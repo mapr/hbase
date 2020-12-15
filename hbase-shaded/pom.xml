@@ -281,6 +281,34 @@
                                         <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.jasper</shadedPattern>
                                     </relocation>
                                     <relocation>
+                                        <pattern>org.apache.catalina</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.catalina</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.apache.naming</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.naming</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>jakarta</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.jakarta</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.apache.juli</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.juli</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.apache.tomcat</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.tomcat</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.apache.coyote</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.coyote</shadedPattern>
+                                    </relocation>
+                                    <relocation>
+                                        <pattern>org.apache.el</pattern>
+                                        <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.el</shadedPattern>
+                                    </relocation>
+                                    <relocation>
                                         <pattern>org.apache.taglibs</pattern>
                                         <shadedPattern>org.apache.hadoop.hbase.shaded.org.apache.commons</shadedPattern>
                                     </relocation>

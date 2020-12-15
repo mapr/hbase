@@ -531,13 +531,31 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>tomcat</groupId>
-      <artifactId>jasper-compiler</artifactId>
-      <scope>compile</scope>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-catalina</artifactId>
+      <version>${tomcat-catalina.version}</version>
     </dependency>
     <dependency>
-      <groupId>tomcat</groupId>
-      <artifactId>jasper-runtime</artifactId>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-jasper</artifactId>
+      <version>${tomcat-jasper.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.jdt</groupId>
+          <artifactId>ecj</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+      <version>${tomcat-embed-jasper.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.jdt</groupId>
+          <artifactId>ecj</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.jamon</groupId>
