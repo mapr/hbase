@@ -299,16 +299,20 @@
           <groupId>org.mortbay.jetty</groupId>
         </exclusion> 
         <exclusion>
-          <artifactId>jasper-runtime</artifactId>
-          <groupId>tomcat</groupId>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-catalina</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-jasper</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-jasper</artifactId>
         </exclusion>
         <exclusion>
           <artifactId>core</artifactId>
           <groupId>org.eclipse.jdt</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jasper-compiler</artifactId>
-          <groupId>tomcat</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jetty</artifactId>
@@ -492,12 +496,16 @@
               <artifactId>servlet-api</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>tomcat</groupId>
-              <artifactId>jasper-compiler</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+              <artifactId>tomcat-catalina</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>tomcat</groupId>
-              <artifactId>jasper-runtime</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+              <artifactId>tomcat-jasper</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.tomcat.embed</groupId>
+              <artifactId>tomcat-embed-jasper</artifactId>
             </exclusion>
             <exclusion>
               <artifactId>jersey-json</artifactId>
