@@ -1630,6 +1630,34 @@ under the License.
   </supplement>
   <supplement>
     <project>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-compiler</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-runtime</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
 

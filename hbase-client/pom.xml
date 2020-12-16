@@ -332,16 +332,12 @@
               <artifactId>servlet-api</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>org.apache.tomcat</groupId>
-              <artifactId>tomcat-catalina</artifactId>
+              <groupId>tomcat</groupId>
+              <artifactId>jasper-compiler</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>org.apache.tomcat</groupId>
-              <artifactId>tomcat-jasper</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.apache.tomcat.embed</groupId>
-              <artifactId>tomcat-embed-jasper</artifactId>
+              <groupId>tomcat</groupId>
+              <artifactId>jasper-runtime</artifactId>
             </exclusion>
             <exclusion>
               <groupId>org.codehaus.jackson</groupId>
