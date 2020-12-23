@@ -83,29 +83,37 @@ module Hbase
     def tasksOnHost(filter,host)
 
       java_import 'java.net.URL'
+      java_import 'java.net.SocketException'
       java_import 'java.io.InputStreamReader'
       java_import 'org.apache.hbase.thirdparty.com.google.gson.JsonParser'
 
       infoport = @admin.getClusterStatus().getLoad(host).getInfoServerPort().to_s
 
-      # Note: This condition use constants from hbase-server
-      #if (!@admin.getConfiguration().getBoolean(org.apache.hadoop.hbase.http.ServerConfigurationKeys::HBASE_SSL_ENABLED_KEY,
-      #  org.apache.hadoop.hbase.http.ServerConfigurationKeys::HBASE_SSL_ENABLED_DEFAULT))
-      #  schema = "http://"
-      #else
-      #  schema = "https://"
-      #end
-      schema = "http://"
-      url = schema + host.hostname + ":" + infoport + "/rs-status?format=json&filter=" + filter
+      begin
+        schema = "http://"
+        url = schema + host.hostname + ':' + infoport + '/rs-status?format=json&filter=' + filter
+        json = URL.new(url).openStream
+      rescue SocketException => e
+        # Let's try with https when SocketException occur
+        schema = "https://"
+        url = schema + host.hostname + ':' + infoport + '/rs-status?format=json&filter=' + filter
+        # MAPR-HBASE-199 in secure cluster, authentication is required, we have mapr negotiation here as system command
+        cmd = "curl -s -k -H \"Authorization: MAPR-Negotiate $(java -cp `mapr classpath` com.mapr.security.client.examples.MapRClient "\
+              "gettoken -url \"#{url}\" 2> /dev/null | grep 'Obtained challenge string' | "\
+              "sed -E 's/Obtained challenge string (.*)/\\1/')\" \"#{url}\" | python -m json.tool"
+        json = %x(#{cmd})
+      end
 
-      json = URL.new(url).openStream
       parser = JsonParser.new
 
       # read and parse JSON
       begin
-        tasks_array_list = parser.parse(InputStreamReader.new(json, 'UTF-8')).getAsJsonArray
-      ensure
-        json.close
+        if schema == "http://"
+          tasks_array_list = parser.parse(InputStreamReader.new(json, 'UTF-8')).getAsJsonArray
+          json.close
+        else
+          tasks_array_list = parser.parse(json).getAsJsonArray
+        end
       end
       # convert to an array of TaskMonitor::Task instances
       tasks = []

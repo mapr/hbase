@@ -39,7 +39,10 @@ EOF
       end
 
       def command(*args)
-        
+        # MAPR-HBASE-199 skipping ssl certificate check, otherwise response is 401
+        # this is required to get server names, authentication will be handled in taskmonitor.rb
+        args.push('-k')
+
         if ['all','general','handler','rpc','operation'].include? args[0]
           # if the first argument is a valid filter specifier, use it as such
           filter = args[0]
@@ -57,9 +60,7 @@ EOF
         else
           taskmonitor.tasks(filter,hosts)
         end
-        
       end
-
     end
   end
 end
