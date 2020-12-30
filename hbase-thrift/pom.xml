@@ -116,6 +116,8 @@
                 <property name="build.webapps" location="${project.build.directory}/hbase-webapps"/>
                 <property name="src.webapps" location="${basedir}/src/main/resources/hbase-webapps"/>
                 <property name="generated.sources" location="${project.build.directory}/generated-sources"/>
+                <delete dir="${build.webapps}" includeemptydirs="true"/>
+                <delete dir="${generated.sources}" includeemptydirs="true"/>
                 <mkdir dir="${build.webapps}"/>
                 <copy todir="${build.webapps}">
                   <fileset dir="${src.webapps}">
