@@ -202,12 +202,16 @@
               <artifactId>servlet-api</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>tomcat</groupId>
-              <artifactId>jasper-compiler</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+              <artifactId>tomcat-catalina</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>tomcat</groupId>
-              <artifactId>jasper-runtime</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+              <artifactId>tomcat-jasper</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.tomcat.embed</groupId>
+              <artifactId>tomcat-embed-jasper</artifactId>
             </exclusion>
             <exclusion>
               <groupId>org.codehaus.jackson</groupId>
