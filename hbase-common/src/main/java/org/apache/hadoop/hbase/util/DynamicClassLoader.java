@@ -30,6 +30,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.security.AccessControlException;
 
 /**
  * This is a class loader that can load classes dynamically from new
@@ -119,12 +120,18 @@ public class DynamicClassLoader extends ClassLoaderBase {
         if (!remoteDirFs.exists(remoteDir)) {
           remoteDir = null;
         }
+      } catch (AccessControlException ioe) {
+        // Special case for MFS to avoid huge stacktraces in stdin
+        LOG.warn("Failed to access the fs of dir " + remoteDir +
+                ". Ignore this message if the directory doesn't exist. "
+                + ioe.getMessage());
+        LOG.debug(ioe);
+        remoteDir = null;
       } catch (IOException ioe) {
         LOG.warn("Failed to identify the fs of dir "
           + remoteDir + ", ignored", ioe);
         remoteDir = null;
       }
-
     }
   }
 
