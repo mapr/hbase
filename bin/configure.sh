@@ -35,7 +35,6 @@ HBASE_VERSION=$(cat "$HBASE_VERSION_FILE")
 HBASE_HOME="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"
 HBASE_CONF="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"/conf
 HBASE_SITE=${HBASE_CONF}/hbase-site.xml
-DEFAULT_HEADERS_FILE="${HBASE_CONF}/jetty-headers.xml"
 
 HB_MASTER_ROLE="hbmaster"
 HB_REGIONSERVER_ROLE="hbregionserver"
@@ -132,11 +131,6 @@ function remove_property() {
   sed -i '/<property>/{:a;N;/<\/property>/!ba; /<name>'${property_name}'<\/name>/d}' ${HBASE_SITE}
 }
 
-function remove_headers_file_entry() {
-  entry=$1
-  sed -i '/'${entry}'/d' ${DEFAULT_HEADERS_FILE}
-}
-
 function add_property() {
   property_name=$1
   property_value=$2
@@ -168,6 +162,13 @@ function remove_comment(){
   sed  -i  "/<!--${line_name}-->/d" ${HBASE_SITE}
 }
 
+# Important: We have both "hbase.ssl.enabled" and "hbase.ssl.enabled.protocols"
+# "hbase.ssl.enabled" has to come first during the configuration
+get_ssl_security_status() {
+  local property_name="hbase.ssl.enabled"
+  sed -n '/'${property_name}'/{:a;N;/<\/value>/!ba {s|.*<value>\(.*\)</value>|\1|p}}' "$HBASE_SITE" | head -n1 | awk '{print $1;}'
+}
+
 trim_string() {
   str=$1
   # remove leading whitespace characters
@@ -177,6 +178,10 @@ trim_string() {
   echo "$str"
 }
 
+# removing empty lines
+clean_hbase_site() {
+  sed -i -r '/^\s*$/d' "$HBASE_SITE"
+}
 
 ###############################################
 #    BASIC HBASE  CONFIGURATION               #
@@ -372,6 +377,17 @@ function configure_hbase_ssl_protocols_insecure() {
   fi
 }
 
+function configure_custom_headers() {
+  remove_comment "Default Web UIs security header file"
+  remove_property hbase.custom.headers.file
+  add_comment "Default Web UIs security header file"
+  if [ "$(get_ssl_security_status)" == "true" ]; then
+    add_property hbase.custom.headers.file "${HBASE_CONF}/jetty-headers-secure.xml"
+  else
+    add_property hbase.custom.headers.file "${HBASE_CONF}/jetty-headers.xml"
+  fi
+}
+
 
 ###############################################
 #    HBASE THRIFT CONFIGURATION               #
@@ -546,9 +562,6 @@ if [ "$isOnlyRoles" == 1 ] ; then
   configure_custom_headers
   remove_old_warden_entries
 
-  if [ "$isSecure" = "false" ]; then
-    remove_headers_file_entry "Content-Security-Policy"
-  fi
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
       configure_hbase_authorization_secure
@@ -576,8 +589,10 @@ if [ "$isOnlyRoles" == 1 ] ; then
     write_secure "${isSecure}"
   fi
 
+  configure_custom_headers
   change_permissions
   configure_roles
+  clean_hbase_site
 
   rm -f "$HBASE_HOME/conf/.not_configured_yet"
 
