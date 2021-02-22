@@ -1946,6 +1946,18 @@
         <groupId>org.glassfish.web</groupId>
         <artifactId>javax.servlet.jsp</artifactId>
         <version>${glassfish.jsp.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!-- javax.servlet.jsp pulls snapshot version of below dependency, so we use latest here -->
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.el</artifactId>
+        <version>3.0.1-b12</version>
       </dependency>
       <dependency>
         <!-- this lib is used by the compiled Jsp from the above JspC -->

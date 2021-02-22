@@ -475,6 +475,10 @@
       <groupId>org.glassfish.web</groupId>
       <artifactId>javax.servlet.jsp</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.el</artifactId>
+    </dependency>
     <!-- Also used by generated sources from our JSP -->
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
