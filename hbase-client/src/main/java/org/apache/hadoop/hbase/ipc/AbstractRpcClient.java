@@ -18,7 +18,7 @@
 
 package org.apache.hadoop.hbase.ipc;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.BlockingRpcChannel;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;

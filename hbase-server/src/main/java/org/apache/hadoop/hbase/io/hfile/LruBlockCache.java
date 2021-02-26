@@ -47,8 +47,8 @@ import org.apache.hadoop.hbase.util.ClassSize;
 import org.apache.hadoop.hbase.util.HasThread;
 import org.apache.hadoop.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * A block cache implementation that is memory-aware using {@link HeapSize},

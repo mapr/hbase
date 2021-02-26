@@ -20,7 +20,7 @@ package org.apache.hadoop.hbase.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.common.collect.Sets;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Sets;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.logging.Log;

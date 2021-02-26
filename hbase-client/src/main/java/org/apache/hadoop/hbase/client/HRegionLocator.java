@@ -40,7 +40,7 @@ import org.apache.hadoop.hbase.client.mapr.BaseTableMappingRules;
 import org.apache.hadoop.hbase.client.mapr.TableMappingRulesFactory;
 import org.apache.hadoop.hbase.util.Pair;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
 
 /**
  * An implementation of {@link RegionLocator}. Used to view region location information for a single

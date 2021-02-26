@@ -69,7 +69,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
-import com.google.common.collect.Multimap;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Multimap;
 import com.google.protobuf.RpcController;
 import com.google.protobuf.ServiceException;
 

@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.hadoop.hbase.TableName;
 
-import com.google.common.base.Joiner;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Joiner;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 
 /**

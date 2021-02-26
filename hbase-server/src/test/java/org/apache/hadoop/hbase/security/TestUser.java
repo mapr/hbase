@@ -36,7 +36,7 @@ import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.collect.ImmutableSet;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableSet;
 
 @Category(SmallTests.class)
 public class TestUser {

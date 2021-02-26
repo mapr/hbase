@@ -82,7 +82,7 @@ import org.apache.hadoop.util.Progressable;
 import org.apache.hadoop.util.ReflectionUtils;
 import org.apache.hadoop.util.StringUtils;
 
-import com.google.common.primitives.Ints;
+import org.apache.hadoop.hbase.shaded.com.google.common.primitives.Ints;
 
 /**
  * Utility methods for interacting with the underlying file system.

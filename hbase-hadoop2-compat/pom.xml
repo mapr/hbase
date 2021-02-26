@@ -204,12 +204,9 @@ limitations under the License.
       <artifactId>commons-logging</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-shaded-guava</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 

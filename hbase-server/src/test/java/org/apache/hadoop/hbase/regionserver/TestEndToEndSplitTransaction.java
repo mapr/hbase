@@ -73,8 +73,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Iterators;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Sets;
 import com.google.protobuf.ServiceException;
 
 @Category(LargeTests.class)

@@ -163,8 +163,8 @@ import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.ServletHolder;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Maps;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Maps;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Service;
 
