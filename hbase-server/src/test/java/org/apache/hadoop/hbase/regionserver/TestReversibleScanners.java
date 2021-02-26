@@ -61,7 +61,7 @@ import org.apache.hadoop.hbase.util.Pair;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 /**
  * Test cases against ReversibleKeyValueScanner
  */

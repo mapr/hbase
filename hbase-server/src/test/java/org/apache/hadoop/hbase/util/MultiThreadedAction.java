@@ -49,7 +49,7 @@ import org.apache.hadoop.hbase.util.test.LoadTestDataGenerator;
 import org.apache.hadoop.hbase.util.test.LoadTestKVGenerator;
 import org.apache.hadoop.util.StringUtils;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * Common base class for reader and writer parts of multi-thread HBase load

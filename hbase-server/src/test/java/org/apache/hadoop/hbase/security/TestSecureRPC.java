@@ -56,7 +56,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 import com.google.protobuf.BlockingRpcChannel;
 import com.google.protobuf.BlockingService;
 

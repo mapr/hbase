@@ -41,7 +41,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.collect.Multimap;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Multimap;
 
 @Category(MediumTests.class)
 public class TestHTraceHooks {

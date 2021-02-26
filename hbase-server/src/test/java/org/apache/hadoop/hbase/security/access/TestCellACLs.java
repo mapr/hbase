@@ -63,7 +63,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 
 @Category(MediumTests.class)
 public class TestCellACLs extends SecureTestUtil {

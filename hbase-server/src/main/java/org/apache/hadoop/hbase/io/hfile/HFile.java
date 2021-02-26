@@ -66,7 +66,7 @@ import org.apache.hadoop.hbase.util.ChecksumType;
 import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.io.Writable;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * File format for hbase.

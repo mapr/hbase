@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * Base class loader that defines couple shared constants used

@@ -346,6 +346,10 @@
           <artifactId>hadoop-common</artifactId>
           <exclusions>
             <exclusion>
+              <groupId>com.google.guava</groupId>
+              <artifactId>guava</artifactId>
+            </exclusion>
+            <exclusion>
               <groupId>xerces</groupId>
               <artifactId>xercesImpl</artifactId>
             </exclusion>

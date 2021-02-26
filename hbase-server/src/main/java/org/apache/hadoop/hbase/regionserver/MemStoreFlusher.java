@@ -60,7 +60,7 @@ import org.apache.htrace.Trace;
 import org.apache.htrace.TraceScope;
 import org.apache.hadoop.hbase.util.Counter;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * Thread that flushes cache on request

@@ -34,7 +34,7 @@ import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
 
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 
 @Category(SmallTests.class)
 public class TestKeyValueCompression {

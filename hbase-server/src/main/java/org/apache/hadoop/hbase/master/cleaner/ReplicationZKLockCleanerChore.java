@@ -18,7 +18,7 @@
  */
 package org.apache.hadoop.hbase.master.cleaner;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

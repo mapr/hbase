@@ -19,7 +19,7 @@
 package org.apache.hadoop.hbase;
 
 import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
-import com.google.common.collect.Sets;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Sets;
 import com.yammer.metrics.core.Histogram;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.logging.Log;

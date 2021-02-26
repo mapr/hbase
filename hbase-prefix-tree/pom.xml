@@ -130,8 +130,9 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-shaded-guava</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>

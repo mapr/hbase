@@ -39,7 +39,7 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.KeeperException.BadVersionException;
 import org.apache.zookeeper.data.Stat;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * ZooKeeper based HLock implementation. Based on the Shared Locks recipe.

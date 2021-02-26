@@ -78,9 +78,9 @@ import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.hbase.util.Threads;
 import org.apache.hadoop.util.StringUtils;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.cache.Cache;
+import org.apache.hadoop.hbase.shaded.com.google.common.cache.CacheBuilder;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 import com.google.protobuf.ServiceException;
 
 /**

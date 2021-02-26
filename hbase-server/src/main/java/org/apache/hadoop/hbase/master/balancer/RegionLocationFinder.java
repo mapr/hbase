@@ -39,9 +39,9 @@ import org.apache.hadoop.hbase.ServerName;
 import org.apache.hadoop.hbase.master.MasterServices;
 import org.apache.hadoop.hbase.regionserver.HRegion;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import org.apache.hadoop.hbase.shaded.com.google.common.cache.CacheBuilder;
+import org.apache.hadoop.hbase.shaded.com.google.common.cache.CacheLoader;
+import org.apache.hadoop.hbase.shaded.com.google.common.cache.LoadingCache;
 
 /**
  * This will find where data for a region is located in HDFS. It ranks

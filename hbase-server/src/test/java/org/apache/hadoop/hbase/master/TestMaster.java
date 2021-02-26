@@ -51,7 +51,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import com.google.common.base.Joiner;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Joiner;
 
 @Category(MediumTests.class)
 public class TestMaster {

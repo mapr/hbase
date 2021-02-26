@@ -57,8 +57,8 @@ import org.apache.hadoop.hbase.util.FSTableDescriptors;
 import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.util.Tool;
 
-import com.google.common.collect.Lists;
-import com.google.common.primitives.Ints;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.primitives.Ints;
 
 /**
  * Upgrades old 0.94 filesystem layout to namespace layout

@@ -62,7 +62,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
-import com.google.common.collect.ImmutableList;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableList;
 
 /**
  * Test the {@link SplitTransactionImpl} class against an HRegion (as opposed to

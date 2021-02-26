@@ -46,8 +46,8 @@ import org.apache.hadoop.hbase.TableDescriptors;
 import org.apache.hadoop.hbase.TableInfoMissingException;
 import org.apache.hadoop.hbase.protobuf.ProtobufUtil;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.primitives.Ints;
+import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
+import org.apache.hadoop.hbase.shaded.com.google.common.primitives.Ints;
 
 
 /**

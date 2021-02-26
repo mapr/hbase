@@ -50,8 +50,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.zookeeper.MetaTableLocator;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Maps;
 
 /**
  * Base class for performing operations against tables.

@@ -31,7 +31,7 @@ import org.apache.hadoop.hbase.codec.prefixtree.encode.tokenize.TokenizerNode;
 import org.apache.hadoop.hbase.util.CollectionUtils;
 import org.apache.hadoop.hbase.util.vint.UFIntTool;
 
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 
 /**
  * Takes the tokenized family or qualifier data and flattens it into a stream of bytes. The family

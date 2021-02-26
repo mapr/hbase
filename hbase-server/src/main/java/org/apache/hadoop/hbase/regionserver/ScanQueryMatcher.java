@@ -38,7 +38,7 @@ import org.apache.hadoop.hbase.regionserver.DeleteTracker.DeleteResult;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.EnvironmentEdgeManager;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /**
  * A query matcher that is specifically designed for the scan case.

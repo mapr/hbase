@@ -86,8 +86,8 @@ import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.thread.QueuedThreadPool;
 import org.mortbay.util.MultiException;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 /**

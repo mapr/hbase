@@ -19,7 +19,7 @@
 
 package org.apache.hadoop.hbase.filter;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 import org.apache.hadoop.hbase.util.ByteStringer;
 import com.google.protobuf.InvalidProtocolBufferException;
 

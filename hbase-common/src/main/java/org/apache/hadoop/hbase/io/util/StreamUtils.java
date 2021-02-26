@@ -26,7 +26,7 @@ import java.nio.ByteBuffer;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.util.Pair;
 
-import com.google.common.base.Preconditions;
+import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
 
 /*
  * It seems like as soon as somebody sets himself to the task of creating VInt encoding, his mind
