@@ -230,7 +230,12 @@ function change_permissions() {
   chmod u+x ${HBASE_HOME}/bin/*
 }
 
-
+function configure_hbase_tmp_dir() {
+  if [ ! -d "${HBASE_HOME}/tmp" ]; then
+    mkdir "${HBASE_HOME}/tmp"
+  fi
+  chmod 1777 "${HBASE_HOME}/tmp"
+}
 
 ###############################################
 #    HBASE AUTHORIZATION CONFIGURATION        #
@@ -561,6 +566,7 @@ if [ "$isOnlyRoles" == 1 ] ; then
   configure_hbase_default_db
   configure_custom_headers
   remove_old_warden_entries
+  configure_hbase_tmp_dir
 
   if [ "$(read_secure)" != "$isSecure" ] ; then
     if [ "$isSecure" = "true" ]; then
