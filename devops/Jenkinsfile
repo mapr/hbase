@@ -45,7 +45,8 @@ pipeline {
           ]) {
           script {
             // Delete local tags and download latest from remote with checkout scm
-            sh "git tag -l | xargs git tag -d 1>/dev/null"
+            if(fileExists(".git")){
+              sh "git tag -l | xargs git tag -d 1>/dev/null"}
             checkout scm
 
             println "Setuping variables for ${params.BUILD_TYPE} build..."
