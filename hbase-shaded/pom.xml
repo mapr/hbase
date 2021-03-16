@@ -41,7 +41,6 @@
         <module>hbase-shaded-client</module>
         <module>hbase-shaded-server</module>
         <module>hbase-shaded-check-invariants</module>
-        <module>hbase-shaded-guava</module>
     </modules>
     <dependencies>
       <dependency>
@@ -155,7 +154,6 @@
                                         <exclude>org.jboss.netty:*</exclude>
                                         <exclude>com.mapr.security:*</exclude>
                                         <exclude>org.apache.hadoop:hadoop-common</exclude>
-                                        <exclude>org.checkerframework:*</exclude>
                                     </excludes>
                                 </artifactSet>
                                 <relocations>

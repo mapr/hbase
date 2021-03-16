@@ -21,7 +21,7 @@
 package org.apache.hadoop.hbase.io.hfile.bucket;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.primitives.Ints;
 import org.apache.commons.collections.map.LinkedMap;

@@ -207,10 +207,6 @@ limitations under the License.
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.hbase</groupId>
-      <artifactId>hbase-shaded-guava</artifactId>
-    </dependency>
   </dependencies>
 
   <profiles>

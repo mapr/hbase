@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
+import com.google.common.base.Objects;
 import com.google.common.io.Files;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.hadoop.fs.Path;

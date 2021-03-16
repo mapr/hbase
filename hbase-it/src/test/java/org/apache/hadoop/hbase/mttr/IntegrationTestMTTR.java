@@ -74,7 +74,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
+import com.google.common.base.Objects;
 
 /**
  * Integration test that should benchmark how fast HBase can recover from failures. This test starts

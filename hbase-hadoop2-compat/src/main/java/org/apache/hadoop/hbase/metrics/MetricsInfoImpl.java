@@ -18,8 +18,8 @@
 
 package org.apache.hadoop.hbase.metrics;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Objects;
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 import org.apache.hadoop.classification.InterfaceAudience;
 import org.apache.hadoop.metrics2.MetricsInfo;
