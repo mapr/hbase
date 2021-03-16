@@ -1,0 +1,399 @@
+@Library("jenkins-shared-library")_
+import groovy.json.*
+
+def MAVEN_CENTRAL="${MAVEN_CENTRAL_COMMON}"
+def MAPR_CENTRAL="${MAPR_CENTRAL_COMMON}"
+def MAPR_RELEASES_REPO="${MAPR_RELEASES_REPO_COMMON}"
+def MAPR_SNAPSHOTS_REPO="${MAPR_SNAPSHOTS_REPO_COMMON}"
+def MAPR_MAVEN_REPO="${MAPR_SNAPSHOTS_REPO_COMMON}"
+
+ARTIFACTORY_SERVER=''
+REPOSITORY_NAME=''
+GIT_REPO_URL=''
+GIT_SHORT_COMMIT_SHA=''
+CURRENT_BUILD_TAG=''
+BUILD_BY_TAG=false
+
+ARTIFACTORY_PATH_RPM=''
+ARTIFACTORY_PATH_DEB=''
+ID=''
+MAKEFILE_ARGS=''
+PROJECT=''
+
+pipeline {
+  agent none
+  triggers {
+    pollSCM 'H/5 * * * *'
+  }
+  options {
+    skipDefaultCheckout()
+    disableConcurrentBuilds()
+    timestamps()
+  }
+  parameters {
+    choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches')
+    string(name: 'MAKEFILE_ENV_VARS', defaultValue: '', description: 'Variables you can pass to makefile (command will be: make {THIS VAR} {project-name}). Please DO NOT put component_branch_name')
+  }
+  stages {
+    stage("Setup settings and variables") {
+      agent {label "redhat8"}
+      steps {
+        println "Setup variables & passwords"
+        withCredentials([
+          usernamePassword(credentialsId: 'artifactory_user_pass', passwordVariable: 'pass', usernameVariable: 'user'),
+          usernamePassword(credentialsId: 'mapr-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')
+          ]) {
+          script {
+            // Delete local tags and download latest from remote with checkout scm
+            sh "git tag -l | xargs git tag -d 1>/dev/null"
+            checkout scm
+
+            println "Setuping variables for ${params.BUILD_TYPE} build..."
+            GIT_SHORT_COMMIT_SHA = sh (returnStdout: true, script: 'git rev-parse HEAD')[0..7]
+            REPOSITORY_NAME = scm.getUserRemoteConfigs()[0]?.getUrl().replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+            GIT_REPO_URL = scm.getUserRemoteConfigs()[0]?.getUrl().replace(".git", '').replace("https://", '')
+
+            ARTIFACTORY_SERVER = Artifactory.server 'artifactory.devops.lab'
+            ID = sh (returnStdout: true, script: "date +%Y%m%d%H%M").trim()
+            // Autogenerate PROJECT variable
+            PROJECT = REPOSITORY_NAME.replace("private","mapr")
+            COMPONENT_VERSION = BRANCH_NAME.find("\\d+\\.[^\\-]{1,}")
+            PROJECT += "-"+COMPONENT_VERSION
+
+            branchType = gitManager.getBuildTypeByBranch(BRANCH_NAME)
+            /*Checking branch and BUILD_TYPE (Jenkins parameter).
+              Normal pairs: Dev branch + Dev BUILD_TYPE; Release branch + Release\EBF BUILD_TYPE
+              Bad pair: Dev branch + Release\EBF BUILD_TYPE and so on. This pair will throw an error
+            */
+            if((branchType=="Dev" && (params.BUILD_TYPE=="EBF" || params.BUILD_TYPE=="Release")) ||
+               (branchType=="Release" && params.BUILD_TYPE=="Dev")) {
+              error "You can't use branch " + BRANCH_NAME + " with BUILD_TYPE " + params.BUILD_TYPE
+            }
+
+            if(branchType=="Dev" && params.BUILD_TYPE=="Dev") {
+              ARTIFACTORY_PATH_DEB="${DEB_ARTIFACTS_PATH}/${PROJECT}/${ID}-${GIT_SHORT_COMMIT_SHA}/"
+              ARTIFACTORY_PATH_RPM="${RPM_ARTIFACTS_PATH}/${PROJECT}/${ID}-${GIT_SHORT_COMMIT_SHA}/"
+            }
+
+            if(branchType=="Release") {
+              MAKEFILE_ARGS="${MAKEFILE_ENV_VARS}"
+              MAVEN_CENTRAL="${MAVEN_CENTRAL_RELEASE}"
+              MAPR_CENTRAL="${MAPR_CENTRAL_RELEASE}"
+              MAPR_RELEASES_REPO="${MAPR_RELEASES_REPO_RELEASE}"
+              MAPR_SNAPSHOTS_REPO="${MAPR_SNAPSHOTS_REPO_RELEASE}"
+              MAPR_MAVEN_REPO="${MAPR_SNAPSHOTS_REPO_RELEASE}"
+
+              //Getting next tag for build
+              initialTag = readFile (file: "${WORKSPACE}/devops/Initial_Tag.txt").trim()
+              println "Initial tag: " + initialTag
+              tagList = sh (returnStdout: true, script: "git tag").tokenize("\n")
+
+              if(params.BUILD_TYPE=="Release") {
+                if(tagList.contains(initialTag))
+                  error "Tag $initialTag already exist in the repository $REPOSITORY_NAME . Can't use this tag for Release!"
+                CURRENT_BUILD_TAG = initialTag
+              }
+
+              if (params.BUILD_TYPE=="EBF") {
+                CURRENT_BUILD_TAG = gitManager.getNextTag(initialTag, tagList)
+                ARTIFACTORY_PATH_DEB="${EBF_DEB_ARTIFACTS_PATH}/${PROJECT}/${ID}/"
+                ARTIFACTORY_PATH_RPM="${EBF_RPM_ARTIFACTS_PATH}/${PROJECT}/${ID}/"
+              }
+              println "Tag for build: " + CURRENT_BUILD_TAG
+              sh """
+                git tag -a $CURRENT_BUILD_TAG -m \"Preparing $CURRENT_BUILD_TAG release\"
+                git push https://${GIT_PASSWORD}@$GIT_REPO_URL --tags
+              """
+              MAKEFILE_ARGS+=" HBASE_BRANCH_NAME=$CURRENT_BUILD_TAG"
+              BUILD_BY_TAG=true
+            }
+            // Add user:pass from Jenkins creds to the URLs
+            MAPR_CENTRAL=MAPR_CENTRAL.replace("://","://${user}:${pass}@")
+            MAPR_RELEASES_REPO=MAPR_RELEASES_REPO.replace("://","://${user}:${pass}@")
+            MAPR_SNAPSHOTS_REPO=MAPR_SNAPSHOTS_REPO.replace("://","://${user}:${pass}@")
+            MAPR_MAVEN_REPO=MAPR_MAVEN_REPO.replace("://","://${user}:${pass}@")
+          }
+        }
+      }
+    }
+
+    stage ("Main CI process") {
+      parallel {
+        stage("Ubuntu build") {
+          agent {label "ubuntu"}
+          stages {
+            stage("Checkout") {
+              steps {
+                script {
+                  checkout scm
+                }
+              }
+            }
+
+            stage("Build") {
+              steps {
+                script {
+                  configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
+                    sh "cat ${env.mvn_settings} > settings.xml"
+                  }
+                  docker.image("maprtech/ubuntu16-java11-gcc7").inside (
+                  "-e MAPR_MIRROR=${MAPR_MIRROR} \
+                  -e MAPR_CENTRAL=${MAPR_CENTRAL} \
+                  -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
+                  -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
+                  -e PROTOC_PATH=/usr/local/protobuf-3.11.1/bin/protoc \
+                  -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
+                  -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
+                  -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
+                  -v /root/.m2:/root/.m2:rw \
+                  -v /root/yum-proxy.conf:/etc/yum.conf:ro \
+                  -v /etc/hosts:/etc/hosts:ro \
+                  -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
+                  -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
+                  -v /etc/localtime:/etc/localtime:ro \
+                  -v /root/.ssh:/root/.ssh:rw \
+                  -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro") {
+                    sh """
+                    rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
+                    cd ${PROJECT}; \
+                    git checkout MEP-7.0.0 ; \
+                    make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
+                    """
+                  }
+                }
+              }
+            }
+
+            stage("Upload to Artifactory") {
+              steps{
+                script {
+                  def uploadSpec = """{
+                    "files": [{
+                      "pattern": "${WORKSPACE}/${PROJECT}/dist/*",
+                      "target": "${ARTIFACTORY_PATH_DEB}",
+                      "props":"deb.distribution=binary;deb.component=trusty;deb.architecture=all;release=${params.BUILD_TYPE}"}]}
+                      """
+                  def buildInfo = Artifactory.newBuildInfo()
+                  buildInfo.name = REPOSITORY_NAME + "_"+ BRANCH_NAME
+                  buildInfo.number = "${BUILD_NUMBER} :: ${NODE_NAME}"
+                  ARTIFACTORY_SERVER.upload spec: uploadSpec, buildInfo: buildInfo
+                  ARTIFACTORY_SERVER.publishBuildInfo buildInfo
+                }
+              }
+            }
+          }
+        }
+
+        stage("Redhat build") {
+          agent { label "redhat8" }
+          stages {
+            stage("Checkout") {
+              steps {
+                script {
+                  checkout scm
+                }
+              }
+            }
+
+            stage("Build") {
+              steps {
+                script {
+                  configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
+                    sh "cat ${env.mvn_settings} > settings.xml"
+                  }
+                  docker.image("maprtech/centos8-java11-gcc8").inside (
+                  "-e MAPR_MIRROR=${MAPR_MIRROR} \
+                  -e MAPR_CENTRAL=${MAPR_CENTRAL} \
+                  -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
+                  -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
+                  -e PROTOC_PATH=/usr/local/protobuf-3.11.1/bin/protoc \
+                  -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
+                  -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
+                  -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
+                  -v /root/.m2:/root/.m2:rw \
+                  -v /root/yum-proxy.conf:/etc/yum.conf:ro \
+                  -v /etc/hosts:/etc/hosts:ro \
+                  -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
+                  -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
+                  -v /etc/localtime:/etc/localtime:ro \
+                  -v /root/.ssh:/root/.ssh:rw \
+                  -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro") {
+                    sh """
+                    rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
+                    cd ${PROJECT}; \
+                    git checkout MEP-7.0.0 ; \
+                    make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
+                    """
+                  }
+                }
+              }
+            }
+
+            stage("RPM Sign") {
+              steps {
+                configFileProvider([configFile(fileId: 'rpmSignSh', variable: 'rpmSignSh')]) {
+                  sh """
+                  cat ${env.rpmSignSh} > rpm_sign.sh
+                  chmod 765 rpm_sign.sh
+                  ./rpm_sign.sh ${PROJECT}/dist
+                  """
+                }
+              }
+            }
+
+            stage("Upload to Artifactory") {
+              steps{
+                script {
+                  def uploadSpec = """{
+                    "files": [{
+                      "pattern": "${WORKSPACE}/${PROJECT}/dist/*",
+                      "target": "${ARTIFACTORY_PATH_RPM}",
+                      "props":"release=${params.BUILD_TYPE}"}]}
+                      """
+                  def buildInfo = Artifactory.newBuildInfo()
+                  buildInfo.name = REPOSITORY_NAME + "_"+ BRANCH_NAME
+                  buildInfo.number = "${BUILD_NUMBER} :: ${NODE_NAME}"
+                  ARTIFACTORY_SERVER.upload spec: uploadSpec, buildInfo: buildInfo
+                  ARTIFACTORY_SERVER.publishBuildInfo buildInfo
+                }
+              }
+            }
+
+            stage("Whitesource scan") {
+              steps {
+                script {
+                  withCredentials([string(credentialsId: 'wsApiKey', variable: 'wsApiKey'), string(credentialsId: 'wsUserKey', variable: 'wsUserKey')]) {
+                    //Launch container with WS scan. After scan report will upload to WS site
+                    docker.image("docker.artifactory/whitesource:0.0.1").inside (
+                      "-e MAPR_MIRROR=${MAPR_MIRROR} \
+                      -e MAPR_CENTRAL=${MAPR_CENTRAL} \
+                      -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
+                      -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
+                      -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
+                      -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
+                      -v /root/yum-proxy.conf:/etc/yum.conf:ro \
+                      -v /etc/hosts:/etc/hosts:ro \
+                      -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
+                      -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
+                      -v /root/.ssh:/root/.ssh:rw \
+                      -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro \
+                      -v /root/.m2/repository:/root/.m2/repository:rw") {
+                        sh """
+                        cd devops/whitesource/ ; \
+                        curl -LJO https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar ; \
+                        java -jar wss-unified-agent.jar -project ${PROJECT} -product ${PROJECT} -userKey $wsUserKey -apiKey $wsApiKey -c wss-unified-agent.config -d ../../ ; \
+                        """
+                      }
+                   }
+                }
+              }
+            }
+
+            stage("Push Whitesource reports") {
+              steps {
+                script {
+                  withCredentials([string(credentialsId: 'wsApiKey', variable: 'wsApiKey'), string(credentialsId: 'wsUserKey', variable: 'wsUserKey')]) {
+                    catchError {
+                      /*Get token of product. We have to communicate with WS API only using 64-digits project's token.
+                        We are sending request to API and get ALL "project+token" pairs. Then parse this information and find token for current project*/
+                      productToken = getWSProductToken(PROJECT)
+                      //Get reports (Excel and json) from WS site and save these reports to files. Once for each format
+                      getWSReports(productToken)
+
+                      //Move latest reports to the "old" folder in Artifactory
+                      moveOldWsReports()
+
+                      //Upload reports (Excel and json) to the Artifactory (to the latest folder)
+                      def uploadSpec = """{
+                        "files": [{
+                          "pattern": "${WORKSPACE}/wsscans/*",
+                          "target": "${WHITESOURCE_REPORTS_REPO}/${PROJECT}/latest/"}]}
+                        """
+                      ARTIFACTORY_SERVER.upload spec: uploadSpec
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  post {
+    failure {
+      node('redhat8') {
+        script {
+          if(BUILD_BY_TAG==true && CURRENT_BUILD_TAG!=''){
+            withCredentials([usernamePassword(credentialsId: 'mapr-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+              sh "git push https://${GIT_PASSWORD}@$GIT_REPO_URL --delete tags/$CURRENT_BUILD_TAG"
+              println "Build failed. New git tag $CURRENT_BUILD_TAG deleted from $REPOSITORY_NAME"
+            }
+          }
+
+          slackMessage = "${REPOSITORY_NAME} :: ${JOB_BASE_NAME} #${BUILD_NUMBER} broken! (<${env.BUILD_URL}console|Log>)"
+          if(GIT_REPO_URL!='' && GIT_SHORT_COMMIT_SHA!='') {
+            slackMessage += "\nLatest commit: <https://${GIT_REPO_URL}/commit/${GIT_SHORT_COMMIT_SHA}|GitHub>"
+          }
+          if(currentBuild.getPreviousBuild()!=null && currentBuild.getPreviousBuild().result!="FAILURE") {
+            slackSend (channel: "#${SLACK_NOTIFICATION_CHANNEL}",
+            message: slackMessage,
+            color: "danger")
+          }
+        }
+      }
+    }
+    fixed {
+      script {
+        slackSend (channel: "#${SLACK_NOTIFICATION_CHANNEL}",
+        message: "${REPOSITORY_NAME} :: ${JOB_BASE_NAME} back to normal. \nLatest commit: <https://${GIT_REPO_URL}/commit/${GIT_SHORT_COMMIT_SHA}|GitHub> \n <${env.BUILD_URL}|Build page>",
+        color: "good")
+      }
+    }
+  }
+}
+
+def getWSProductToken(product) {
+  def body = '{"requestType":"getAllProducts",' +
+          		'"userKey":\"'+ "$wsUserKey" +'\",' +
+              '"orgToken":\"'+ "$wsApiKey" +'\"}'
+  def response = httpRequest httpMode: "POST",
+                 url: "${WHITESOURCE_API_URL}",
+                 requestBody: body,
+                 httpProxy: "http://${HPE_PROXY_HOST}:${HPE_PROXY_PORT}",
+                 contentType: 'APPLICATION_JSON'
+  json = new JsonSlurperClassic().parseText(response.content)
+  prodpart = json.products.find{it.productName==product}
+  return prodpart.productToken
+}
+
+def moveOldWsReports() {
+  //Get list of reports in latest folder
+  def response = httpRequest httpMode: "GET",
+                 url: ARTIFACTORY_SERVER.getUrl()+"/api/storage/"+"${WHITESOURCE_REPORTS_REPO}/${PROJECT}/latest?list&deep=1",
+                 authentication: "artifactory_user_pass",
+                 validResponseCodes: '100:404'
+  //Move all items from the list from latest to old folder. If "404" - there is no folder for current project and folder will be created during upload reports
+  if(response.status!="404"){
+    json = new JsonSlurperClassic().parseText(response.content)
+    json.files.each { file ->
+      httpRequest httpMode: "POST",
+      authentication: "artifactory_user_pass",
+      url: ARTIFACTORY_SERVER.getUrl()+"/api/move/${WHITESOURCE_REPORTS_REPO}/${PROJECT}/latest"+file.uri+"?to=${WHITESOURCE_REPORTS_REPO}/${PROJECT}/old"+file.uri
+    }
+  }
+}
+
+def getWSReports(token) {
+  ["xlsx","json"].each { format ->
+    def body = '{"requestType":"getProductVulnerabilityReport",' +
+               '"userKey":\"'+ "$wsUserKey" +'\",' +
+               '"productToken":\"'+ "$token"+'\",' +
+               '"format":\"' + format + '\"}'
+    writeFile file: "body.json", text: body
+    sh """
+      mkdir -p wsscans
+      curl --request POST -H "Content-Type: application/json" --data @body.json ${WHITESOURCE_API_URL} --output wsscans/${JOB_BASE_NAME}-${BUILD_NUMBER}.${format}
+    """
+  }
+}
