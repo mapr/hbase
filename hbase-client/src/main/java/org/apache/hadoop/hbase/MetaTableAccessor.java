@@ -17,7 +17,7 @@
  */
 package org.apache.hadoop.hbase;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.ServiceException;
 
 import org.apache.commons.logging.Log;

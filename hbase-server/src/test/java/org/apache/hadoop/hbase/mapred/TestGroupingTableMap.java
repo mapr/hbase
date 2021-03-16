@@ -46,7 +46,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList;
 
 @Category(SmallTests.class)
 public class TestGroupingTableMap {

@@ -115,8 +115,8 @@ import org.apache.zookeeper.KeeperException.NoNodeException;
 import org.apache.zookeeper.KeeperException.NodeExistsException;
 import org.apache.zookeeper.data.Stat;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.LinkedHashMultimap;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.LinkedHashMultimap;
 
 /**
  * Manages and performs region assignment.

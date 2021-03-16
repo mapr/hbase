@@ -48,7 +48,7 @@ import org.junit.experimental.categories.Category;
 
 import scala.Tuple2;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.io.Files;
+import com.google.common.io.Files;
 
 @Category({MediumTests.class})
 public class TestJavaHBaseContext implements Serializable {

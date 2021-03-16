@@ -27,7 +27,7 @@ import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.KeyValue;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableCollection;
 
 /**
  * Manages the store files and basic metadata about that that determines the logical structure

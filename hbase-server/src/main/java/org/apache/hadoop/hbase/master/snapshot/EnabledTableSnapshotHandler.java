@@ -35,7 +35,7 @@ import org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescriptio
 import org.apache.hadoop.hbase.snapshot.HBaseSnapshotException;
 import org.apache.hadoop.hbase.util.Pair;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * Handle the master side of taking a snapshot of an online table, regardless of snapshot type.

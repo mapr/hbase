@@ -47,7 +47,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
+import com.google.common.base.Preconditions;
 
 
 /**

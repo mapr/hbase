@@ -55,7 +55,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.mockito.verification.VerificationMode;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 /**
  * Cluster-wide testing of a distributed three-phase commit using a 'real' zookeeper cluster

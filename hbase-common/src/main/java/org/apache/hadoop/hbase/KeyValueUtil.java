@@ -33,8 +33,8 @@ import org.apache.hadoop.hbase.util.IterableUtils;
 import org.apache.hadoop.hbase.util.SimpleMutableByteRange;
 import org.apache.hadoop.io.WritableUtils;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Function;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 /**
  * static convenience methods for dealing with KeyValues and collections of KeyValues

@@ -20,8 +20,8 @@ package org.apache.hadoop.hbase.master.cleaner;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.hbase.BaseConfigurable;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Predicate;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Iterables;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 /**
  * Base class for file cleaners which allows subclasses to implement a simple

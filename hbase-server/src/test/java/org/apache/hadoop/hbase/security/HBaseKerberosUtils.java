@@ -22,7 +22,7 @@ import org.apache.hadoop.fs.CommonConfigurationKeys;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Strings;
+import com.google.common.base.Strings;
 
 @InterfaceAudience.Private
 public class HBaseKerberosUtils {

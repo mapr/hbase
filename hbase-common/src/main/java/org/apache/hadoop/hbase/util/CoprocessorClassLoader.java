@@ -41,8 +41,8 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.MapMaker;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.MapMaker;
 
 /**
  * ClassLoader used to load classes for Coprocessor instances.

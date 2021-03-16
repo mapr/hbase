@@ -58,7 +58,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Throwables;
+import com.google.common.base.Throwables;
 
 /**
  * Test filters at the HRegion doorstep.

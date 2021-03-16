@@ -47,7 +47,7 @@ import org.mortbay.jetty.servlet.FilterHolder;
 import org.mortbay.jetty.servlet.ServletHolder;
 import org.mortbay.thread.QueuedThreadPool;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
+import com.google.common.base.Preconditions;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;

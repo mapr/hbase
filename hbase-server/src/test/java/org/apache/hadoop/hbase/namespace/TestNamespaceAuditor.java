@@ -82,7 +82,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
 
 @Category(MediumTests.class)
 public class TestNamespaceAuditor {

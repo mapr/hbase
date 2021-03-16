@@ -59,7 +59,7 @@ import org.apache.hadoop.hbase.util.FSUtils;
 import org.apache.hadoop.hbase.util.LeaseNotRecoveredException;
 import org.apache.hadoop.hbase.util.Threads;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.ListenableFuture;
 import org.apache.hadoop.hbase.shaded.com.google.common.util.concurrent.Service;
 

@@ -53,7 +53,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ListMultimap;
+import com.google.common.collect.ListMultimap;
 import com.google.protobuf.BlockingRpcChannel;
 
 @Category(MediumTests.class)

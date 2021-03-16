@@ -58,7 +58,7 @@ import org.apache.hadoop.hbase.wal.WAL;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.hash.Hashing;
+import com.google.common.hash.Hashing;
 
 /**
  * This test verifies the correctness of the Per Column Family flushing strategy

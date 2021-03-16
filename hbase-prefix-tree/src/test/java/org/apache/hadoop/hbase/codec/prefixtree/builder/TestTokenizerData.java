@@ -24,7 +24,7 @@ import java.util.List;
 import org.apache.hadoop.hbase.codec.prefixtree.builder.data.TestTokenizerDataBasic;
 import org.apache.hadoop.hbase.codec.prefixtree.builder.data.TestTokenizerDataEdgeCase;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 public interface TestTokenizerData {
 

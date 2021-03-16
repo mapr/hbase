@@ -44,7 +44,7 @@ import org.apache.hadoop.hbase.util.PrettyPrinter.Unit;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Preconditions;
+import com.google.common.base.Preconditions;
 import org.apache.hadoop.hbase.util.ByteStringer;
 
 /**

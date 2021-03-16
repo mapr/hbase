@@ -20,7 +20,7 @@
 package org.apache.hadoop.hbase.util;
 
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Supplier;
+import com.google.common.base.Supplier;
 
 import java.util.Comparator;
 import java.util.Set;

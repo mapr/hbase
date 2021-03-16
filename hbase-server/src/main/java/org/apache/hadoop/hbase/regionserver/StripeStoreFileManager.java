@@ -42,8 +42,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.ConcatenatedLists;
 import org.apache.hadoop.util.StringUtils.TraditionalBinaryPrefix;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableCollection;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Stripe implementation of StoreFileManager.

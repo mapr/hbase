@@ -43,7 +43,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Joiner;
+import com.google.common.base.Joiner;
 
 import static org.junit.Assert.*;
 

@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap;
 
 
 /**

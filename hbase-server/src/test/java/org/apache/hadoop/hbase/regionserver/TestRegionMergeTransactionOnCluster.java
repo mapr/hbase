@@ -65,7 +65,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Joiner;
+import com.google.common.base.Joiner;
 
 /**
  * Like {@link TestRegionMergeTransaction} in that we're testing

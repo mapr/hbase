@@ -131,7 +131,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Multimap;
+import com.google.common.collect.Multimap;
 
 /**
  * This tests HBaseFsck's ability to detect reasons for inconsistent tables.

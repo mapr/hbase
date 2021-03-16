@@ -60,9 +60,9 @@ import org.apache.hadoop.hbase.util.FSUtils;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.base.Joiner;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Iterables;
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 /**
  * Test HStoreFile

@@ -33,7 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
 
 /**
  * Tests to verify correct priority on Master RPC methods.

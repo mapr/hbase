@@ -45,7 +45,7 @@ import org.apache.hadoop.hbase.util.FSUtils;
 import org.junit.After;
 import org.junit.experimental.categories.Category;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 @Category(SmallTests.class)
 public class TestDefaultCompactSelection extends TestCase {

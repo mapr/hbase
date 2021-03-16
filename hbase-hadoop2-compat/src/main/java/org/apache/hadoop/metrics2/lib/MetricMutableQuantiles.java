@@ -33,7 +33,7 @@ import org.apache.hadoop.metrics2.MetricsRecordBuilder;
 import org.apache.hadoop.metrics2.util.MetricQuantile;
 import org.apache.hadoop.metrics2.util.MetricSampleQuantiles;
 
-import org.apache.hadoop.hbase.shaded.com.google.common.annotations.VisibleForTesting;
+import com.google.common.annotations.VisibleForTesting;
 
 /**
  * Watches a stream of long values, maintaining online estimates of specific quantiles with provably
