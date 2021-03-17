@@ -195,6 +195,10 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
               </exclusion>
+                <exclusion>
+                    <groupId>org.apache.hbase</groupId>
+                    <artifactId>hbase-shaded-htrace</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
     </dependencies>

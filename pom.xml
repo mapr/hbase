@@ -1890,11 +1890,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.apache.htrace</groupId>
-        <artifactId>htrace-core</artifactId>
-        <version>${htrace.version}</version>
-      </dependency>
-      <dependency>
         <groupId>com.lmax</groupId>
         <artifactId>disruptor</artifactId>
         <version>${disruptor.version}</version>
@@ -2152,6 +2147,10 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.apache.htrace</groupId>
+                <artifactId>htrace-core</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
@@ -2210,6 +2209,10 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.apache.htrace</groupId>
+                <artifactId>htrace-core</artifactId>
+              </exclusion>
             </exclusions>
             <version>${hadoop-two.version}</version>
           </dependency>
@@ -2243,6 +2246,10 @@
               <exclusion>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.htrace</groupId>
+                <artifactId>htrace-core</artifactId>
               </exclusion>
             </exclusions>
           </dependency>
@@ -2292,6 +2299,10 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.apache.htrace</groupId>
+                <artifactId>htrace-core</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
@@ -2333,6 +2344,10 @@
               <exclusion>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.htrace</groupId>
+                <artifactId>htrace-core</artifactId>
               </exclusion>
             </exclusions>
           </dependency>
@@ -2378,6 +2393,10 @@
                <groupId>io.netty</groupId>
                <artifactId>netty</artifactId>
              </exclusion>
+             <exclusion>
+               <groupId>org.apache.htrace</groupId>
+               <artifactId>htrace-core</artifactId>
+             </exclusion>
            </exclusions>
          </dependency>
          <dependency>
@@ -2424,6 +2443,10 @@
                <groupId>xerces</groupId>
                <artifactId>xercesImpl</artifactId>
              </exclusion>
+             <exclusion>
+               <groupId>org.apache.htrace</groupId>
+               <artifactId>htrace-core</artifactId>
+             </exclusion>
            </exclusions>
            <version>${hadoop-three.version}</version>
          </dependency>
@@ -2449,6 +2472,10 @@
              <exclusion>
                <groupId>xerces</groupId>
                <artifactId>xercesImpl</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.apache.htrace</groupId>
+               <artifactId>htrace-core</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
@@ -2498,6 +2525,10 @@
                <groupId>org.codehaus.jackson</groupId>
                <artifactId>jackson-mapper-asl</artifactId>
              </exclusion>
+             <exclusion>
+               <groupId>org.apache.htrace</groupId>
+               <artifactId>htrace-core</artifactId>
+             </exclusion>
            </exclusions>
          </dependency>
          <dependency>
@@ -2544,6 +2575,10 @@
              <exclusion>
                <groupId>org.codehaus.jackson</groupId>
                <artifactId>jackson-mapper-asl</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.apache.htrace</groupId>
+               <artifactId>htrace-core</artifactId>
              </exclusion>
            </exclusions>
          </dependency>

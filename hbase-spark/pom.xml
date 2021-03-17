@@ -225,6 +225,10 @@
           <groupId>com.mapr.hadoop</groupId>
           <artifactId>maprfs</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.htrace</groupId>
+          <artifactId>htrace-core</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -274,6 +278,10 @@
         <exclusion>
           <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-mapper-asl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.htrace</groupId>
+          <artifactId>htrace-core</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
