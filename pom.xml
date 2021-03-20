@@ -1996,11 +1996,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.apache.htrace</groupId>
-        <artifactId>htrace-core</artifactId>
-        <version>${htrace.version}</version>
-      </dependency>
-      <dependency>
         <groupId>com.lmax</groupId>
         <artifactId>disruptor</artifactId>
         <version>${disruptor.version}</version>

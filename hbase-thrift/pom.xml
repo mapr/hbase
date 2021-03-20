@@ -345,8 +345,9 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.htrace</groupId>
-      <artifactId>htrace-core</artifactId>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-shaded-htrace</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.thrift</groupId>

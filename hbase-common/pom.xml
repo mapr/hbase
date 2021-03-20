@@ -302,8 +302,9 @@
     </dependency>
     <!-- tracing Dependencies -->
     <dependency>
-      <groupId>org.apache.htrace</groupId>
-      <artifactId>htrace-core</artifactId>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-shaded-htrace</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <!-- transitive coalescing -->
     <dependency>
