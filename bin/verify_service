@@ -1,0 +1,283 @@
+#!/usr/bin/env bash
+
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#################################################
+# VARIABLES                                     #
+#################################################
+
+# Main variables
+MAPR_HOME=${MAPR_HOME:-/opt/mapr}
+HOSTNAME=$(hostname)
+
+# Getting security
+SECURE="false"
+if [ -f "${MAPR_HOME}/conf/mapr-clusters.conf" ]; then
+  SECURE=$(head -1 "${MAPR_HOME}"/conf/mapr-clusters.conf | grep -o 'secure=\w*' | cut -d= -f2)
+fi
+
+# Service names
+MASTER_SERVICE_NAME="HMaster"
+RS_SERVICE_NAME="HRegionServer"
+REST_SERVICE_NAME="RESTServer"
+THRIFT_SERVICE_NAME="ThriftServer"
+
+# Roles related variables
+ROLES_DIR="$MAPR_HOME/roles"
+MASTER_ROLE_FILE="$ROLES_DIR"/hbmaster
+RS_ROLE_FILE="$ROLES_DIR"/hbregionserver
+REST_ROLE_FILE="$ROLES_DIR"/hbaserest
+THRIFT_ROLE_FILE="$ROLES_DIR"/hbasethrift
+
+# PID related variables
+PIDS_DIR="$MAPR_HOME/pid"
+MASTER_PID_FILE="$PIDS_DIR"/hbase-mapr-master.pid
+RS_PID_FILE="$PIDS_DIR"/hbase-mapr-regionserver.pid
+REST_PID_FILE="$PIDS_DIR"/hbase-mapr-rest.pid
+THRIFT_PID_FILE="$PIDS_DIR"/hbase-mapr-thrift.pid
+
+# Version related variables
+HBASE_VERSION_FILE="$MAPR_HOME"/hbase/hbaseversion
+HBASE_VERSION=$(cat "$HBASE_VERSION_FILE")
+HBASE_HOME="$MAPR_HOME"/hbase/hbase-"$HBASE_VERSION"
+
+# Ports
+REST_PORT=8086
+THRIFT_PORT=9095
+
+# Exit statuses
+EXIT_SUCCESS=0
+EXIT_NOT_RUNNING=1
+EXIT_RUNNING_NOT_RESPONDING=2
+
+# Log file
+LOG_FILE_NAME="verify_service.$(date +%F-%H%M%S%3N).log"
+LOG_FILE="$HBASE_HOME"/logs/"$LOG_FILE_NAME"
+
+#################################################
+# UTILITY FUNCTIONS                             #
+#################################################
+
+# Define a timestamp function.
+timestamp() {
+  date +"[%Y-%m-%d %H:%M:%S]" # current time
+}
+
+# Log with Info level
+logInfo() {
+  message="$1"
+  echo "$(timestamp) [INFO] $message" >>"$LOG_FILE"
+}
+
+# Log with Error level
+logError() {
+  message="$1"
+  echo "$(timestamp) [ERROR] $message" >>"$LOG_FILE"
+}
+
+##########################################
+# SERVICES EXISTENCE CHECK FUNCTIONS     #
+##########################################
+
+# Generic function to check existence of a service on the node
+function check_service_existence() {
+  local SERVICE="$1"
+  local ROLE_FILE="$2"
+  if [ -f "$ROLE_FILE" ]; then
+    logInfo "$SERVICE is installed; the role file has been found."
+    return 0 # 0 = true
+  else
+    logInfo "$SERVICE is not installed; the role file has not been found in $ROLES_DIR."
+    return 1
+  fi
+}
+
+##########################################
+# SERVICES RUNNING CHECK FUNCTIONS       #
+##########################################
+
+# Generic function to check pid file and process status
+function check_service_run_status() {
+  local SERVICE="$1"
+  local PID_FILE="$2"
+  if [ -e "$PID_FILE" ] || [ -h "$PID_FILE" ]; then
+    logInfo "$SERVICE pid file has been found."
+    process_pid=$(cat "$PID_FILE" 2>/dev/null)
+    if [ $? -ne 0 ]; then
+      PID_FILE=$(ls -l "$PID_FILE" | awk '{print $11}')
+      process_pid=$(cat "$PID_FILE" 2>/dev/null)
+    fi
+    if [ -z "$process_pid" ]; then
+      logError "ERROR - could not get pid for $SERVICE"
+      return $EXIT_NOT_RUNNING
+    fi
+    logInfo "Checking to see if pid $process_pid is alive."
+    if kill -s 0 "$process_pid" 2>/dev/null; then
+      logInfo "$SERVICE pid $process_pid is alive"
+      return $EXIT_SUCCESS
+    else
+      logInfo "$SERVICE pid $process_pid is NOT running"
+      return $EXIT_NOT_RUNNING
+    fi
+  else
+    logInfo "$SERVICE pid file has not been found in $PIDS_DIR."
+    return $EXIT_NOT_RUNNING
+  fi
+}
+
+##########################################
+# SERVICES HEALTH CHECKS FUNCTIONS       #
+##########################################
+
+# Generic function to run some command in hbase shell
+function check_main_health() {
+  local COMMAND="$1"
+  local SERVICE="$2"
+  logInfo "To check $SERVICE health, running ' $COMMAND ' in hbase shell."
+  local RESULT=$(echo "$COMMAND" | hbase shell -n 2>/dev/null)
+
+  if [[ "$RESULT" =~ "ERROR" ]]; then
+    logError "$SERVICE health check has failed. Result:"
+    echo >>"$LOG_FILE"
+    echo $RESULT | grep "ERROR" >>"$LOG_FILE"
+    echo >>"$LOG_FILE"
+    return $EXIT_RUNNING_NOT_RESPONDING
+  fi
+
+  logInfo "$SERVICE is healthy, running ' $COMMAND ' is successful."
+  return $EXIT_SUCCESS
+}
+
+# Generic function for checking service health by accessing verify_service.log over the service
+function check_service_health() {
+  local SERVICE="$1"
+  local PID_FILE="$2"
+  local PORT="$3"
+  local PID=$(cat "$PID_FILE" 2>/dev/null)
+
+  logInfo "To check $SERVICE health, attempting to grep this log file over $SERVICE."
+  if [ "$SECURE" == "true" ]; then
+    local RESULT=$(curl -s -k -H "Authorization: MAPR-Negotiate $(java -cp "$(mapr classpath)" com.mapr.security.client.examples.MapRClient gettoken -url \
+    "https://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2> /dev/null | grep 'Obtained challenge string' | sed -E 's/Obtained challenge string (.*)/\1/')" \
+    "https://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2>&1 | grep "$PID")
+  else
+    local RESULT=$(curl "http://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2>&1 | grep "$PID")
+  fi
+
+  if [[ -z $RESULT ]]; then
+    logError "$SERVICE health check has failed. It is not responsive."
+    return $EXIT_RUNNING_NOT_RESPONDING
+  fi
+
+  logInfo "$SERVICE is healthy, able to grep its pid from this log file over $SERVICE."
+  return $EXIT_SUCCESS
+}
+
+##########################################
+# MAIN PART                              #
+##########################################
+
+logInfo "Starting service verify checks at $(timestamp)."
+
+# checking master
+MASTER_STATUS="$EXIT_SUCCESS"
+if check_service_existence "$MASTER_SERVICE_NAME" "$MASTER_ROLE_FILE"; then
+  if check_service_run_status "$MASTER_SERVICE_NAME" "$MASTER_PID_FILE"; then
+    if check_main_health "list" "$MASTER_SERVICE_NAME"; then
+      MASTER_STATUS="$EXIT_SUCCESS"
+    else
+      MASTER_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+    fi
+  else
+    MASTER_STATUS="$EXIT_NOT_RUNNING"
+  fi
+else
+  MASTER_STATUS="$EXIT_NOT_RUNNING"
+fi
+
+# checking RS
+RS_STATUS="$EXIT_SUCCESS"
+if check_service_existence "$RS_SERVICE_NAME" "$RS_ROLE_FILE"; then
+  if check_service_run_status "$RS_SERVICE_NAME" "$RS_PID_FILE"; then
+    if check_main_health "scan 'hbase:meta'" "$RS_SERVICE_NAME"; then
+      RS_STATUS="$EXIT_SUCCESS"
+    else
+      RS_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+    fi
+  else
+    RS_STATUS="$EXIT_NOT_RUNNING"
+  fi
+else
+  RS_STATUS="$EXIT_NOT_RUNNING"
+fi
+
+# checking REST
+REST_STATUS="$EXIT_SUCCESS"
+if check_service_existence "$REST_SERVICE_NAME" "$REST_ROLE_FILE"; then
+  if check_service_run_status "$REST_SERVICE_NAME" "$REST_PID_FILE"; then
+    if check_service_health "$REST_SERVICE_NAME" "$REST_PID_FILE" "$REST_PORT"; then
+      REST_STATUS="$EXIT_SUCCESS"
+    else
+      REST_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+    fi
+  else
+    REST_STATUS="$EXIT_NOT_RUNNING"
+  fi
+else
+  REST_STATUS="$EXIT_NOT_RUNNING"
+fi
+
+# checking THRIFT
+THRIFT_STATUS="$EXIT_SUCCESS"
+if check_service_existence "$THRIFT_SERVICE_NAME" "$THRIFT_ROLE_FILE"; then
+  if check_service_run_status "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE"; then
+    if check_service_health "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE" "$THRIFT_PORT"; then
+      THRIFT_STATUS="$EXIT_SUCCESS"
+    else
+      THRIFT_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+    fi
+  else
+    THRIFT_STATUS="$EXIT_NOT_RUNNING"
+  fi
+else
+  THRIFT_STATUS="$EXIT_NOT_RUNNING"
+fi
+
+# if any of them is on the node but not responding, exit 2
+if [ "$MASTER_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || [ "$RS_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || \
+[ "$REST_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || [ "$THRIFT_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] ; then
+  logError "There is unresponsive service."
+  logError "Exit: $EXIT_RUNNING_NOT_RESPONDING"
+  exit "$EXIT_RUNNING_NOT_RESPONDING"
+fi
+
+# if both master and RS are not running, then exit with not running status
+if [ "$MASTER_STATUS" = "$EXIT_NOT_RUNNING" ] && [ "$RS_STATUS" = "$EXIT_NOT_RUNNING" ] ; then
+  logInfo "Both HMaster and HRegionServer are not running."
+  logInfo "Exit: $EXIT_NOT_RUNNING"
+  exit "$EXIT_NOT_RUNNING"
+fi
+
+# if above cases are ok
+# checking master first, it can exist alone on a node
+# if not, return status of RS
+if [ "$MASTER_STATUS" = "$EXIT_SUCCESS" ]; then
+  logInfo "Exit: $MASTER_STATUS"
+  exit "$MASTER_STATUS"
+else
+  logInfo "Exit: $RS_STATUS"
+  exit "$RS_STATUS"
+fi
