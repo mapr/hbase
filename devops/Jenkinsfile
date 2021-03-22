@@ -13,6 +13,7 @@ GIT_REPO_URL=''
 GIT_SHORT_COMMIT_SHA=''
 CURRENT_BUILD_TAG=''
 BUILD_BY_TAG=false
+REPOSITORY_ID=''
 
 ARTIFACTORY_PATH_RPM=''
 ARTIFACTORY_PATH_DEB=''
@@ -74,6 +75,7 @@ pipeline {
             if(branchType=="Dev" && params.BUILD_TYPE=="Dev") {
               ARTIFACTORY_PATH_DEB="${DEB_ARTIFACTS_PATH}/${PROJECT}/${ID}-${GIT_SHORT_COMMIT_SHA}/"
               ARTIFACTORY_PATH_RPM="${RPM_ARTIFACTS_PATH}/${PROJECT}/${ID}-${GIT_SHORT_COMMIT_SHA}/"
+              REPOSITORY_ID="mapr-snapshots"
             }
 
             if(branchType=="Release") {
@@ -83,6 +85,7 @@ pipeline {
               MAPR_RELEASES_REPO="${MAPR_RELEASES_REPO_RELEASE}"
               MAPR_SNAPSHOTS_REPO="${MAPR_SNAPSHOTS_REPO_RELEASE}"
               MAPR_MAVEN_REPO="${MAPR_SNAPSHOTS_REPO_RELEASE}"
+              REPOSITORY_ID="mapr-releases"
 
               //Getting next tag for build
               initialTag = readFile (file: "${WORKSPACE}/devops/Initial_Tag.txt").trim()
@@ -211,6 +214,7 @@ pipeline {
                   -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
                   -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
                   -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
+                  -e REPOSITORY_ID=${REPOSITORY_ID} \
                   -v /root/.m2:/root/.m2:rw \
                   -v /root/yum-proxy.conf:/etc/yum.conf:ro \
                   -v /etc/hosts:/etc/hosts:ro \
@@ -224,6 +228,7 @@ pipeline {
                     cd ${PROJECT}; \
                     git checkout MEP-7.0.0 ; \
                     make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
+                    make ${PROJECT}-deploy TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
                     """
                   }
                 }
