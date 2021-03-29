@@ -282,6 +282,7 @@ public class FSTableDescriptors implements TableDescriptors {
     }
     Path tabledir = getTableDir(tablename);
     if (this.fs.exists(tabledir)) {
+      LOG.info("Deleting: " + tabledir);
       if (!this.fs.delete(tabledir, true)) {
         throw new IOException("Failed delete of " + tabledir.toString());
       }
@@ -383,6 +384,7 @@ public class FSTableDescriptors implements TableDescriptors {
       for (FileStatus file : status) {
         Path path = file.getPath();
         if (!file.equals(mostCurrent)) {
+          LOG.info("Deleting: " + file.getPath());
           if (!fs.delete(file.getPath(), false)) {
             LOG.warn("Failed cleanup of " + path);
           } else {
@@ -653,6 +655,7 @@ public class FSTableDescriptors implements TableDescriptors {
       tableInfoDirPath = new Path(tableInfoDir, filename);
       try {
         writeHTD(fs, tempPath, htd);
+        LOG.info("Creating directory: " + tableInfoDirPath.getParent());
         fs.mkdirs(tableInfoDirPath.getParent());
         if (!fs.rename(tempPath, tableInfoDirPath)) {
           throw new IOException("Failed rename of " + tempPath + " to " + tableInfoDirPath);

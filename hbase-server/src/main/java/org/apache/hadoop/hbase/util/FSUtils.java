@@ -291,6 +291,7 @@ public abstract class FSUtils {
    */
   public static boolean deleteDirectory(final FileSystem fs, final Path dir)
   throws IOException {
+    LOG.info("Deleting if exists: " + dir);
     return fs.exists(dir) && fs.delete(dir, true);
   }
 
@@ -785,6 +786,7 @@ public abstract class FSUtils {
       } catch (IOException e) {
         if (retries > 0) {
           LOG.debug("Unable to create version file at " + rootdir.toString() + ", retrying", e);
+          LOG.info("Deleting: " + versionFile);
           fs.delete(versionFile, false);
           try {
             if (wait > 0) {
@@ -892,6 +894,7 @@ public abstract class FSUtils {
     Path movedAsideName = new Path(p + "." + System.currentTimeMillis());
     if (!fs.rename(p, movedAsideName)) throw new IOException("Failed rename of " + p);
     setClusterId(fs, rootdir, cid, 100);
+    LOG.info("Deleting: " + movedAsideName);
     if (!fs.delete(movedAsideName, false)) {
       throw new IOException("Failed delete of " + movedAsideName);
     }
@@ -2086,6 +2089,7 @@ public abstract class FSUtils {
    */
   public static boolean delete(final FileSystem fs, final Path path, final boolean recursive)
       throws IOException {
+    LOG.info("Deleting: " + path);
     return fs.delete(path, recursive);
   }
 

@@ -265,6 +265,7 @@ public class HFileCleaner extends CleanerChore<BaseHFileCleanerDelegate> impleme
           }
           boolean succeed;
           try {
+            LOG.info("Deleting: " + task.filePath);
             succeed = this.fs.delete(task.filePath, false);
           } catch (IOException e) {
             LOG.warn("Failed to delete file " + task.filePath, e);

@@ -721,6 +721,7 @@ public class HRegionFileSystem {
    */
   void cleanupMergedRegion(final HRegionInfo mergedRegion) throws IOException {
     Path regionDir = new Path(this.tableDir, mergedRegion.getEncodedName());
+    LOG.info("Deleting if exists: " + regionDir);
     if (this.fs.exists(regionDir) && !this.fs.delete(regionDir, true)) {
       throw new IOException("Failed delete of " + regionDir);
     }
@@ -729,9 +730,11 @@ public class HRegionFileSystem {
   static boolean mkdirs(FileSystem fs, Configuration conf, Path dir) throws IOException {
     if (FSUtils.isDistributedFileSystem(fs) ||
         !conf.getBoolean(HConstants.ENABLE_DATA_FILE_UMASK, false)) {
+      LOG.info("Creating directory: " + dir);
       return fs.mkdirs(dir);
     }
     FsPermission perms = FSUtils.getFilePermissions(fs, conf, HConstants.DATA_FILE_UMASK_KEY);
+    LOG.info("Creating directory: " + dir);
     return fs.mkdirs(dir, perms);
   }
   /**
@@ -749,6 +752,7 @@ public class HRegionFileSystem {
             + " before creating them again.");
       }
     }
+    LOG.info("Creating directory: " + mergesdir);
     if (!mkdirs(fs, conf, mergesdir))
       throw new IOException("Failed create of " + mergesdir);
   }
@@ -1047,6 +1051,7 @@ public class HRegionFileSystem {
     HFileArchiver.archiveRegion(fs, rootDir, tableDir, regionDir);
 
     // Delete empty region dir
+    LOG.info("Deleting: " + regionDir);
     if (!fs.delete(regionDir, true)) {
       LOG.warn("Failed delete of " + regionDir);
     }
@@ -1117,6 +1122,7 @@ public class HRegionFileSystem {
     int i = 0;
     do {
       try {
+        LOG.info("Deleting: " + dir);
         return fs.delete(dir, true);
       } catch (IOException ioe) {
         lastIOE = ioe;
@@ -1160,6 +1166,7 @@ public class HRegionFileSystem {
       DEFAULT_BASE_SLEEP_BEFORE_RETRIES);
     do {
       try {
+        LOG.info("Creating directory: " + dir);
         return fs.mkdirs(dir);
       } catch (IOException ioe) {
         lastIOE = ioe;

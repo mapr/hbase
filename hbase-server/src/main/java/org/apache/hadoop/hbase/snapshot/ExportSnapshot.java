@@ -299,12 +299,14 @@ public class ExportSnapshot extends Configured implements Tool {
      */
     private void createOutputPath(final Path path) throws IOException {
       if (filesUser == null && filesGroup == null) {
+        LOG.info("Creating directory: " + path);
         outputFs.mkdirs(path);
       } else {
         Path parent = path.getParent();
         if (!outputFs.exists(parent) && !parent.isRoot()) {
           createOutputPath(parent);
         }
+        LOG.info("Creating directory: " + path);
         outputFs.mkdirs(path);
         if (filesUser != null || filesGroup != null) {
           // override the owner when non-null user/group is specified
@@ -947,6 +949,7 @@ public class ExportSnapshot extends Configured implements Tool {
     // Check if the snapshot already exists
     if (outputFs.exists(outputSnapshotDir)) {
       if (overwrite) {
+        LOG.info("Deleting: " + outputSnapshotDir);
         if (!outputFs.delete(outputSnapshotDir, true)) {
           System.err.println("Unable to remove existing snapshot directory: " + outputSnapshotDir);
           return 1;
@@ -962,6 +965,7 @@ public class ExportSnapshot extends Configured implements Tool {
       // Check if the snapshot already in-progress
       if (outputFs.exists(snapshotTmpDir)) {
         if (overwrite) {
+          LOG.info("Deleting: " + snapshotTmpDir);
           if (!outputFs.delete(snapshotTmpDir, true)) {
             System.err.println("Unable to remove existing snapshot tmp directory: "+snapshotTmpDir);
             return 1;
@@ -1043,8 +1047,10 @@ public class ExportSnapshot extends Configured implements Tool {
     } catch (Exception e) {
       LOG.error("Snapshot export failed", e);
       if (!skipTmp) {
+        LOG.info("Deleting: " + snapshotTmpDir);
         outputFs.delete(snapshotTmpDir, true);
       }
+      LOG.info("Deleting: " + outputSnapshotDir);
       outputFs.delete(outputSnapshotDir, true);
       return 1;
     } finally {

@@ -467,6 +467,7 @@ public class RestoreSnapshotHelper {
         LOG.trace("Removing family=" + Bytes.toString(family) +
           " from region=" + regionInfo.getEncodedName() + " table=" + tableName);
         HFileArchiver.archiveFamily(fs, conf, regionInfo, tableDir, family);
+        LOG.info("Deleting: " + familyDir);
         fs.delete(familyDir, true);
       }
     }
@@ -475,6 +476,7 @@ public class RestoreSnapshotHelper {
     for (Map.Entry<String, List<SnapshotRegionManifest.StoreFile>> familyEntry:
                                                                       snapshotFiles.entrySet()) {
       Path familyDir = new Path(regionDir, familyEntry.getKey());
+      LOG.info("Creating directory: " + familyDir);
       if (!fs.mkdirs(familyDir)) {
         throw new IOException("Unable to create familyDir=" + familyDir);
       }

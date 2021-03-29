@@ -168,8 +168,10 @@ public class CoprocessorClassLoader extends ClassLoaderBase {
       if (!parentDirLockSet.contains(parentDirStr)) {
         Path parentDir = new Path(parentDirStr);
         FileSystem fs = FileSystem.getLocal(conf);
+        LOG.info("Deleting: " + parentDir);
         fs.delete(parentDir, true); // it's ok if the dir doesn't exist now
         parentDirLockSet.add(parentDirStr);
+        LOG.info("Creating directory: " + parentDir);
         if (!fs.mkdirs(parentDir) && !fs.getFileStatus(parentDir).isDirectory()) {
           throw new RuntimeException("Failed to create local dir " + parentDirStr
             + ", CoprocessorClassLoader failed to init");

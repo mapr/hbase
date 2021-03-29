@@ -208,7 +208,9 @@ public class HFileOutputFormat2
 
         // If this is a new column family, verify that the directory exists
         if (wl == null) {
-          fs.mkdirs(new Path(outputdir, Bytes.toString(family)));
+          Path path = new Path(outputdir, Bytes.toString(family));
+          LOG.info("Creating directory: " + path);
+          fs.mkdirs(path);
         }
 
         // If any of the HFiles for the column families has reached
@@ -707,6 +709,7 @@ public class HFileOutputFormat2
     Path partitionsPath = new Path(hbaseTmpFsDir, "partitions_" + UUID.randomUUID());
     fs.makeQualified(partitionsPath);
     writePartitions(conf, partitionsPath, splitPoints);
+    LOG.info("Delete directory on exit: " + partitionsPath);
     fs.deleteOnExit(partitionsPath);
 
     // configure job to use it

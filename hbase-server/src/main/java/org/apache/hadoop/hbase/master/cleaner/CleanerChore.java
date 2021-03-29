@@ -283,6 +283,7 @@ public abstract class CleanerChore<T extends FileCleanerDelegate> extends Schedu
       Path filePath = file.getPath();
       LOG.trace("Removing " + file + " from archive");
       try {
+        LOG.info("Deleting: " + filePath);
         boolean success = this.fs.delete(filePath, false);
         if (success) {
           deletedFileCount++;
@@ -384,6 +385,7 @@ public abstract class CleanerChore<T extends FileCleanerDelegate> extends Schedu
       final Action<Boolean> curDirDeletion = new Action<Boolean>() {
         @Override
         public Boolean act() throws IOException {
+          LOG.info("Deleting: " + dir);
           return fs.delete(dir, false);
         }
       };

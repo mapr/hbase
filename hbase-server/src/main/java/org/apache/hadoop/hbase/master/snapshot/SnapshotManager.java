@@ -291,6 +291,7 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
     Path tmpdir = SnapshotDescriptionUtils.getWorkingSnapshotDir(rootDir,
         master.getConfiguration());
     FileSystem tmpFs = tmpdir.getFileSystem(master.getConfiguration());
+    LOG.info("Deleting: " + tmpdir);
     if (!tmpFs.delete(tmpdir, true)) {
       LOG.warn("Couldn't delete working snapshot directory: " + tmpdir);
     }
@@ -322,7 +323,7 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
       cpHost.preDeleteSnapshot(snapshot);
     }
 
-    LOG.debug("Deleting snapshot: " + snapshotName);
+    LOG.info("Deleting snapshot: " + snapshotName);
     // delete the existing snapshot
     if (!fs.delete(snapshotDir, true)) {
       throw new HBaseSnapshotException("Failed to delete snapshot directory: " + snapshotDir);
@@ -472,9 +473,11 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
       FileSystem workingDirFS = workingDir.getFileSystem(master.getConfiguration());
       // delete the working directory, since we aren't running the snapshot. Likely leftovers
       // from a failed attempt.
+      LOG.info("Deleting: " + workingDir);
       workingDirFS.delete(workingDir, true);
 
       // recreate the working directory for the snapshot
+      LOG.info("Creating directory: " + workingDir);
       if (!workingDirFS.mkdirs(workingDir)) {
         throw new SnapshotCreationException("Couldn't create working directory (" + workingDir
             + ") for snapshot" , snapshot);
@@ -544,6 +547,7 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
           master.getConfiguration());
       FileSystem workingDirFs = workingDir.getFileSystem(master.getConfiguration());
       try {
+        LOG.info("Deleting: " + workingDir);
         if (!workingDirFs.delete(workingDir, true)) {
           LOG.error("Couldn't delete working directory (" + workingDir + " for snapshot:" +
               ClientSnapshotDescriptionUtils.toString(snapshot));

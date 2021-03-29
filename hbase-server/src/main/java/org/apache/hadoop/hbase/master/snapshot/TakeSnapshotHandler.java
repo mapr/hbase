@@ -237,6 +237,7 @@ public abstract class TakeSnapshotHandler extends EventHandler implements Snapsh
       try {
         // if the working dir is still present, the snapshot has failed.  it is present we delete
         // it.
+        LOG.info("Deleting: " + workingDir);
         if (!workingDirFs.delete(workingDir, true)) {
           LOG.error("Couldn't delete snapshot working directory:" + workingDir);
         }

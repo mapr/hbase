@@ -4346,6 +4346,7 @@ public class HRegion implements HeapSize, PropagatingConfigurationObserver, Regi
       getRegionWALFileSystem().removeStoreFiles(fakeFamilyName, fakeStoreFiles);
     } else {
       for (Path file : filesUnderRootDir) {
+        LOG.info("Deleting: " + file);
         if (!rootFS.delete(file, false)) {
           LOG.error("Failed delete of " + file + " from under the root directory");
         } else {
@@ -4353,6 +4354,7 @@ public class HRegion implements HeapSize, PropagatingConfigurationObserver, Regi
         }
       }
       for (Path file : Iterables.concat(files, filesUnderWrongRegionWALDir)) {
+        LOG.info("Deleting: " + file);
         if (!walFS.delete(file, false)) {
           LOG.error("Failed delete of " + file);
         } else {
@@ -4365,6 +4367,7 @@ public class HRegion implements HeapSize, PropagatingConfigurationObserver, Regi
     // in HBASE-20734, see HBASE-22617 for more details.
     FileSystem walFs = getWalFileSystem();
     if (walFs.exists(wrongRegionWALDir)) {
+      LOG.info("Deleting: " + wrongRegionWALDir);
       if (!walFs.delete(wrongRegionWALDir, true)) {
         LOG.warn("Unable to delete " + wrongRegionWALDir);
       }
