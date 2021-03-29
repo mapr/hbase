@@ -531,6 +531,7 @@ public class StoreFile {
    */
   public void deleteReader() throws IOException {
     closeReader(true);
+    LOG.info("Deleting: " + getPath());
     this.fs.delete(getPath(), true);
   }
 
@@ -650,6 +651,7 @@ public class StoreFile {
       }
 
       if (!fs.exists(dir)) {
+        LOG.info("Creating directory: " + dir);
         fs.mkdirs(dir);
       }
 

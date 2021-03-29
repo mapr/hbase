@@ -192,6 +192,7 @@ public abstract class CleanerChore<T extends FileCleanerDelegate> extends Schedu
     // delete this directory. However, don't do so recursively so we don't delete files that have
     // been added since we last checked.
     try {
+      LOG.info("Deleting: " + dir);
       return fs.delete(dir, false);
     } catch (IOException e) {
       if (LOG.isTraceEnabled()) {
@@ -249,9 +250,7 @@ public abstract class CleanerChore<T extends FileCleanerDelegate> extends Schedu
     int deletedFileCount = 0;
     for (FileStatus file : filesToDelete) {
       Path filePath = file.getPath();
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Removing: " + filePath + " from archive");
-      }
+      LOG.info("Deleting " + filePath + " from archive");
       try {
         boolean success = this.fs.delete(filePath, false);
         if (success) {

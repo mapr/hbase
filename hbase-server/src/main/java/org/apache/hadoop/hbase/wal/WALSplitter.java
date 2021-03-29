@@ -256,6 +256,7 @@ public class WALSplitter {
         }
       }
     }
+    LOG.info("Deleting: " + logDir);
     if (!fs.delete(logDir, true)) {
       throw new IOException("Unable to delete src dir: " + logDir);
     }
@@ -448,6 +449,7 @@ public class WALSplitter {
     }
     archiveLogs(corruptedLogs, processedLogs, oldLogDir, fs, conf);
     Path stagingDir = ZKSplitLog.getSplitLogDir(rootdir, logPath.getName());
+    LOG.info("Deleting: " + stagingDir);
     fs.delete(stagingDir, true);
   }
 
@@ -469,10 +471,11 @@ public class WALSplitter {
       final FileSystem fs, final Configuration conf) throws IOException {
     final Path corruptDir = new Path(FSUtils.getRootDir(conf), conf.get(
         "hbase.regionserver.hlog.splitlog.corrupt.dir",  HConstants.CORRUPT_DIR_NAME));
-
+    LOG.info("Creating directory: " + corruptDir);
     if (!fs.mkdirs(corruptDir)) {
       LOG.info("Unable to mkdir " + corruptDir);
     }
+    LOG.info("Creating directory: " + oldLogDir);
     fs.mkdirs(oldLogDir);
 
     // this method can get restarted or called multiple times for archiving
@@ -530,6 +533,7 @@ public class WALSplitter {
     if (fs.exists(dir) && fs.isFile(dir)) {
       Path tmp = new Path("/tmp");
       if (!fs.exists(tmp)) {
+        LOG.info("Creating directory: " + tmp);
         fs.mkdirs(tmp);
       }
       tmp = new Path(tmp,
@@ -543,6 +547,7 @@ public class WALSplitter {
     }
 
     if (isCreate && !fs.exists(dir)) {
+      LOG.info("Creating directory: " + dir);
       if (!fs.mkdirs(dir)) LOG.warn("mkdir failed on " + dir);
     }
     // Append file name ends with RECOVERED_LOG_TMPFILE_SUFFIX to ensure
@@ -730,6 +735,7 @@ public class WALSplitter {
         if (newSeqIdFile.equals(status.getPath())) {
           continue;
         }
+        LOG.info("Deleting: " + status.getPath());
         fs.delete(status.getPath(), false);
       }
     }
@@ -1337,6 +1343,7 @@ public class WALSplitter {
             }
             if (wap.editsWritten == 0) {
               // just remove the empty recovered.edits file
+              LOG.info("Deleting if exists: " + wap.p);
               if (fs.exists(wap.p) && !fs.delete(wap.p, false)) {
                 LOG.warn("Failed deleting empty " + wap.p);
                 throw new IOException("Failed deleting empty  " + wap.p);

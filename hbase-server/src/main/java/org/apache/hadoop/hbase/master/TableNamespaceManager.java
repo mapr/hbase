@@ -26,6 +26,7 @@ import java.util.NavigableSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
@@ -157,8 +158,10 @@ public class TableNamespaceManager {
     }
     validateTableAndRegionCount(ns);
     FileSystem fs = masterServices.getMasterFileSystem().getFileSystem();
-    fs.mkdirs(FSUtils.getNamespaceDir(
-        masterServices.getMasterFileSystem().getRootDir(), ns.getName()));
+    Path namespaceDir = FSUtils.getNamespaceDir(
+        masterServices.getMasterFileSystem().getRootDir(), ns.getName());
+    LOG.info("Creating directory: " + namespaceDir);
+    fs.mkdirs(namespaceDir);
     upsert(table, ns);
     if (this.masterServices.isInitialized()) {
       this.masterServices.getMasterQuotaManager().setNamespaceQuota(ns);
@@ -204,15 +207,14 @@ public class TableNamespaceManager {
     //it will be replaced on new namespace creation
     zkNamespaceManager.remove(name);
     FileSystem fs = masterServices.getMasterFileSystem().getFileSystem();
-    for(FileStatus status :
-            fs.listStatus(FSUtils.getNamespaceDir(
-                masterServices.getMasterFileSystem().getRootDir(), name))) {
+    Path namespaceDir = FSUtils.getNamespaceDir(masterServices.getMasterFileSystem().getRootDir(), name);
+    for(FileStatus status: fs.listStatus(namespaceDir)) {
       if (!HConstants.HBASE_NON_TABLE_DIRS.contains(status.getPath().getName())) {
         throw new IOException("Namespace directory contains table dir: "+status.getPath());
       }
     }
-    if (!fs.delete(FSUtils.getNamespaceDir(
-        masterServices.getMasterFileSystem().getRootDir(), name), true)) {
+    LOG.info("Deleting: " + namespaceDir);
+    if (!fs.delete(namespaceDir, true)) {
       throw new IOException("Failed to remove namespace: "+name);
     }
     this.masterServices.getMasterQuotaManager().removeNamespaceQuota(name);

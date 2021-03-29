@@ -159,6 +159,7 @@ public class CompressionTest {
     try {
       doSmokeTest(fs, path, args[1]);
     } finally {
+      LOG.info("Deleting: " + path);
       fs.delete(path, false);
     }
     System.out.println("SUCCESS");

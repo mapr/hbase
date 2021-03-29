@@ -3948,6 +3948,7 @@ public class HRegion implements HeapSize, PropagatingConfigurationObserver, Regi
       getRegionFileSystem().removeStoreFiles(fakeFamilyName, fakeStoreFiles);
     } else {
       for (Path file: files) {
+        LOG.info("Deleting: " + file);
         if (!fs.delete(file, false)) {
           LOG.error("Failed delete of " + file);
         } else {

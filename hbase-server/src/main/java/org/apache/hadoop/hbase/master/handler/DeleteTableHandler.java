@@ -190,6 +190,7 @@ public class DeleteTableHandler extends TableEventHandler {
     }
 
     // 4. Delete table directory from FS (temp directory)
+    LOG.info("Deleting: " + tempTableDir);
     if (!fs.delete(tempTableDir, true)) {
       LOG.error("Couldn't delete " + tempTableDir);
     }

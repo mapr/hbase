@@ -152,6 +152,7 @@ public class MasterFileSystem {
 
     // Make sure the region servers can archive their old logs
     if(!this.fs.exists(oldLogDir)) {
+      LOG.info("Creating directory: " + oldLogDir);
       this.fs.mkdirs(oldLogDir);
     }
 
@@ -427,6 +428,7 @@ public class MasterFileSystem {
     // Filesystem is good. Go ahead and check for hbase.rootdir.
     try {
       if (!fs.exists(rd)) {
+        LOG.info("Creating directory: " + rd);
         if (isSecurityEnabled) {
           fs.mkdirs(rd, rootDirPerms);
         } else {
@@ -513,12 +515,14 @@ public class MasterFileSystem {
           HFileArchiver.archiveRegion(fs, this.rootdir, tabledir, regiondir);
         }
       }
+      LOG.info("Deleting: " + tmpdir);
       if (!fs.delete(tmpdir, true)) {
         throw new IOException("Unable to clean the temp directory: " + tmpdir);
       }
     }
 
     // Create the temp directory
+    LOG.info("Creating directory: " + tmpdir);
     if (!fs.mkdirs(tmpdir)) {
       throw new IOException("HBase temp directory '" + tmpdir + "' creation failure.");
     }
@@ -563,6 +567,7 @@ public class MasterFileSystem {
   }
 
   public void deleteTable(TableName tableName) throws IOException {
+    LOG.info("Deleting: " + rootdir);
     fs.delete(FSUtils.getTableDir(rootdir, tableName), true);
   }
 
@@ -577,6 +582,7 @@ public class MasterFileSystem {
     Path tempPath = FSUtils.getTableDir(this.tempdir, tableName);
 
     // Ensure temp exists
+    LOG.info("Creating directory if doesn't exist: " + tempPath.getParent());
     if (!fs.exists(tempPath.getParent()) && !fs.mkdirs(tempPath.getParent())) {
       throw new IOException("HBase temp directory '" + tempPath.getParent() + "' creation failure.");
     }
@@ -603,6 +609,7 @@ public class MasterFileSystem {
     // delete the family folder
     Path familyDir = new Path(tableDir,
       new Path(region.getEncodedName(), Bytes.toString(familyName)));
+    LOG.info("Deleting: " + familyDir);
     if (fs.delete(familyDir, true) == false) {
       if (fs.exists(familyDir)) {
         throw new IOException("Could not delete family "

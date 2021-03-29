@@ -1222,6 +1222,7 @@ public class HMaster extends HRegionServer implements MasterServices, Server {
       // is enabled later.
       // Note: hbck might needed for uncompleted procedures.
       try {
+        LOG.info("Deleting: " + logDir);
         fs.delete(logDir, true);
         LOG.warn("Procedure executor is disabled from configuartion. " +
             "All the state logs from procedure store were removed." +

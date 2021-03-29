@@ -379,6 +379,7 @@ public class CreateTableProcedure
     // 3. Move Table temp directory to the hbase root location
     final Path tableDir = FSUtils.getTableDir(mfs.getRootDir(), hTableDescriptor.getTableName());
     FileSystem fs = mfs.getFileSystem();
+    LOG.info("Deleting: " + tableDir);
     if (!fs.delete(tableDir, true) && fs.exists(tableDir)) {
       throw new IOException("Couldn't delete " + tableDir);
     }

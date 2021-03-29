@@ -198,6 +198,7 @@ public class TableSnapshotScanner extends AbstractClientScanner {
       currentRegionScanner.close();
     }
     try {
+      LOG.info("Deleting: " + restoreDir);
       fs.delete(this.restoreDir, true);
     } catch (IOException ex) {
       LOG.warn("Could not delete restore directory for the snapshot:" + ex);

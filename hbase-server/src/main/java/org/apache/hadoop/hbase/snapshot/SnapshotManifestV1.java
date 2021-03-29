@@ -151,7 +151,10 @@ public class SnapshotManifestV1 {
   static void deleteRegionManifest(final FileSystem fs, final Path snapshotDir,
       final SnapshotRegionManifest manifest) throws IOException {
     String regionName = SnapshotManifest.getRegionNameFromManifest(manifest);
-    fs.delete(new Path(snapshotDir, regionName), true);
+
+    Path snapshotDirPath = new Path(snapshotDir, regionName);
+    LOG.info("Deleting: " + snapshotDirPath);
+    fs.delete(snapshotDirPath, true);
   }
 
   static SnapshotRegionManifest buildManifestFromDisk (final Configuration conf,

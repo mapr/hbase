@@ -137,10 +137,13 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
 
     try {
       fs = FileSystem.get(conf);
+      LOG.info("Creating directory: " + baseStagingDir);
       fs.mkdirs(baseStagingDir, PERM_HIDDEN);
       fs.setPermission(baseStagingDir, PERM_HIDDEN);
       //no sticky bit in hadoop-1.0, making directory nonempty so it never gets erased
-      fs.mkdirs(new Path(baseStagingDir,"DONOTERASE"), PERM_HIDDEN);
+      Path doNotEraseDir = new Path(baseStagingDir, "DONOTERASE");
+      LOG.info("Creating directory: " + doNotEraseDir);
+      fs.mkdirs(doNotEraseDir, PERM_HIDDEN);
       FileStatus status = fs.getFileStatus(baseStagingDir);
       if(status == null) {
         throw new IllegalStateException("Failed to create staging directory");
@@ -200,8 +203,9 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
           bulkLoadObserver.preCleanupBulkLoad(ctx, request);
         }
       }
-
-      fs.delete(new Path(request.getBulkToken()), true);
+      Path bulkLoadPath = new Path(request.getBulkToken());
+      LOG.info("Deleting: " + bulkLoadPath);
+      fs.delete(bulkLoadPath, true);
       done.run(CleanupBulkLoadResponse.newBuilder().build());
     } catch (IOException e) {
       ResponseConverter.setControllerException(controller, e);
@@ -283,6 +287,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
               Path p = new Path(el.getSecond());
               Path stageFamily = new Path(bulkToken, Bytes.toString(el.getFirst()));
               if(!fs.exists(stageFamily)) {
+                LOG.info("Creating directory: " + stageFamily);
                 fs.mkdirs(stageFamily);
                 fs.setPermission(stageFamily, PERM_ALL_ACCESS);
               }
@@ -330,6 +335,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
                                 User user,
                                 String randomDir) throws IOException {
     Path p = new Path(baseDir, randomDir);
+    LOG.info("Creating directory: " + p);
     fs.mkdirs(p, PERM_ALL_ACCESS);
     fs.setPermission(p, PERM_ALL_ACCESS);
     return p;
