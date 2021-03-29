@@ -287,6 +287,7 @@ public final class SnapshotDescriptionUtils {
       }
     } catch (IOException e) {
       // if we get an exception, try to remove the snapshot info
+      LOG.info("Deleting: " + snapshotInfo);
       if (!fs.delete(snapshotInfo, false)) {
         String msg = "Couldn't delete snapshot info file: " + snapshotInfo;
         LOG.error(msg);

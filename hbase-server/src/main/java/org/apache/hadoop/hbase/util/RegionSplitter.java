@@ -633,6 +633,7 @@ public class RegionSplitter {
           }
         } finally {
           splitOut.close();
+          LOG.info("Deleting: " + splitFile);
           fs.delete(splitFile, false);
         }
       }

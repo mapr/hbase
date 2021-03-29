@@ -126,6 +126,7 @@ public class ProcedureWALFile implements Comparable<ProcedureWALFile> {
 
   public void removeFile() throws IOException {
     close();
+    LOG.info("Deleting: " + logFile);
     fs.delete(logFile, false);
   }
 

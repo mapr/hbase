@@ -290,6 +290,7 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
 
     LOG.debug("Deleting snapshot: " + snapshotName);
     // delete the existing snapshot
+    LOG.info("Deleting: " + snapshotDir);
     if (!fs.delete(snapshotDir, true)) {
       throw new HBaseSnapshotException("Failed to delete snapshot directory: " + snapshotDir);
     }
@@ -437,9 +438,11 @@ public class SnapshotManager extends MasterProcedureManager implements Stoppable
     try {
       // delete the working directory, since we aren't running the snapshot. Likely leftovers
       // from a failed attempt.
+      LOG.info("Deleting: " + workingDir);
       fs.delete(workingDir, true);
 
       // recreate the working directory for the snapshot
+      LOG.info("Creating directory: " + workingDir);
       if (!fs.mkdirs(workingDir)) {
         throw new SnapshotCreationException("Couldn't create working directory (" + workingDir
             + ") for snapshot" , snapshot);

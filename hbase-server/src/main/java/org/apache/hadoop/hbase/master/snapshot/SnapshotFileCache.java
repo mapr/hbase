@@ -309,6 +309,7 @@ public class SnapshotFileCache implements Stoppable {
             // If the snapshot is not in progress, we will delete it
             if (!fs.exists(new Path(run.getPath(),
               SnapshotDescriptionUtils.SNAPSHOT_IN_PROGRESS))) {
+              LOG.info("Deleting: " + run.getPath());
               fs.delete(run.getPath(), true);
               LOG.warn("delete the " + run.getPath() + " due to exception:", e.getCause());
             }

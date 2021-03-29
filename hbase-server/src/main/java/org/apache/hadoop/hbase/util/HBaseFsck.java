@@ -365,6 +365,7 @@ public class HBaseFsck extends Configured implements Closeable {
         FsPermission defaultPerms = FSUtils.getFilePermissions(fs, getConf(),
             HConstants.DATA_FILE_UMASK_KEY);
         Path tmpDir = new Path(FSUtils.getRootDir(getConf()), HConstants.HBASE_TEMP_DIRECTORY);
+        LOG.info("Creating directory: " + tmpDir);
         fs.mkdirs(tmpDir);
         HBCK_LOCK_PATH = new Path(tmpDir, HBCK_LOCK_FILE);
         final FSDataOutputStream out = createFileWithRetries(fs, HBCK_LOCK_PATH, defaultPerms);
@@ -1026,6 +1027,7 @@ public class HBaseFsck extends Configured implements Closeable {
       if (index > 0) {
         Path rootDir = getSidelineDir();
         Path dst = new Path(rootDir, pathStr.substring(index + 1));
+        LOG.info("Creating directory: " + dst.getParent());
         fs.mkdirs(dst.getParent());
         LOG.info("Trying to sildeline reference file "
           + path + " to " + dst);
@@ -1516,6 +1518,7 @@ public class HBaseFsck extends Configured implements Closeable {
     }
     Path sidelineTableDir= FSUtils.getTableDir(rootDir, tableName);
     Path sidelineRegionDir = new Path(sidelineTableDir, regionDir.getName());
+    LOG.info("Creating directory: " + sidelineRegionDir);
     fs.mkdirs(sidelineRegionDir);
     boolean success = false;
     FileStatus[] cfs =  fs.listStatus(regionDir);
@@ -1537,6 +1540,7 @@ public class HBaseFsck extends Configured implements Closeable {
         }
 
         // is a directory.
+        LOG.info("Creating directory: " + dst);
         fs.mkdirs(dst);
 
         LOG.info("Sidelining files from " + src + " into containing region " + dst);
@@ -1578,6 +1582,7 @@ public class HBaseFsck extends Configured implements Closeable {
     Path tableDir = FSUtils.getTableDir(hbaseDir, tableName);
     if (fs.exists(tableDir)) {
       Path backupTableDir= FSUtils.getTableDir(backupHbaseDir, tableName);
+      LOG.info("Creating directory: " + backupTableDir.getParent());
       fs.mkdirs(backupTableDir.getParent());
       boolean success = fs.rename(tableDir, backupTableDir);
       if (!success) {
@@ -1597,6 +1602,7 @@ public class HBaseFsck extends Configured implements Closeable {
     Path hbaseDir = FSUtils.getRootDir(getConf());
     FileSystem fs = hbaseDir.getFileSystem(getConf());
     Path backupDir = getSidelineDir();
+    LOG.info("Creating directory: " + backupDir);
     fs.mkdirs(backupDir);
 
     try {

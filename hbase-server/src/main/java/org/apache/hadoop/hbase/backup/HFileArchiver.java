@@ -215,6 +215,7 @@ public class HFileArchiver {
     Path storeArchiveDir = HFileArchiveUtil.getStoreArchivePath(conf, regionInfo, tableDir, family);
 
     // make sure we don't archive if we can't and that the archive dir exists
+    LOG.info("Creating directory: " + storeArchiveDir);
     if (!fs.mkdirs(storeArchiveDir)) {
       throw new IOException("Could not make archive directory (" + storeArchiveDir + ") for store:"
           + Bytes.toString(family) + ", deleting compacted files instead.");
@@ -249,6 +250,7 @@ public class HFileArchiver {
       Path tableDir, byte[] family, Path storeFile) throws IOException {
     Path storeArchiveDir = HFileArchiveUtil.getStoreArchivePath(conf, regionInfo, tableDir, family);
     // make sure we don't archive if we can't and that the archive dir exists
+    LOG.info("Creating directory: " + storeArchiveDir);
     if (!fs.mkdirs(storeArchiveDir)) {
       throw new IOException("Could not make archive directory (" + storeArchiveDir + ") for store:"
           + Bytes.toString(family) + ", deleting compacted files instead.");
@@ -317,6 +319,7 @@ public class HFileArchiver {
 
     // make sure the archive directory exists
     if (!fs.exists(baseArchiveDir)) {
+      LOG.info("Creating directory: " + baseArchiveDir);
       if (!fs.mkdirs(baseArchiveDir)) {
         throw new IOException("Failed to create the archive directory:" + baseArchiveDir
             + ", quitting archive attempt.");
@@ -388,6 +391,7 @@ public class HFileArchiver {
         LOG.error("Could not rename archive file to backup: " + backedupArchiveFile
             + ", deleting existing file in favor of newer.");
         // try to delete the exisiting file, if we can't rename it
+        LOG.info("Deleting: " + archiveFile);
         if (!fs.delete(archiveFile, false)) {
           throw new IOException("Couldn't delete existing archive file (" + archiveFile
               + ") or rename it to the backup file (" + backedupArchiveFile
@@ -412,6 +416,7 @@ public class HFileArchiver {
         // (we're in a retry loop, so don't worry too much about the exception)
         try {
           if (!fs.exists(archiveDir)) {
+            LOG.info("Creating directory: " + archiveDir);
             if (fs.mkdirs(archiveDir)) {
               LOG.debug("Created archive directory:" + archiveDir);
             }
@@ -449,6 +454,7 @@ public class HFileArchiver {
    */
   private static boolean deleteRegionWithoutArchiving(FileSystem fs, Path regionDir)
       throws IOException {
+    LOG.info("Deleting: " + regionDir);
     if (fs.delete(regionDir, true)) {
       LOG.debug("Deleted all region files in: " + regionDir);
       return true;
@@ -614,6 +620,7 @@ public class HFileArchiver {
 
     @Override
     public void delete() throws IOException {
+      LOG.info("Deleting: " + file);
       if (!fs.delete(file, true)) throw new IOException("Failed to delete:" + this.file);
     }
 
