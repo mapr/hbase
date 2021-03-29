@@ -444,12 +444,13 @@ public class FSHLog implements WAL {
     this.fullPathLogDir = new Path(rootDir, logDir);
     this.fullPathArchiveDir = new Path(rootDir, archiveDir);
     this.conf = conf;
-
+    LOG.info("Creating directory if it doesn't exist: " + fullPathLogDir);
     if (!fs.exists(fullPathLogDir) && !fs.mkdirs(fullPathLogDir)) {
       throw new IOException("Unable to mkdir " + fullPathLogDir);
     }
 
     if (!fs.exists(this.fullPathArchiveDir)) {
+      LOG.info("Creating directory: " + this.fullPathArchiveDir);
       if (!fs.mkdirs(this.fullPathArchiveDir)) {
         throw new IOException("Unable to mkdir " + this.fullPathArchiveDir);
       }

@@ -302,11 +302,13 @@ public class DeleteTableProcedure
 
     if (fs.exists(tableDir)) {
       // Ensure temp exists
+      LOG.info("Creating directory if it doesn't exist: " + tempdir);
       if (!fs.exists(tempdir) && !fs.mkdirs(tempdir)) {
         throw new IOException("HBase temp directory '" + tempdir + "' creation failure.");
       }
 
       // Ensure parent exists
+      LOG.info("Creating directory if it doesn't exist: " + tempTableDir.getParent());
       if (!fs.exists(tempTableDir.getParent()) && !fs.mkdirs(tempTableDir.getParent())) {
         throw new IOException("HBase temp directory '" + tempdir + "' creation failure.");
       }
@@ -324,6 +326,7 @@ public class DeleteTableProcedure
               HFileArchiver.archiveRegion(fs, mfs.getRootDir(), tempTableDir, files[i].getPath());
             }
           }
+          LOG.info("Deleting: " + tempdir);
           fs.delete(tempdir, true);
         }
         throw new IOException("Unable to move '" + tableDir + "' to temp '" + tempTableDir + "'");
@@ -341,6 +344,7 @@ public class DeleteTableProcedure
     }
 
     // Delete table directory from FS (temp directory)
+    LOG.info("Deleting: " + tableDir);
     if (!fs.delete(tempTableDir, true) && fs.exists(tempTableDir)) {
       throw new IOException("Couldn't delete " + tempTableDir);
     }

@@ -185,6 +185,7 @@ public class LogCleaner extends CleanerChore<BaseLogCleanerDelegate>
         context = pendingDelete.take();
         if (context != null) {
           FileStatus toClean = context.getTargetToClean();
+          LOG.info("Deleting: " + toClean.getPath());
           succeed = this.fs.delete(toClean.getPath(), false);
         }
       } catch (InterruptedException ite) {

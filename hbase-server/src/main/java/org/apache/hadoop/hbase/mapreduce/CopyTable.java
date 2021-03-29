@@ -156,6 +156,7 @@ public class CopyTable extends Configured implements Tool {
       FileSystem fs = FSUtils.getCurrentFileSystem(getConf());
       Random rand = new Random();
       Path root = new Path(fs.getWorkingDirectory(), "copytable");
+      LOG.info("Creating directory: " + root);
       fs.mkdirs(root);
       while (true) {
         bulkloadDir = new Path(root, "" + rand.nextLong());
@@ -383,6 +384,7 @@ public class CopyTable extends Configured implements Tool {
         // bulkloadDir is deleted only LoadIncrementalHFiles was successful so that one can rerun
         // LoadIncrementalHFiles.
         FileSystem fs = FSUtils.getCurrentFileSystem(getConf());
+        LOG.info("Deleting: " + bulkloadDir);
         if (!fs.delete(this.bulkloadDir, true)) {
           LOG.error("Deleting folder " + bulkloadDir + " failed!");
           code = 1;

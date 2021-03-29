@@ -384,6 +384,7 @@ public class HFileLink extends FileLink {
     String refName = createBackReferenceName(tableName, regionName);
 
     // Make sure the destination directory exists
+    LOG.info("Creating directory: " + dstFamilyPath);
     fs.mkdirs(dstFamilyPath);
 
     // Make sure the FileLink reference directory exists
@@ -392,6 +393,7 @@ public class HFileLink extends FileLink {
     Path backRefPath = null;
     if (createBackRef) {
       Path backRefssDir = getBackReferencesDir(archiveStoreDir, hfileName);
+      LOG.info("Creating directory: " + backRefssDir);
       fs.mkdirs(backRefssDir);
 
       // Create the reference for the link
@@ -405,6 +407,7 @@ public class HFileLink extends FileLink {
       LOG.error("couldn't create the link=" + name + " for " + dstFamilyPath, e);
       // Revert the reference if the link creation failed
       if (createBackRef) {
+        LOG.info("Deleting: " + backRefPath);
         fs.delete(backRefPath, false);
       }
       throw e;

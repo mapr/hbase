@@ -156,6 +156,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
     try {
       fs = baseStagingDir.getFileSystem(conf);
       if (!fs.exists(baseStagingDir)) {
+        LOG.info("Creating directory: " + baseStagingDir);
         fs.mkdirs(baseStagingDir, PERM_HIDDEN);
       }
       FileStatus status = fs.getFileStatus(baseStagingDir);
@@ -173,6 +174,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
       // no sticky bit in hadoop-1.0, making directory nonempty so it never gets erased
       Path doNotEraseDir = new Path(baseStagingDir, "DONOTERASE");
       if (!fs.exists(doNotEraseDir)) {
+        LOG.info("Creating directory: " + doNotEraseDir);
         fs.mkdirs(doNotEraseDir, PERM_HIDDEN);
         fs.setPermission(doNotEraseDir, PERM_HIDDEN);
       }
@@ -241,6 +243,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
       }
 
       Path path = new Path(request.getBulkToken());
+      LOG.info("Deleting: " + path);
       if (!fs.delete(path, true)) {
         if (fs.exists(path)) {
           throw new IOException("Failed to clean up " + path);
@@ -389,6 +392,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
             for(Pair<byte[], String> el: familyPaths) {
               Path stageFamily = new Path(bulkToken, Bytes.toString(el.getFirst()));
               if(!fs.exists(stageFamily)) {
+                LOG.info("Creating directory: " + stageFamily);
                 fs.mkdirs(stageFamily);
                 fs.setPermission(stageFamily, PERM_ALL_ACCESS);
               }
@@ -440,6 +444,7 @@ public class SecureBulkLoadEndpoint extends SecureBulkLoadService
                                 User user,
                                 String randomDir) throws IOException {
     Path p = new Path(baseDir, randomDir);
+    LOG.info("Creating directory: " + p);
     fs.mkdirs(p, PERM_ALL_ACCESS);
     fs.setPermission(p, PERM_ALL_ACCESS);
     return p;

@@ -65,6 +65,7 @@ public abstract class AbstractMultiOutputCompactor<T extends AbstractMultiFileWr
     FileSystem fs = store.getFileSystem();
     for (Path leftoverFile : writer.abortWriters()) {
       try {
+        LOG.info("Deleting: " + leftoverFile);
         fs.delete(leftoverFile, false);
       } catch (IOException e) {
         LOG.warn(

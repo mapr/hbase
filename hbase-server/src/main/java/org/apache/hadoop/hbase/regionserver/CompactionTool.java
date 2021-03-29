@@ -166,6 +166,7 @@ public class CompactionTool extends Configured implements Tool {
         if (storeFiles != null && !storeFiles.isEmpty()) {
           if (keepCompactedFiles && deleteCompacted) {
             for (StoreFile storeFile: storeFiles) {
+              LOG.info("Deleting: " + storeFile.getPath());
               fs.delete(storeFile.getPath(), false);
             }
           }
@@ -372,6 +373,7 @@ public class CompactionTool extends Configured implements Tool {
       // Start the MR Job and wait
       return job.waitForCompletion(true) ? 0 : 1;
     } finally {
+      LOG.info("Deleting: " + stagingDir);
       fs.delete(stagingDir, true);
     }
   }

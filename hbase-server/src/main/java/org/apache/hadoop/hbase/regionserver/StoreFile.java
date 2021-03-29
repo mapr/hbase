@@ -612,6 +612,7 @@ public class StoreFile {
     boolean evictOnClose =
         cacheConf != null? cacheConf.shouldEvictOnClose(): true;
     closeReader(evictOnClose);
+    LOG.info("Deleting: " + getPath());
     this.fs.delete(getPath(), true);
   }
 

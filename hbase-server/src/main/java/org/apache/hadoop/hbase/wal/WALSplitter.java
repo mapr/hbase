@@ -274,6 +274,7 @@ public class WALSplitter {
         }
       }
     }
+    LOG.info("Deleting: " + logDir);
     if (!walFs.delete(logDir, true)) {
       throw new IOException("Unable to delete src dir: " + logDir);
     }
@@ -480,6 +481,7 @@ public class WALSplitter {
     }
     archiveLogs(corruptedLogs, processedLogs, oldLogDir, walFS, conf);
     Path stagingDir = ZKSplitLog.getSplitLogDir(walDir, logPath.getName());
+    LOG.info("Deleting: " + stagingDir);
     walFS.delete(stagingDir, true);
   }
 
@@ -501,10 +503,11 @@ public class WALSplitter {
       final FileSystem walFS, final Configuration conf) throws IOException {
     final Path corruptDir = new Path(FSUtils.getWALRootDir(conf), conf.get(
         "hbase.regionserver.hlog.splitlog.corrupt.dir",  HConstants.CORRUPT_DIR_NAME));
-
+    LOG.info("Creating directory: " + corruptDir);
     if (!walFS.mkdirs(corruptDir)) {
       LOG.info("Unable to mkdir " + corruptDir);
     }
+    LOG.info("Creating directory: " + oldLogDir);
     walFS.mkdirs(oldLogDir);
 
     // this method can get restarted or called multiple times for archiving
@@ -558,6 +561,7 @@ public class WALSplitter {
     if (walFS.exists(dir) && walFS.isFile(dir)) {
       Path tmp = new Path(tmpDirName);
       if (!walFS.exists(tmp)) {
+        LOG.info("Creating directory: " + tmp);
         walFS.mkdirs(tmp);
       }
       tmp = new Path(tmp, HConstants.RECOVERED_EDITS_DIR + "_" + encodedRegionName);
@@ -568,7 +572,7 @@ public class WALSplitter {
         LOG.warn("Failed to sideline old file " + dir);
       }
     }
-
+    LOG.info("Creating directory if it doesn't exist: " + dir);
     if (!walFS.exists(dir) && !walFS.mkdirs(dir)) {
       LOG.warn("mkdir failed on " + dir);
     }
@@ -760,6 +764,7 @@ public class WALSplitter {
         if (newSeqIdFile.equals(status.getPath())) {
           continue;
         }
+        LOG.info("Deleting: " + status.getPath());
         walFS.delete(status.getPath(), false);
       }
     }
@@ -1474,6 +1479,7 @@ public class WALSplitter {
       }
       if (wap.editsWritten == 0) {
         // just remove the empty recovered.edits file
+        LOG.info("Deleting if exists: " + wap.p);
         if (walFS.exists(wap.p) && !walFS.delete(wap.p, false)) {
           LOG.warn("Failed deleting empty " + wap.p);
           throw new IOException("Failed deleting empty  " + wap.p);

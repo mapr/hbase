@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.NamespaceExistException;
 import org.apache.hadoop.hbase.TableName;
@@ -252,8 +253,10 @@ public class CreateNamespaceProcedure
       final MasterProcedureEnv env,
       final NamespaceDescriptor nsDescriptor) throws IOException {
     MasterFileSystem mfs = env.getMasterServices().getMasterFileSystem();
-    mfs.getFileSystem().mkdirs(
-      FSUtils.getNamespaceDir(mfs.getRootDir(), nsDescriptor.getName()));
+
+    Path namespaceDir = FSUtils.getNamespaceDir(mfs.getRootDir(), nsDescriptor.getName());
+    LOG.info("Creating directory: " + namespaceDir);
+    mfs.getFileSystem().mkdirs(namespaceDir);
   }
 
   /**

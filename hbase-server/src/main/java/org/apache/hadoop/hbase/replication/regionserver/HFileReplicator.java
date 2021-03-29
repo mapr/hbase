@@ -200,6 +200,7 @@ public class HFileReplicator {
     // Delete the staging directory
     if (stagingDir != null) {
       try {
+        LOG.info("Deleting: " + stagingDir);
         sinkFs.delete(new Path(stagingDir), true);
       } catch (IOException e) {
         LOG.warn("Failed to delete the staging directory " + stagingDir, e);
@@ -338,6 +339,7 @@ public class HFileReplicator {
 
   private Path createStagingDir(Path baseDir, User user, String randomDir) throws IOException {
     Path p = new Path(baseDir, randomDir);
+    LOG.info("Creating directory: " + p);
     sinkFs.mkdirs(p, PERM_ALL_ACCESS);
     sinkFs.setPermission(p, PERM_ALL_ACCESS);
     return p;

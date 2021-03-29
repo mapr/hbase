@@ -116,6 +116,7 @@ public class FSTableDescriptorMigrationToSubdir {
     if (removedExistingSubdir) {
       LOG.info("Removed existing subdir at: " + tableInfoDir);
     }
+    LOG.info("Creating directory: " + tableInfoDir);
     boolean createdSubdir = fs.mkdirs(tableInfoDir);
     if (!createdSubdir) {
       throw new IOException("Unable to create new table info directory: " + tableInfoDir);

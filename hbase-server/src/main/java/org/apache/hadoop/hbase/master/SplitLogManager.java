@@ -293,6 +293,7 @@ public class SplitLogManager {
       status.setStatus("Cleaning up log directory...");
       final FileSystem fs = logDir.getFileSystem(conf);
       try {
+        LOG.info("Deleting if exists: " + logDir);
         if (fs.exists(logDir) && !fs.delete(logDir, false)) {
           LOG.warn("Unable to delete log src dir. Ignoring. " + logDir);
         }

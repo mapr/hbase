@@ -157,6 +157,7 @@ public class NamespaceUpgrade implements Tool {
   public void deleteRoot() throws IOException {
     Path rootDir = new Path(this.rootDir, "-ROOT-");
     if (this.fs.exists(rootDir)) {
+      LOG.info("Deleting: " + rootDir);
       if (!this.fs.delete(rootDir, true)) LOG.info("Failed remove of " + rootDir);
       LOG.info("Deleted " + rootDir);
     }
@@ -205,6 +206,7 @@ public class NamespaceUpgrade implements Tool {
   }
 
   private void mkdirs(final Path p) throws IOException {
+    LOG.info("Creating directory: " + p);
     if (!this.fs.mkdirs(p)) throw new IOException("Failed make of " + p);
   }
 
@@ -220,11 +222,13 @@ public class NamespaceUpgrade implements Tool {
    */
   public void makeNamespaceDirs() throws IOException {
     if (!fs.exists(sysNsDir)) {
+      LOG.info("Creating directory: " + sysNsDir);
       if (!fs.mkdirs(sysNsDir)) {
         throw new IOException("Failed to create system namespace dir: " + sysNsDir);
       }
     }
     if (!fs.exists(defNsDir)) {
+      LOG.info("Creating directory: " + defNsDir);
       if (!fs.mkdirs(defNsDir)) {
         throw new IOException("Failed to create default namespace dir: " + defNsDir);
       }
@@ -252,6 +256,7 @@ public class NamespaceUpgrade implements Tool {
           TableName.valueOf(oldTableDir.getName()).getQualifierAsString());
         LOG.info("Moving " + oldTableDir + " to " + nsDir);
         if (!fs.exists(nsDir.getParent())) {
+          LOG.info("Creating directory: " + nsDir.getParent());
           if (!fs.mkdirs(nsDir.getParent())) {
             throw new IOException("Failed to create namespace dir "+nsDir.getParent());
           }
@@ -412,6 +417,7 @@ public class NamespaceUpgrade implements Tool {
         //Create new region dir
         Path newRegionDir = new Path(newTablePath, newRegionInfo.getEncodedName());
         if(!fs.exists(newRegionDir)) {
+          LOG.info("Creating directory: " + newRegionDir);
           if(!fs.mkdirs(newRegionDir)) {
             throw new IllegalStateException("Failed to create new region dir: " + newRegionDir);
           }

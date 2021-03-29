@@ -336,7 +336,8 @@ public class DeleteNamespaceProcedure
           throw new IOException("Namespace directory contains table dir: " + status.getPath());
         }
       }
-      if (!fs.delete(FSUtils.getNamespaceDir(mfs.getRootDir(), namespaceName), true)) {
+      LOG.info("Deleting: " + p);
+      if (!fs.delete(p, true)) {
         throw new IOException("Failed to remove namespace: " + namespaceName);
       }
     } catch (FileNotFoundException e) {

@@ -644,6 +644,7 @@ public class Import {
         Path partitionsPath = 
             new Path(TotalOrderPartitioner.getPartitionFile(job.getConfiguration()));
         FileSystem fs = FileSystem.get(job.getConfiguration());
+        LOG.info("Deleting: " + partitionsPath);
         fs.deleteOnExit(partitionsPath);
         job.setPartitionerClass(KeyValueWritableComparablePartitioner.class);
         job.setNumReduceTasks(regionLocator.getStartKeys().length);

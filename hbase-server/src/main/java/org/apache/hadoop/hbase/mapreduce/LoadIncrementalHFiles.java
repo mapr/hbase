@@ -750,6 +750,7 @@ public class LoadIncrementalHFiles extends Configured implements Tool {
     try {
       tmpDir = item.hfilePath.getParent();
       if (tmpDir.getName().equals(TMP_DIR)) {
+        LOG.info("Deleting: " + hfilePath);
         fs.delete(item.hfilePath, false);
       }
     } catch (IOException e) {
