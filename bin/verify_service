@@ -62,6 +62,7 @@ THRIFT_PORT=9095
 EXIT_SUCCESS=0
 EXIT_NOT_RUNNING=1
 EXIT_RUNNING_NOT_RESPONDING=2
+NOT_AVAILABLE="NA"
 
 # Log file
 LOG_FILE_NAME="verify_service.$(date +%F-%H%M%S%3N).log"
@@ -129,11 +130,11 @@ function check_service_run_status() {
       logInfo "$SERVICE pid $process_pid is alive"
       return $EXIT_SUCCESS
     else
-      logInfo "$SERVICE pid $process_pid is NOT running"
+      logError "$SERVICE pid $process_pid is NOT running"
       return $EXIT_NOT_RUNNING
     fi
   else
-    logInfo "$SERVICE pid file has not been found in $PIDS_DIR."
+    logError "$SERVICE pid file has not been found in $PIDS_DIR."
     return $EXIT_NOT_RUNNING
   fi
 }
@@ -193,7 +194,7 @@ function check_service_health() {
 logInfo "Starting service verify checks at $(timestamp)."
 
 # checking master
-MASTER_STATUS="$EXIT_SUCCESS"
+MASTER_STATUS="$NOT_AVAILABLE"
 if check_service_existence "$MASTER_SERVICE_NAME" "$MASTER_ROLE_FILE"; then
   if check_service_run_status "$MASTER_SERVICE_NAME" "$MASTER_PID_FILE"; then
     if check_main_health "list" "$MASTER_SERVICE_NAME"; then
@@ -204,12 +205,10 @@ if check_service_existence "$MASTER_SERVICE_NAME" "$MASTER_ROLE_FILE"; then
   else
     MASTER_STATUS="$EXIT_NOT_RUNNING"
   fi
-else
-  MASTER_STATUS="$EXIT_NOT_RUNNING"
 fi
 
 # checking RS
-RS_STATUS="$EXIT_SUCCESS"
+RS_STATUS="$NOT_AVAILABLE"
 if check_service_existence "$RS_SERVICE_NAME" "$RS_ROLE_FILE"; then
   if check_service_run_status "$RS_SERVICE_NAME" "$RS_PID_FILE"; then
     if check_main_health "scan 'hbase:meta'" "$RS_SERVICE_NAME"; then
@@ -220,12 +219,10 @@ if check_service_existence "$RS_SERVICE_NAME" "$RS_ROLE_FILE"; then
   else
     RS_STATUS="$EXIT_NOT_RUNNING"
   fi
-else
-  RS_STATUS="$EXIT_NOT_RUNNING"
 fi
 
 # checking REST
-REST_STATUS="$EXIT_SUCCESS"
+REST_STATUS="$NOT_AVAILABLE"
 if check_service_existence "$REST_SERVICE_NAME" "$REST_ROLE_FILE"; then
   if check_service_run_status "$REST_SERVICE_NAME" "$REST_PID_FILE"; then
     if check_service_health "$REST_SERVICE_NAME" "$REST_PID_FILE" "$REST_PORT"; then
@@ -236,12 +233,10 @@ if check_service_existence "$REST_SERVICE_NAME" "$REST_ROLE_FILE"; then
   else
     REST_STATUS="$EXIT_NOT_RUNNING"
   fi
-else
-  REST_STATUS="$EXIT_NOT_RUNNING"
 fi
 
 # checking THRIFT
-THRIFT_STATUS="$EXIT_SUCCESS"
+THRIFT_STATUS="$NOT_AVAILABLE"
 if check_service_existence "$THRIFT_SERVICE_NAME" "$THRIFT_ROLE_FILE"; then
   if check_service_run_status "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE"; then
     if check_service_health "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE" "$THRIFT_PORT"; then
@@ -252,32 +247,34 @@ if check_service_existence "$THRIFT_SERVICE_NAME" "$THRIFT_ROLE_FILE"; then
   else
     THRIFT_STATUS="$EXIT_NOT_RUNNING"
   fi
-else
-  THRIFT_STATUS="$EXIT_NOT_RUNNING"
 fi
+
+##########################################
+# ALL CHECKS                             #
+##########################################
 
 # if any of them is on the node but not responding, exit 2
 if [ "$MASTER_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || [ "$RS_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || \
 [ "$REST_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] || [ "$THRIFT_STATUS" = "$EXIT_RUNNING_NOT_RESPONDING" ] ; then
-  logError "There is unresponsive service."
+  logError "Unresponsive service."
   logError "Exit: $EXIT_RUNNING_NOT_RESPONDING"
   exit "$EXIT_RUNNING_NOT_RESPONDING"
 fi
 
-# if both master and RS are not running, then exit with not running status
-if [ "$MASTER_STATUS" = "$EXIT_NOT_RUNNING" ] && [ "$RS_STATUS" = "$EXIT_NOT_RUNNING" ] ; then
-  logInfo "Both HMaster and HRegionServer are not running."
-  logInfo "Exit: $EXIT_NOT_RUNNING"
+# if any of them is on the node but not running, exit 1
+if [ "$MASTER_STATUS" = "$EXIT_NOT_RUNNING" ] || [ "$RS_STATUS" = "$EXIT_NOT_RUNNING" ] || \
+[ "$REST_STATUS" = "$EXIT_NOT_RUNNING" ] || [ "$THRIFT_STATUS" = "$EXIT_NOT_RUNNING" ] ; then
+  logError "Down service."
+  logError "Exit: $EXIT_NOT_RUNNING"
   exit "$EXIT_NOT_RUNNING"
 fi
 
-# if above cases are ok
-# checking master first, it can exist alone on a node
-# if not, return status of RS
-if [ "$MASTER_STATUS" = "$EXIT_SUCCESS" ]; then
-  logInfo "Exit: $MASTER_STATUS"
-  exit "$MASTER_STATUS"
-else
-  logInfo "Exit: $RS_STATUS"
-  exit "$RS_STATUS"
+# if no service exists on the node, inform it
+if [ "$MASTER_STATUS" = "$NOT_AVAILABLE" ] && [ "$RS_STATUS" = "$NOT_AVAILABLE" ] && \
+[ "$REST_STATUS" = "$NOT_AVAILABLE" ] && [ "$THRIFT_STATUS" = "$NOT_AVAILABLE" ] ; then
+  logInfo "No service has been found on the node. Only hbase client is installed."
 fi
+
+# if above cases are ok, then success
+logInfo "Exit: $EXIT_SUCCESS"
+exit "$EXIT_SUCCESS"
