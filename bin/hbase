@@ -463,7 +463,12 @@ HBASE_OPTS="$HBASE_OPTS -Dhbase.log.file=$HBASE_LOGFILE"
 HBASE_OPTS="$HBASE_OPTS -Dhbase.home.dir=$HBASE_HOME"
 HBASE_OPTS="$HBASE_OPTS -Dhbase.id.str=$HBASE_IDENT_STRING"
 HBASE_OPTS="$HBASE_OPTS -Dhbase.root.logger=${HBASE_ROOT_LOGGER:-INFO,console}"
-HBASE_OPTS="$HBASE_OPTS -Djava.io.tmpdir=${HBASE_HOME}/tmp"
+# MAPR-HBASE-233: Couldn't get into hbase shell on client node
+# We need to consider tmp dir option based on mode
+if [ -d "${HBASE_HOME}/tmp" ]; then
+  HBASE_OPTS="$HBASE_OPTS -Djava.io.tmpdir=${HBASE_HOME}/tmp"
+fi
+
 if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
   HBASE_OPTS="$HBASE_OPTS -Djava.library.path=$JAVA_LIBRARY_PATH"
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$JAVA_LIBRARY_PATH"
