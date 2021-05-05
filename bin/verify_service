@@ -21,6 +21,7 @@
 
 # Main variables
 MAPR_HOME=${MAPR_HOME:-/opt/mapr}
+export MAPR_TICKETFILE_LOCATION=${MAPR_TICKETFILE_LOCATION:-"${MAPR_HOME}/conf/mapruserticket"}
 HOSTNAME=$(hostname)
 
 # Getting security
