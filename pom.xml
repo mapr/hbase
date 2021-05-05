@@ -90,13 +90,8 @@
       e.g. surefire 2.18-SNAPSHOT-->
   <pluginRepositories>
     <pluginRepository>
-      <id>scala-tools.org</id>
-      <name>Scala-tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </pluginRepository>
-    <pluginRepository>
       <id>apache.snapshots</id>
-      <url>https://repository.apache.org/snapshots/</url>
+      <url>${env.MAPR_MAVEN_REPO}</url>
     </pluginRepository>
     <pluginRepository>
       <id>central</id>
@@ -437,27 +432,16 @@
   </developers>
   <repositories>
     <repository>
-      <id>mapr-release</id>
+      <id>mapr-releases</id>
       <url>${env.MAPR_MAVEN_REPO}</url>
       <snapshots><enabled>true</enabled></snapshots>
       <releases><enabled>true</enabled></releases>
     </repository>
     <repository>
       <id>mapr dev</id>
-      <url>http://maven.corp.maprtech.com/nexus/content/groups/public/</url>
+      <url>${env.MAPR_CENTRAL}</url>
       <snapshots><enabled>true</enabled></snapshots>
       <releases><enabled>true</enabled></releases>
-    </repository>
-    <repository>
-      <id>apache release</id>
-      <url>https://repository.apache.org/content/repositories/releases/</url>
-    </repository>
-    <repository>
-      <id>repository.jboss.org</id>
-      <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
     </repository>
     <repository>
       <id>central</id>
