@@ -172,11 +172,11 @@ function check_service_health() {
 
   logInfo "To check $SERVICE health, attempting to grep this log file over $SERVICE."
   if [ "$SECURE" == "true" ]; then
-    local RESULT=$(curl -s -k -H "Authorization: MAPR-Negotiate $(java -cp "$(mapr classpath)" com.mapr.security.client.examples.MapRClient gettoken -url \
+    local RESULT=$(curl --noproxy '*' -s -k -H "Authorization: MAPR-Negotiate $(java -cp "$(mapr classpath)" com.mapr.security.client.examples.MapRClient gettoken -url \
     "https://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2> /dev/null | grep 'Obtained challenge string' | sed -E 's/Obtained challenge string (.*)/\1/')" \
     "https://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2>&1 | grep "$PID")
   else
-    local RESULT=$(curl "http://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2>&1 | grep "$PID")
+    local RESULT=$(curl --noproxy '*' "http://$HOSTNAME:$PORT/logs/$LOG_FILE_NAME" 2>&1 | grep "$PID")
   fi
 
   if [[ -z $RESULT ]]; then
@@ -189,69 +189,108 @@ function check_service_health() {
 }
 
 ##########################################
+# EACH SERVICE CHECK METHOD              #
+##########################################
+
+# master
+MASTER_STATUS="$NOT_AVAILABLE"
+function verify_master(){
+  if check_service_existence "$MASTER_SERVICE_NAME" "$MASTER_ROLE_FILE"; then
+    if check_service_run_status "$MASTER_SERVICE_NAME" "$MASTER_PID_FILE"; then
+      if check_main_health "list" "$MASTER_SERVICE_NAME"; then
+        MASTER_STATUS="$EXIT_SUCCESS"
+      else
+        MASTER_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+      fi
+    else
+      MASTER_STATUS="$EXIT_NOT_RUNNING"
+    fi
+  fi
+}
+
+# RS
+RS_STATUS="$NOT_AVAILABLE"
+function verify_rs() {
+  if check_service_existence "$RS_SERVICE_NAME" "$RS_ROLE_FILE"; then
+    if check_service_run_status "$RS_SERVICE_NAME" "$RS_PID_FILE"; then
+      if check_main_health "scan 'hbase:meta'" "$RS_SERVICE_NAME"; then
+        RS_STATUS="$EXIT_SUCCESS"
+      else
+        RS_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+      fi
+    else
+      RS_STATUS="$EXIT_NOT_RUNNING"
+    fi
+  fi
+}
+
+# REST
+REST_STATUS="$NOT_AVAILABLE"
+function verify_rest() {
+  if check_service_existence "$REST_SERVICE_NAME" "$REST_ROLE_FILE"; then
+    if check_service_run_status "$REST_SERVICE_NAME" "$REST_PID_FILE"; then
+      if check_service_health "$REST_SERVICE_NAME" "$REST_PID_FILE" "$REST_PORT"; then
+        REST_STATUS="$EXIT_SUCCESS"
+      else
+        REST_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+      fi
+    else
+      REST_STATUS="$EXIT_NOT_RUNNING"
+    fi
+  fi
+}
+
+# Thrift
+THRIFT_STATUS="$NOT_AVAILABLE"
+function verify_thrift() {
+  if check_service_existence "$THRIFT_SERVICE_NAME" "$THRIFT_ROLE_FILE"; then
+    if check_service_run_status "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE"; then
+      if check_service_health "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE" "$THRIFT_PORT"; then
+        THRIFT_STATUS="$EXIT_SUCCESS"
+      else
+        THRIFT_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
+      fi
+    else
+      THRIFT_STATUS="$EXIT_NOT_RUNNING"
+    fi
+  fi
+}
+
+##########################################
 # MAIN PART                              #
 ##########################################
 
-logInfo "Starting service verify checks at $(timestamp)."
-
-# checking master
-MASTER_STATUS="$NOT_AVAILABLE"
-if check_service_existence "$MASTER_SERVICE_NAME" "$MASTER_ROLE_FILE"; then
-  if check_service_run_status "$MASTER_SERVICE_NAME" "$MASTER_PID_FILE"; then
-    if check_main_health "list" "$MASTER_SERVICE_NAME"; then
-      MASTER_STATUS="$EXIT_SUCCESS"
-    else
-      MASTER_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
-    fi
-  else
-    MASTER_STATUS="$EXIT_NOT_RUNNING"
-  fi
-fi
-
-# checking RS
-RS_STATUS="$NOT_AVAILABLE"
-if check_service_existence "$RS_SERVICE_NAME" "$RS_ROLE_FILE"; then
-  if check_service_run_status "$RS_SERVICE_NAME" "$RS_PID_FILE"; then
-    if check_main_health "scan 'hbase:meta'" "$RS_SERVICE_NAME"; then
-      RS_STATUS="$EXIT_SUCCESS"
-    else
-      RS_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
-    fi
-  else
-    RS_STATUS="$EXIT_NOT_RUNNING"
-  fi
-fi
-
-# checking REST
-REST_STATUS="$NOT_AVAILABLE"
-if check_service_existence "$REST_SERVICE_NAME" "$REST_ROLE_FILE"; then
-  if check_service_run_status "$REST_SERVICE_NAME" "$REST_PID_FILE"; then
-    if check_service_health "$REST_SERVICE_NAME" "$REST_PID_FILE" "$REST_PORT"; then
-      REST_STATUS="$EXIT_SUCCESS"
-    else
-      REST_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
-    fi
-  else
-    REST_STATUS="$EXIT_NOT_RUNNING"
-  fi
-fi
-
-# checking THRIFT
-THRIFT_STATUS="$NOT_AVAILABLE"
-if check_service_existence "$THRIFT_SERVICE_NAME" "$THRIFT_ROLE_FILE"; then
-  if check_service_run_status "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE"; then
-    if check_service_health "$THRIFT_SERVICE_NAME" "$THRIFT_PID_FILE" "$THRIFT_PORT"; then
-      THRIFT_STATUS="$EXIT_SUCCESS"
-    else
-      THRIFT_STATUS="$EXIT_RUNNING_NOT_RESPONDING"
-    fi
-  else
-    THRIFT_STATUS="$EXIT_NOT_RUNNING"
-  fi
+if [ $# -eq 0 ] ; then
+  # this will exit after full check
+  logInfo "Starting service verify checks at $(timestamp) for all services."
+  verify_master
+  verify_rs
+  verify_rest
+  verify_thrift
+elif [ "$1" = "$MASTER_SERVICE_NAME" ]; then
+  logInfo "Starting service verify check at $(timestamp) for Master."
+  verify_master
+  logInfo "Exit: $MASTER_STATUS"
+  exit "$MASTER_STATUS"
+elif [ "$1" = $RS_SERVICE_NAME ]; then
+  logInfo "Starting service verify check at $(timestamp) for RegionServer."
+  verify_rs
+  logInfo "Exit: $RS_STATUS"
+  exit "$RS_STATUS"
+elif [ "$1" = $REST_SERVICE_NAME ]; then
+  logInfo "Starting service verify check at $(timestamp) for RestServer."
+  verify_rest
+  logInfo "Exit: $REST_STATUS"
+  exit "$REST_STATUS"
+elif [ "$1" = $THRIFT_SERVICE_NAME ]; then
+  logInfo "Starting service verify check at $(timestamp) for ThriftServer."
+  verify_thrift
+  logInfo "Exit: $THRIFT_STATUS"
+  exit "$THRIFT_STATUS"
 fi
 
 ##########################################
-# ALL CHECKS                             #
+# ALL CHECKS UNLESS SERVICE IS SPECIFIED #
 ##########################################
 
 # if any of them is on the node but not responding, exit 2
