@@ -1278,7 +1278,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- This should be set to the Apache Github tag this release is based upon -->
-    <apache.git.tag>1.4.13</apache.git.tag>
+    <apache.git.tag>rel/1.4.14</apache.git.tag>
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
