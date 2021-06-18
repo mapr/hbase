@@ -40,7 +40,6 @@ import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.security.UserGroupInformation
 import org.apache.hadoop.security.UserGroupInformation.AuthenticationMethod
 import org.apache.spark.broadcast.Broadcast
-import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.{SerializableWritable, SparkContext}
@@ -490,7 +489,7 @@ class HBaseContext(@transient sc: SparkContext,
   Configuration = {
 
     if (tmpHdfsConfiguration == null && tmpHdfsConfgFile != null) {
-      val fs = FileSystem.newInstance(SparkHadoopUtil.get.conf)
+      val fs = FileSystem.newInstance(sc.hadoopConfiguration)
       val inputStream = fs.open(new Path(tmpHdfsConfgFile))
       tmpHdfsConfiguration = new Configuration(false)
       tmpHdfsConfiguration.readFields(inputStream)

@@ -51,7 +51,7 @@ object Utils {
         case IntegerType => Bytes.toInt(src, offset)
         case LongType|TimestampType => Bytes.toLong(src, offset)
         case ShortType => Bytes.toShort(src, offset)
-        case StringType => toUTF8String(src, offset, length)
+        case StringType => Bytes.toString(src, offset, length)
         case BinaryType =>
           val newArray = new Array[Byte](length)
           System.arraycopy(src, offset, newArray, 0, length)
