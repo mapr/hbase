@@ -1265,7 +1265,7 @@
     <assembly.file>src/main/assembly/hadoop-two-compat.xml</assembly.file>
     <!-- end HBASE-15925 default hadoop compatibilty values -->
     <commons-cli.version>1.2</commons-cli.version>
-    <commons-codec.version>1.9</commons-codec.version>
+    <commons-codec.version>1.15</commons-codec.version>
     <!-- pretty outdated -->
     <commons-io.version>2.4</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
