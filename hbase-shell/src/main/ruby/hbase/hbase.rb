@@ -44,7 +44,13 @@ module Hbase
         configuration.setInt("hbase.ipc.client.connect.max.retries", 3)
         self.configuration.set("default.db", "unsetDB")
       end
-      @connection = ConnectionFactory.createConnection(self.configuration)
+      begin
+        @connection = ConnectionFactory.createConnection(self.configuration)
+      rescue Exception => e
+        puts e.inspect
+        puts "\t" + e.backtrace[0]
+        exit(false)
+      end
     end
 
     # Returns ruby's Admin class from admin.rb
