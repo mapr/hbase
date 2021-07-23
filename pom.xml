@@ -1308,9 +1308,8 @@
     <disruptor.version>3.4.2</disruptor.version>
     <!-- Do not use versions earlier than 3.2.2 due to a security vulnerability -->
     <collections.version>3.2.2</collections.version>
-    <httpclient.version>3.1</httpclient.version>
     <httpcore.version>4.4.4</httpcore.version>
-    <http-components-client.version>4.5.2</http-components-client.version>
+    <http-components-client.version>4.5.13</http-components-client.version>
     <metrics-core.version>2.2.0</metrics-core.version>
     <guava.version>28.2-jre</guava.version>
     <jackson.version>2.11.1</jackson.version>
@@ -1681,11 +1680,6 @@
         <groupId>commons-collections</groupId>
         <artifactId>commons-collections</artifactId>
         <version>${collections.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-httpclient</groupId>
-        <artifactId>commons-httpclient</artifactId>
-        <version>${httpclient.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
@@ -2536,6 +2530,10 @@
             <artifactId>hadoop-minicluster</artifactId>
             <version>${hadoop-two.version}</version>
             <exclusions>
+            <exclusion>
+              <groupId>commons-httpclient</groupId>
+              <artifactId>commons-httpclient</artifactId>
+            </exclusion>
               <exclusion>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>

@@ -30,7 +30,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.httpclient.Header;
+import org.apache.http.Header;
 import org.apache.hadoop.hbase.CompatibilityFactory;
 import org.apache.hadoop.hbase.HConstants;
 import org.apache.hadoop.hbase.testclassification.MediumTests;

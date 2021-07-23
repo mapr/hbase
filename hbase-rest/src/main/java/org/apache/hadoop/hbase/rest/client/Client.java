@@ -19,30 +19,34 @@
 
 package org.apache.hadoop.hbase.rest.client;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.HttpVersion;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.URI;
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.HeadMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.util.EntityUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
@@ -65,6 +69,8 @@ public class Client {
   private HttpClient httpClient;
   private Cluster cluster;
   private boolean sslEnabled;
+  private HttpResponse resp;
+  private HttpGet httpGet = null;
 
   private Map<String, String> extraHeaders;
 
@@ -82,18 +88,14 @@ public class Client {
   private void initialize(Cluster cluster, boolean sslEnabled) {
     this.cluster = cluster;
     this.sslEnabled = sslEnabled;
-    MultiThreadedHttpConnectionManager manager =
-      new MultiThreadedHttpConnectionManager();
-    HttpConnectionManagerParams managerParams = manager.getParams();
-    managerParams.setConnectionTimeout(2000); // 2 s
-    managerParams.setDefaultMaxConnectionsPerHost(10);
-    managerParams.setMaxTotalConnections(100);
     extraHeaders = new ConcurrentHashMap<String, String>();
-    this.httpClient = new HttpClient(manager);
-    HttpClientParams clientParams = httpClient.getParams();
-    clientParams.setVersion(HttpVersion.HTTP_1_1);
-
+    this.httpClient = HttpClientBuilder.create()
+        .setMaxConnTotal(100)
+        .setConnectionTimeToLive(2000, TimeUnit.MILLISECONDS)
+        .setMaxConnPerRoute(10)
+        .build();
   }
+
   /**
    * Constructor
    * @param cluster the cluster definition
@@ -115,9 +117,6 @@ public class Client {
    * Shut down the client. Close any open persistent connections.
    */
   public void shutdown() {
-    MultiThreadedHttpConnectionManager manager =
-      (MultiThreadedHttpConnectionManager) httpClient.getHttpConnectionManager();
-    manager.shutdown();
   }
 
   /**
@@ -183,7 +182,7 @@ public class Client {
    * @return the HTTP response code
    * @throws IOException
    */
-  public int executePathOnly(Cluster cluster, HttpMethod method,
+  public HttpResponse executePathOnly(Cluster cluster, HttpUriRequest method,
       Header[] headers, String path) throws IOException {
     IOException lastException;
     if (cluster.nodes.size() < 1) {
@@ -202,10 +201,29 @@ public class Client {
         }
         sb.append(cluster.lastHost);
         sb.append(path);
-        URI uri = new URI(sb.toString(), true);
+        URI uri = new URI(sb.toString());
+        if (method instanceof HttpPut) {
+          HttpPut put = new HttpPut(uri);
+          put.setEntity(((HttpPut) method).getEntity());
+          put.setHeaders(method.getAllHeaders());
+          method = put;
+        } else if (method instanceof HttpGet) {
+          method = new HttpGet(uri);
+        } else if (method instanceof HttpHead) {
+          method = new HttpHead(uri);
+        } else if (method instanceof HttpDelete) {
+          method = new HttpDelete(uri);
+        } else if (method instanceof HttpPost) {
+          HttpPost post = new HttpPost(uri);
+          post.setEntity(((HttpPost) method).getEntity());
+          post.setHeaders(method.getAllHeaders());
+          method = post;
+        }
         return executeURI(method, headers, uri.toString());
       } catch (IOException e) {
         lastException = e;
+      } catch (URISyntaxException use) {
+        lastException = new IOException(use);
       }
     } while (++i != start && i < cluster.nodes.size());
     throw lastException;
@@ -219,30 +237,33 @@ public class Client {
    * @return the HTTP response code
    * @throws IOException
    */
-  public int executeURI(HttpMethod method, Header[] headers, String uri)
+  public HttpResponse executeURI(HttpUriRequest method, Header[] headers, String uri)
       throws IOException {
-    method.setURI(new URI(uri, true));
     for (Map.Entry<String, String> e: extraHeaders.entrySet()) {
-      method.addRequestHeader(e.getKey(), e.getValue());
+      method.addHeader(e.getKey(), e.getValue());
     }
     if (headers != null) {
       for (Header header: headers) {
-        method.addRequestHeader(header);
+        method.addHeader(header);
       }
     }
     long startTime = System.currentTimeMillis();
-    int code = httpClient.executeMethod(method);
-    if (code == HttpStatus.SC_UNAUTHORIZED) { // Authentication error
+    if (resp != null) EntityUtils.consumeQuietly(resp.getEntity());
+    resp = httpClient.execute(method);
+    int code = resp.getStatusLine().getStatusCode();
+    if (code == HttpStatus.SC_UNAUTHORIZED) {
+      // Authentication error, will try kerberos authentication
       LOG.debug("Performing negotiation with the server.");
       negotiate(method, uri);
-      code = httpClient.executeMethod(method);
+      resp = httpClient.execute(method);
     }
+
     long endTime = System.currentTimeMillis();
     if (LOG.isTraceEnabled()) {
-      LOG.trace(method.getName() + " " + uri + " " + code + " " +
-        method.getStatusText() + " in " + (endTime - startTime) + " ms");
+      LOG.trace(method.getMethod() + " " + uri + " " + resp.getStatusLine().getStatusCode() + " " +
+          resp.getStatusLine().getReasonPhrase() + " in " + (endTime - startTime) + " ms");
     }
-    return code;
+    return resp;
   }
 
   /**
@@ -256,7 +277,7 @@ public class Client {
    * @return the HTTP response code
    * @throws IOException
    */
-  public int execute(Cluster cluster, HttpMethod method, Header[] headers,
+  public HttpResponse execute(Cluster cluster, HttpUriRequest method, Header[] headers,
       String path) throws IOException {
     if (path.startsWith("/")) {
       return executePathOnly(cluster, method, headers, path);
@@ -270,7 +291,7 @@ public class Client {
    * @param uri the String to parse as a URL.
    * @throws IOException if unknown protocol is found.
    */
-  private void negotiate(HttpMethod method, String uri) throws IOException {
+  private void negotiate(HttpUriRequest method, String uri) throws IOException {
     try {
       AuthenticatedURL.Token token = new AuthenticatedURL.Token();
       KerberosAuthenticator authenticator = new KerberosAuthenticator();
@@ -288,13 +309,13 @@ public class Client {
    * @param method method to inject the authentication token into.
    * @param token authentication token to inject.
    */
-  private void injectToken(HttpMethod method, AuthenticatedURL.Token token) {
+  private void injectToken(HttpUriRequest method, AuthenticatedURL.Token token) {
     String t = token.toString();
     if (t != null) {
       if (!t.startsWith("\"")) {
         t = "\"" + t + "\"";
       }
-      method.addRequestHeader(COOKIE, AUTH_COOKIE_EQ + t);
+      method.addHeader(COOKIE, AUTH_COOKIE_EQ + t);
     }
   }
 
@@ -332,11 +353,10 @@ public class Client {
    */
   public Response head(Cluster cluster, String path, Header[] headers)
       throws IOException {
-    HeadMethod method = new HeadMethod();
+    HttpHead method = new HttpHead(path);
     try {
-      int code = execute(cluster, method, null, path);
-      headers = method.getResponseHeaders();
-      return new Response(code, headers, null);
+      HttpResponse resp = execute(cluster, method, null, path);
+      return new Response(resp.getStatusLine().getStatusCode(), resp.getAllHeaders(), null);
     } finally {
       method.releaseConnection();
     }
@@ -385,7 +405,7 @@ public class Client {
   public Response get(Cluster cluster, String path, String accept)
       throws IOException {
     Header[] headers = new Header[1];
-    headers[0] = new Header("Accept", accept);
+    headers[0] = new BasicHeader("Accept", accept);
     return get(cluster, path, headers);
   }
 
@@ -402,6 +422,45 @@ public class Client {
   }
 
   /**
+   * Returns the response body of the HTTPResponse, if any, as an array of bytes.
+   * If response body is not available or cannot be read, returns <tt>null</tt>
+   *
+   * Note: This will cause the entire response body to be buffered in memory. A
+   * malicious server may easily exhaust all the VM memory. It is strongly
+   * recommended, to use getResponseAsStream if the content length of the response
+   * is unknown or reasonably large.
+   *
+   * @param resp HttpResponse
+   * @return The response body, null if body is empty
+   * @throws IOException If an I/O (transport) problem occurs while obtaining the
+   * response body.
+   */
+  @edu.umd.cs.findbugs.annotations.SuppressWarnings(value =
+      "NP_LOAD_OF_KNOWN_NULL_VALUE", justification = "null is possible return value")
+  public static byte[] getResponseBody(HttpResponse resp) throws IOException {
+    if (resp.getEntity() == null) return null;
+    try (InputStream instream = resp.getEntity().getContent()) {
+      if (instream != null) {
+        long contentLength = resp.getEntity().getContentLength();
+        if (contentLength > Integer.MAX_VALUE) {
+          //guard integer cast from overflow
+          throw new IOException("Content too large to be buffered: " + contentLength +" bytes");
+        }
+        ByteArrayOutputStream outstream = new ByteArrayOutputStream(
+            contentLength > 0 ? (int) contentLength : 4*1024);
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = instream.read(buffer)) > 0) {
+          outstream.write(buffer, 0, len);
+        }
+        outstream.close();
+        return outstream.toByteArray();
+      }
+      return null;
+    }
+  }
+
+  /**
    * Send a GET request
    * @param c the cluster definition
    * @param path the path or URI
@@ -411,16 +470,13 @@ public class Client {
    */
   public Response get(Cluster c, String path, Header[] headers)
       throws IOException {
-    GetMethod method = new GetMethod();
-    try {
-      int code = execute(c, method, headers, path);
-      headers = method.getResponseHeaders();
-      byte[] body = method.getResponseBody();
-      InputStream in = method.getResponseBodyAsStream();
-      return new Response(code, headers, body, in);
-    } finally {
-      method.releaseConnection();
+    if (httpGet != null) {
+      httpGet.releaseConnection();
     }
+    httpGet = new HttpGet(path);
+    HttpResponse resp = execute(c, httpGet, headers, path);
+    return new Response(resp.getStatusLine().getStatusCode(), resp.getAllHeaders(),
+        resp, resp.getEntity() == null ? null : resp.getEntity().getContent());
   }
 
   /**
@@ -462,7 +518,7 @@ public class Client {
   public Response put(Cluster cluster, String path, String contentType,
       byte[] content) throws IOException {
     Header[] headers = new Header[1];
-    headers[0] = new Header("Content-Type", contentType);
+    headers[0] = new BasicHeader("Content-Type", contentType);
     return put(cluster, path, headers, content);
   }
 
@@ -480,7 +536,7 @@ public class Client {
       byte[] content, Header extraHdr) throws IOException {
     int cnt = extraHdr == null ? 1 : 2;
     Header[] headers = new Header[cnt];
-    headers[0] = new Header("Content-Type", contentType);
+    headers[0] = new BasicHeader("Content-Type", contentType);
     if (extraHdr != null) {
       headers[1] = extraHdr;
     }
@@ -513,13 +569,13 @@ public class Client {
    */
   public Response put(Cluster cluster, String path, Header[] headers,
       byte[] content) throws IOException {
-    PutMethod method = new PutMethod();
+    HttpPut method = new HttpPut(path);
     try {
-      method.setRequestEntity(new ByteArrayRequestEntity(content));
-      int code = execute(cluster, method, headers, path);
-      headers = method.getResponseHeaders();
-      content = method.getResponseBody();
-      return new Response(code, headers, content);
+      method.setEntity(new InputStreamEntity(new ByteArrayInputStream(content), content.length));
+      HttpResponse resp = execute(cluster, method, headers, path);
+      headers = resp.getAllHeaders();
+      content = getResponseBody(resp);
+      return new Response(resp.getStatusLine().getStatusCode(), headers, content);
     } finally {
       method.releaseConnection();
     }
@@ -564,7 +620,7 @@ public class Client {
   public Response post(Cluster cluster, String path, String contentType,
       byte[] content) throws IOException {
     Header[] headers = new Header[1];
-    headers[0] = new Header("Content-Type", contentType);
+    headers[0] = new BasicHeader("Content-Type", contentType);
     return post(cluster, path, headers, content);
   }
 
@@ -582,7 +638,7 @@ public class Client {
       byte[] content, Header extraHdr) throws IOException {
     int cnt = extraHdr == null ? 1 : 2;
     Header[] headers = new Header[cnt];
-    headers[0] = new Header("Content-Type", contentType);
+    headers[0] = new BasicHeader("Content-Type", contentType);
     if (extraHdr != null) {
       headers[1] = extraHdr;
     }
@@ -615,13 +671,13 @@ public class Client {
    */
   public Response post(Cluster cluster, String path, Header[] headers,
       byte[] content) throws IOException {
-    PostMethod method = new PostMethod();
+    HttpPost method = new HttpPost(path);
     try {
-      method.setRequestEntity(new ByteArrayRequestEntity(content));
-      int code = execute(cluster, method, headers, path);
-      headers = method.getResponseHeaders();
-      content = method.getResponseBody();
-      return new Response(code, headers, content);
+      method.setEntity(new InputStreamEntity(new ByteArrayInputStream(content), content.length));
+      HttpResponse resp = execute(cluster, method, headers, path);
+      headers = resp.getAllHeaders();
+      content = getResponseBody(resp);
+      return new Response(resp.getStatusLine().getStatusCode(), headers, content);
     } finally {
       method.releaseConnection();
     }
@@ -656,12 +712,12 @@ public class Client {
    * @throws IOException for error
    */
   public Response delete(Cluster cluster, String path) throws IOException {
-    DeleteMethod method = new DeleteMethod();
+    HttpDelete method = new HttpDelete(path);
     try {
-      int code = execute(cluster, method, null, path);
-      Header[] headers = method.getResponseHeaders();
-      byte[] content = method.getResponseBody();
-      return new Response(code, headers, content);
+      HttpResponse resp = execute(cluster, method, null, path);
+      Header[] headers = resp.getAllHeaders();
+      byte[] content = getResponseBody(resp);
+      return new Response(resp.getStatusLine().getStatusCode(), headers, content);
     } finally {
       method.releaseConnection();
     }
@@ -675,13 +731,13 @@ public class Client {
    * @throws IOException for error
    */
   public Response delete(Cluster cluster, String path, Header extraHdr) throws IOException {
-    DeleteMethod method = new DeleteMethod();
+    HttpDelete method = new HttpDelete(path);
     try {
       Header[] headers = { extraHdr };
-      int code = execute(cluster, method, headers, path);
-      headers = method.getResponseHeaders();
-      byte[] content = method.getResponseBody();
-      return new Response(code, headers, content);
+      HttpResponse resp = execute(cluster, method, headers, path);
+      headers = resp.getAllHeaders();
+      byte[] content = getResponseBody(resp);
+      return new Response(resp.getStatusLine().getStatusCode(), headers, content);
     } finally {
       method.releaseConnection();
     }

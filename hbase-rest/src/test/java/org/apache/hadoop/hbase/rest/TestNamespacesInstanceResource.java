@@ -50,7 +50,7 @@ import org.apache.hadoop.hbase.rest.model.TableModel;
 import org.apache.hadoop.hbase.rest.model.TestNamespacesInstanceModel;
 import org.apache.hadoop.hbase.testclassification.MediumTests;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.commons.httpclient.Header;
+import org.apache.http.Header;
 
 import static org.junit.Assert.*;
 

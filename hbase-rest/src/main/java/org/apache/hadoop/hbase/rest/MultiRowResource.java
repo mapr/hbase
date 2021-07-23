@@ -116,7 +116,7 @@ public class MultiRowResource extends ResourceBase implements Constants {
         servlet.getMetrics().incrementSucessfulGetRequests(1);
         return Response.ok(model).build();
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       servlet.getMetrics().incrementFailedGetRequests(1);
       return processException(e);
     }
