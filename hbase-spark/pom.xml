@@ -42,7 +42,7 @@
     <scala.binary.version>2.12</scala.binary.version>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
     <top.dir>${project.basedir}/..</top.dir>
-    <avro.version>1.7.7</avro.version>
+    <avro.version>1.10.1</avro.version>
     <avro.mapred.classifier></avro.mapred.classifier>
   </properties>
 
