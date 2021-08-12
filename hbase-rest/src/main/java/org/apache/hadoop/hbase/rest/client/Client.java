@@ -117,6 +117,7 @@ public class Client {
    * Shut down the client. Close any open persistent connections.
    */
   public void shutdown() {
+    this.httpClient.getConnectionManager().shutdown();
   }
 
   /**
