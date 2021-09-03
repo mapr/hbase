@@ -311,6 +311,7 @@
       <groupId>com.mapr.security</groupId>
       <artifactId>mapr-security-web</artifactId>
       <version>${mapr.release.version}</version>
+      <scope>provided</scope>
       <exclusions>
         <exclusion>
           <groupId>com.mapr.hadoop</groupId>
