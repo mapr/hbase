@@ -19,9 +19,9 @@
 package org.apache.hadoop.hbase.thrift;
 
 import static org.apache.hadoop.hbase.HConstants.CUSTOM_HEADERS_FILE;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
 import static org.apache.hadoop.hbase.security.User.*;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
@@ -482,8 +482,8 @@ public class ThriftServerRunner implements Runnable {
 
       SslContextFactory sslCtxFactory = new SslContextFactory.Server();
       String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
-      String password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, getClientKeystorePassword());
-      String keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, getClientKeyPassword());
+      String password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, getServerKeystorePassword());
+      String keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, getServerKeyPassword());
       sslCtxFactory.setKeyStorePath(keystore);
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);

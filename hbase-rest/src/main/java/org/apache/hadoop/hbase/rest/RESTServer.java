@@ -67,9 +67,9 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystorePassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
 import static org.apache.hadoop.hbase.security.User.KERBEROS;
 
@@ -292,8 +292,8 @@ public class RESTServer implements Constants {
       SslContextFactory sslCtxFactory = new SslContextFactory.Server();
 
       String keystore = conf.get(REST_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
-      String password = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_PASSWORD, getClientKeystorePassword());
-      String keyPassword = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_KEYPASSWORD, getClientKeyPassword());
+      String password = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_PASSWORD, getServerKeystorePassword());
+      String keyPassword = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_KEYPASSWORD, getServerKeyPassword());
       sslCtxFactory.setKeyStorePath(keystore);
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);
