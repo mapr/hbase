@@ -19,6 +19,7 @@
 package org.apache.hadoop.hbase.rest;
 
 import java.lang.management.ManagementFactory;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -48,6 +49,9 @@ import org.apache.hadoop.hbase.util.ReflectionUtils;
 
 import com.google.common.base.Preconditions;
 
+import org.apache.zookeeper.common.KeyStoreFileType;
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
+import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 import org.eclipse.jetty.http.HttpVersion;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.HttpConnectionFactory;
@@ -67,9 +71,10 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreType;
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
 import static org.apache.hadoop.hbase.security.User.KERBEROS;
 
@@ -94,6 +99,7 @@ public class RESTServer implements Constants {
   static final String REST_CSRF_METHODS_TO_IGNORE_KEY = "hbase.rest.csrf.methods.to.ignore";
   static final String REST_CSRF_METHODS_TO_IGNORE_DEFAULT = "GET,OPTIONS,HEAD,TRACE";
   public static final String SKIP_LOGIN_KEY = "hbase.rest.skip.login";
+  private static final String BCFKS_KEYSTORE_TYPE = "bcfks";
 
   private static final String PATH_SPEC_ANY = "/*";
 
@@ -291,12 +297,19 @@ public class RESTServer implements Constants {
 
       SslContextFactory sslCtxFactory = new SslContextFactory.Server();
 
-      String keystore = conf.get(REST_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
+      String keystore = conf.get(REST_SSL_KEYSTORE_STORE, getServerKeystoreLocation());
       String password = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_PASSWORD, getServerKeystorePassword());
       String keyPassword = HBaseConfiguration.getPassword(conf, REST_SSL_KEYSTORE_KEYPASSWORD, getServerKeyPassword());
       sslCtxFactory.setKeyStorePath(keystore);
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);
+      // if fips mode is enabled, key store type should be configured
+      if (getServerKeystoreType().equalsIgnoreCase(KeyStoreFileType.BCFKS.getPropertyValue())) {
+        Security.addProvider(new BouncyCastleFipsProvider());
+        Security.addProvider(new BouncyCastleJsseProvider());
+        sslCtxFactory.setProvider(BouncyCastleJsseProvider.PROVIDER_NAME);
+        sslCtxFactory.setKeyStoreType(BCFKS_KEYSTORE_TYPE);
+      }
 
       String[] excludeCiphers = servlet.getConfiguration().getStrings(
               REST_SSL_EXCLUDE_CIPHER_SUITES, ArrayUtils.EMPTY_STRING_ARRAY);

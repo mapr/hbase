@@ -141,6 +141,7 @@ fi
 COMMAND=$1
 shift
 
+MAPR_HOME=${MAPR_HOME:-/opt/mapr}
 JAVA=$JAVA_HOME/bin/java
 
 # override default settings for this command, if applicable
@@ -487,6 +488,11 @@ export CLASSPATH
 
 # This is for creating unique ErrorFile in case JVM crashes multiple times
 TS=$(date +%F-%H%M%S%3N)
+
+# this is to determine FIPS mode, and if enabled, add necessary java options such as custom security properties
+env=${MAPR_HOME}/conf/env.sh
+[ -f "${env}" ] && . "${env}"
+HBASE_OPTS="${HBASE_OPTS} ${MAPR_COMMON_JAVA_OPTS}"
 
 if [ "${HBASE_NOEXEC}" != "" ]; then
   "$JAVA" -Dproc_$COMMAND -XX:OnOutOfMemoryError="kill -9 %p" -XX:ErrorFile="${HBASE_HOME}/logs/hs_err_pid_%p_$TS.log" $HEAP_SETTINGS $HBASE_OPTS $CLASS "$@"

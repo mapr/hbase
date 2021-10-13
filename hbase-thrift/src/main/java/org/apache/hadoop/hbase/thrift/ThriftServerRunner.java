@@ -19,9 +19,10 @@
 package org.apache.hadoop.hbase.thrift;
 
 import static org.apache.hadoop.hbase.HConstants.CUSTOM_HEADERS_FILE;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getClientKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
+import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreType;
 import static org.apache.hadoop.hbase.security.User.*;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
@@ -32,6 +33,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.security.PrivilegedAction;
+import java.security.Security;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -129,6 +131,9 @@ import org.apache.thrift.transport.TSaslServerTransport;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransportFactory;
+import org.apache.zookeeper.common.KeyStoreFileType;
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
+import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 import org.eclipse.jetty.http.HttpVersion;
 import org.eclipse.jetty.server.*;
 
@@ -151,6 +156,7 @@ public class ThriftServerRunner implements Runnable {
   private static final Log LOG = LogFactory.getLog(ThriftServerRunner.class);
 
   private static final int DEFAULT_HTTP_MAX_HEADER_SIZE = 64 * 1024; // 64k
+  private static final String BCFKS_KEYSTORE_TYPE = "bcfks";
 
   private static final GenericHFactory<CallbackHandler> callbackHandlerFactory =
           new GenericHFactory<CallbackHandler>();
@@ -481,12 +487,19 @@ public class ThriftServerRunner implements Runnable {
       httpsConfig.addCustomizer(new SecureRequestCustomizer());
 
       SslContextFactory sslCtxFactory = new SslContextFactory.Server();
-      String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, getClientKeystoreLocation());
+      String keystore = conf.get(THRIFT_SSL_KEYSTORE_STORE, getServerKeystoreLocation());
       String password = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_PASSWORD, getServerKeystorePassword());
       String keyPassword = HBaseConfiguration.getPassword(conf, THRIFT_SSL_KEYSTORE_KEYPASSWORD, getServerKeyPassword());
       sslCtxFactory.setKeyStorePath(keystore);
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);
+      // if fips mode is enabled, key store type should be configured
+      if (getServerKeystoreType().equalsIgnoreCase(KeyStoreFileType.BCFKS.getPropertyValue())) {
+        Security.addProvider(new BouncyCastleFipsProvider());
+        Security.addProvider(new BouncyCastleJsseProvider());
+        sslCtxFactory.setProvider(BouncyCastleJsseProvider.PROVIDER_NAME);
+        sslCtxFactory.setKeyStoreType(BCFKS_KEYSTORE_TYPE);
+      }
 
       String[] excludeCiphers = conf.getStrings(
               THRIFT_SSL_EXCLUDE_CIPHER_SUITES, org.apache.commons.lang.ArrayUtils.EMPTY_STRING_ARRAY);
