@@ -49,7 +49,7 @@ public class TestScannerModel extends TestModelBase<ScannerModel> {
 
     AS_JSON = "{\"startRow\":\"YWJyYWNhZGFicmE=\",\"endRow\":\"enp5eng=\",\"column\":"
         + "[\"Y29sdW1uMQ==\",\"Y29sdW1uMjpmb28=\"],\"batch\":100,\"startTime\":1245219839331,"
-        + "\"endTime\":1245393318192,\"filter\":null,\"maxVersions\":2147483647,"
+        + "\"endTime\":1245393318192,\"maxVersions\":2147483647,"
         + "\"caching\":1000,\"labels\":[\"private\",\"public\"],\"cacheBlocks\":false}";
 
     AS_PB = "CgthYnJhY2FkYWJyYRIFenp5engaB2NvbHVtbjEaC2NvbHVtbjI6Zm9vIGQo47qL554kMLDi57mf"

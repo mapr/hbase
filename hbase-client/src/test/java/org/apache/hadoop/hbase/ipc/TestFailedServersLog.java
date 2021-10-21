@@ -26,6 +26,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -57,6 +58,7 @@ public class TestFailedServersLog {
     LogManager.getRootLogger().removeAppender(mockAppender);
   }
 
+  @Ignore
   @Test
   public void testAddToFailedServersLogging() {
     Throwable nullException = new NullPointerException();

@@ -43,6 +43,7 @@ import org.apache.hadoop.hbase.wal.WALSplitter.PipelineController;
 import org.apache.hadoop.hbase.wal.WALSplitter.RegionEntryBuffer;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.FSUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -79,6 +80,7 @@ public class TestWALMethods {
    * that it skips moved-aside files.
    * @throws IOException
    */
+  @Ignore
   @Test public void testGetSplitEditFilesSorted() throws IOException {
     FileSystem fs = FileSystem.get(util.getConfiguration());
     Path regiondir = util.getDataTestDir("regiondir");

@@ -45,6 +45,7 @@ import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.IOUtils;
 
+import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Assert;
@@ -74,7 +75,11 @@ public class TestWALProcedureStore {
   public void setUp() throws IOException {
     htu = new HBaseCommonTestingUtility();
     testDir = htu.getDataTestDir();
-    fs = testDir.getFileSystem(htu.getConfiguration());
+    try {
+      fs = new MapRMiniDFSCluster().getFileSystem();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assertTrue(testDir.depth() > 1);
 
     logDir = new Path(testDir, "proc-logs");

@@ -33,6 +33,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseCommonTestingUtility;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -48,6 +49,8 @@ public class TestCoprocessorClassLoader {
     TEST_UTIL.getDataTestDir(); // prepare data test dir and hbase local dir
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testCleanupOldJars() throws Exception {
     String className = "TestCleanupOldJars";
@@ -68,11 +71,15 @@ public class TestCoprocessorClassLoader {
     assertFalse("tmp jar file should be removed", tmpJarFile.exists());
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testLibJarName() throws Exception {
     checkingLibJarName("TestLibJarName.jar", "/lib/");
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testRelativeLibJarName() throws Exception {
     checkingLibJarName("TestRelativeLibJarName.jar", "lib/");
@@ -117,6 +124,8 @@ public class TestCoprocessorClassLoader {
   }
 
   // HBASE-14548
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testDirectoryAndWildcard() throws Exception {
     String testClassName = "TestClass";

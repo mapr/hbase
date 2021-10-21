@@ -29,6 +29,7 @@ import org.apache.hadoop.hbase.ProcedureInfo;
 import org.apache.hadoop.hbase.procedure2.store.ProcedureStore;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.hbase.testclassification.MasterTests;
+import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +58,11 @@ public class TestChildProcedures {
   public void setUp() throws IOException {
     htu = new HBaseCommonTestingUtility();
     testDir = htu.getDataTestDir();
-    fs = testDir.getFileSystem(htu.getConfiguration());
+    try {
+      fs = new MapRMiniDFSCluster().getFileSystem();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assertTrue(testDir.depth() > 1);
 
     logDir = new Path(testDir, "proc-logs");

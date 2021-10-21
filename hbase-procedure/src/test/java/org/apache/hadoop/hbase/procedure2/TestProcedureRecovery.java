@@ -40,6 +40,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -65,7 +66,11 @@ public class TestProcedureRecovery {
   public void setUp() throws IOException {
     htu = new HBaseCommonTestingUtility();
     testDir = htu.getDataTestDir();
-    fs = testDir.getFileSystem(htu.getConfiguration());
+    try {
+      fs = new MapRMiniDFSCluster().getFileSystem();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assertTrue(testDir.depth() > 1);
 
     logDir = new Path(testDir, "proc-logs");

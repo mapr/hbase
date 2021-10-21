@@ -36,6 +36,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.NonceKey;
 import org.apache.hadoop.hbase.util.Threads;
 
+import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +45,6 @@ import org.junit.experimental.categories.Category;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 @Category({MasterTests.class, SmallTests.class})
 public class TestProcedureNonce {
@@ -64,7 +64,11 @@ public class TestProcedureNonce {
   public void setUp() throws IOException {
     htu = new HBaseCommonTestingUtility();
     Path testDir = htu.getDataTestDir();
-    fs = testDir.getFileSystem(htu.getConfiguration());
+    try {
+      fs = new MapRMiniDFSCluster().getFileSystem();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assertTrue(testDir.depth() > 1);
 
     logDir = new Path(testDir, "proc-logs");

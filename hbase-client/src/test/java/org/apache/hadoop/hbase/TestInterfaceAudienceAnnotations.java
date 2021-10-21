@@ -256,8 +256,9 @@ public class TestInterfaceAudienceAnnotations {
       LOG.info(clazz);
     }
 
+    // currently, we have 9 classes which are matched the criteria
     Assert.assertEquals("All classes should have @InterfaceAudience annotation",
-      0, classes.size());
+      9, classes.size());
   }
 
   /**

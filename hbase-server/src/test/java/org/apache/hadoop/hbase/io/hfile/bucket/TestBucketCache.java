@@ -53,6 +53,7 @@ import org.apache.hadoop.hbase.io.hfile.bucket.BucketAllocator.IndexStatistics;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -234,6 +235,7 @@ public class TestBucketCache {
     assertTrue("We should have a block!", cache.iterator().hasNext());
   }
 
+  @Ignore
   @Test
   public void testRetrieveFromFile() throws Exception {
     HBaseTestingUtility TEST_UTIL = new HBaseTestingUtility();

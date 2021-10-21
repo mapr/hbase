@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseCommonTestingUtility;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.experimental.categories.Category;
@@ -52,6 +53,8 @@ public class TestDynamicClassLoader {
     conf = new Configuration(TEST_UTIL.getConfiguration());
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testLoadClassFromLocalPath() throws Exception {
     ClassLoader parent = TestDynamicClassLoader.class.getClassLoader();
@@ -77,6 +80,8 @@ public class TestDynamicClassLoader {
     }
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testLoadClassFromAnotherPath() throws Exception {
     ClassLoader parent = TestDynamicClassLoader.class.getClassLoader();

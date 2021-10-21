@@ -146,11 +146,16 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
     </dependency>
+    <!--   To mock file system     -->
+    <dependency>
+      <groupId>org.apache.hive.maprminicluster</groupId>
+      <artifactId>mapr-mini-cluster</artifactId>
+      <type>test-jar</type>
+    </dependency>
   </dependencies>
 
   <profiles>
     <!-- Profiles for building against different hadoop versions -->
-
     <!-- profile for building against Hadoop 2.x.  This is the default -->
     <profile>
       <id>hadoop-2.0</id>

@@ -46,6 +46,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -296,6 +297,8 @@ public class TestClassFinder {
     assertEquals(allClasses.size() - 1, notAllClasses.size());
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testClassFinderFiltersByPathInDirs() throws Exception {
     final String hardcodedThisSubdir = "hbase-common";
@@ -312,6 +315,8 @@ public class TestClassFinder {
     assertFalse(notAllClasses.contains(this.getClass()));
   }
 
+  // requires apache hadoop
+  @Ignore
   @Test
   public void testClassFinderDefaultsToOwnPackage() throws Exception {
     // Correct handling of nested packages is tested elsewhere, so here we just assume

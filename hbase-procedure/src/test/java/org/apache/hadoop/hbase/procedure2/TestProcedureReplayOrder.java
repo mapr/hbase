@@ -34,6 +34,7 @@ import org.apache.hadoop.hbase.procedure2.store.ProcedureStore;
 import org.apache.hadoop.hbase.procedure2.store.wal.WALProcedureStore;
 import org.apache.hadoop.hbase.testclassification.LargeTests;
 
+import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +65,11 @@ public class TestProcedureReplayOrder {
     htu.getConfiguration().setInt(WALProcedureStore.SYNC_WAIT_MSEC_CONF_KEY, 25);
 
     testDir = htu.getDataTestDir();
-    fs = testDir.getFileSystem(htu.getConfiguration());
+    try {
+      fs = new MapRMiniDFSCluster().getFileSystem();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     assertTrue(testDir.depth() > 1);
 
     logDir = new Path(testDir, "proc-logs");

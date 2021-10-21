@@ -42,6 +42,7 @@ import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -98,6 +99,8 @@ public class TestQualifierFilterWithEmptyQualifier {
     HBaseTestingUtility.closeRegionAndWAL(region);
   }
 
+  // fails on mapr hadoop due to file client
+  @Ignore
   @Test
   public void testQualifierFilterWithEmptyColumn() throws IOException {
     long colsPerRow = 2;

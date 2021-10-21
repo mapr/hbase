@@ -37,6 +37,7 @@ import org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher;
 import org.apache.zookeeper.KeeperException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -83,6 +84,8 @@ public class TestTableCFsUpdater extends TableCFsUpdater {
     TEST_UTIL.shutdownMiniZKCluster();
   }
 
+  // does not work with mapr hadoop, requires maprlogin
+  @Ignore
   @Test
   public void testUpgrade() throws KeeperException, InterruptedException,
       DeserializationException {

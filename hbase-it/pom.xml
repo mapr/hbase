@@ -85,6 +85,7 @@
             </dependency>
           </dependencies>
           <configuration>
+            <skipITs>true</skipITs>
             <includes>
               <include>${integrationtest.include}</include>
             </includes>

@@ -660,6 +660,7 @@ public class TestAsyncProcess {
       AsyncProcess.DEFAULT_HBASE_CLIENT_MAX_PERREQUEST_HEAPSIZE);
     conn.getConfiguration().setLong(AsyncProcess.HBASE_CLIENT_MAX_PERREQUEST_HEAPSIZE, maxHeapSizePerRequest);
     BufferedMutatorParams bufferParam = new BufferedMutatorParams(DUMMY_TABLE);
+    bufferParam.pool(HTable.getDefaultExecutor(conf));
 
     // sn has two regions
     long putSizeSN = 0;
@@ -1060,7 +1061,9 @@ public class TestAsyncProcess {
 
   private void doHTableFailedPut(boolean bufferOn) throws Exception {
     ClusterConnection conn = createHConnection();
-    HTable ht = new HTable(conn, new BufferedMutatorParams(DUMMY_TABLE));
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
+    HTable ht = new HTable(conn, params);
     MyAsyncProcess ap = new MyAsyncProcess(conn, conf, true);
     ht.mutator.ap = ap;
     if (bufferOn) {
@@ -1108,8 +1111,10 @@ public class TestAsyncProcess {
   @Test
   public void testHTableFailedPutAndNewPut() throws Exception {
     ClusterConnection conn = createHConnection();
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
     BufferedMutatorImpl mutator = new BufferedMutatorImpl(conn, null, null,
-        new BufferedMutatorParams(DUMMY_TABLE).writeBufferSize(0));
+        params.writeBufferSize(0));
     MyAsyncProcess ap = new MyAsyncProcess(conn, conf, true);
     mutator.ap = ap;
 
@@ -1325,7 +1330,9 @@ public class TestAsyncProcess {
   @Test
   public void testBatch() throws IOException, InterruptedException {
     ClusterConnection conn = new MyConnectionImpl(conf);
-    HTable ht = new HTable(conn, new BufferedMutatorParams(DUMMY_TABLE));
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
+    HTable ht = new HTable(conn, params);
     ht.multiAp = new MyAsyncProcess(conn, conf, false);
 
     List<Put> puts = new ArrayList<Put>();
@@ -1356,8 +1363,9 @@ public class TestAsyncProcess {
   public void testErrorsServers() throws IOException {
     Configuration configuration = new Configuration(conf);
     ClusterConnection conn = new MyConnectionImpl(configuration);
-    BufferedMutatorImpl mutator =
-        new BufferedMutatorImpl(conn, null, null, new BufferedMutatorParams(DUMMY_TABLE));
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
+    BufferedMutatorImpl mutator = new BufferedMutatorImpl(conn, null, null, params);
     configuration.setBoolean(ConnectionManager.RETRIES_BY_SERVER_KEY, true);
 
     MyAsyncProcess ap = new MyAsyncProcess(conn, configuration, true);
@@ -1389,6 +1397,7 @@ public class TestAsyncProcess {
     ClusterConnection conn = createHConnection();
     Mockito.when(conn.getConfiguration()).thenReturn(copyConf);
     BufferedMutatorParams bufferParam = new BufferedMutatorParams(DUMMY_TABLE);
+    bufferParam.pool(HTable.getDefaultExecutor(conf));
     try (HTable ht = new HTable(conn, bufferParam)) {
       MyAsyncProcess ap = new MyAsyncProcess(conn, copyConf, true);
       ht.multiAp = ap;
@@ -1481,7 +1490,9 @@ public class TestAsyncProcess {
     }
 
     MyConnectionImpl2 con = new MyConnectionImpl2(hrls);
-    HTable ht = new HTable(con, new BufferedMutatorParams(DUMMY_TABLE));
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
+    HTable ht = new HTable(con, params);
     MyAsyncProcess ap = new MyAsyncProcess(con, conf, con.nbThreads);
     ht.multiAp = ap;
 
@@ -1818,8 +1829,10 @@ public class TestAsyncProcess {
   @Test
   public void testQueueRowAccess() throws Exception {
     ClusterConnection conn = createHConnection();
+    BufferedMutatorParams params = new BufferedMutatorParams(DUMMY_TABLE);
+    params.pool(HTable.getDefaultExecutor(conf));
     BufferedMutatorImpl mutator = new BufferedMutatorImpl(conn, null, null,
-      new BufferedMutatorParams(DUMMY_TABLE).writeBufferSize(100000));
+      params.writeBufferSize(100000));
     Put p0 = new Put(DUMMY_BYTES_1).addColumn(DUMMY_BYTES_1, DUMMY_BYTES_1, DUMMY_BYTES_1);
     Put p1 = new Put(DUMMY_BYTES_2).addColumn(DUMMY_BYTES_2, DUMMY_BYTES_2, DUMMY_BYTES_2);
     mutator.mutate(p0);
