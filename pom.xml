@@ -1316,9 +1316,9 @@
     <guava.version>28.2-jre</guava.version>
     <jackson.version>2.11.1</jackson.version>
     <jackson.databind.version>2.11.1</jackson.databind.version>
-    <tomcat-catalina.version>10.0.2</tomcat-catalina.version>
-    <tomcat-jasper.version>10.0.2</tomcat-jasper.version>
-    <tomcat-embed-jasper.version>10.0.2</tomcat-embed-jasper.version>
+    <tomcat-catalina.version>10.1.0-M6</tomcat-catalina.version>
+    <tomcat-jasper.version>10.1.0-M6</tomcat-jasper.version>
+    <tomcat-embed-jasper.version>10.1.0-M6</tomcat-embed-jasper.version>
     <jaxb-api.version>2.2.2</jaxb-api.version>
     <jetty.version>9.4.43.v20210629</jetty.version>
     <servlet.api.version>3.1.0</servlet.api.version>
