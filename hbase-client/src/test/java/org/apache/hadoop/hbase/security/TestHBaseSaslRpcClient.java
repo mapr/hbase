@@ -156,10 +156,14 @@ public class TestHBaseSaslRpcClient {
     assertFalse(assertSuccessCreationSimplePrincipal(null, null));
     assertFalse(assertSuccessCreationSimplePrincipal(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD));
 
+    /** Skipping exception type check here, because with SCRAM mechanism, we do not allow Digest to be null
+     * therefore it will not throw IOException. Please check the changes on EEP-HBASE-257
+     *
     //exceptions check section
     assertTrue(assertIOExceptionThenSaslClientIsNull(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD));
     assertTrue(assertIOExceptionWhenGetStreamsBeforeConnectCall(
         DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD));
+     */
   }
 
   @Test

@@ -121,6 +121,7 @@ import org.apache.hadoop.hbase.security.SaslStatus;
 import org.apache.hadoop.hbase.security.SaslUtil;
 import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.security.UserProvider;
+import org.apache.hadoop.hbase.security.scram.ScramAuthMethod;
 import org.apache.hadoop.hbase.security.token.AuthenticationTokenSecretManager;
 import org.apache.hadoop.hbase.util.*;
 import org.apache.hadoop.io.BytesWritable;
@@ -128,6 +129,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableUtils;
 import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.security.UserGroupInformation.AuthenticationMethod;
 import org.apache.hadoop.security.authorize.AuthorizationException;
@@ -1472,10 +1474,19 @@ public class RpcServer implements RpcServerInterface, ConfigurationObserver {
                 throw new AccessDeniedException(
                     "Server is not configured to do DIGEST authentication.");
               }
-              saslServer = Sasl.createSaslServer(AuthMethod.DIGEST
-                  .getMechanismName(), null, SaslUtil.SASL_DEFAULT_REALM,
+              SaslServer tmpServer = Sasl.createSaslServer(AuthMethod.DIGEST
+                      .getMechanismName(), null, SaslUtil.SASL_DEFAULT_REALM,
                   HBaseSaslRpcServer.getSaslProps(), new SaslDigestCallbackHandler(
                       secretManager, this));
+              // DIGEST-MD5 is not supported on fips mode, in this case tmpServer will be null
+              // When it is null, we will try SCRAM mechanism from hadoop
+              // Hadoop SCRAM mechanism is overridden on server side to be able to pass hbase RpcServer.Connection
+              if (tmpServer == null) {
+                Map<String, Object> props = new HashMap<>();
+                props.put(SaslRpcServer.SASL_AUTH_SECRET_MANAGER, secretManager);
+                tmpServer = ScramAuthMethod.INSTANCE.createSaslServer(this, props);
+              }
+              saslServer = tmpServer;
               break;
             case KERBEROS:
               String fullName = currentUgi.getUserName();

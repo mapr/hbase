@@ -20,6 +20,7 @@ package org.apache.hadoop.hbase.security;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.callback.Callback;
@@ -36,6 +37,9 @@ import javax.security.sasl.SaslException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
+import org.apache.hadoop.security.SaslRpcServer;
+import org.apache.hadoop.security.scram.ScramAuthMethod;
+
 import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenIdentifier;
 
@@ -86,8 +90,17 @@ public abstract class AbstractHBaseSaslRpcClient {
       case DIGEST:
         if (LOG.isDebugEnabled()) LOG.debug("Creating SASL " + AuthMethod.DIGEST.getMechanismName()
             + " client to authenticate to service at " + token.getService());
-        saslClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
-          SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
+        SaslClient tmpClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
+            SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
+        // DIGEST-MD5 is not supported on fips mode, in this case tmpClient will be null
+        // When it is null, we will try SCRAM mechanism from hadoop as is
+        // But on server side, the mechanism needs to be overridden
+        if (tmpClient == null) {
+          Map<String, Object> props = new HashMap<>();
+          props.put(SaslRpcServer.SASL_AUTH_TOKEN, token);
+          tmpClient = ScramAuthMethod.INSTANCE.createSaslClient(props);
+        }
+        saslClient = tmpClient;
         break;
       case MAPRSASL:
         if (LOG.isDebugEnabled())
@@ -115,7 +128,7 @@ public abstract class AbstractHBaseSaslRpcClient {
         throw new IOException("Unknown authentication method " + method);
     }
     if (saslClient == null) {
-      throw new IOException("Unable to find SASL client implementation");
+      throw new IOException("Unable to find SASL client implementation for method: " + method.getMechanismName());
     }
   }
 
