@@ -40,7 +40,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
+import org.apache.hadoop.hbase.minicluster.MapRMiniDFSCluster;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

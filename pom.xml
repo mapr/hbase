@@ -1292,8 +1292,6 @@
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
     <hadoop.version>${hadoop-two.version}</hadoop.version>
-    <!--  Using just one test class to mock fs for unit tests  -->
-    <hive.version>2.3.9.0-eep-810-SNAPSHOT</hive.version>
     <compat.module>hbase-hadoop2-compat</compat.module>
     <assembly.file>src/main/assembly/hadoop-two-compat.xml</assembly.file>
     <!-- end HBASE-15925 default hadoop compatibility values -->
@@ -2002,14 +2000,6 @@
        <artifactId>kerb-simplekdc</artifactId>
        <version>${kerby.version}</version>
      </dependency>
-      <!--   To mock file system     -->
-      <dependency>
-        <groupId>org.apache.hive.maprminicluster</groupId>
-        <artifactId>mapr-mini-cluster</artifactId>
-        <version>${hive.version}</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <!-- Dependencies needed by subprojects -->

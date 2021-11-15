@@ -36,7 +36,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.NonceKey;
 import org.apache.hadoop.hbase.util.Threads;
 
-import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
+import org.apache.hadoop.hbase.minicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -29,7 +29,7 @@ import org.apache.hadoop.hbase.ProcedureInfo;
 import org.apache.hadoop.hbase.procedure2.store.ProcedureStore;
 import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.hbase.testclassification.MasterTests;
-import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
+import org.apache.hadoop.hbase.minicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -146,12 +146,6 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
     </dependency>
-    <!--   To mock file system     -->
-    <dependency>
-      <groupId>org.apache.hive.maprminicluster</groupId>
-      <artifactId>mapr-mini-cluster</artifactId>
-      <type>test-jar</type>
-    </dependency>
   </dependencies>
 
   <profiles>

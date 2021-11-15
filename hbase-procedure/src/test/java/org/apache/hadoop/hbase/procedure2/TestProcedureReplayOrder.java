@@ -34,7 +34,7 @@ import org.apache.hadoop.hbase.procedure2.store.ProcedureStore;
 import org.apache.hadoop.hbase.procedure2.store.wal.WALProcedureStore;
 import org.apache.hadoop.hbase.testclassification.LargeTests;
 
-import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
+import org.apache.hadoop.hbase.minicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

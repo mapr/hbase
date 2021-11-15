@@ -45,7 +45,7 @@ import org.apache.hadoop.hbase.testclassification.SmallTests;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.IOUtils;
 
-import org.apache.hive.maprminicluster.MapRMiniDFSCluster;
+import org.apache.hadoop.hbase.minicluster.MapRMiniDFSCluster;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Assert;
