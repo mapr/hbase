@@ -1336,7 +1336,7 @@
     <clover.version>4.0.3</clover.version>
     <jamon-runtime.version>2.4.1</jamon-runtime.version>
     <jettison.version>1.3.3</jettison.version>
-    <netty.version>4.1.54.Final</netty.version>
+    <netty.version>4.1.70.Final</netty.version>
     <netty.hadoop.version>3.10.6.Final</netty.hadoop.version>
     <!--Make sure these joni/jcodings are compatible with the versions used by jruby-->
     <joni.version>2.1.11</joni.version>
@@ -1736,6 +1736,14 @@
         <artifactId>zookeeper</artifactId>
         <version>${zookeeper.version}</version>
         <exclusions>
+          <exclusion>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
@@ -2566,6 +2574,10 @@
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-server</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-epoll</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
@@ -2838,6 +2850,10 @@
              <exclusion>
                <groupId>org.codehaus.jackson</groupId>
                <artifactId>jackson-xc</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>io.netty</groupId>
+               <artifactId>netty-transport-native-epoll</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
