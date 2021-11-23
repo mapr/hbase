@@ -2464,6 +2464,12 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-auth</artifactId>
             <version>${hadoop-two.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+            </exclusions>
           </dependency>
           <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -2513,6 +2519,10 @@
               <exclusion>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-server</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
               </exclusion>
             </exclusions>
           </dependency>
@@ -2749,6 +2759,10 @@
                <groupId>com.google.guava</groupId>
                <artifactId>guava</artifactId>
              </exclusion>
+             <exclusion>
+               <groupId>org.bouncycastle</groupId>
+               <artifactId>bcprov-jdk15on</artifactId>
+             </exclusion>
            </exclusions>
          </dependency>
          <dependency>
@@ -2795,6 +2809,10 @@
              <exclusion>
                <groupId>org.codehause.jackson</groupId>
                <artifactId>jackson-mapper-asl</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.bouncycastle</groupId>
+               <artifactId>bcprov-jdk15on</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
