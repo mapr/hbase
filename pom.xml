@@ -2469,6 +2469,10 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
               </exclusion>
+              <exclusion>
+                <groupId>org.apache.kerby</groupId>
+                <artifactId>kerb-simplekdc</artifactId>
+              </exclusion>
             </exclusions>
           </dependency>
           <dependency>
@@ -2523,6 +2527,10 @@
               <exclusion>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.kerby</groupId>
+                <artifactId>kerb-simplekdc</artifactId>
               </exclusion>
             </exclusions>
           </dependency>
@@ -2587,6 +2595,10 @@
               <exclusion>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-transport-native-epoll</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.kerby</groupId>
+                <artifactId>kerb-simplekdc</artifactId>
               </exclusion>
             </exclusions>
           </dependency>
@@ -2763,6 +2775,10 @@
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcprov-jdk15on</artifactId>
              </exclusion>
+             <exclusion>
+               <groupId>org.apache.kerby</groupId>
+               <artifactId>kerb-simplekdc</artifactId>
+             </exclusion>
            </exclusions>
          </dependency>
          <dependency>
@@ -2813,6 +2829,10 @@
              <exclusion>
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcprov-jdk15on</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.apache.kerby</groupId>
+               <artifactId>kerb-simplekdc</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
@@ -2872,6 +2892,10 @@
              <exclusion>
                <groupId>io.netty</groupId>
                <artifactId>netty-transport-native-epoll</artifactId>
+             </exclusion>
+             <exclusion>
+               <groupId>org.apache.kerby</groupId>
+               <artifactId>kerb-simplekdc</artifactId>
              </exclusion>
            </exclusions>
          </dependency>
