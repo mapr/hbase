@@ -102,7 +102,7 @@ public class InfoServer {
     FiltersUtil.addCustomHeadersFilterIfPresent(this.httpServer.getWebAppContext(), c);
 
     if (MAPR_SASL.equalsIgnoreCase(c.get(HBASE_SECURITY_CONF_KEY))) {
-      this.httpServer.addFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
+      this.httpServer.addGlobalFilter(AuthenticationFilter.class.getName(), AuthenticationFilter.class.getName(), this.createAuthParams());
     }
   }
 
