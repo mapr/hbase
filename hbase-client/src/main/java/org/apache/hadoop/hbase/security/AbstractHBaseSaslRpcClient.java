@@ -36,12 +36,17 @@ import javax.security.sasl.SaslException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.scram.ScramAuthMethod;
 
 import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenIdentifier;
+
+import static org.apache.hadoop.hbase.HConstants.DEFAULT_HBASE_SECURITY_TOKEN_MECHANISM;
+import static org.apache.hadoop.hbase.HConstants.HBASE_SECURITY_TOKEN_MECHANISM;
 
 /**
  * A utility class that encapsulates SASL logic for RPC client. Copied from
@@ -59,6 +64,8 @@ public abstract class AbstractHBaseSaslRpcClient {
   protected final boolean fallbackAllowed;
 
   protected final Map<String, String> saslProps;
+
+  private static final Configuration hbaseConf = HBaseConfiguration.create();
 
   /**
    * Create a HBaseSaslRpcClient for an authentication method
@@ -90,17 +97,15 @@ public abstract class AbstractHBaseSaslRpcClient {
       case DIGEST:
         if (LOG.isDebugEnabled()) LOG.debug("Creating SASL " + AuthMethod.DIGEST.getMechanismName()
             + " client to authenticate to service at " + token.getService());
-        SaslClient tmpClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
-            SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
-        // DIGEST-MD5 is not supported on fips mode, in this case tmpClient will be null
-        // When it is null, we will try SCRAM mechanism from hadoop as is
-        // But on server side, the mechanism needs to be overridden
-        if (tmpClient == null) {
-          Map<String, Object> props = new HashMap<>();
-          props.put(SaslRpcServer.SASL_AUTH_TOKEN, token);
-          tmpClient = ScramAuthMethod.INSTANCE.createSaslClient(props);
+        Map<String, Object> props = new HashMap<>();
+        props.put(SaslRpcServer.SASL_AUTH_TOKEN, token);
+        if (ScramAuthMethod.INSTANCE.getMechanismName().equals(
+            hbaseConf.get(HBASE_SECURITY_TOKEN_MECHANISM, DEFAULT_HBASE_SECURITY_TOKEN_MECHANISM))) {
+          saslClient = ScramAuthMethod.INSTANCE.createSaslClient(props);
+          break;
         }
-        saslClient = tmpClient;
+        saslClient = createDigestSaslClient(new String[] { AuthMethod.DIGEST.getMechanismName() },
+            SaslUtil.SASL_DEFAULT_REALM, new SaslClientCallbackHandler(token));
         break;
       case MAPRSASL:
         if (LOG.isDebugEnabled())

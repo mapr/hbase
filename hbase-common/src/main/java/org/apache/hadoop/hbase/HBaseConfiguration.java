@@ -32,6 +32,10 @@ import org.apache.hadoop.hbase.classification.InterfaceStability;
 import org.apache.hadoop.hbase.io.util.HeapMemorySizeUtil;
 import org.apache.hadoop.hbase.util.VersionInfo;
 import org.apache.hadoop.hbase.zookeeper.ZKConfig;
+import org.apache.hadoop.mapreduce.MRJobConfig;
+
+import static org.apache.hadoop.hbase.HConstants.DEFAULT_HBASE_LOAD_MAPREDUCE_CONFIGS;
+import static org.apache.hadoop.hbase.HConstants.HBASE_LOAD_MAPREDUCE_CONFIGS;
 
 /**
  * Adds HBase configuration files to a Configuration
@@ -86,6 +90,17 @@ public class HBaseConfiguration extends Configuration {
     conf.addResource("hbase-default.xml");
     conf.addResource("hbase-site.xml");
 
+    // load properties passed by using -D or mapred-site.xml
+    URL jobXmlUrl = conf.getResource(MRJobConfig.JOB_CONF_FILE);
+    if (jobXmlUrl != null) {
+      Configuration jobXmlConfig = new Configuration();
+      jobXmlConfig.addResource(jobXmlUrl);
+      if (jobXmlConfig.getBoolean(HBASE_LOAD_MAPREDUCE_CONFIGS, DEFAULT_HBASE_LOAD_MAPREDUCE_CONFIGS)) {
+        LOG.info("Loading configuration properties from job.xml");
+        conf.addResource(jobXmlConfig);
+      }
+    }
+    
     checkDefaultsVersion(conf);
     HeapMemorySizeUtil.checkForClusterFreeMemoryLimit(conf);
     return conf;

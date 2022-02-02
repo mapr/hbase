@@ -1361,6 +1361,15 @@ public final class HConstants {
   public static final String SSL_ENABLED_PROTOCOLS = "hbase.ssl.enabled.protocols";
   public static final String DEFAULT_SSL_ENABLED_PROTOCOLS = "TLSv1.2";
 
+  public static final String HBASE_SECURITY_TOKEN_MECHANISM =
+      "hbase.security.token.authentication.method";
+  public static final String DEFAULT_HBASE_SECURITY_TOKEN_MECHANISM = "DIGEST-MD5";
+
+  // whether job.xml properties should be loaded to HBaseConfiguration
+  public static final String HBASE_LOAD_MAPREDUCE_CONFIGS =
+      "hbase.load.mapreduce.configs";
+  public static final boolean DEFAULT_HBASE_LOAD_MAPREDUCE_CONFIGS = false;
+
   private HConstants() {
     // Can't be instantiated with this ctor.
   }

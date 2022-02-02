@@ -42,7 +42,11 @@ HB_REST_ROLE="hbaserest"
 HB_THRIFT_ROLE="hbasethrift"
 declare -A PORTS=( ["$HB_MASTER_ROLE"]="16000" ["$HB_REGIONSERVER_ROLE"]="16020" ["$HB_REST_ROLE"]="8080" ["$HB_THRIFT_ROLE"]="9090")
 
+# security
+HADOOP_SSL_SERVER_FILE="$MAPR_HOME"/conf/ssl-server.xml
+
 # Initialize arguments
+isFips="false"
 isOnlyRoles=${isOnlyRoles:-0}
 hb_default_db=""
 
@@ -167,6 +171,33 @@ function remove_comment(){
 get_ssl_security_status() {
   local property_name="hbase.ssl.enabled"
   sed -n '/'${property_name}'/{:a;N;/<\/value>/!ba {s|.*<value>\(.*\)</value>|\1|p}}' "$HBASE_SITE" | head -n1 | awk '{print $1;}'
+}
+
+function isFipsConfigured() {
+  if [ ! -f $HADOOP_SSL_SERVER_FILE ]; then
+    isFips="false"
+    return
+  fi
+  #
+  # Gets the key store type
+  #
+  keyStoreType=`awk '/ssl.server.keystore.type/{getline; print}' "$HADOOP_SSL_SERVER_FILE" |sed 's/\s*<value>\(.*\)<\/value>/\1/'`
+  if [ "$keyStoreType" != "bcfks" ]; then
+    isFips="false"
+    return
+  fi
+  #
+  # Gets the trust store type
+  #
+  trustStoreType=`awk '/ssl.server.truststore.type/{getline; print}' "$HADOOP_SSL_SERVER_FILE" |sed 's/\s*<value>\(.*\)<\/value>/\1/'`
+  if [ "$trustStoreType" != "bcfks" ]; then
+    isFips="false"
+    return
+  fi
+  #
+  # If we get here, then both key and trust stores are BCFKS stores
+  isFips="true"
+  return
 }
 
 trim_string() {
@@ -322,6 +353,10 @@ function configure_hbase_authorization_secure() {
     add_additional_value_if_missing hbase.coprocessor.master.classes org.apache.hadoop.hbase.security.access.AccessController
     add_additional_value_if_missing hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.token.TokenProvider
     add_additional_value_if_missing hbase.coprocessor.region.classes org.apache.hadoop.hbase.security.access.AccessController
+  fi
+  isFipsConfigured
+  if [ "$isFips" == "true" ];then
+    add_additional_value_if_missing hbase.security.token.authentication.method SCRAM-SHA-256
   fi
 }
 
