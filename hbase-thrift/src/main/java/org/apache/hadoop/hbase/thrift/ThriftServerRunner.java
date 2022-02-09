@@ -22,7 +22,6 @@ import static org.apache.hadoop.hbase.HConstants.CUSTOM_HEADERS_FILE;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreType;
 import static org.apache.hadoop.hbase.security.User.*;
 import static org.apache.hadoop.hbase.util.Bytes.getBytes;
 
@@ -111,6 +110,7 @@ import org.apache.hadoop.hbase.util.*;
 import org.apache.hadoop.security.SaslRpcServer;
 import org.apache.hadoop.security.SaslRpcServer.SaslGssCallbackHandler;
 import org.apache.hadoop.security.UserGroupInformation;
+import org.apache.hadoop.security.alias.BouncyCastleFipsKeyStoreProvider;
 import org.apache.hadoop.security.authentication.server.AuthenticationFilter;
 import org.apache.hadoop.security.authorize.ProxyUsers;
 import org.apache.hadoop.security.rpcauth.RpcAuthMethod;
@@ -131,7 +131,6 @@ import org.apache.thrift.transport.TSaslServerTransport;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransportFactory;
-import org.apache.zookeeper.common.KeyStoreFileType;
 import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 import org.eclipse.jetty.http.HttpVersion;
@@ -157,6 +156,7 @@ public class ThriftServerRunner implements Runnable {
 
   private static final int DEFAULT_HTTP_MAX_HEADER_SIZE = 64 * 1024; // 64k
   private static final String BCFKS_KEYSTORE_TYPE = "bcfks";
+  private static final String SSL_CLIENT_TRUSTSTORE_TYPE = "ssl.client.truststore.type";
 
   private static final GenericHFactory<CallbackHandler> callbackHandlerFactory =
           new GenericHFactory<CallbackHandler>();
@@ -494,7 +494,9 @@ public class ThriftServerRunner implements Runnable {
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);
       // if fips mode is enabled, key store type should be configured
-      if (getServerKeystoreType().equalsIgnoreCase(KeyStoreFileType.BCFKS.getPropertyValue())) {
+      conf.addResource("ssl-client.xml");
+      String keystoreType = conf.get(SSL_CLIENT_TRUSTSTORE_TYPE);
+      if (keystoreType != null && keystoreType.equalsIgnoreCase(BouncyCastleFipsKeyStoreProvider.KEYSTORE_TYPE)) {
         Security.addProvider(new BouncyCastleFipsProvider());
         Security.addProvider(new BouncyCastleJsseProvider());
         sslCtxFactory.setProvider(BouncyCastleJsseProvider.PROVIDER_NAME);
