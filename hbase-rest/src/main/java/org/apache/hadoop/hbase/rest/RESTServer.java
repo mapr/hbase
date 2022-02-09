@@ -49,7 +49,7 @@ import org.apache.hadoop.hbase.util.ReflectionUtils;
 
 import com.google.common.base.Preconditions;
 
-import org.apache.zookeeper.common.KeyStoreFileType;
+import org.apache.hadoop.security.alias.BouncyCastleFipsKeyStoreProvider;
 import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 import org.eclipse.jetty.http.HttpVersion;
@@ -74,7 +74,6 @@ import javax.servlet.DispatcherType;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeyPassword;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreLocation;
 import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystorePassword;
-import static org.apache.hadoop.hbase.MapRSslConfigReader.getServerKeystoreType;
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
 import static org.apache.hadoop.hbase.security.User.KERBEROS;
 
@@ -100,6 +99,7 @@ public class RESTServer implements Constants {
   static final String REST_CSRF_METHODS_TO_IGNORE_DEFAULT = "GET,OPTIONS,HEAD,TRACE";
   public static final String SKIP_LOGIN_KEY = "hbase.rest.skip.login";
   private static final String BCFKS_KEYSTORE_TYPE = "bcfks";
+  private static final String SSL_CLIENT_TRUSTSTORE_TYPE = "ssl.client.truststore.type";
 
   private static final String PATH_SPEC_ANY = "/*";
 
@@ -304,7 +304,9 @@ public class RESTServer implements Constants {
       sslCtxFactory.setKeyStorePassword(password);
       sslCtxFactory.setKeyManagerPassword(keyPassword);
       // if fips mode is enabled, key store type should be configured
-      if (getServerKeystoreType().equalsIgnoreCase(KeyStoreFileType.BCFKS.getPropertyValue())) {
+      conf.addResource("ssl-client.xml");
+      String keystoreType = conf.get(SSL_CLIENT_TRUSTSTORE_TYPE);
+      if (keystoreType != null && keystoreType.equalsIgnoreCase(BouncyCastleFipsKeyStoreProvider.KEYSTORE_TYPE)) {
         Security.addProvider(new BouncyCastleFipsProvider());
         Security.addProvider(new BouncyCastleJsseProvider());
         sslCtxFactory.setProvider(BouncyCastleJsseProvider.PROVIDER_NAME);
