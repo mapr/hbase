@@ -269,7 +269,7 @@ pipeline {
               if [ -d "${OUTPUT_DIR}/branch-site" ]; then
                 echo "Remove ${OUTPUT_DIR}/branch-site for saving space"
                 rm -rf "${OUTPUT_DIR}/branch-site"
-                ./${BASEDIR}/dev-support/gen_redirect_html.py "${ASF_NIGHTLIES_GENERAL_CHECK_BASE}/branch-site" > "${OUTPUT_DIR}/branch-site.html"
+                .${BASEDIR}/dev-support/gen_redirect_html.py "${ASF_NIGHTLIES_GENERAL_CHECK_BASE}/branch-site" > "${OUTPUT_DIR}/branch-site.html"
               else
                 echo "No branch-site, skipping"
               fi
@@ -523,9 +523,7 @@ pipeline {
             }
           }
           when {
-            not {
               branch 'branch-1*'
-            }
           }
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
@@ -637,9 +635,7 @@ pipeline {
             }
           }
           when {
-            not {
               branch 'branch-1*'
-            }
           }
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
@@ -755,6 +751,10 @@ pipeline {
             // this needs to be set to the jdk that ought to be used to build releases on the branch the Jenkinsfile is stored in.
             jdk "jdk_1.8_latest"
           }
+          when {
+              branch 'branch-1*'
+          }
+
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
             BRANCH = "${env.BRANCH_NAME}"
