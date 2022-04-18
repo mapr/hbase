@@ -523,9 +523,7 @@ pipeline {
             }
           }
           when {
-            not {
-              branch 'branch-1*'
-            }
+            branch 'branch-1*'
           }
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
@@ -637,9 +635,7 @@ pipeline {
             }
           }
           when {
-            not {
-              branch 'branch-1*'
-            }
+            branch 'branch-1*'
           }
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
@@ -754,6 +750,9 @@ pipeline {
             maven 'maven_latest'
             // this needs to be set to the jdk that ought to be used to build releases on the branch the Jenkinsfile is stored in.
             jdk "jdk_1.8_latest"
+          }
+          when {
+            branch 'branch-1*'
           }
           environment {
             BASEDIR = "${env.WORKSPACE}/component"
