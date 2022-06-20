@@ -23,7 +23,7 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.14.0-eep-820-SNAPSHOT</version>
+    <version>1.4.14.200-eep-900-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-shell</artifactId>

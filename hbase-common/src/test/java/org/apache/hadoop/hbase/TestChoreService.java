@@ -695,7 +695,7 @@ public class TestChoreService {
     ChoreService service = new ChoreService("testStopperForScheduledChores");
     Stoppable stopperForGroup1 = new SampleStopper();
     Stoppable stopperForGroup2 = new SampleStopper();
-    final int period = 100;
+    final int period = 500;
     final int delta = period/10;
 
     try {

@@ -672,12 +672,15 @@ public class HttpServer implements FilterContainer {
     addServlet("logLevel", "/logLevel", LogLevel.Servlet.class);
     addServlet("jmx", "/jmx", JMXJsonServlet.class);
     addServlet("conf", "/conf", ConfServlet.class);
+    // Hadoop3 has moved completely to metrics2, and  dropped support for Metrics v1's
+    // MetricsServlet (see HADOOP-12504).  We'll using reflection to load if against hadoop2.
+    // Remove when we drop support for hbase on hadoop2.x.
     try {
       Class<? extends HttpServlet> clazz = (Class<? extends HttpServlet>)
         Class.forName("org.apache.hadoop.metrics.MetricsServlet");
       addServlet("metrics", "/metrics", clazz);
     } catch (Exception e) {
-      LOG.warn("MetricsServlet class not found, metrics servlet will not start", e);
+      // do nothing
     }
     final String asyncProfilerHome = ProfileServlet.getAsyncProfilerHome();
     if (asyncProfilerHome != null && !asyncProfilerHome.trim().isEmpty()) {

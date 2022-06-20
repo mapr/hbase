@@ -24,6 +24,22 @@ under the License.
      hbase-shaded-server versions, with the execption of moving the text of
      the CPL to LICENSE.vm -->
 <!-- All of the below missing / ambiguous / full text license info verified at dependency source -->
+<!-- Dual licensed dependencies-->
+  <supplement>
+    <project>
+      <groupId>javax.activation</groupId>
+      <artifactId>javax.activation-api</artifactId>
+      <!-- javax.activation-api is also separately licensed under the GPL version 2 plus the Classpath Exception -->
+      <licenses>
+        <license>
+          <name>CDDL 1.1</name>
+          <url>https://github.com/javaee/activation/blob/master/LICENSE.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+
 <!-- Artifacts missing license info in POM -->
   <supplement>
     <project>
@@ -1756,6 +1772,164 @@ under the License.
       </licenses>
     </project>
   </supplement>
+  <supplement>
+    <project>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk15on</artifactId>
+
+      <licenses>
+        <!-- bcpkix-jdk15on is licensed under the Bouncy Castle License, which is equivalent to the MIT License -->
+        <license>
+          <name>MIT License</name>
+          <url>http://www.opensource.org/licenses/mit-license.php</url>
+          <distribution>repo</distribution>
+          <comments>
+            Copyright (c) 2000 - 2018 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
+          </comments>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-annotations</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-jndi</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-plus</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>javax-websocket-client-impl</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>javax-websocket-server-impl</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-api</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-client</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-common</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-server</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-servlet</artifactId>
+
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
 
   <supplement>
     <project>
@@ -3090,10 +3264,11 @@ Copyright (c) 2007-2017 The JRuby project
     <project>
       <groupId>jakarta.ws.rs</groupId>
       <artifactId>jakarta.ws.rs-api</artifactId>
+      <name>Jakarta RESTful Web Services</name>
       <licenses>
         <license>
-          <name>Apache License, Version 2.0</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <name>Eclipse Public License 2.0</name>
+          <url>https://www.eclipse.org/legal/epl-v20.html</url>
           <distribution>repo</distribution>
         </license>
       </licenses>
@@ -3108,6 +3283,117 @@ Copyright (c) 2007-2017 The JRuby project
           <name>Apache License, Version 2.0</name>
           <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
           <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.1.1</version>
+      <name>Java API for RESTful Web Services</name>
+      <licenses>
+        <license>
+          <name>Eclipse Public License 2.0</name>
+          <url>https://www.eclipse.org/legal/epl-v20.html</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-client</artifactId>
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project> <!-- from hadoop-3.3.0 -->
+      <groupId>org.jline</groupId>
+      <artifactId>jline</artifactId>
+      <version>3.9.0</version>
+      <licenses>
+        <license>
+          <name>BSD license</name>
+          <url>https://opensource.org/licenses/BSD-3-Clause</url>
+          <distribution>repo</distribution>
+          <comments>
+            Copyright (c) 2002-2018, the original author or authors.
+          </comments>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project> <!-- from hadoop-3.3.0 -->
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>5.2.0</version>
+      <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-analysis</artifactId>
+      <name>ASM: a very small and fast Java bytecode manipulation framework</name>
+      <licenses>
+        <license>
+          <name>BSD 3-Clause License</name>
+          <url>https://github.com/llbit/ow2-asm/blob/master/LICENSE.txt</url>
+          <distribution>repo</distribution>
+          <comments>
+            Copyright (c) 2000-2011 INRIA, France Telecom
+          </comments>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-commons</artifactId>
+      <name>ASM: a very small and fast Java bytecode manipulation framework</name>
+
+      <licenses>
+        <license>
+          <name>BSD 3-Clause License</name>
+          <url>https://github.com/llbit/ow2-asm/blob/master/LICENSE.txt</url>
+          <distribution>repo</distribution>
+          <comments>
+            Copyright (c) 2000-2011 INRIA, France Telecom
+          </comments>
+        </license>
+      </licenses>
+    </project>
+  </supplement>
+  <supplement>
+    <project>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-tree</artifactId>
+      <name>ASM: a very small and fast Java bytecode manipulation framework</name>
+      <licenses>
+        <license>
+          <name>BSD 3-Clause License</name>
+          <url>https://github.com/llbit/ow2-asm/blob/master/LICENSE.txt</url>
+          <distribution>repo</distribution>
+          <comments>
+            Copyright (c) 2000-2011 INRIA, France Telecom
+          </comments>
         </license>
       </licenses>
     </project>

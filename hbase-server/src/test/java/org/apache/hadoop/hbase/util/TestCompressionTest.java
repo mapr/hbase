@@ -81,9 +81,10 @@ public class TestCompressionTest {
       LOG.debug("Native code not loaded");
       assertFalse(CompressionTest.testCompression("LZO"));
       assertFalse(CompressionTest.testCompression("LZ4"));
-      assertFalse(CompressionTest.testCompression("SNAPPY"));
       assertFalse(CompressionTest.testCompression("BZIP2"));
       assertFalse(CompressionTest.testCompression("ZSTD"));
+      // snappy support comes from Hadoop3.3
+      assertTrue(CompressionTest.testCompression("SNAPPY"));
     }
   }
 

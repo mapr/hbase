@@ -48,6 +48,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.security.auth.login.LoginException;
 import javax.security.sasl.SaslException;
 
 import org.apache.commons.logging.Log;
@@ -374,7 +375,7 @@ class BlockingRpcConnection extends RpcConnection implements Runnable {
     closeSocket();
     user.doAs(new PrivilegedExceptionAction<Object>() {
       @Override
-      public Object run() throws IOException, InterruptedException {
+      public Object run() throws IOException, InterruptedException, LoginException {
         if (shouldAuthenticateOverKrb()) {
           if (currRetries < maxRetries) {
             if (LOG.isDebugEnabled()) {

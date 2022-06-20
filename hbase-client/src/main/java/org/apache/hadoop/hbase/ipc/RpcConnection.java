@@ -46,6 +46,8 @@ import org.apache.hadoop.security.token.Token;
 import org.apache.hadoop.security.token.TokenIdentifier;
 import org.apache.hadoop.security.token.TokenSelector;
 
+import javax.security.auth.login.LoginException;
+
 import static org.apache.hadoop.hbase.security.User.HBASE_SECURITY_CONF_KEY;
 
 /**
@@ -173,7 +175,7 @@ abstract class RpcConnection {
         (loginUser.equals(currentUser) || loginUser.equals(realUser));
   }
 
-  protected void relogin() throws IOException {
+  protected void relogin() throws IOException, LoginException {
     if (UserGroupInformation.isLoginKeytabBased()) {
       UserGroupInformation.getLoginUser().reloginFromKeytab();
     } else {

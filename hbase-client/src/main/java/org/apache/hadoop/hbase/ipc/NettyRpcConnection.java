@@ -59,6 +59,8 @@ import org.apache.hadoop.hbase.security.SaslUtil.QualityOfProtection;
 import org.apache.hadoop.hbase.util.Threads;
 import org.apache.hadoop.security.UserGroupInformation;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * RPC connection implementation based on netty.
  * <p>
@@ -161,7 +163,7 @@ class NettyRpcConnection extends RpcConnection {
             if (shouldAuthenticateOverKrb()) {
               relogin();
             }
-          } catch (IOException e) {
+          } catch (IOException | LoginException e) {
             LOG.warn("relogin failed", e);
           }
           synchronized (this) {
