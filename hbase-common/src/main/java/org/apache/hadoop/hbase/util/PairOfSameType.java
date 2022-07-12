@@ -21,7 +21,7 @@ package org.apache.hadoop.hbase.util;
 
 import java.util.Iterator;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
 import org.apache.hadoop.hbase.classification.InterfaceStability;
 
@@ -108,7 +108,7 @@ public class PairOfSameType<T> implements Iterable<T> {
 
       @Override
       public void remove() {
-        throw new NotImplementedException();
+        throw new NotImplementedException("remove() is not implemented.");
       }
     };
   }

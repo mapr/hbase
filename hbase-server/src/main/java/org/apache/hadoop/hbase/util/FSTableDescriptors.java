@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.classification.InterfaceAudience;
@@ -260,7 +260,7 @@ public class FSTableDescriptors implements TableDescriptors {
       throw new NotImplementedException("Cannot add a table descriptor - in read only mode");
     }
     if (TableName.META_TABLE_NAME.equals(htd.getTableName())) {
-      throw new NotImplementedException();
+      throw new NotImplementedException("Adding the table descriptor for meta table is not implemented.");
     }
     if (HConstants.HBASE_NON_USER_TABLE_DIRS.contains(htd.getTableName().getNameAsString())) {
       throw new NotImplementedException(

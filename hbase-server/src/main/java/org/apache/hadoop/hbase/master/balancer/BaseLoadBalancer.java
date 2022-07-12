@@ -34,7 +34,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
@@ -628,7 +628,7 @@ public abstract class BaseLoadBalancer implements LoadBalancer {
       public Action undoAction() {
         // TODO implement this. This action is not being used by the StochasticLB for now
         // in case it uses it, we should implement this function.
-        throw new NotImplementedException();
+        throw new NotImplementedException("undoAction() is not implemented");
       }
       @Override
       public String toString() {
