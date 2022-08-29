@@ -891,6 +891,10 @@
               <groupId>org.codehaus.jackson</groupId>
               <artifactId>jackson-mapper-asl</artifactId>
             </exclusion>
+            <exclusion>
+              <groupId>io.netty</groupId>
+              <artifactId>netty</artifactId>
+            </exclusion>
           </exclusions>
         </dependency>
         <dependency>
@@ -906,6 +910,10 @@
             <exclusion>
               <groupId>org.codehaus.jackson</groupId>
               <artifactId>jackson-mapper-asl</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>io.netty</groupId>
+              <artifactId>netty</artifactId>
             </exclusion>
           </exclusions>
         </dependency>
@@ -931,13 +939,6 @@
               <artifactId>jackson-mapper-asl</artifactId>
             </exclusion>
           </exclusions>
-        </dependency>
-        <!-- Hadoop needs Netty 3.x at test scope for the minicluster -->
-        <dependency>
-          <groupId>io.netty</groupId>
-          <artifactId>netty</artifactId>
-          <version>${netty.hadoop.version}</version>
-          <scope>test</scope>
         </dependency>
       </dependencies>
       <build>
@@ -1029,13 +1030,6 @@
               <artifactId>guava</artifactId>
             </exclusion>
           </exclusions>
-        </dependency>
-        <!-- Hadoop needs Netty 3.x at test scope for the minicluster -->
-        <dependency>
-          <groupId>io.netty</groupId>
-          <artifactId>netty</artifactId>
-          <version>${netty.hadoop.version}</version>
-          <scope>test</scope>
         </dependency>
       </dependencies>
       <build>
