@@ -878,6 +878,7 @@ public class TableMapReduceUtil {
       org.apache.hadoop.hbase.metrics.impl.FastLongHistogram.class,  // hbase-metrics
       org.apache.hadoop.hbase.metrics.Snapshot.class,                // hbase-metrics-api
       org.apache.hbase.thirdparty.com.google.gson.GsonBuilder.class, // hbase-shaded-gson
+      org.apache.hadoop.hbase.shaded.com.google.common.base.Objects.class, // hbase-shaded-guava
       prefixTreeCodecClass, //  hbase-prefix-tree (if null will be skipped)
       // pull necessary dependencies
       org.apache.zookeeper.ZooKeeper.class,
