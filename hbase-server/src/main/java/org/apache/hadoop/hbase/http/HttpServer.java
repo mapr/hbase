@@ -110,7 +110,7 @@ public class HttpServer implements FilterContainer {
   private static final Log LOG = LogFactory.getLog(HttpServer.class);
   private static final String EMPTY_STRING = "";
 
-  private static final int DEFAULT_MAX_HEADER_SIZE = 64 * 1024; // 64K
+  private static final int DEFAULT_MAX_HEADER_SIZE = 64 * 1024 - 2 ; // 64K - 2 is a max for the newer Jetty
 
   static final String FILTER_INITIALIZERS_PROPERTY
       = "hbase.http.filter.initializers";
