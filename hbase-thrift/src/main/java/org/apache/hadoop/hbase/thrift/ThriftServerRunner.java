@@ -154,7 +154,7 @@ public class ThriftServerRunner implements Runnable {
 
   private static final Log LOG = LogFactory.getLog(ThriftServerRunner.class);
 
-  private static final int DEFAULT_HTTP_MAX_HEADER_SIZE = 64 * 1024; // 64k
+  private static final int DEFAULT_HTTP_MAX_HEADER_SIZE = 64 * 1024 -2 ; // 64k - 2 for the newer Jetty
   private static final String BCFKS_KEYSTORE_TYPE = "bcfks";
   private static final String SSL_CLIENT_TRUSTSTORE_TYPE = "ssl.client.truststore.type";
 
