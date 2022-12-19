@@ -135,6 +135,10 @@
           <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-common</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-text</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
