@@ -25,7 +25,7 @@
     <parent>
       <artifactId>hbase-shaded</artifactId>
       <groupId>org.apache.hbase</groupId>
-      <version>1.4.14.300-eep-910-SNAPSHOT</version>
+      <version>1.4.14.400-eep-911-SNAPSHOT</version>
       <relativePath>..</relativePath>
     </parent>
 
