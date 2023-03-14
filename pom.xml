@@ -1342,7 +1342,7 @@
     <spy.version>2.11.6</spy.version>
     <bouncycastle.version>1.46</bouncycastle.version>
     <kerby.version>1.0.1</kerby.version>
-    <hbase.shaded.gson.version>3.0.0</hbase.shaded.gson.version>
+    <hbase.shaded.gson.version>4.0.0</hbase.shaded.gson.version>
     <!-- Plugin Dependencies -->
     <error-prone.version>2.1.1</error-prone.version>
     <maven.assembly.version>3.1.1</maven.assembly.version>
