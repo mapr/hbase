@@ -590,7 +590,26 @@ configure_roles(){
   done
 }
 
+sync_zookeeper_jars(){
+  # Checking if zookeeper jars exist in core lib or not
+  local zookeeper_jars=$(find "$MAPR_HOME/lib" -name "zookeeper-*")
+  if [[ -z "$zookeeper_jars" ]]; then
+    logInfo "Not able to find zookeeper jars in MapR core lib, returning."
+    return
+  else
+    logInfo "Able to find below zookeeper jars in Mapr core lib, they will be copied to HBase lib."
+    logInfo "$zookeeper_jars"
+  fi
 
+  # Removing existing zookeeper jars first
+  logInfo "Removing existing zookeeper jars from HBase library."
+  rm -f "$HBASE_HOME"/lib/zookeeper-*
+  # Copying the jars to
+  for each_jar in $zookeeper_jars; do
+    logInfo "Copying $each_jar to $HBASE_HOME/lib"
+    cp "$each_jar" "$HBASE_HOME"/lib
+  done
+}
 
 # Main part
 configure_hbase_pid_dir
@@ -599,6 +618,7 @@ configure_hbase_default_db
 configure_custom_headers
 remove_old_warden_entries
 configure_hbase_tmp_dir
+sync_zookeeper_jars
 
 if [ "$(read_secure)" != "$isSecure" ] ; then
   if [ "$isSecure" = "true" ]; then
