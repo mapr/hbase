@@ -593,51 +593,47 @@ configure_roles(){
 
 
 # Main part
+configure_hbase_pid_dir
+configure_zookeeper_quorum
+configure_hbase_default_db
+configure_custom_headers
+remove_old_warden_entries
+configure_hbase_tmp_dir
 
-if [ "$isOnlyRoles" == 1 ] ; then
-
-  configure_hbase_pid_dir
-  configure_zookeeper_quorum
-  configure_hbase_default_db
-  configure_custom_headers
-  remove_old_warden_entries
-  configure_hbase_tmp_dir
-
-  if [ "$(read_secure)" != "$isSecure" ] ; then
-    if [ "$isSecure" = "true" ]; then
-      configure_hbase_authorization_secure
-      configure_hbase_encryption_secure
-      configure_hbase_webui_ssl_secure
-      configure_hbase_ssl_protocols_secure
-      if hasRole "$HB_THRIFT_ROLE" ; then
-        configure_thrift_secure
-      fi
-      if hasRole "$HB_REST_ROLE" ; then
-        configure_rest_secure
-      fi
-    elif [ "$isSecure" = "false" ]; then
-      configure_hbase_authorization_insecure
-      configure_hbase_encryption_insecure
-      configure_hbase_webui_ssl_insecure
-      configure_hbase_ssl_protocols_insecure
-      if hasRole "$HB_THRIFT_ROLE" ; then
-        configure_thrift_insecure
-      fi
-      if hasRole "$HB_REST_ROLE" ; then
-        configure_rest_insecure
-      fi
+if [ "$(read_secure)" != "$isSecure" ] ; then
+  if [ "$isSecure" = "true" ]; then
+    configure_hbase_authorization_secure
+    configure_hbase_encryption_secure
+    configure_hbase_webui_ssl_secure
+    configure_hbase_ssl_protocols_secure
+    if hasRole "$HB_THRIFT_ROLE" ; then
+      configure_thrift_secure
     fi
-    write_secure "${isSecure}"
+    if hasRole "$HB_REST_ROLE" ; then
+      configure_rest_secure
+    fi
+  elif [ "$isSecure" = "false" ]; then
+    configure_hbase_authorization_insecure
+    configure_hbase_encryption_insecure
+    configure_hbase_webui_ssl_insecure
+    configure_hbase_ssl_protocols_insecure
+    if hasRole "$HB_THRIFT_ROLE" ; then
+      configure_thrift_insecure
+    fi
+    if hasRole "$HB_REST_ROLE" ; then
+      configure_rest_insecure
+    fi
   fi
-
-  configure_custom_headers
-  change_permissions
-  configure_roles
-  clean_hbase_site
-
-  rm -f "$HBASE_HOME/conf/.not_configured_yet"
-
-  save_new_hbase_site_check_sum
+  write_secure "${isSecure}"
 fi
+
+configure_custom_headers
+change_permissions
+configure_roles
+clean_hbase_site
+
+rm -f "$HBASE_HOME/conf/.not_configured_yet"
+
+save_new_hbase_site_check_sum
 
 exit ${RETURN_SUCCESS}
