@@ -1609,6 +1609,7 @@
         <groupId>com.github.stephenc.findbugs</groupId>
         <artifactId>findbugs-annotations</artifactId>
         <version>${findbugs-annotations}</version>
+        <scope>provided</scope>
       </dependency>
       <!-- General dependencies -->
       <dependency>
@@ -2034,7 +2035,6 @@
     <dependency>
       <groupId>com.github.stephenc.findbugs</groupId>
       <artifactId>findbugs-annotations</artifactId>
-      <scope>compile</scope>
     </dependency>
     <!-- Test dependencies -->
     <dependency>
