@@ -2500,6 +2500,10 @@
             <version>${hadoop-two.version}</version>
             <exclusions>
               <exclusion>
+                <groupId>com.github.stephenc.jcip</groupId>
+                <artifactId>jcip-annotations</artifactId>
+              </exclusion>
+              <exclusion>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
               </exclusion>
@@ -2833,6 +2837,10 @@
            <artifactId>hadoop-auth</artifactId>
            <version>${hadoop-three.version}</version>
            <exclusions>
+             <exclusion>
+               <groupId>com.github.stephenc.jcip</groupId>
+               <artifactId>jcip-annotations</artifactId>
+             </exclusion>
              <exclusion>
                <groupId>com.google.guava</groupId>
                <artifactId>guava</artifactId>
