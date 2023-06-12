@@ -349,6 +349,10 @@
                     <scope>compile</scope>
                     <exclusions>
                         <exclusion>
+                            <groupId>com.github.pjfanning</groupId>
+                            <artifactId>jersey-json</artifactId>
+                        </exclusion>
+                        <exclusion>
                             <groupId>org.codehaus.jackson</groupId>
                             <artifactId>jackson-core-asl</artifactId>
                         </exclusion>
@@ -420,6 +424,10 @@
                     <artifactId>hadoop-minicluster</artifactId>
                     <scope>compile</scope>
                     <exclusions>
+                        <exclusion>
+                            <groupId>com.github.pjfanning</groupId>
+                            <artifactId>jersey-json</artifactId>
+                        </exclusion>
                         <exclusion>
                             <groupId>org.apache.htrace</groupId>
                             <artifactId>htrace-core</artifactId>

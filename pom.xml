@@ -2333,6 +2333,10 @@
             <version>${hadoop-two.version}</version>
             <exclusions>
               <exclusion>
+                <groupId>com.github.pjfanning</groupId>
+                <artifactId>jersey-json</artifactId>
+              </exclusion>
+              <exclusion>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-stdlib</artifactId>
               </exclusion>
@@ -2523,6 +2527,10 @@
             <version>${hadoop-two.version}</version>
             <exclusions>
               <exclusion>
+                <groupId>com.github.pjfanning</groupId>
+                <artifactId>jersey-json</artifactId>
+              </exclusion>
+              <exclusion>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
               </exclusion>
@@ -2605,6 +2613,7 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-minicluster</artifactId>
             <version>${hadoop-two.version}</version>
+            <scope>test</scope>
             <exclusions>
             <exclusion>
               <groupId>commons-httpclient</groupId>
@@ -2690,6 +2699,10 @@
            <artifactId>hadoop-mapreduce-client-core</artifactId>
            <version>${hadoop-three.version}</version>
            <exclusions>
+             <exclusion>
+               <groupId>com.github.pjfanning</groupId>
+               <artifactId>jersey-json</artifactId>
+             </exclusion>
              <exclusion>
                <groupId>org.jetbrains.kotlin</groupId>
                <artifactId>kotlin-stdlib</artifactId>
@@ -2869,6 +2882,10 @@
            <version>${hadoop-three.version}</version>
            <exclusions>
              <exclusion>
+               <groupId>com.github.pjfanning</groupId>
+               <artifactId>jersey-json</artifactId>
+             </exclusion>
+             <exclusion>
                <groupId>org.slf4j</groupId>
                <artifactId>slf4j-log4j12</artifactId>
              </exclusion>
@@ -2942,6 +2959,7 @@
            <groupId>org.apache.hadoop</groupId>
            <artifactId>hadoop-minicluster</artifactId>
            <version>${hadoop-three.version}</version>
+           <scope>test</scope>
            <exclusions>
              <exclusion>
                <groupId>org.apache.htrace</groupId>
