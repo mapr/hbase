@@ -2500,6 +2500,10 @@
             <version>${hadoop-two.version}</version>
             <exclusions>
               <exclusion>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+              </exclusion>
+              <exclusion>
                 <groupId>com.github.stephenc.jcip</groupId>
                 <artifactId>jcip-annotations</artifactId>
               </exclusion>
@@ -2837,6 +2841,10 @@
            <artifactId>hadoop-auth</artifactId>
            <version>${hadoop-three.version}</version>
            <exclusions>
+             <exclusion>
+               <groupId>com.nimbusds</groupId>
+               <artifactId>nimbus-jose-jwt</artifactId>
+             </exclusion>
              <exclusion>
                <groupId>com.github.stephenc.jcip</groupId>
                <artifactId>jcip-annotations</artifactId>
