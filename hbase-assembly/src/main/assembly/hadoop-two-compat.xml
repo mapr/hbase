@@ -80,6 +80,7 @@
               <exclude>com.google.protobuf:protobuf-java</exclude>
               <exclude>com.sun.jersey:*</exclude>
               <exclude>com.sun.jersey.contribs:*</exclude>
+              <exclude>org.apache.htrace:htrace-core</exclude>
             </excludes>
             <fileMode>0644</fileMode>
             <directoryMode>0644</directoryMode>
