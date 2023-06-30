@@ -43,7 +43,6 @@
     <surefire.skipFirstPart>true</surefire.skipFirstPart>
     <surefire.skipSecondPart>true</surefire.skipSecondPart>
     <top.dir>${project.basedir}/..</top.dir>
-    <avro.version>1.11.0</avro.version>
     <avro.mapred.classifier></avro.mapred.classifier>
   </properties>
 
