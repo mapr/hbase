@@ -40,6 +40,9 @@ include Java
 # Some goodies for hirb. Should these be left up to the user's discretion?
 require 'irb/completion'
 require 'pathname'
+# Required to access JRuby-specific internal features, such as `JRuby.runtime`.
+# See https://github.com/jruby/jruby/issues/7221#issuecomment-1133646241
+require 'jruby' if Gem::Version.new(JRUBY_VERSION) >= Gem::Version.new('9.3')
 
 # Add the directory names in hbase.jruby.sources commandline option
 # to the ruby load path so I can load up my HBase ruby modules
