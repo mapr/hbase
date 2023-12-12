@@ -1310,7 +1310,7 @@
     <httpcore.version>4.4.4</httpcore.version>
     <http-components-client.version>4.5.13</http-components-client.version>
     <metrics-core.version>2.2.0</metrics-core.version>
-    <guava.version>31.1-jre</guava.version>
+    <guava.version>32.1.3-jre</guava.version>
     <jackson.version>2.13.4</jackson.version>
     <jackson.databind.version>2.13.4.1</jackson.databind.version>
     <tomcat-catalina.version>10.1.4</tomcat-catalina.version>
