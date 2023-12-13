@@ -1311,8 +1311,8 @@
     <http-components-client.version>4.5.13</http-components-client.version>
     <metrics-core.version>2.2.0</metrics-core.version>
     <guava.version>32.1.3-jre</guava.version>
-    <jackson.version>2.13.4</jackson.version>
-    <jackson.databind.version>2.13.4.1</jackson.databind.version>
+    <jackson.version>2.13.5</jackson.version>
+    <jackson.databind.version>2.13.5</jackson.databind.version>
     <tomcat-catalina.version>10.1.4</tomcat-catalina.version>
     <tomcat-jasper.version>10.1.4</tomcat-jasper.version>
     <tomcat-embed-jasper.version>10.1.4</tomcat-embed-jasper.version>
