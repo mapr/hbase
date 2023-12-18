@@ -24,16 +24,13 @@ MAKEFILE_ARG_BRANCH_NAME = " HBASE_BRANCH_NAME"
 
 pipeline {
   agent none
-  triggers {
-    pollSCM 'H/5 * * * *'
-  }
   options {
     skipDefaultCheckout()
     disableConcurrentBuilds()
     timestamps()
   }
   parameters {
-    choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches')
+    choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Mid_Release','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches')
     string(name: 'MAKEFILE_ENV_VARS', defaultValue: '', description: 'Variables you can pass to makefile (command will be: make {THIS VAR} {project-name}). Please DO NOT put component_branch_name')
   }
   stages {
