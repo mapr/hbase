@@ -226,6 +226,11 @@ pipeline {
         postActions.fixed()
       }
     }
+    success {
+      script {
+        postActions.success()
+      }
+    }
     aborted {
       script {
         postActions.aborted()
