@@ -1283,10 +1283,10 @@
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
     <mapr.release.version>7.4.0.0-mapr</mapr.release.version>
-    <hadoop-two.version>3.3.5.200-eep-921</hadoop-two.version>
+    <hadoop-two.version>3.3.5.200-eep-921-v202312190455</hadoop-two.version>
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
-    <hadoop-three.version>3.3.5.200-eep-921</hadoop-three.version>
+    <hadoop-three.version>3.3.5.200-eep-921-v202312190455</hadoop-three.version>
     <!-- These must be defined here for downstream build tools that don't look at profiles.
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
