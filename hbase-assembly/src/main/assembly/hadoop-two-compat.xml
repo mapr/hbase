@@ -81,6 +81,7 @@
               <exclude>com.sun.jersey:*</exclude>
               <exclude>com.sun.jersey.contribs:*</exclude>
               <exclude>org.apache.htrace:htrace-core</exclude>
+              <exclude>org.apache.htrace:htrace-core4</exclude>
             </excludes>
             <fileMode>0644</fileMode>
             <directoryMode>0644</directoryMode>
