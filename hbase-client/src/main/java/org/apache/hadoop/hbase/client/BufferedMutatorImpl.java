@@ -31,6 +31,7 @@ import org.apache.hadoop.hbase.ipc.RpcControllerFactory;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -194,17 +195,28 @@ public class BufferedMutatorImpl implements BufferedMutator {
 
     //TODO: add maprTable_.mutate() to com.mapr.fs.hbase
     if (isMapRTable()) {
+      // Do not delete one by one, keep the mutations in their corresponding lists
+      List<Put> puts = new ArrayList<>();
+      List<Delete> deletes = new ArrayList<>();
       for (Mutation m : ms) {
-        try {
-          if (m instanceof Put) {
-            maprTable_.put((Put) m);
-          }
-          if (m instanceof Delete) {
-            maprTable_.delete((Delete) m);
-          }
-        } catch (IOException e) {
-          throw new InterruptedIOException("Cannot put to this mapr table. Reason: " + e);
+        if (m instanceof Put) {
+          puts.add((Put) m);
         }
+        if (m instanceof Delete) {
+          deletes.add((Delete) m);
+        }
+      }
+
+      // Lists are ready, mutate as batch
+      try {
+        if (!puts.isEmpty()) {
+          maprTable_.put(puts);
+        }
+        if (!deletes.isEmpty()) {
+          maprTable_.delete(deletes);
+        }
+      } catch (IOException e) {
+        throw new InterruptedIOException("Cannot mutate with this mapr table. Reason: " + e);
       }
       return;
     }
