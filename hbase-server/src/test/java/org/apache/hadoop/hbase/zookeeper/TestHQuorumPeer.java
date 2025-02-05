@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.curator.utils.Compatibility;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -117,7 +118,7 @@ public class TestHQuorumPeer {
     assertEquals(3, servers.size());
     assertTrue(servers.containsKey(Long.valueOf(0)));
     QuorumServer server = servers.get(Long.valueOf(0));
-    assertEquals("localhost", server.addr.getHostName());
+    assertEquals("localhost", Compatibility.getHostAddress(server));
 
     // Override with system property.
     System.setProperty("hbase.master.hostname", "foo.bar");
@@ -129,7 +130,7 @@ public class TestHQuorumPeer {
 
     servers = config.getServers();
     server = servers.get(Long.valueOf(0));
-    assertEquals("foo.bar", server.addr.getHostName());
+    assertEquals("foo.bar", Compatibility.getHostAddress(server));
   }
 
   @Test public void testShouldAssignDefaultZookeeperClientPort() {
