@@ -1295,7 +1295,7 @@
     <assembly.file>src/main/assembly/hadoop-two-compat.xml</assembly.file>
     <!-- end HBASE-15925 default hadoop compatibility values -->
     <avro.version>1.11.3</avro.version>
-    <commons-cli.version>1.2</commons-cli.version>
+    <commons-cli.version>1.5.0</commons-cli.version>
     <commons-codec.version>1.15</commons-codec.version>
     <!-- pretty outdated -->
     <commons-io.version>2.11.0</commons-io.version>
