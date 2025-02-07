@@ -1747,6 +1747,14 @@
             <artifactId>log4j</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler</artifactId>
           </exclusion>
