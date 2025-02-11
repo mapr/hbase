@@ -37,7 +37,7 @@
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <spark.version>3.5.1.0-eep-SNAPSHOT</spark.version>
+    <spark.version>3.5.2.200-eep-SNAPSHOT</spark.version>
     <scala.version>2.12.15</scala.version>
     <scala.binary.version>2.12</scala.binary.version>
     <surefire.skipFirstPart>true</surefire.skipFirstPart>
