@@ -39,7 +39,7 @@
   <groupId>org.apache.hbase</groupId>
   <artifactId>hbase</artifactId>
   <packaging>pom</packaging>
-  <version>1.4.14.750-eep-940-SNAPSHOT</version>
+  <version>1.4.14.800-eep-941-SNAPSHOT</version>
   <name>HBase</name>
   <description>
     Apache HBase is the Hadoop database. Use it when you need
@@ -1282,11 +1282,11 @@
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
-    <mapr.release.version>7.8.0.0-mapr-SNAPSHOT</mapr.release.version>
-    <hadoop-two.version>3.4.1.0-eep-940-SNAPSHOT</hadoop-two.version>
+    <mapr.release.version>7.10.0.0-mapr-SNAPSHOT</mapr.release.version>
+    <hadoop-two.version>3.4.1.100-eep-941-SNAPSHOT</hadoop-two.version>
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
-    <hadoop-three.version>3.4.1.0-eep-940-SNAPSHOT</hadoop-three.version>
+    <hadoop-three.version>3.4.1.100-eep-941-SNAPSHOT</hadoop-three.version>
     <!-- These must be defined here for downstream build tools that don't look at profiles.
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
