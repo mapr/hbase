@@ -111,6 +111,8 @@ public class InfoServer {
     params.put("config.prefix", "hadoop.http.authentication");
     params.put("hadoop.http.authentication.type",
             "org.apache.hadoop.security.authentication.server.MultiMechsAuthenticationHandler");
+    params.put("hadoop.http.authentication.signer.secret.provider",
+            "org.apache.hadoop.security.authentication.util.MapRSignerSecretProvider");
     params.put("hadoop.http.authentication.signature.secret",
             "com.mapr.security.maprauth.MaprSignatureSecretFactory");
     return params;
