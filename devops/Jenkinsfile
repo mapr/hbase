@@ -89,7 +89,7 @@ pipeline {
                     sh """
                     rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
                     cd ${PROJECT}; \
-                    git checkout MEP-9.4.1 ; \
+                    git checkout MEP-10.0.0 ; \
                     make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
                     """
                   }
@@ -148,7 +148,7 @@ pipeline {
                     sh """
                     rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
                     cd ${PROJECT}; \
-                    git checkout MEP-9.4.1 ; \
+                    git checkout MEP-10.0.0 ; \
                     make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
                     make ${PROJECT}-deploy TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
                     """
