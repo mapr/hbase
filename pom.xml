@@ -1283,10 +1283,10 @@
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
     <mapr.release.version>7.10.0.0-mapr-SNAPSHOT</mapr.release.version>
-    <hadoop-two.version>3.4.1.200-eep-1000-SNAPSHOT</hadoop-two.version>
+    <hadoop-two.version>3.4.1.200-dep-1000-SNAPSHOT</hadoop-two.version>
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
-    <hadoop-three.version>3.4.1.200-eep-1000-SNAPSHOT</hadoop-three.version>
+    <hadoop-three.version>3.4.1.200-dep-1000-SNAPSHOT</hadoop-three.version>
     <!-- These must be defined here for downstream build tools that don't look at profiles.
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
@@ -1317,7 +1317,7 @@
     <tomcat-jasper.version>10.1.39</tomcat-jasper.version>
     <tomcat-embed-jasper.version>10.1.39</tomcat-embed-jasper.version>
     <jaxb-api.version>2.3.1</jaxb-api.version>
-    <jetty.version>9.4.54.v20240208</jetty.version>
+    <jetty.version>9.4.58.v20250814</jetty.version>
     <servlet.api.version>3.1.0</servlet.api.version>
     <jersey.version>2.36</jersey.version>
     <glassfish.jsp.version>2.3.2</glassfish.jsp.version>
@@ -1939,6 +1939,11 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-client</artifactId>
         <version>${jetty.version}</version>
       </dependency>
       <dependency>
