@@ -39,7 +39,7 @@
   <groupId>org.apache.hbase</groupId>
   <artifactId>hbase</artifactId>
   <packaging>pom</packaging>
-  <version>1.4.14.850-dep-1000-SNAPSHOT</version>
+  <version>1.4.14.850-dep-1000</version>
   <name>HBase</name>
   <description>
     Apache HBase is the Hadoop database. Use it when you need
@@ -1282,11 +1282,11 @@
 
     <!-- Dependencies -->
     <!-- Latest versions of Hadoop distributed with MapR -->
-    <mapr.release.version>7.10.0.0-mapr-SNAPSHOT</mapr.release.version>
-    <hadoop-two.version>3.4.1.200-dep-1000-SNAPSHOT</hadoop-two.version>
+    <mapr.release.version>7.10.0.0-mapr</mapr.release.version>
+    <hadoop-two.version>3.4.1.200-dep-1000</hadoop-two.version>
     <!-- minikdc introduced in hadoop-2.3; override when building earlier versions -->
     <hadoop-two-minikdc.version>${hadoop-two.version}</hadoop-two-minikdc.version>
-    <hadoop-three.version>3.4.1.200-dep-1000-SNAPSHOT</hadoop-three.version>
+    <hadoop-three.version>3.4.1.200-dep-1000</hadoop-three.version>
     <!-- These must be defined here for downstream build tools that don't look at profiles.
          They ought to match the values found in our default hadoop profile, which is
          currently "hadoop-2.0". See HBASE-15925 for more info. -->
@@ -1330,7 +1330,7 @@
     <protobuf.version>3.25.5</protobuf.version>
     <thrift.path>thrift</thrift.path>
     <thrift.version>0.16.0</thrift.version>
-    <zookeeper.version>3.8.3.0-mapr-SNAPSHOT</zookeeper.version>
+    <zookeeper.version>3.8.3.0-mapr-2509</zookeeper.version>
     <slf4j.version>1.7.36</slf4j.version>
     <clover.version>4.0.3</clover.version>
     <jamon-runtime.version>2.4.1</jamon-runtime.version>
