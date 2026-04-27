@@ -1,0 +1,29 @@
+#!/bin/sh
+
+[ -n "$VERBOSE" ] && echo "postrm called with arguments ${1}, ${2}" >&2
+[ -n "$VERBOSE" ] && set -x
+
+
+case "$1" in
+    upgrade)
+        VERSION_FILE_CONTENT=$(cat __PREFIX__/hbase/hbaseversion 2>/dev/null)
+        if [ -n "$VERSION_FILE_CONTENT" -a "__VERSION_3DIGIT__" != "$VERSION_FILE_CONTENT" ]; then
+          rm -Rf __INSTALL_3DIGIT__
+        fi
+    ;;
+
+    remove|purge|disappear)
+        rm -f __PREFIX__/bin/hbase
+        rm -f /usr/bin/hbase
+        rm -Rf  __PREFIX__/hbase
+    ;;
+
+    abort-install|abort-upgrade|failed-upgrade)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument ${1}" >&2
+        exit 1
+    ;;
+esac
+

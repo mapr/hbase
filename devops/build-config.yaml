@@ -1,0 +1,16 @@
+---
+slackChannel: "eco-build"
+initialReleaseTag: '1.4.14.810-eep-942' # Use only for release build!
+whitesourceScan: true
+build:
+  - name: ubuntu
+    image: dfdkr.mip.storage.hpecorp.net/ubuntu16-java11-gcc7:maven363
+    basicBuildCommands: "_BUILD_ENV_VARS_ devops/scripts/build.sh"
+    hostmachine_jenkins_label: "ubuntu16"
+  - name: centos
+    image: dfdkr.mip.storage.hpecorp.net/centos8-java11-gcc8:maven363
+    basicBuildCommands: "_BUILD_ENV_VARS_ devops/scripts/build.sh"
+    hostmachine_jenkins_label: "redhat8"
+    rpmSign: true
+
+# "_DOCKER_REGISTRY_" and "_BUILD_ENV_VARS_" names will be generated and added automatically during the build

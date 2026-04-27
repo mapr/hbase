@@ -1,0 +1,24 @@
+#!/bin/sh
+
+[ -n "$VERBOSE" ] && echo "postrm called with arguments ${1}, ${2}" >&2
+[ -n "$VERBOSE" ] && set -x
+
+
+case "$1" in
+    upgrade)
+    ;;
+
+    remove|purge|disappear)
+        if [ -f __PREFIX__/conf/conf.d/warden.hbmaster.conf ]; then
+            rm -f __PREFIX__/conf/conf.d/warden.hbmaster.conf
+        fi
+    ;;
+    
+    abort-install|abort-upgrade|failed-upgrade)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument ${1}" >&2
+        exit 1
+    ;;
+esac
