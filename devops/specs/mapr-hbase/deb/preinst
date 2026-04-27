@@ -1,0 +1,35 @@
+#!/bin/bash
+
+[ -n "$VERBOSE" ] && echo "preinst called with arguments ${1}, ${2}" >&2
+[ -n "$VERBOSE" ] && set -x
+
+case "$1" in
+    install)
+    ;;
+
+    upgrade)
+        OLD_TIMESTAMP="$2"
+        OLD_VERSION=$( echo $OLD_TIMESTAMP | cut -d'.' -f1-3 )
+        OLD_CONF_DIR=__PREFIX__/hbase/hbase-${OLD_TIMESTAMP}/conf
+        CURRENT_CONF_DIR=__PREFIX__/hbase/hbase-${OLD_VERSION}/conf
+        mkdir -p ${OLD_CONF_DIR}
+        cp -r ${CURRENT_CONF_DIR}/* ${OLD_CONF_DIR}
+
+        DAEMON_CONF=__PREFIX__/conf/daemon.conf
+        if [ -f "$DAEMON_CONF" ]; then
+            MAPR_USER=$( awk -F = '$1 == "mapr.daemon.user" { print $2 }' $DAEMON_CONF)
+            MAPR_GROUP=$( awk -F = '$1 == "mapr.daemon.group" { print $2 }' $DAEMON_CONF)
+            if [ ! -z "$MAPR_USER" ]; then
+                chown -R ${MAPR_USER}:${MAPR_GROUP} __PREFIX__/hbase/hbase-${OLD_TIMESTAMP}
+            fi
+        fi
+    ;;
+
+    abort-upgrade)
+    ;;
+
+    *)
+        echo "preinst called with unknown argument ${1}" >&2
+        exit 1
+    ;;
+esac

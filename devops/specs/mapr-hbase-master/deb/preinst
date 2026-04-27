@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" = "upgrade" ]; then
+    OLD_VERSION="$2"
+
+    if [ "__VERSION_3DIGIT__" != "$OLD_VERSION" ] ; then
+        if [ -f __PREFIX__/conf/conf.d/warden.hbmaster.conf ]; then
+            rm -Rf __PREFIX__/conf/conf.d/warden.hbmaster.conf
+        fi
+    fi
+
+fi

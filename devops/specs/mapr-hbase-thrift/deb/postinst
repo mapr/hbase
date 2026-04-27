@@ -1,0 +1,13 @@
+#!/bin/sh
+
+[ -n "$VERBOSE" ] && echo "postinst called with arguments ${1}, ${2}" >&2
+[ -n "$VERBOSE" ] && set -x
+
+# It is fresh install
+if [ "$1" = "configure" -a -z "$2" ]; then
+    # To configure separate service '.isSecure' file need to be removed. If this file is present and security configuration
+    # was not changed, HBase configure.sh script would not configure this separate service.
+    if [ -f __PREFIX__/hbase/hbase-__VERSION_3DIGIT__/conf/.isSecure ]; then
+        rm -f __PREFIX__/hbase/hbase-__VERSION_3DIGIT__/conf/.isSecure
+    fi
+fi

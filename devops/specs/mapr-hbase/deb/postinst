@@ -1,0 +1,50 @@
+#!/bin/sh
+
+[ -n "$VERBOSE" ] && echo "postinst called with arguments ${1}, ${2}" >&2
+[ -n "$VERBOSE" ] && set -x
+
+remove_old_directory() {
+    OLD_VERSION=$1
+    NEW_VERSION=$(cat __PREFIX__/hbase/hbaseversion)
+
+    if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+        rm -rf "__PREFIX__/hbase/hbase-${OLD_VERSION}"
+    fi
+}
+
+case "$1" in
+    configure)
+        rm -f  /usr/bin/hbase
+        rm -f  __PREFIX__/bin/hbase
+        ln -sf __INSTALL_3DIGIT__/bin/hbase __PREFIX__/bin/hbase
+        ln -sf __INSTALL_3DIGIT__/bin/hbase /usr/bin/hbase
+
+        if [ -f "__PREFIX__/bin/versions.sh" ]; then
+            sed -i 's|HBASE_VERSION=.*|HBASE_VERSION=__VERSION_3DIGIT__|g' "__PREFIX__/bin/versions.sh"
+        fi
+
+        mkdir -p "__INSTALL_3DIGIT__"/conf
+
+        OLD_VERSION=$( echo "$2" | cut -d'.' -f1-3 )
+        if [ -z "$2" -o "__VERSION__" != "$OLD_VERSION" ]; then
+            touch "__INSTALL_3DIGIT__/conf/.not_configured_yet"
+        fi
+        if [ -n "$OLD_VERSION" ] ; then
+            remove_old_directory "$OLD_VERSION"
+        fi
+
+        diffR=$(diff -r "__INSTALL_3DIGIT__"/conf "__INSTALL_3DIGIT__"/conf.new | grep "^Only in " | grep "conf.new" | sed "s/^Only in //" | sed "s/: /\//")
+        for i in ${diffR}; do
+            j=$(echo "$i" | sed 's/conf.new/conf/g')
+            cp -Rp "$i" "$j"
+        done
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument ${1}" >&2
+        exit 1
+    ;;
+esac

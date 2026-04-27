@@ -7,20 +7,19 @@ env.MAPR_SNAPSHOTS_REPO="${MAPR_SNAPSHOTS_REPO_COMMON}"
 env.MAPR_MAVEN_REPO="${MAPR_SNAPSHOTS_REPO_COMMON}"
 
 ARTIFACTORY_SERVER=''
+DIST_DIR='devops/dist'
+YAML_CONFIG=''
 env.REPOSITORY_NAME=''
 env.GIT_REPO_URL=''
 env.GIT_SHORT_COMMIT_SHA=''
 env.CURRENT_BUILD_TAG=''
 env.BUILD_BY_TAG=false
-REPOSITORY_ID=''
 
-env.ARTIFACTORY_PATH_RPM=''
-env.ARTIFACTORY_PATH_DEB=''
+env.ARTIFACTORY_PATH=''
 env.ID=''
-env.MAKEFILE_ARGS=''
 env.PROJECT=''
 
-MAKEFILE_ARG_BRANCH_NAME = " HBASE_BRANCH_NAME"
+IMAGE_NAMES_MAP=[:]
 
 pipeline {
   agent none
@@ -30,8 +29,8 @@ pipeline {
     timestamps()
   }
   parameters {
-    choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Mid_Release','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches')
-    string(name: 'MAKEFILE_ENV_VARS', defaultValue: '', description: 'Variables you can pass to makefile (command will be: make {THIS VAR} {project-name}). Please DO NOT put component_branch_name')
+    choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Mid_Release','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches.')
+    string(name: 'BUILD_ENV_VARS', defaultValue: '', description: 'Variables you can pass to build script. Command will be: "env {THIS VARS} path/to/build.sh".')
   }
   stages {
     stage("Setup settings and variables") {
@@ -39,181 +38,46 @@ pipeline {
       steps {
         script {
           ARTIFACTORY_SERVER = Artifactory.server 'artifactory.devops.lab'
-          //MAKEFILE_ARG_BRANCH_NAME will use for makefile only for release/EBF branches
-          initVariables(params.BUILD_TYPE, MAKEFILE_ARG_BRANCH_NAME)
-          if(params.BUILD_TYPE=="Dev") {
-            REPOSITORY_ID='mapr-snapshots'
-          }else {
-            REPOSITORY_ID='mapr-releases'
-          }
+          YAML_CONFIG = initVariablesWithYAMLConfig()
+        }
+      }
+    }
+    stage("Build & Sign & Upload to Artifactory") {
+      agent none
+      steps {
+        script {
+          buildInParallel=[:]
+          YAML_CONFIG.build.each {
+            buildInParallel["Build ${it.name}"] = { ->
+              node (it.hostmachine_jenkins_label) {
+                checkout scm
+                validateBuildImage(it)
+                echo "Using image: ${IMAGE_NAMES_MAP[it.name]}"
+                buildStage(it)
+                if(it.rpmSign == true)
+                  signing.rpmSign(DIST_DIR)
+                getVersionAndUploadToArtifactory()
+              }
+            }
+         }
+          parallel buildInParallel
         }
       }
     }
 
-    stage ("Main CI process") {
-      parallel {
-        stage("Ubuntu build") {
-          agent {label "ubuntu"}
-          stages {
-            stage("Checkout") {
-              steps {
-                script {
-                  checkout scm
-                }
-              }
-            }
-
-            stage("Build") {
-              steps {
-                script {
-                  configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
-                    sh "cat ${env.mvn_settings} > settings.xml"
-                  }
-                  docker.image("dfdkr.mip.storage.hpecorp.net/ubuntu16-java11-gcc7").inside (
-                  "-e MAPR_MIRROR=${MAPR_MIRROR} \
-                  -e MAPR_CENTRAL=${MAPR_CENTRAL} \
-                  -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
-                  -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
-                  -e PROTOC_PATH=/usr/local/protobuf-3.11.1/bin/protoc \
-                  -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
-                  -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
-                  -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
-                  -v /root/.m2:/root/.m2:rw \
-                  -v /root/yum-proxy.conf:/etc/yum.conf:ro \
-                  -v /etc/hosts:/etc/hosts:ro \
-                  -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
-                  -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
-                  -v /etc/localtime:/etc/localtime:ro \
-                  -v /root/.ssh:/root/.ssh:rw \
-                  -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro") {
-                    sh """
-                    rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
-                    cd ${PROJECT}; \
-                    git checkout MEP-10.0.1 ; \
-                    make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
-                    """
-                  }
-                }
-              }
-            }
-
-            stage("Upload to Artifactory") {
-              steps{
-                script {
-                  from = "${WORKSPACE}/${env.PROJECT}/dist/*"
-                  to = "${env.ARTIFACTORY_PATH_DEB}"
-                  props = "deb.distribution=binary;deb.component=trusty;deb.architecture=all;release=${params.BUILD_TYPE}"
-                  artifactory.uploadArtifactsAndBuildInfo(ARTIFACTORY_SERVER, from, to, props)
-                }
-              }
-            }
-          }
-        }
-
-        stage("Redhat build") {
-          agent { label "redhat8" }
-          stages {
-            stage("Checkout") {
-              steps {
-                script {
-                  checkout scm
-                }
-              }
-            }
-
-            stage("Build") {
-              steps {
-                script {
-                  configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
-                    sh "cat ${env.mvn_settings} > settings.xml"
-                  }
-                  docker.image("dfdkr.mip.storage.hpecorp.net/centos8-java11-gcc8").inside (
-                  "-e MAPR_MIRROR=${MAPR_MIRROR} \
-                  -e MAPR_CENTRAL=${MAPR_CENTRAL} \
-                  -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
-                  -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
-                  -e PROTOC_PATH=/usr/local/protobuf-3.11.1/bin/protoc \
-                  -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
-                  -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
-                  -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
-                  -e REPOSITORY_ID=${REPOSITORY_ID} \
-                  -v /root/.m2:/root/.m2:rw \
-                  -v /root/yum-proxy.conf:/etc/yum.conf:ro \
-                  -v /etc/hosts:/etc/hosts:ro \
-                  -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
-                  -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
-                  -v /etc/localtime:/etc/localtime:ro \
-                  -v /root/.ssh:/root/.ssh:rw \
-                  -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro") {
-                    sh """
-                    rm -rf ${PROJECT}; git clone --progress --verbose git@github.com:mapr/private-pkg.git ${PROJECT}; \
-                    cd ${PROJECT}; \
-                    git checkout MEP-10.0.1 ; \
-                    make ${PROJECT} TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
-                    make ${PROJECT}-deploy TIMESTAMP=${ID} ${MAKEFILE_ARGS} ; \
-                    """
-                  }
-                }
-              }
-            }
-
-            stage("RPM Sign") {
-              steps {
-                configFileProvider([configFile(fileId: 'rpmSignSh', variable: 'rpmSignSh')]) {
-                  sh """
-                  cat ${env.rpmSignSh} > rpm_sign.sh
-                  chmod 765 rpm_sign.sh
-                  ./rpm_sign.sh ${PROJECT}/dist
-                  """
-                }
-              }
-            }
-
-            stage("Upload to Artifactory") {
-              steps{
-                script {
-                  from = "${WORKSPACE}/${PROJECT}/dist/*"
-                  to = "${ARTIFACTORY_PATH_RPM}"
-                  props = "release=${params.BUILD_TYPE}"
-                  artifactory.uploadArtifactsAndBuildInfo(ARTIFACTORY_SERVER, from, to, props)
-                }
-              }
-            }
-
-            stage("Whitesource scan") {
-              steps {
-                script {
-                   ws.dockerScan()
-                }
-              }
-            }
-
-            stage("Push Whitesource reports") {
-              steps {
-                script {
-                  withCredentials([string(credentialsId: 'wsApiKey', variable: 'wsApiKey'), string(credentialsId: 'wsUserKey', variable: 'wsUserKey')]) {
-                    catchError {
-                      /*Get token of product. We have to communicate with WS API only using 64-digits project's token.
-                        We are sending request to API and get ALL "project+token" pairs. Then parse this information and find token for current project*/
-                        productToken = ws.getWSProductToken(PROJECT)
-
-                        //Get reports (Excel and json) from WS site and save these reports to files. Once for each format
-                        ws.getWSReports(productToken)
-
-                        //Move latest reports to the "old" folder in Artifactory
-                        ws.moveOldWsReports(ARTIFACTORY_SERVER)
-
-                        //Upload reports (Excel and json) to the Artifactory (to the latest folder)
-                        ws.uploadToArtifactory(ARTIFACTORY_SERVER)
-                    }
-                  }
-                }
-              }
-            }
-          }
+    stage ("OWASP Scan") {
+      agent {label "redhat8"}
+      when {
+        equals (actual: YAML_CONFIG.whitesourceScan, expected: true)
+      }
+      steps {
+        script {
+          checkout scm
+          ws.dockerScan()
         }
       }
     }
+
   }
   post {
     failure {
@@ -226,14 +90,14 @@ pipeline {
         postActions.fixed()
       }
     }
-    success {
-      script {
-        postActions.success()
-      }
-    }
     aborted {
       script {
         postActions.aborted()
+      }
+    }
+    success {
+      script {
+        postActions.success()
       }
     }
     always {
@@ -242,4 +106,57 @@ pipeline {
       }
     }
   }
+}
+
+def buildStage(yamlCurrentBuildItem) {
+  def buildCommand = yamlCurrentBuildItem.basicBuildCommands.replace("_BUILD_ENV_VARS_","TIMESTAMP=${ID} ${params.BUILD_ENV_VARS}")
+
+  configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
+    sh "cat ${env.mvn_settings} > settings.xml"
+  }
+
+  docker.image(IMAGE_NAMES_MAP[yamlCurrentBuildItem.name]).inside (
+  "--network host \
+  -e MAPR_MIRROR=${MAPR_MIRROR} \
+  -e MAPR_CENTRAL=${MAPR_CENTRAL} \
+  -e MAVEN_CENTRAL=${MAVEN_CENTRAL} \
+  -e MAPR_MAVEN_REPO=${MAPR_MAVEN_REPO} \
+  -e BUILD_NUMBER=${ID}.${BUILD_NUMBER} \
+  -e MAPR_RELEASES_REPO=${MAPR_RELEASES_REPO} \
+  -e MAPR_SNAPSHOTS_REPO=${MAPR_SNAPSHOTS_REPO} \
+  -v /root/yum-proxy.conf:/etc/yum.conf:ro \
+  -v /root/.m2:/root/.m2:rw \
+  -v /etc/hosts:/etc/hosts:ro \
+  -v /root/apt-proxy.conf:/etc/apt/apt.conf.d/proxy.conf:ro \
+  -v /root/.gradle/gradle.properties:/root/.gradle/gradle.properties:ro \
+  -v /etc/profile.d/proxy.sh:/etc/profile.d/proxy.sh:ro \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /root/.ssh:/root/.ssh:rw \
+  -v ${WORKSPACE}/settings.xml:/root/.m2/settings.xml:ro") {
+    sh """
+      cat /etc/*-release > os_release_version.txt; \
+      ${buildCommand}
+    """
+  }
+}
+
+def validateBuildImage(yamlCurrentBuildItem) {
+  def imageStatic = yamlCurrentBuildItem.image
+  def imageCustom = yamlCurrentBuildItem.imageCustom
+  def imageName = ""
+  if (imageStatic) {
+    imageName = imageStatic.replace("_DOCKER_REGISTRY_", DOCKER_REGISTRY)
+  }
+  if (imageCustom) {
+    if (imageStatic) {
+      error "You can not specify 'image' and 'imageCustom' options in build-config.yaml"
+    }
+    imageName = sh(script: imageCustom, returnStdout: true).trim()
+  }
+  IMAGE_NAMES_MAP[yamlCurrentBuildItem.name] = imageName
+}
+
+def getVersionAndUploadToArtifactory() {
+  def osVersionContainerRaw = sh script: 'cat os_release_version.txt', returnStdout:true
+  artifactory.uploadToArtifactoryWithOSVersions(ARTIFACTORY_SERVER, osVersionContainerRaw, DIST_DIR)
 }

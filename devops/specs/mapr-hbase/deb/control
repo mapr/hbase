@@ -1,0 +1,13 @@
+Package: mapr-hbase
+Version: __RELEASE_VERSION__
+Section: base
+Priority: optional
+Architecture: all
+Replaces:  mapr-hbase (<< __RELEASE_VERSION__), mapr-hbase-internal (<< __RELEASE_VERSION__)
+Breaks: mapr-hbase-internal
+Depends: bash (>= 2.05a-11), perl, awk, procps (>= 1:2.0.7-8), sed (>= 3.02-8), grep (>= 2.4.2-3), coreutils (>= 5.0-5), mapr-client (>= 7.1.0), mapr-hadoop-client (>= 3.3.3)
+Conflicts: mapr-core (<< 7.1.0)
+Maintainer: Hewlett Packard Enterprise
+Description: Apache HBase distribution included in HPE DataFabric Software Ecosystem Pack
+  Tag: __RELEASE_BRANCH__
+  Commit: __GIT_COMMIT__

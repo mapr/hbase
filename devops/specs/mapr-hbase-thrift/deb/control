@@ -1,0 +1,10 @@
+Package: mapr-hbasethrift
+Version: __RELEASE_VERSION__
+Section: base
+Priority: optional
+Architecture: all
+Depends: mapr-hbase (>= __RELEASE_VERSION__) | mapr-hbase (<= __RELEASE_VERSION__)
+Maintainer: Hewlett Packard Enterprise
+Description: Apache HBase (Thrift) distribution included in HPE DataFabric Software Ecosystem Pack
+  Tag: __RELEASE_BRANCH__
+  Commit: __GIT_COMMIT__
