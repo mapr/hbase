@@ -1317,7 +1317,7 @@
     <tomcat-jasper.version>10.1.39</tomcat-jasper.version>
     <tomcat-embed-jasper.version>10.1.39</tomcat-embed-jasper.version>
     <jaxb-api.version>2.3.1</jaxb-api.version>
-    <jetty.version>9.4.54.v20240208</jetty.version>
+    <jetty.version>9.4.60.v20260717-df</jetty.version>
     <servlet.api.version>3.1.0</servlet.api.version>
     <jersey.version>2.36</jersey.version>
     <glassfish.jsp.version>2.3.2</glassfish.jsp.version>
@@ -1335,7 +1335,7 @@
     <clover.version>4.0.3</clover.version>
     <jamon-runtime.version>2.4.1</jamon-runtime.version>
     <jettison.version>1.5.4</jettison.version>
-    <netty.version>4.1.107.Final</netty.version>
+    <netty.version>4.1.133.Final</netty.version>
     <!--Make sure these joni/jcodings are compatible with the versions used by jruby-->
     <joni.version>2.2.1</joni.version>
     <jcodings.version>1.0.58</jcodings.version>
