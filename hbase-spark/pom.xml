@@ -61,6 +61,11 @@
       <artifactId>scala-library</artifactId>
       <version>${scala.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.scala-lang.modules</groupId>
+      <artifactId>scala-parallel-collections_${scala.binary.version}</artifactId>
+      <version>1.2.0</version>
+    </dependency>
     <!-- we exclude jsr305 below and then expressly relist it as
          provided / optional to avoid dependency resolution possibly
          bringing it back into runtime scope.

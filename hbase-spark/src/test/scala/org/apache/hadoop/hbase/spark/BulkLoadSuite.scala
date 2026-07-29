@@ -26,10 +26,11 @@ import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.spark.HBaseRDDFunctions._
 import org.apache.spark.SparkContext
 import org.junit.rules.TemporaryFolder
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.funsuite.AnyFunSuite
 import org.slf4j.LoggerFactory
 
-class BulkLoadSuite extends FunSuite with
+class BulkLoadSuite extends AnyFunSuite with
     BeforeAndAfterEach with BeforeAndAfterAll {
 
   val logger = LoggerFactory.getLogger(classOf[BulkLoadSuite])
@@ -83,7 +84,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -208,7 +209,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -339,7 +340,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -552,7 +553,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",
@@ -679,7 +680,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",
@@ -814,7 +815,7 @@ class BulkLoadSuite extends FunSuite with
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",

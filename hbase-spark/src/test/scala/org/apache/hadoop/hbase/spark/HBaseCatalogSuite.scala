@@ -21,9 +21,10 @@ import org.apache.hadoop.hbase.spark.datasources.{DoubleSerDes, SerDes}
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.sql.datasources.hbase.{DataTypeParserWrapper, HBaseTableCatalog}
 import org.apache.spark.sql.types._
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.funsuite.AnyFunSuite
 
-class HBaseCatalogSuite extends FunSuite with BeforeAndAfterEach with BeforeAndAfterAll  {
+class HBaseCatalogSuite extends AnyFunSuite with BeforeAndAfterEach with BeforeAndAfterAll  {
 
   val map = s"""MAP<int, struct<varchar:string>>"""
   val array = s"""array<struct<tinYint:tinyint>>"""

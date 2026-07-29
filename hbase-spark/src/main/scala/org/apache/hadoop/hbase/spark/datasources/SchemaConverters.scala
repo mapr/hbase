@@ -32,7 +32,7 @@ import org.apache.avro.io._
 import org.apache.commons.io.output.ByteArrayOutputStream
 import org.apache.hadoop.hbase.util.Bytes
 
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 
 import org.apache.avro.{SchemaBuilder, Schema}
 import org.apache.avro.Schema.Type._
@@ -75,10 +75,10 @@ object SchemaConverters {
       case ENUM => SchemaType(StringType, nullable = false)
 
       case RECORD =>
-        val fields = avroSchema.getFields.map { f =>
+        val fields = avroSchema.getFields.asScala.map { f =>
           val schemaType = toSqlType(f.schema())
           StructField(f.name, schemaType.dataType, schemaType.nullable)
-        }
+        }.toSeq
 
         SchemaType(StructType(fields), nullable = false)
 
@@ -95,15 +95,15 @@ object SchemaConverters {
           nullable = false)
 
       case UNION =>
-        if (avroSchema.getTypes.exists(_.getType == NULL)) {
+        if (avroSchema.getTypes.asScala.exists(_.getType == NULL)) {
           // In case of a union with null, eliminate it and make a recursive call
-          val remainingUnionTypes = avroSchema.getTypes.filterNot(_.getType == NULL)
+          val remainingUnionTypes = avroSchema.getTypes.asScala.filterNot(_.getType == NULL).toSeq
           if (remainingUnionTypes.size == 1) {
-            toSqlType(remainingUnionTypes.get(0)).copy(nullable = true)
+            toSqlType(remainingUnionTypes.head).copy(nullable = true)
           } else {
-            toSqlType(Schema.createUnion(remainingUnionTypes)).copy(nullable = true)
+            toSqlType(Schema.createUnion(remainingUnionTypes.asJava)).copy(nullable = true)
           }
-        } else avroSchema.getTypes.map(_.getType) match {
+        } else avroSchema.getTypes.asScala.map(_.getType).toSeq match {
           case Seq(t1, t2) if Set(t1, t2) == Set(INT, LONG) =>
             SchemaType(LongType, nullable = false)
           case Seq(t1, t2) if Set(t1, t2) == Set(FLOAT, DOUBLE) =>
@@ -163,7 +163,7 @@ object SchemaConverters {
         javaBytes
       }
       case RECORD =>
-        val fieldConverters = schema.getFields.map(f => createConverterToSQL(f.schema))
+        val fieldConverters = schema.getFields.asScala.map(f => createConverterToSQL(f.schema)).toSeq
         (item: Any) => if (item == null) {
           null
         } else {
@@ -182,10 +182,10 @@ object SchemaConverters {
           null
         } else {
           try {
-            item.asInstanceOf[GenericData.Array[Any]].map(elementConverter)
+            item.asInstanceOf[GenericData.Array[Any]].asScala.map(elementConverter).toSeq
           } catch {
             case e: Throwable =>
-              item.asInstanceOf[util.ArrayList[Any]].map(elementConverter)
+              item.asInstanceOf[util.ArrayList[Any]].asScala.map(elementConverter).toSeq
           }
         }
       case MAP =>
@@ -193,17 +193,18 @@ object SchemaConverters {
         (item: Any) => if (item == null) {
           null
         } else {
-          item.asInstanceOf[HashMap[Any, Any]].map(x => (x._1.toString, valueConverter(x._2))).toMap
+          item.asInstanceOf[HashMap[Any, Any]].asScala
+            .map(x => (x._1.toString, valueConverter(x._2))).toMap
         }
       case UNION =>
-        if (schema.getTypes.exists(_.getType == NULL)) {
-          val remainingUnionTypes = schema.getTypes.filterNot(_.getType == NULL)
+        if (schema.getTypes.asScala.exists(_.getType == NULL)) {
+          val remainingUnionTypes = schema.getTypes.asScala.filterNot(_.getType == NULL).toSeq
           if (remainingUnionTypes.size == 1) {
-            createConverterToSQL(remainingUnionTypes.get(0))
+            createConverterToSQL(remainingUnionTypes.head)
           } else {
-            createConverterToSQL(Schema.createUnion(remainingUnionTypes))
+            createConverterToSQL(Schema.createUnion(remainingUnionTypes.asJava))
           }
-        } else schema.getTypes.map(_.getType) match {
+        } else schema.getTypes.asScala.map(_.getType).toSeq match {
           case Seq(t1, t2) if Set(t1, t2) == Set(INT, LONG) =>
             (item: Any) => {
               item match {

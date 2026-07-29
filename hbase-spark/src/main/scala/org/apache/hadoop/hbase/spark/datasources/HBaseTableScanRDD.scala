@@ -30,6 +30,7 @@ import org.apache.spark.rdd.RDD
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
+import scala.collection.parallel.CollectionConverters._
 
 class HBaseTableScanRDD(relation: HBaseRelation,
                        val hbaseContext: HBaseContext,

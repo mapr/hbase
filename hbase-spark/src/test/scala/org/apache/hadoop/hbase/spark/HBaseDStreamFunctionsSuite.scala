@@ -23,12 +23,13 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.{Milliseconds, StreamingContext}
 import org.apache.spark.SparkContext
 import org.apache.hadoop.hbase.spark.HBaseDStreamFunctions._
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.funsuite.AnyFunSuite
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
-class HBaseDStreamFunctionsSuite  extends FunSuite with
+class HBaseDStreamFunctionsSuite  extends AnyFunSuite with
   BeforeAndAfterEach with BeforeAndAfterAll {
 
   val logger = LoggerFactory.getLogger(classOf[HBaseDStreamFunctionsSuite])
@@ -66,7 +67,7 @@ class HBaseDStreamFunctionsSuite  extends FunSuite with
 
   test("bulkput to test HBase client") {
     val config = TEST_UTIL.getConfiguration
-    val rdd1 = sc.parallelize(Array(
+    val rdd1 = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo1")))),
       (Bytes.toBytes("2"),
@@ -74,7 +75,7 @@ class HBaseDStreamFunctionsSuite  extends FunSuite with
       (Bytes.toBytes("3"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("c"), Bytes.toBytes("foo3"))))))
 
-    val rdd2 = sc.parallelize(Array(
+    val rdd2 = sc.parallelize(Seq(
       (Bytes.toBytes("4"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("d"), Bytes.toBytes("foo")))),
       (Bytes.toBytes("5"),

@@ -86,7 +86,7 @@ object DataType {
 
     val sc = spark.sparkContext
 
-    import spark.sqlContext.implicits._
+    import spark.implicits._
 
     def withCatalog(cat: String): DataFrame = {
       spark.read

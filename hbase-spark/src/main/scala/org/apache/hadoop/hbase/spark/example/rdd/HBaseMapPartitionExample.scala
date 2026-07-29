@@ -44,7 +44,7 @@ object HBaseMapPartitionExample {
     try {
 
       //[(Array[Byte])]
-      val rdd = sc.parallelize(Array(
+      val rdd = sc.parallelize(Seq(
         toBytes("1"),
         toBytes("2"),
         toBytes("3"),

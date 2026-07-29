@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.client.{BufferedMutator, Table, RegionLocator,
   Connection, BufferedMutatorParams, Admin}
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.TableName
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
 case class HBaseConnectionKeyMocker (confId: Int) extends HBaseConnectionKey (null) {
   override def hashCode: Int = {
@@ -60,7 +60,7 @@ class ConnectionMocker extends Connection {
   def abort(why: String, e: Throwable) = {}
 }
 
-class HBaseConnectionCacheSuite extends FunSuite {
+class HBaseConnectionCacheSuite extends AnyFunSuite {
   /*
    * These tests must be performed sequentially as they operate with an
    * unique running thread and resource.

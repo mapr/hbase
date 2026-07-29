@@ -548,13 +548,13 @@ class HBaseContext(@transient sc: SparkContext,
 
         if (gets.size() == batchSize) {
           val results = table.get(gets)
-          res = res ++ results.map(convertResult)
+          res = res ++ results.iterator.map(convertResult)
           gets.clear()
         }
       }
       if (gets.size() > 0) {
         val results = table.get(gets)
-        res = res ++ results.map(convertResult)
+        res = res ++ results.iterator.map(convertResult)
         gets.clear()
       }
       table.close()

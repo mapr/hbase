@@ -22,7 +22,8 @@ import org.apache.hadoop.hbase.{HBaseTestingUtility, TableName}
 import org.apache.spark.sql.datasources.hbase.HBaseTableCatalog
 import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.funsuite.AnyFunSuite
 import org.slf4j.LoggerFactory
 
 case class FilterRangeRecord(
@@ -50,7 +51,7 @@ object FilterRangeRecord {
   }
 }
 
-class PartitionFilterSuite extends FunSuite with
+class PartitionFilterSuite extends AnyFunSuite with
   BeforeAndAfterEach with BeforeAndAfterAll {
 
   val logger = LoggerFactory.getLogger(classOf[PartitionFilterSuite])
@@ -79,7 +80,7 @@ class PartitionFilterSuite extends FunSuite with
 
     sc = new SparkContext("local", "test", sparkConf)
     new HBaseContext(sc, TEST_UTIL.getConfiguration)
-    sqlContext = new SQLContext(sc)
+    sqlContext = SQLContext.getOrCreate(sc)
   }
 
   override def afterAll() {
@@ -100,7 +101,7 @@ class PartitionFilterSuite extends FunSuite with
   }
 
   def collectToSet[T](df: DataFrame): Set[T] = {
-    df.collect().map(_.getAs[T](0)).toSet
+    df.collect().iterator.map(_.getAs[T](0)).toSet
   }
   val catalog = s"""{
                     |"table":{"namespace":"default", "name":"rangeTable"},

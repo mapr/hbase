@@ -76,7 +76,7 @@ object HBaseSource {
 
     val sparkConf = new SparkConf().setAppName("HBaseSourceExample")
     val sc = new SparkContext(sparkConf)
-    val sqlContext = new SQLContext(sc)
+    val sqlContext = SQLContext.getOrCreate(sc)
 
     import sqlContext.implicits._
 

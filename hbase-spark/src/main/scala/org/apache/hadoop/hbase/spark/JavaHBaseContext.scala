@@ -25,7 +25,7 @@ import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
 import org.apache.spark.api.java.function.{FlatMapFunction, Function, VoidFunction}
 import org.apache.spark.streaming.api.java.JavaDStream
 
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 import scala.reflect.ClassTag
 
 /**
@@ -58,7 +58,7 @@ class JavaHBaseContext(@transient jsc: JavaSparkContext,
 
     hbaseContext.foreachPartition(javaRdd.rdd,
       (it: Iterator[T], conn: Connection) => {
-        f.call((it, conn))
+        f.call((it.asJava, conn))
       })
   }
 
@@ -76,9 +76,9 @@ class JavaHBaseContext(@transient jsc: JavaSparkContext,
    *                    interact with HBase
    */
   def foreachPartition[T](javaDstream: JavaDStream[T],
-                          f: VoidFunction[(Iterator[T], Connection)]) = {
+                          f: VoidFunction[(java.util.Iterator[T], Connection)]) = {
     hbaseContext.foreachPartition(javaDstream.dstream,
-      (it: Iterator[T], conn: Connection) => f.call(it, conn))
+      (it: Iterator[T], conn: Connection) => f.call((it.asJava, conn)))
   }
 
   /**
@@ -105,9 +105,7 @@ class JavaHBaseContext(@transient jsc: JavaSparkContext,
   ): JavaRDD[R] = {
 
     def fn = (it: Iterator[T], conn: Connection) =>
-      asScalaIterator(
-        f.call((asJavaIterator(it), conn))
-      )
+      f.call((it.asJava, conn)).asScala
 
     JavaRDD.fromRDD(hbaseContext.mapPartitions(javaRdd.rdd,
       (iterator: Iterator[T], connection: Connection) =>
@@ -135,11 +133,11 @@ class JavaHBaseContext(@transient jsc: JavaSparkContext,
    *                    definition function just like normal mapPartition
    */
   def streamMap[T, U](javaDstream: JavaDStream[T],
-                      mp: Function[(Iterator[T], Connection), Iterator[U]]):
+                      mp: Function[(java.util.Iterator[T], Connection), java.util.Iterator[U]]):
   JavaDStream[U] = {
     JavaDStream.fromDStream(hbaseContext.streamMapPartitions(javaDstream.dstream,
       (it: Iterator[T], conn: Connection) =>
-        mp.call(it, conn))(fakeClassTag[U]))(fakeClassTag[U])
+        mp.call((it.asJava, conn)).asScala)(fakeClassTag[U]))(fakeClassTag[U])
   }
 
   /**

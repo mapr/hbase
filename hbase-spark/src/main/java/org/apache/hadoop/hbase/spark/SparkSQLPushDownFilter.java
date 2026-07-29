@@ -28,7 +28,6 @@ import org.apache.hadoop.hbase.spark.protobuf.generated.SparkFilterProtos;
 import org.apache.hadoop.hbase.util.ByteStringer;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.datasources.hbase.Field;
-import scala.collection.mutable.MutableList;
 
 
 import java.io.IOException;
@@ -73,7 +72,7 @@ public class SparkSQLPushDownFilter extends FilterBase{
 
   public SparkSQLPushDownFilter(DynamicLogicExpression dynamicLogicExpression,
                                 byte[][] valueFromQueryArray,
-                                MutableList<Field> fields, String encoderClassName) {
+                                List<Field> fields, String encoderClassName) {
     this.dynamicLogicExpression = dynamicLogicExpression;
     this.valueFromQueryArray = valueFromQueryArray;
     this.encoderClassName = encoderClassName;
@@ -83,7 +82,7 @@ public class SparkSQLPushDownFilter extends FilterBase{
             new HashMap<>();
 
     for (int i = 0; i < fields.size(); i++) {
-      Field field = fields.apply(i);
+      Field field = fields.get(i);
 
       byte[] cfBytes = field.cfBytes();
       ByteArrayComparable familyByteComparable =

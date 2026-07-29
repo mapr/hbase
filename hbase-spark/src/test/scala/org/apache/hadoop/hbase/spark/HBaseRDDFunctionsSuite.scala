@@ -21,12 +21,13 @@ import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.{CellUtil, HBaseTestingUtility, TableName}
 import org.apache.hadoop.hbase.spark.HBaseRDDFunctions._
 import org.apache.spark.SparkContext
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import org.scalatest.funsuite.AnyFunSuite
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
-class HBaseRDDFunctionsSuite extends FunSuite with
+class HBaseRDDFunctionsSuite extends AnyFunSuite with
   BeforeAndAfterEach with BeforeAndAfterAll  {
 
   val logger = LoggerFactory.getLogger(classOf[HBaseRDDFunctionsSuite])
@@ -65,7 +66,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
 
   test("bulkput to test HBase client") {
     val config = TEST_UTIL.getConfiguration
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo1")))),
       (Bytes.toBytes("2"),
@@ -133,7 +134,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
       put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo3"))
       table.put(put)
 
-      val rdd = sc.parallelize(Array(
+      val rdd = sc.parallelize(Seq(
         Bytes.toBytes("delete1"),
         Bytes.toBytes("delete3")))
 
@@ -177,7 +178,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
       connection.close()
     }
 
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),
@@ -239,7 +240,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
       connection.close()
     }
 
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),
@@ -280,7 +281,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
 
   test("foreachPartition with puts to test HBase client") {
     val config = TEST_UTIL.getConfiguration
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1foreach"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo1")))),
       (Bytes.toBytes("2foreach"),
@@ -354,7 +355,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
       connection.close()
     }
 
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),
@@ -364,7 +365,7 @@ class HBaseRDDFunctionsSuite extends FunSuite with
     //Get with custom convert logic
     val getRdd = rdd.hbaseMapPartitions(hbaseContext, (it, conn) => {
       val table = conn.getTable(TableName.valueOf("t1"))
-      var res = mutable.MutableList[String]()
+      var res = mutable.ListBuffer[String]()
 
       it.foreach(r => {
         val get = new Get(r)

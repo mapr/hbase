@@ -45,7 +45,7 @@ object HBaseBulkPutTimestampExample {
 
     try {
 
-      val rdd = sc.parallelize(Array(
+      val rdd = sc.parallelize(Seq(
         (Bytes.toBytes("6"),
           Array((Bytes.toBytes(columnFamily), Bytes.toBytes("1"), Bytes.toBytes("1")))),
         (Bytes.toBytes("7"),

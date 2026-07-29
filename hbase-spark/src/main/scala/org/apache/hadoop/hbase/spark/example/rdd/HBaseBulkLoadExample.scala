@@ -18,7 +18,7 @@ object HBaseBulkLoadExample {
     val tableName = args(0)
     val stagingFolder = "/home/mapr"
     val columnFamily1 = "cf1"
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (toBytes("1"), (toBytes(columnFamily1), toBytes("a"), toBytes("foo1"))),
       (toBytes("3"), (toBytes(columnFamily1), toBytes("b"), toBytes("foo2.b")))
     ))

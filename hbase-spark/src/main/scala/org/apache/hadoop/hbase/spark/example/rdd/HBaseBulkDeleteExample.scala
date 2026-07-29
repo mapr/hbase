@@ -41,7 +41,7 @@ object HBaseBulkDeleteExample {
     val sc = new SparkContext(sparkConf)
     try {
       //[Array[Byte]]
-      val rdd = sc.parallelize(Array(
+      val rdd = sc.parallelize(Seq(
         Bytes.toBytes("1"),
         Bytes.toBytes("2"),
         Bytes.toBytes("3"),
