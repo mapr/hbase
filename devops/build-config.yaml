@@ -4,7 +4,7 @@ initialReleaseTag: '1.4.14.920-dep-1020' # Use only for release build!
 whitesourceScan: true
 build:
   - name: ubuntu
-    image: "_DOCKER_REGISTRY_ubuntu18-java17-mvn3.8.6:master-eep"
+    image: "_DOCKER_REGISTRY_/ubuntu18-java17-mvn3.8.6:master-eep"
     basicBuildCommands: "_BUILD_ENV_VARS_ devops/scripts/build.sh"
     hostmachine_jenkins_label: "ubuntu16"
   - name: centos
