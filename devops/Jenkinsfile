@@ -31,6 +31,7 @@ pipeline {
   parameters {
     choice(name: 'BUILD_TYPE', choices: ['Dev','EBF','Mid_Release','Release'], description: 'default - Dev. EBF and Release args you can use only in release branches.')
     string(name: 'BUILD_ENV_VARS', defaultValue: '', description: 'Variables you can pass to build script. Command will be: "env {THIS VARS} path/to/build.sh".')
+    booleanParam(name: 'DO_DEPLOY', defaultValue: true, description: 'Uncheck and Jenkins will skip ./build/mvn deploy')
   }
   stages {
     stage("Setup settings and variables") {
@@ -109,7 +110,7 @@ pipeline {
 }
 
 def buildStage(yamlCurrentBuildItem) {
-  def buildCommand = yamlCurrentBuildItem.basicBuildCommands.replace("_BUILD_ENV_VARS_","TIMESTAMP=${ID} ${params.BUILD_ENV_VARS}")
+  def buildCommand = yamlCurrentBuildItem.basicBuildCommands.replace("_BUILD_ENV_VARS_","TIMESTAMP=${ID} DO_DEPLOY=${params.DO_DEPLOY} ${params.BUILD_ENV_VARS}")
 
   configFileProvider([configFile(fileId: 'maven_settings', variable: 'mvn_settings')]) {
     sh "cat ${env.mvn_settings} > settings.xml"
