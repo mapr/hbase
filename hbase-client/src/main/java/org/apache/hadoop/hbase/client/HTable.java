@@ -687,6 +687,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Deprecated
   public HRegionLocation getRegionLocation(final String row)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getRegionLocation(row);
     }
@@ -700,6 +701,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Deprecated
   public HRegionLocation getRegionLocation(final byte [] row)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getRegionLocation(row);
     }
@@ -713,6 +715,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Deprecated
   public HRegionLocation getRegionLocation(final byte [] row, boolean reload)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getRegionLocation(row, reload);
     }
@@ -805,6 +808,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public HTableDescriptor getTableDescriptor() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getTableDescriptor();
     }
@@ -823,6 +827,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   @Deprecated
   public byte [][] getStartKeys() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getStartKeys();
     }
@@ -836,6 +841,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   @Deprecated
   public byte[][] getEndKeys() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getEndKeys();
     }
@@ -849,6 +855,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   @Deprecated
   public Pair<byte[][],byte[][]> getStartEndKeys() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getStartEndKeys();
     }
@@ -865,6 +872,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Deprecated
   public NavigableMap<HRegionInfo, ServerName> getRegionLocations() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getRegionLocations();
     }
@@ -884,6 +892,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Deprecated
   public List<HRegionLocation> getAllRegionLocations() throws IOException {
     //If this table is a mapr table, this locator will be a mapr locator.
+    checkClosed();
     return locator.getAllRegionLocations();
   }
 
@@ -917,6 +926,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Deprecated
   public List<HRegionLocation> getRegionsInRange(final byte [] startKey,
       final byte [] endKey, final boolean reload) throws IOException {
+    checkClosed();
     return getKeysAndRegionsInRange(startKey, endKey, false, reload).getSecond();
   }
 
@@ -986,6 +996,7 @@ public class HTable implements HTableInterface, RegionLocator {
    @Deprecated
    public Result getRowOrBefore(final byte[] row, final byte[] family)
        throws IOException {
+     checkClosed();
      if (maprTable_ != null) {
        return maprTable_.getRowOrBefore(row, family);
      }
@@ -1018,6 +1029,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public ResultScanner getScanner(Scan scan) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.getScanner(scan);
     }
@@ -1049,6 +1061,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public ResultScanner getScanner(byte [] family) throws IOException {
+    checkClosed();
     Scan scan = new Scan();
     scan.addFamily(family);
     return getScanner(scan);
@@ -1061,6 +1074,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   public ResultScanner getScanner(byte [] family, byte [] qualifier)
   throws IOException {
+    checkClosed();
     Scan scan = new Scan();
     scan.addColumn(family, qualifier);
     return getScanner(scan);
@@ -1071,6 +1085,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public Result get(final Get get) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.get(get);
     }
@@ -1128,6 +1143,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public Result[] get(List<Get> gets) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.get(gets);
     }
@@ -1153,6 +1169,7 @@ public class HTable implements HTableInterface, RegionLocator {
 
   public void batch(final List<? extends Row> actions, final Object[] results, int rpcTimeout)
       throws InterruptedException, IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.batch(actions, results);
       return;
@@ -1171,6 +1188,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   public void batch(final List<? extends Row> actions, final Object[] results)
       throws InterruptedException, IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.batch(actions, results);
       return;
@@ -1191,6 +1209,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   public Object[] batch(final List<? extends Row> actions)
      throws InterruptedException, IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.batch(actions);
     }
@@ -1206,6 +1225,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public <R> void batchCallback(
       final List<? extends Row> actions, final Object[] results, final Batch.Callback<R> callback)
       throws IOException, InterruptedException {
+    checkClosed();
     if (maprTable_ != null) {
       //TODO(nagrawal): callback is ignored.
       maprTable_.batch(actions, results);
@@ -1226,6 +1246,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public <R> Object[] batchCallback(
     final List<? extends Row> actions, final Batch.Callback<R> callback) throws IOException,
       InterruptedException {
+    checkClosed();
     if (maprTable_ != null) {
       //TODO(nagrawal): callback is ignored.
       return maprTable_.batch(actions);
@@ -1241,6 +1262,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   public void delete(final Delete delete)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.delete(delete);
       return;
@@ -1274,6 +1296,7 @@ public class HTable implements HTableInterface, RegionLocator {
   @Override
   public void delete(final List<Delete> deletes)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.delete(deletes);
       return;
@@ -1302,6 +1325,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public void put(final Put put) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.put(put);
       return;
@@ -1318,6 +1342,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public void put(final List<Put> puts) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.put(puts);
       return;
@@ -1333,6 +1358,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public void mutateRow(final RowMutations rm) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.mutateRow(rm);
       return;
@@ -1386,6 +1412,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public Result append(final Append append) throws IOException {
+    checkClosed();
     if (append.numFamilies() == 0) {
       throw new IOException(
           "Invalid arguments to append, no columns specified");
@@ -1423,6 +1450,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public Result increment(final Increment increment) throws IOException {
+    checkClosed();
     if (!increment.hasFamilies()) {
       throw new IOException(
           "Invalid arguments to increment, no columns specified");
@@ -1486,6 +1514,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public long incrementColumnValue(final byte [] row, final byte [] family,
       final byte [] qualifier, final long amount, final Durability durability)
   throws IOException {
+    checkClosed();
     NullPointerException npe = null;
     if (row == null) {
       npe = new NullPointerException("row is null");
@@ -1537,6 +1566,7 @@ public class HTable implements HTableInterface, RegionLocator {
       final byte [] family, final byte [] qualifier, final byte [] value,
       final Put put)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.checkAndPut(row, family, qualifier, value, put);
     }
@@ -1571,6 +1601,7 @@ public class HTable implements HTableInterface, RegionLocator {
       final byte [] qualifier, final CompareOp compareOp, final byte [] value,
       final Put put)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.checkAndPut(row, family, qualifier, compareOp, value, put);
     }
@@ -1606,6 +1637,7 @@ public class HTable implements HTableInterface, RegionLocator {
       final byte [] family, final byte [] qualifier, final byte [] value,
       final Delete delete)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.checkAndDelete(row, family, qualifier, value, delete);
     }
@@ -1640,6 +1672,7 @@ public class HTable implements HTableInterface, RegionLocator {
       final byte [] qualifier, final CompareOp compareOp, final byte [] value,
       final Delete delete)
   throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.checkAndDelete(row, family, qualifier, compareOp, value, delete);
     }
@@ -1674,6 +1707,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public boolean checkAndMutate(final byte [] row, final byte [] family, final byte [] qualifier,
     final CompareOp compareOp, final byte [] value, final RowMutations rm)
     throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.checkAndMutate(row, family, qualifier, compareOp, value, rm);
     }
@@ -1732,6 +1766,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public boolean exists(final Get get) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.exists(get);
     }
@@ -1745,6 +1780,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public boolean[] existsAll(final List<Get> gets) throws IOException {
+    checkClosed();
     if (gets.isEmpty()) return new boolean[]{};
     if (gets.size() == 1) return new boolean[]{exists(gets.get(0))};
 
@@ -1803,6 +1839,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public void flushCommits() throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.flushCommits();
       return;
@@ -1978,6 +2015,7 @@ public class HTable implements HTableInterface, RegionLocator {
    */
   @Override
   public void setWriteBufferSize(long writeBufferSize) throws IOException {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.setWriteBufferSize(writeBufferSize);
       return;
@@ -2131,6 +2169,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public <T extends Service, R> Map<byte[],R> coprocessorService(final Class<T> service,
       byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable)
       throws ServiceException, Throwable {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.coprocessorService(service, startKey, endKey, callable);
     }
@@ -2155,6 +2194,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public <T extends Service, R> void coprocessorService(final Class<T> service,
       byte[] startKey, byte[] endKey, final Batch.Call<T,R> callable,
       final Batch.Callback<R> callback) throws ServiceException, Throwable {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.coprocessorService(service, startKey, endKey, callable, callback);
       return;
@@ -2284,6 +2324,7 @@ public class HTable implements HTableInterface, RegionLocator {
   public <R extends Message> Map<byte[], R> batchCoprocessorService(
       Descriptors.MethodDescriptor methodDescriptor, Message request,
       byte[] startKey, byte[] endKey, R responsePrototype) throws ServiceException, Throwable {
+    checkClosed();
     if (maprTable_ != null) {
       return maprTable_.batchCoprocessorService(methodDescriptor, request, startKey, endKey, responsePrototype);
     }
@@ -2310,6 +2351,7 @@ public class HTable implements HTableInterface, RegionLocator {
       final Descriptors.MethodDescriptor methodDescriptor, final Message request,
       byte[] startKey, byte[] endKey, final R responsePrototype, final Callback<R> callback)
       throws ServiceException, Throwable {
+    checkClosed();
     if (maprTable_ != null) {
       maprTable_.batchCoprocessorService(methodDescriptor, request, startKey, endKey, responsePrototype, callback);
       return;
@@ -2426,5 +2468,11 @@ public class HTable implements HTableInterface, RegionLocator {
       mutator.setOperationTimeout(operationTimeout);
     }
     return mutator;
+  }
+
+  private void checkClosed() throws IOException {
+    if (this.closed) {
+      throw new IOException("Table " + this.tableName.getNameAsString() + " is closed");
+    }
   }
 }
