@@ -236,10 +236,13 @@ public class CatalogJanitor extends ScheduledChore {
    * @throws IOException
    */
   int scan() throws IOException {
-    try {
-      if (!alreadyRunning.compareAndSet(false, true)) {
-        return 0;
+    if (!alreadyRunning.compareAndSet(false, true)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("CatalogJanitor already running");
       }
+      return 0;
+    }
+    try {
       Triple<Integer, Map<HRegionInfo, Result>, Map<HRegionInfo, Result>> scanTriple =
         getMergedRegionsAndSplitParents();
       int count = scanTriple.getFirst();
