@@ -435,8 +435,14 @@
       <releases><enabled>true</enabled></releases>
     </repository>
     <repository>
-      <id>mapr dev</id>
+      <id>mapr-central</id>
       <url>${env.MAPR_CENTRAL}</url>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+    </repository>
+    <repository>
+      <id>mapr-dev</id>
+      <url>${env.MAPR_SNAPSHOTS_REPO}</url>
       <snapshots><enabled>true</enabled></snapshots>
       <releases><enabled>true</enabled></releases>
     </repository>
