@@ -30,14 +30,14 @@
   <parent>
     <artifactId>hbase</artifactId>
     <groupId>org.apache.hbase</groupId>
-    <version>1.4.14.920-dep-1020-SNAPSHOT</version>
+    <version>1.4.14.920-dep-1020</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>hbase-spark</artifactId>
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <spark.version>4.1.1.0-dep-SNAPSHOT</spark.version>
+    <spark.version>4.1.3.0-dep-1020</spark.version>
     <scala.version>2.13.17</scala.version>
     <scala.binary.version>2.13</scala.binary.version>
     <surefire.skipFirstPart>true</surefire.skipFirstPart>
