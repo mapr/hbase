@@ -37,8 +37,7 @@
   <name>Apache HBase - Spark</name>
 
   <properties>
-    <!-- Correct Spark version for 942 release, below version is 941 -->
-    <spark.version>3.5.5.103-eep-941</spark.version>
+    <spark.version>3.5.5.200-eep-942</spark.version>
     <scala.version>2.12.15</scala.version>
     <scala.binary.version>2.12</scala.binary.version>
     <surefire.skipFirstPart>true</surefire.skipFirstPart>
